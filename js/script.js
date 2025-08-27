@@ -1,3 +1,6 @@
+// EMERGENCY: Script made safer with null checks to prevent crashes
+console.log('EMERGENCY: Script.js made safer with null checks to prevent crashes');
+
 // Main JavaScript functionality for GWAC-MPPR
 class GWACApp {
     constructor() {
@@ -80,6 +83,12 @@ class GWACApp {
         const noSubmissionsEl = document.getElementById('no-submissions');
         const tableBody = document.getElementById('submissions-tbody');
 
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl || !noSubmissionsEl || !tableBody) {
+            console.log('EMERGENCY: Submissions elements not found, skipping load');
+            return;
+        }
+
         try {
             loadingEl.style.display = 'flex';
             contentEl.style.display = 'none';
@@ -155,6 +164,12 @@ class GWACApp {
     }
 
     renderSubmissions(submissions, tableBody) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!tableBody) {
+            console.log('EMERGENCY: Table body not found, cannot render submissions');
+            return;
+        }
+        
         tableBody.innerHTML = '';
 
         submissions.forEach(submission => {
@@ -218,16 +233,34 @@ class GWACApp {
     }
 
     showSubmissions(loadingEl, contentEl) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl) {
+            console.log('EMERGENCY: Elements not found, cannot show submissions');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         contentEl.style.display = 'block';
     }
 
     showNoSubmissions(loadingEl, noSubmissionsEl) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !noSubmissionsEl) {
+            console.log('EMERGENCY: Elements not found, cannot show no submissions');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         noSubmissionsEl.style.display = 'block';
     }
 
     showSubmissionsError(loadingEl, noSubmissionsEl, errorMessage) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !noSubmissionsEl) {
+            console.log('EMERGENCY: Error elements not found, cannot show submissions error');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         noSubmissionsEl.style.display = 'block';
         noSubmissionsEl.innerHTML = `
@@ -242,6 +275,12 @@ class GWACApp {
         const loadingEl = document.getElementById('participants-loading');
         const contentEl = document.getElementById('participants-content');
         const participantsList = document.getElementById('participants-list');
+
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl || !participantsList) {
+            console.log('EMERGENCY: Participants elements not found, skipping load');
+            return;
+        }
 
         try {
             loadingEl.style.display = 'flex';
@@ -301,6 +340,12 @@ class GWACApp {
     }
 
     renderParticipants(participants, participantsList) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!participantsList) {
+            console.log('EMERGENCY: Participants list not found, cannot render participants');
+            return;
+        }
+        
         participantsList.innerHTML = '';
 
         participants.forEach(participant => {
@@ -311,11 +356,23 @@ class GWACApp {
     }
 
     showParticipants(loadingEl, contentEl) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl) {
+            console.log('EMERGENCY: Elements not found, cannot show participants');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         contentEl.style.display = 'block';
     }
 
     showNoParticipants(loadingEl, contentEl) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl) {
+            console.log('EMERGENCY: Elements not found, cannot show no participants');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         contentEl.innerHTML = `
             <div class="no-participants">
@@ -329,6 +386,12 @@ class GWACApp {
     }
 
     showParticipantsError(loadingEl, contentEl, errorMessage) {
+        // EMERGENCY: Add null checks to prevent crashes
+        if (!loadingEl || !contentEl) {
+            console.log('EMERGENCY: Error elements not found, cannot show participants error');
+            return;
+        }
+        
         loadingEl.style.display = 'none';
         contentEl.innerHTML = `
             <div class="participants-error">
