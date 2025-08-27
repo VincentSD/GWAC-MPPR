@@ -338,12 +338,14 @@
 }
 
 .plot-container canvas {
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--primary-color);
     border-radius: var(--radius-md);
     background: white;
     max-width: 100%;
     height: auto;
     display: block;
+    min-width: 400px;
+    min-height: 300px;
 }
 
 .plot-controls {

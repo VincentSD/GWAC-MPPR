@@ -47,9 +47,14 @@ class OdinModelManager {
     }
 
     ensurePlotsTabActive() {
+        console.log('Ensuring Plots tab is active...');
+        
         // Make sure Plots tab is active by default
         const plotsTab = document.querySelector('.r-studio-tabs .tab[data-tab="plots"]');
         const plotsContent = document.getElementById('plots-tab');
+        
+        console.log('Plots tab element:', plotsTab);
+        console.log('Plots content element:', plotsContent);
         
         if (plotsTab && plotsContent) {
             // Remove active from all tabs and content
@@ -59,6 +64,10 @@ class OdinModelManager {
             // Activate Plots tab
             plotsTab.classList.add('active');
             plotsContent.classList.add('active');
+            
+            console.log('Plots tab activated successfully');
+        } else {
+            console.error('Could not find Plots tab elements!');
         }
     }
 
@@ -123,11 +132,17 @@ class OdinModelManager {
     }
 
     initializeCanvas() {
+        console.log('Initializing canvas...');
         const canvas = document.getElementById('sir-plot-main');
+        console.log('Canvas element:', canvas);
+        
         if (canvas) {
             // Set canvas size for high DPI displays
             const rect = canvas.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
+            
+            console.log('Canvas rect:', rect);
+            console.log('Device pixel ratio:', dpr);
             
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
@@ -146,6 +161,10 @@ class OdinModelManager {
             ctx.font = '16px Arial';
             ctx.textAlign = 'center';
             ctx.fillText('Loading model...', rect.width / 2, rect.height / 2);
+            
+            console.log('Canvas initialized successfully');
+        } else {
+            console.error('Canvas element not found!');
         }
     }
 
@@ -437,8 +456,17 @@ N (Population): ${population}`);
 
 // Initialize Odin Model Manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing Odin Model Manager...');
     window.odinModelManager = new OdinModelManager();
 });
+
+// Also try to initialize if DOM is already loaded
+if (document.readyState === 'loading') {
+    console.log('DOM still loading...');
+} else {
+    console.log('DOM already loaded, initializing immediately...');
+    window.odinModelManager = new OdinModelManager();
+}
 
 // Global functions for backward compatibility
 function runOdinCode() {
