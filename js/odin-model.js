@@ -7,13 +7,37 @@ class OdinModelManager {
     }
 
     init() {
-        this.setupTabSwitching();
+        this.setupMainTabSwitching();
+        this.setupOutputTabSwitching();
         this.setupParameterControls();
         this.setupEventListeners();
         this.initializeCanvas();
     }
 
-    setupTabSwitching() {
+    setupMainTabSwitching() {
+        const mainTabs = document.querySelectorAll('.r-studio-tabs .tab');
+        const mainTabContents = document.querySelectorAll('.r-studio-tab-content');
+
+        mainTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                mainTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update active content
+                mainTabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${targetTab}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    }
+
+    setupOutputTabSwitching() {
         const outputTabs = document.querySelectorAll('.output-tab');
         const outputContents = document.querySelectorAll('.output-content');
 

@@ -69,35 +69,75 @@
 
 /* Enhanced R Studio Layout */
 .r-studio-body {
-    display: flex;
-    gap: var(--spacing-4);
     height: 600px;
     overflow: hidden;
 }
 
-.r-studio-left-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+/* Main Tab Content */
+.r-studio-tab-content {
+    display: none;
+    height: 100%;
+    overflow: auto;
 }
 
-.r-studio-right-panel {
-    flex: 1;
+.r-studio-tab-content.active {
+    display: block;
+}
+
+/* Plots Tab Container */
+.plots-tab-container {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
-    min-width: 0;
+    height: 100%;
+    padding: var(--spacing-4);
+}
+
+/* Parameter Controls in Plots Tab */
+.plots-tab-container .parameter-controls-enhanced {
+    flex-shrink: 0;
+    margin-bottom: var(--spacing-4);
+}
+
+/* Model Outputs in Plots Tab */
+.plots-tab-container .model-outputs {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Code Tab */
+#code-tab {
+    padding: var(--spacing-4);
+}
+
+/* Main Tab Switching */
+.r-studio-tabs .tab {
+    cursor: pointer;
+    padding: var(--spacing-2) var(--spacing-4);
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition-normal);
+    user-select: none;
+}
+
+.r-studio-tabs .tab:hover {
+    background: var(--background-secondary);
+    color: var(--primary-color);
+}
+
+.r-studio-tabs .tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--background-primary);
 }
 
 /* Code Editor */
 .code-editor {
-    flex: 1;
     background: var(--background-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     overflow: hidden;
     margin-bottom: var(--spacing-3);
+    height: 500px;
 }
 
 .code-editor pre {
