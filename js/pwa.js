@@ -10,7 +10,8 @@ class PWAManager {
         this.registerServiceWorker();
         this.setupInstallPrompt();
         this.checkInstallationStatus();
-        this.setupUpdateNotification();
+        // Temporarily disabled update notifications during development
+        // this.setupUpdateNotification();
     }
 
     async registerServiceWorker() {
@@ -19,22 +20,22 @@ class PWAManager {
                 const registration = await navigator.serviceWorker.register('/sw.js');
                 console.log('Service Worker registered successfully:', registration);
 
-                // Handle service worker updates
-                registration.addEventListener('updatefound', () => {
-                    const newWorker = registration.installing;
-                    newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            this.showUpdateNotification();
-                        }
-                    });
-                });
+                // Handle service worker updates - temporarily disabled during development
+                // registration.addEventListener('updatefound', () => {
+                //     const newWorker = registration.installing;
+                //     newWorker.addEventListener('statechange', () => {
+                //         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                //             this.showUpdateNotification();
+                //             });
+                //     });
+                // });
 
-                // Handle service worker messages
-                navigator.serviceWorker.addEventListener('message', (event) => {
-                    if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
-                        this.showUpdateNotification();
-                    }
-                });
+                // Handle service worker messages - temporarily disabled during development
+                // navigator.serviceWorker.addEventListener('message', (event) => {
+                //     if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+                //             this.showUpdateNotification();
+                //     }
+                // });
 
             } catch (error) {
                 console.error('Service Worker registration failed:', error);
