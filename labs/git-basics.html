@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 1: Introduction to Version Control - Learn Git basics for reproducible research">
+    <title>Module 1: Introduction to Version Control - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part1-section">Part 1: Git & GitHub</a> > 
+            <span>Module 1: Introduction to Version Control</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 1</div>
+                <h1 class="module-title">Introduction to Version Control</h1>
+                <p class="module-subtitle">Understanding why version control matters in research and learning Git basics</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1.5 hours</span>
+                    <span class="difficulty">📚 Beginner</span>
+                    <span class="type">💻 Hands-on</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>Why Version Control Matters in Research</h2>
+                    
+                    <div class="motivation-grid">
+                        <div class="motivation-card">
+                            <div class="card-icon">🔬</div>
+                            <h3>Reproducibility</h3>
+                            <p>Track exactly what code and data produced your results, making research reproducible and verifiable.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <div class="card-icon">🔄</div>
+                            <h3>Experiment Safely</h3>
+                            <p>Try new approaches without losing your working code. Always know you can go back to a working version.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <div class="card-icon">👥</div>
+                            <h3>Collaboration</h3>
+                            <p>Work with others on the same project without conflicts. See who changed what and when.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <div class="card-icon">📊</div>
+                            <h3>Documentation</h3>
+                            <p>Every change is documented with messages explaining what and why, creating a project history.</p>
+                        </div>
+                    </div>
+
+                    <div class="real-world-example">
+                        <h3>Real-World Example: COVID-19 Modeling</h3>
+                        <p>During the COVID-19 pandemic, researchers worldwide collaborated on epidemiological models. Version control allowed them to:</p>
+                        <ul>
+                            <li>Track parameter changes as new data emerged</li>
+                            <li>Collaborate across institutions without conflicts</li>
+                            <li>Reproduce results from specific dates</li>
+                            <li>Share improvements and bug fixes</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Git Basics: Understanding the Fundamentals</h2>
+                    
+                    <div class="concept-explanation">
+                        <h3>What is Git?</h3>
+                        <p>Git is a distributed version control system that tracks changes in your files over time. Think of it as a time machine for your code that remembers every change you make.</p>
+                        
+                        <div class="git-workflow">
+                            <h4>Basic Git Workflow</h4>
+                            <div class="workflow-diagram">
+                                <div class="workflow-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-icon">📁</div>
+                                    <div class="step-content">
+                                        <h5>Working Directory</h5>
+                                        <p>Your project files where you make changes</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="workflow-arrow">→</div>
+                                
+                                <div class="workflow-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-icon">📋</div>
+                                    <div class="step-content">
+                                        <h5>Staging Area</h5>
+                                        <p>Select which changes to include in next commit</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="workflow-arrow">→</div>
+                                
+                                <div class="workflow-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-icon">💾</div>
+                                    <div class="step-content">
+                                        <h5>Repository</h5>
+                                        <p>Permanent snapshot of your changes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="key-concepts">
+                        <h3>Key Git Concepts</h3>
+                        
+                        <div class="concept-grid">
+                            <div class="concept-item">
+                                <h4>Repository</h4>
+                                <p>A directory that contains your project and the entire history of changes. The <code>.git</code> folder stores all the version control information.</p>
+                            </div>
+                            
+                            <div class="concept-item">
+                                <h4>Commit</h4>
+                                <p>A snapshot of your project at a specific point in time. Each commit has a unique identifier and a message explaining what changed.</p>
+                            </div>
+                            
+                            <div class="concept-item">
+                                <h4>Branch</h4>
+                                <p>A separate line of development that allows you to work on features independently without affecting the main codebase.</p>
+                            </div>
+                            
+                            <div class="concept-item">
+                                <h4>Remote</h4>
+                                <p>A copy of your repository stored on another computer (like GitHub) that allows collaboration and backup.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Hands-on Practice: Your First Git Repository</h2>
+                    
+                    <div class="interactive-exercise">
+                        <h3>Exercise 1: Initialize a Git Repository</h3>
+                        <p>Let's create your first Git repository and make your first commit!</p>
+                        
+                        <div class="exercise-steps">
+                            <div class="step">
+                                <h4>Step 1: Create a Project Directory</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Terminal Commands</span>
+                                        <button class="copy-btn" onclick="copyCode('mkdir-command')">Copy</button>
+                                    </div>
+                                    <pre><code id="mkdir-command"># Create a new directory for your project
+mkdir my-first-project
+cd my-first-project
+
+# Verify you're in the right place
+pwd</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 2: Initialize Git Repository</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Git Command</span>
+                                        <button class="copy-btn" onclick="copyCode('git-init')">Copy</button>
+                                    </div>
+                                    <pre><code id="git-init"># Initialize a new Git repository
+git init
+
+# Check the status
+git status</code></pre>
+                                </div>
+                                <p class="explanation">This command creates a new Git repository in your current directory. The <code>.git</code> folder is created to store all version control information.</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 3: Create Your First File</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Create a README file</span>
+                                        <button class="copy-btn" onclick="copyCode('create-readme')">Copy</button>
+                                    </div>
+                                    <pre><code id="create-readme"># Create a README file
+echo "# My First Project" > README.md
+
+# Check what files exist
+ls -la
+
+# Check Git status again
+git status</code></pre>
+                                </div>
+                                <p class="explanation">Now you have a file that Git can track. Notice how <code>git status</code> shows the README.md file as "untracked".</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 4: Stage and Commit</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Stage and commit your changes</span>
+                                        <button class="copy-btn" onclick="copyCode('stage-commit')">Copy</button>
+                                    </div>
+                                    <pre><code id="stage-commit"># Stage the README file for commit
+git add README.md
+
+# Check status again
+git status
+
+# Make your first commit
+git commit -m "Initial commit: Add README file"
+
+# Check the commit history
+git log</code></pre>
+                                </div>
+                                <p class="explanation">Congratulations! You've made your first commit. The <code>-m</code> flag adds a message explaining what this commit does.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-terminal">
+                        <h3>Practice in the Interactive Terminal</h3>
+                        <p>Try these commands in the terminal below to reinforce your learning:</p>
+                        
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">Git Practice Terminal</span>
+                                <div class="terminal-buttons">
+                                    <span class="btn btn-close"></span>
+                                    <span class="btn btn-minimize"></span>
+                                    <span class="btn btn-maximize"></span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="command-line">
+                                    <span class="prompt">$</span>
+                                    <input type="text" class="command-input" placeholder="Try: git init" id="practice-git-command">
+                                </div>
+                                <div class="command-output" id="practice-git-output">
+                                    <p>Welcome to the Git practice terminal! Try the commands from the exercise above:</p>
+                                    <ul>
+                                        <li><code>mkdir my-project</code> - Create a directory</li>
+                                        <li><code>cd my-project</code> - Change directory</li>
+                                        <li><code>git init</code> - Initialize repository</li>
+                                        <li><code>git status</code> - Check status</li>
+                                        <li><code>git add .</code> - Stage files</li>
+                                        <li><code>git commit -m "message"</code> - Commit changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>The Git Parable</h2>
+                    
+                    <div class="git-parable">
+                        <p class="parable-intro">Understanding Git through a simple analogy helps clarify how it differs from traditional file management systems.</p>
+                        
+                        <div class="parable-comparison">
+                            <div class="comparison-card not-git">
+                                <h3>This is NOT Git</h3>
+                                <div class="comparison-image" data-caption="Traditional version control stores only the differences (deltas) between file versions">
+                                    <img src="../images/git-concepts/deltas.png" 
+                                         alt="Traditional version control using deltas" 
+                                         class="git-concept-image"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <div class="image-placeholder fallback">
+                                        <span class="placeholder-icon">📁</span>
+                                        <p class="placeholder-text">Traditional File System</p>
+                                        <p class="placeholder-description">Files are stored as individual versions with deltas</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-details">
+                                    <h4>Deltas Method</h4>
+                                    <ul>
+                                        <li>Stores only the differences between versions</li>
+                                        <li>Each version depends on previous versions</li>
+                                        <li>Losing one version breaks the chain</li>
+                                        <li>Difficult to compare distant versions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="comparison-card is-git">
+                                <h3>This IS Git</h3>
+                                <div class="comparison-image" data-caption="Git stores complete snapshots of your project at each commit">
+                                    <img src="../images/git-concepts/snapshots.png" 
+                                         alt="Git version control using snapshots" 
+                                         class="git-concept-image"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <div class="image-placeholder fallback">
+                                        <span class="placeholder-icon">📸</span>
+                                        <p class="placeholder-text">Git Snapshots</p>
+                                        <p class="placeholder-description">Each commit creates a complete snapshot</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-details">
+                                    <h4>Snapshots Method</h4>
+                                    <ul>
+                                        <li>Stores complete snapshots of your project</li>
+                                        <li>Each commit is independent and complete</li>
+                                        <li>Easy to jump between any two versions</li>
+                                        <li>Efficient storage using compression</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="parable-explanation">
+                            <h3>Why Snapshots Matter</h3>
+                            <p>Git's snapshot approach makes it incredibly powerful for:</p>
+                            <div class="snapshot-benefits">
+                                <div class="benefit">
+                                    <span class="benefit-icon">⚡</span>
+                                    <h4>Fast Operations</h4>
+                                    <p>Jump to any commit instantly, regardless of how old it is</p>
+                                </div>
+                                <div class="benefit">
+                                    <span class="benefit-icon">🔒</span>
+                                    <h4>Data Integrity</h4>
+                                    <p>Each commit is cryptographically secure and tamper-proof</p>
+                                </div>
+                                <div class="benefit">
+                                    <span class="benefit-icon">🔄</span>
+                                    <h4>Easy Branching</h4>
+                                    <p>Create new branches by simply pointing to any commit</p>
+                                </div>
+                                <div class="benefit">
+                                    <span class="benefit-icon">📊</span>
+                                    <h4>Efficient Storage</h4>
+                                    <p>Smart compression stores only what's changed between versions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding Git Status and History</h2>
+                    
+                    <div class="git-status-explanation">
+                        <h3>Git Status: Your Project's Health Check</h3>
+                        <p>The <code>git status</code> command is your best friend. It tells you exactly what's happening in your repository.</p>
+                        
+                        <div class="status-examples">
+                            <div class="status-example">
+                                <h4>Clean Working Directory</h4>
+                                <div class="code-block">
+                                    <pre><code>On branch main
+nothing to commit, working tree clean</code></pre>
+                                </div>
+                                <p>This means all your changes have been committed and there are no uncommitted modifications.</p>
+                            </div>
+                            
+                            <div class="status-example">
+                                <h4>Modified Files</h4>
+                                <div class="code-block">
+                                    <pre><code>On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+                                </div>
+                                <p>This shows you have modified files that haven't been staged or committed yet.</p>
+                            </div>
+                            
+                            <div class="status-example">
+                                <h4>Staged Changes</h4>
+                                <div class="code-block">
+                                    <pre><code>On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   analysis.R
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md</code></pre>
+                                </div>
+                                <p>This shows you have both staged files ready to commit and unstaged modifications.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="git-log-explanation">
+                        <h3>Git Log: Your Project's Timeline</h3>
+                        <p>The <code>git log</code> command shows you the history of all commits in your repository.</p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>View commit history</span>
+                                <button class="copy-btn" onclick="copyCode('git-log-commands')">Copy</button>
+                            </div>
+                            <pre><code id="git-log-commands"># View full commit history
+git log
+
+# View compact history (one line per commit)
+git log --oneline
+
+# View history with file changes
+git log --stat
+
+# View history with graph (useful for branches)
+git log --graph --oneline --all</code></pre>
+                        </div>
+                        
+                        <div class="log-output-example">
+                            <h4>Example Output</h4>
+                            <div class="code-block">
+                                <pre><code>commit abc1234 (HEAD -> main)
+Author: Your Name <your.email@example.com>
+Date:   Mon Mar 25 10:30:00 2025 +0000
+
+    Add data analysis script
+
+commit def5678
+Author: Your Name <your.email@example.com>
+Date:   Mon Mar 25 09:15:00 2025 +0000
+
+    Initial commit: Add README file</code></pre>
+                            </div>
+                            <p>Each commit shows a unique identifier (hash), author, date, and commit message.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Best Practices for Commit Messages</h2>
+                    
+                    <div class="commit-message-guidelines">
+                        <h3>Writing Good Commit Messages</h3>
+                        <p>Good commit messages make your project history readable and useful for future you and collaborators.</p>
+                        
+                        <div class="guidelines-grid">
+                            <div class="guideline-card">
+                                <h4>✅ Do This</h4>
+                                <ul>
+                                    <li>Use present tense ("Add feature" not "Added feature")</li>
+                                    <li>Start with a verb ("Fix bug", "Update documentation")</li>
+                                    <li>Be specific and descriptive</li>
+                                    <li>Keep first line under 50 characters</li>
+                                    <li>Use body for longer explanations</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="guideline-card">
+                                <h4>❌ Avoid This</h4>
+                                <ul>
+                                    <li>Vague messages like "Fix stuff" or "Update"</li>
+                                    <li>Past tense ("Fixed bug", "Updated docs")</li>
+                                    <li>Messages that don't explain what changed</li>
+                                    <li>Very long first lines</li>
+                                    <li>Emotional language ("Fix this stupid bug")</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="commit-examples">
+                            <h4>Good vs. Bad Commit Messages</h4>
+                            
+                            <div class="example-comparison">
+                                <div class="good-example">
+                                    <h5>✅ Good Examples</h5>
+                                    <ul>
+                                        <li><code>git commit -m "Add SIR model parameters"</code></li>
+                                        <li><code>git commit -m "Fix data loading error in analysis.R"</code></li>
+                                        <li><code>git commit -m "Update README with installation steps"</code></li>
+                                        <li><code>git commit -m "Refactor model fitting function for clarity"</code></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bad-example">
+                                    <h5>❌ Bad Examples</h5>
+                                    <ul>
+                                        <li><code>git commit -m "stuff"</code></li>
+                                        <li><code>git commit -m "Fixed bug"</code></li>
+                                        <li><code>git commit -m "Update"</code></li>
+                                        <li><code>git commit -m "This is a very long commit message that goes on and on and doesn't follow the 50 character rule"</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Git Commands Cheat Sheet</h2>
+                    
+                    <div class="git-cheat-sheet">
+                        <p class="cheat-sheet-intro">Here's a quick reference for the most commonly used Git commands:</p>
+                        
+                        <div class="cheat-sheet-categories">
+                            <div class="command-category">
+                                <h3>Getting Started</h3>
+                                <div class="command-list">
+                                    <div class="command-item">
+                                        <code>git init</code>
+                                        <span class="command-description">Initialize a new Git repository</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git clone [url]</code>
+                                        <span class="command-description">Clone a repository from remote</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git config --global user.name "[name]"</code>
+                                        <span class="command-description">Set your username</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git config --global user.email "[email]"</code>
+                                        <span class="command-description">Set your email</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="command-category">
+                                <h3>Basic Workflow</h3>
+                                <div class="command-list">
+                                    <div class="command-item">
+                                        <code>git add [file]</code>
+                                        <span class="command-description">Stage files for commit</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git add .</code>
+                                        <span class="command-description">Stage all changes</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git commit -m "[message]"</code>
+                                        <span class="command-description">Commit staged changes</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git status</code>
+                                        <span class="command-description">Check repository status</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="command-category">
+                                <h3>Viewing History</h3>
+                                <div class="command-list">
+                                    <div class="command-item">
+                                        <code>git log</code>
+                                        <span class="command-description">View commit history</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git log --oneline</code>
+                                        <span class="command-description">Compact commit history</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git show [commit]</code>
+                                        <span class="command-description">Show commit details</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git diff</code>
+                                        <span class="command-description">Show unstaged changes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="command-category">
+                                <h3>Branching & Merging</h3>
+                                <div class="command-list">
+                                    <div class="command-item">
+                                        <code>git branch</code>
+                                        <span class="command-description">List all branches</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git branch [name]</code>
+                                        <span class="command-description">Create new branch</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git checkout [branch]</code>
+                                        <span class="command-description">Switch to branch</span>
+                                    </div>
+                                    <div class="command-item">
+                                        <code>git merge [branch]</code>
+                                        <span class="command-description">Merge branch into current</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cheat-sheet-tip">
+                            <h4>💡 Pro Tip</h4>
+                            <p>Use <code>git help [command]</code> to get detailed help for any Git command. For example, <code>git help commit</code> will show you all the options available for the commit command.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module Summary and Next Steps</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>What You've Learned</h3>
+                            <ul>
+                                <li>✅ Why version control is essential for research</li>
+                                <li>✅ Basic Git concepts (repository, commit, branch, remote)</li>
+                                <li>✅ How to initialize a Git repository</li>
+                                <li>✅ How to make your first commit</li>
+                                <li>✅ How to check repository status and history</li>
+                                <li>✅ Best practices for commit messages</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3>Key Commands</h3>
+                            <ul>
+                                <li><code>git init</code> - Create new repository</li>
+                                <li><code>git status</code> - Check repository status</li>
+                                <li><code>git add</code> - Stage files for commit</li>
+                                <li><code>git commit</code> - Create commit</li>
+                                <li><code>git log</code> - View commit history</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for the Next Module?</h3>
+                        <p>In Module 2, you'll learn about GitHub collaboration, including:</p>
+                        <ul>
+                            <li>Creating and managing repositories on GitHub</li>
+                            <li>Working with remote repositories</li>
+                            <li>Pull requests and code review</li>
+                            <li>Team collaboration workflows</li>
+                        </ul>
+                        
+                        <div class="navigation-buttons">
+                            <a href="../index.html#part1-section" class="nav-btn secondary">← Back to Part 1</a>
+                            <a href="github-collaboration.html" class="nav-btn primary">Continue to Module 2 →</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Thank You!</h2>
+                    
+                    <div class="thank-you-section">
+                        <div class="thank-you-content">
+                            <h3>🎉 Congratulations!</h3>
+                            <p>You've successfully completed <strong>Module 1: Introduction to Version Control with Git</strong> of the G-WAC Short Course.</p>
+                            
+                            <div class="achievement-highlights">
+                                <div class="achievement">
+                                    <span class="achievement-icon">📚</span>
+                                    <h4>Knowledge Gained</h4>
+                                    <p>Understanding of version control principles and Git fundamentals</p>
+                                </div>
+                                
+                                <div class="achievement">
+                                    <span class="achievement-icon">🛠️</span>
+                                    <h4>Skills Developed</h4>
+                                    <p>Ability to create repositories, make commits, and track changes</p>
+                                </div>
+                                
+                                <div class="achievement">
+                                    <span class="achievement-icon">🚀</span>
+                                    <h4>Next Steps</h4>
+                                    <p>Ready to learn GitHub collaboration and advanced Git workflows</p>
+                                </div>
+                            </div>
+                            
+                            <div class="course-credit">
+                                <p><em>This module is adapted from <strong>GitImmersion</strong> ❤️ and maintained for <strong>GWAC-MPPR</strong></em></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/git-basics.js"></script>
+</body>
+</html>

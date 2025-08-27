@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 2: GitHub Collaboration - Learn to collaborate on GitHub with pull requests and team workflows">
+    <title>Module 2: GitHub Collaboration - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part1-section">Part 1: Git & GitHub</a> > 
+            <span>Module 2: GitHub Collaboration</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 2</div>
+                <h1 class="module-title">GitHub Collaboration</h1>
+                <p class="module-subtitle">Creating repositories, managing collaboration, and working with pull requests</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1.5 hours</span>
+                    <span class="difficulty">📚 Intermediate</span>
+                    <span class="type">👥 Collaborative</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>Understanding GitHub: The Social Platform for Code</h2>
+                    
+                    <div class="github-overview">
+                        <div class="overview-card">
+                            <h3>What is GitHub?</h3>
+                            <p>GitHub is a web-based platform that hosts Git repositories and provides tools for collaboration, code review, and project management. It's like "social media for code" where developers can share, collaborate, and contribute to projects.</p>
+                        </div>
+                        
+                        <div class="key-features">
+                            <h3>Key GitHub Features</h3>
+                            <div class="features-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌐</div>
+                                    <h4>Remote Repositories</h4>
+                                    <p>Store your code in the cloud, accessible from anywhere</p>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">👥</div>
+                                    <h4>Collaboration Tools</h4>
+                                    <p>Work with others through pull requests and code review</p>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">📊</div>
+                                    <h4>Project Management</h4>
+                                    <p>Issues, milestones, and project boards for organization</p>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">🔍</div>
+                                    <h4>Code Discovery</h4>
+                                    <p>Find and contribute to open source projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Creating and Managing GitHub Repositories</h2>
+                    
+                    <div class="repository-creation">
+                        <h3>Step-by-Step: Create Your First GitHub Repository</h3>
+                        
+                        <div class="creation-steps">
+                            <div class="step">
+                                <h4>Step 1: Sign Up and Configure</h4>
+                                <div class="step-content">
+                                    <ol>
+                                        <li>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and create an account</li>
+                                        <li>Verify your email address</li>
+                                        <li>Configure your profile with your name and institution</li>
+                                        <li>Set up SSH keys for secure authentication (optional but recommended)</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 2: Create a New Repository</h4>
+                                <div class="step-content">
+                                    <ol>
+                                        <li>Click the "+" icon in the top right corner</li>
+                                        <li>Select "New repository"</li>
+                                        <li>Choose a descriptive name (e.g., "covid-modeling-project")</li>
+                                        <li>Add a description explaining your project</li>
+                                        <li>Choose public or private (public for open collaboration)</li>
+                                        <li>Initialize with README, .gitignore, and license</li>
+                                        <li>Click "Create repository"</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 3: Clone to Your Local Machine</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Clone your repository</span>
+                                        <button class="copy-btn" onclick="copyCode('clone-repo')">Copy</button>
+                                    </div>
+                                    <pre><code id="clone-repo"># Clone the repository to your local machine
+git clone https://github.com/yourusername/covid-modeling-project.git
+
+# Navigate into the project directory
+cd covid-modeling-project
+
+# Check the remote origin
+git remote -v</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="repository-management">
+                        <h3>Managing Your Repository</h3>
+                        
+                        <div class="management-tips">
+                            <div class="tip-card">
+                                <h4>README Files</h4>
+                                <p>Create comprehensive README files that explain:</p>
+                                <ul>
+                                    <li>What your project does</li>
+                                    <li>How to install and run it</li>
+                                    <li>How to contribute</li>
+                                    <li>Examples and use cases</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <h4>.gitignore Files</h4>
+                                <p>Exclude unnecessary files from version control:</p>
+                                <ul>
+                                    <li>R temporary files (*.Rhistory, *.RData)</li>
+                                    <li>Data files that are too large</li>
+                                    <li>Personal configuration files</li>
+                                    <li>Build artifacts and dependencies</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <h4>Licenses</h4>
+                                <p>Choose an appropriate license for your project:</p>
+                                <ul>
+                                    <li><strong>MIT:</strong> Very permissive, good for most projects</li>
+                                    <li><strong>GPL:</strong> Ensures derivatives remain open source</li>
+                                    <li><strong>CC BY:</strong> Good for documentation and data</li>
+                                    <li><strong>Apache 2.0:</strong> Good for software with patents</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Working with Remote Repositories</h2>
+                    
+                    <div class="remote-workflow">
+                        <h3>The Remote Workflow</h3>
+                        <p>When working with GitHub, you'll use a workflow that involves both local and remote repositories.</p>
+                        
+                        <div class="workflow-diagram">
+                            <div class="workflow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Local Changes</h5>
+                                    <p>Make changes to your code locally</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Commit Locally</h5>
+                                    <p>Stage and commit your changes</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Push to Remote</h5>
+                                    <p>Upload changes to GitHub</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="remote-commands">
+                        <h3>Essential Remote Commands</h3>
+                        
+                        <div class="command-examples">
+                            <div class="command-example">
+                                <h4>Pushing Changes</h4>
+                                <div class="code-block">
+                                    <pre><code># Push your local commits to GitHub
+git push origin main
+
+# Push a new branch
+git push origin feature-branch
+
+# Force push (use with caution!)
+git push --force-with-lease origin main</code></pre>
+                                </div>
+                                <p class="explanation">The <code>push</code> command uploads your local commits to the remote repository.</p>
+                            </div>
+                            
+                            <div class="command-example">
+                                <h4>Pulling Updates</h4>
+                                <div class="code-block">
+                                    <pre><code># Pull latest changes from GitHub
+git pull origin main
+
+# Fetch changes without merging
+git fetch origin
+
+# Pull and rebase (cleaner history)
+git pull --rebase origin main</code></pre>
+                                </div>
+                                <p class="explanation">The <code>pull</code> command downloads and integrates changes from the remote repository.</p>
+                            </div>
+                            
+                            <div class="command-example">
+                                <h4>Managing Remotes</h4>
+                                <div class="code-block">
+                                    <pre><code># View remote repositories
+git remote -v
+
+# Add a new remote
+git remote add upstream https://github.com/original/repo.git
+
+# Change remote URL
+git remote set-url origin https://github.com/newusername/repo.git</code></pre>
+                                </div>
+                                <p class="explanation">Manage connections to remote repositories, including forks and upstream sources.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Collaboration Through Pull Requests</h2>
+                    
+                    <div class="pull-request-intro">
+                        <h3>What is a Pull Request?</h3>
+                        <p>A pull request (PR) is a way to propose changes to a repository. It's the primary mechanism for collaboration on GitHub, allowing contributors to:</p>
+                        <ul>
+                            <li>Propose changes to existing code</li>
+                            <li>Request code review from maintainers</li>
+                            <li>Discuss changes before they're merged</li>
+                            <li>Contribute to projects you don't own</li>
+                        </ul>
+                    </div>
+
+                    <div class="pr-workflow">
+                        <h3>The Pull Request Workflow</h3>
+                        
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-icon">🍴</div>
+                                <div class="step-content">
+                                    <h5>Fork the Repository</h5>
+                                    <p>Create your own copy of the project on GitHub</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-icon">⬇️</div>
+                                <div class="step-content">
+                                    <h5>Clone Your Fork</h5>
+                                    <p>Download your fork to your local machine</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-icon">🌿</div>
+                                <div class="step-content">
+                                    <h5>Create a Feature Branch</h5>
+                                    <p>Work on your changes in an isolated branch</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-icon">✏️</div>
+                                <div class="step-content">
+                                    <h5>Make Your Changes</h5>
+                                    <p>Edit code, add tests, update documentation</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">5</div>
+                                <div class="step-icon">🚀</div>
+                                <div class="step-content">
+                                    <h5>Push and Create PR</h5>
+                                    <p>Upload your branch and propose the changes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pr-example">
+                        <h3>Creating a Pull Request: Step by Step</h3>
+                        
+                        <div class="pr-steps">
+                            <div class="pr-step">
+                                <h4>Step 1: Fork and Clone</h4>
+                                <div class="code-block">
+                                    <pre><code># Fork the repository on GitHub first, then:
+git clone https://github.com/yourusername/project-name.git
+cd project-name
+
+# Add the original repository as upstream
+git remote add upstream https://github.com/original-owner/project-name.git</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="pr-step">
+                                <h4>Step 2: Create Feature Branch</h4>
+                                <div class="code-block">
+                                    <pre><code># Create and switch to a new branch
+git checkout -b add-sir-model
+
+# Verify you're on the new branch
+git branch</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="pr-step">
+                                <h4>Step 3: Make Changes and Commit</h4>
+                                <div class="code-block">
+                                    <pre><code># Make your changes, then:
+git add .
+git commit -m "Add SIR model implementation
+
+- Implement basic SIR differential equations
+- Add parameter validation
+- Include example usage in README"</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="pr-step">
+                                <h4>Step 4: Push and Create PR</h4>
+                                <div class="code-block">
+                                    <pre><code># Push your branch to your fork
+git push origin add-sir-model
+
+# Go to GitHub and create pull request
+# Compare your branch with the original main branch</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Code Review and Collaboration Best Practices</h2>
+                    
+                    <div class="code-review">
+                        <h3>Effective Code Review</h3>
+                        
+                        <div class="review-guidelines">
+                            <div class="guideline-section">
+                                <h4>As a Reviewer</h4>
+                                <ul>
+                                    <li><strong>Be constructive:</strong> Focus on the code, not the person</li>
+                                    <li><strong>Ask questions:</strong> If something isn't clear, ask for clarification</li>
+                                    <li><strong>Suggest alternatives:</strong> Provide specific suggestions for improvement</li>
+                                    <li><strong>Check for:</strong> Correctness, readability, performance, security</li>
+                                    <li><strong>Use GitHub features:</strong> Line comments, review requests, approvals</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="guideline-section">
+                                <h4>As a Contributor</h4>
+                                <ul>
+                                    <li><strong>Write clear PR descriptions:</strong> Explain what and why, not just what</li>
+                                    <li><strong>Keep PRs focused:</strong> One feature or fix per PR</li>
+                                    <li><strong>Respond to feedback:</strong> Address all review comments</li>
+                                    <li><strong>Test thoroughly:</strong> Ensure your changes work as expected</li>
+                                    <li><strong>Update documentation:</strong> Include relevant documentation changes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collaboration-tips">
+                        <h3>Team Collaboration Tips</h3>
+                        
+                        <div class="tips-grid">
+                            <div class="tip-item">
+                                <h4>Branch Naming Conventions</h4>
+                                <p>Use descriptive branch names that indicate the purpose:</p>
+                                <ul>
+                                    <li><code>feature/add-sir-model</code> - New features</li>
+                                    <li><code>bugfix/fix-data-loading</code> - Bug fixes</li>
+                                    <li><code>docs/update-readme</code> - Documentation</li>
+                                    <li><code>refactor/cleanup-functions</code> - Code improvements</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <h4>Commit Message Standards</h4>
+                                <p>Follow consistent commit message patterns:</p>
+                                <ul>
+                                    <li><code>feat: add SIR model implementation</code></li>
+                                    <li><code>fix: resolve data loading error</code></li>
+                                    <li><code>docs: update installation instructions</code></li>
+                                    <li><code>test: add unit tests for model validation</code></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <h4>Issue Management</h4>
+                                <p>Use GitHub Issues to track work:</p>
+                                <ul>
+                                    <li>Create issues for bugs and feature requests</li>
+                                    <li>Link PRs to issues using keywords</li>
+                                    <li>Use labels to categorize issues</li>
+                                    <li>Set milestones for project planning</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Hands-on Exercise: Collaborative Modeling Project</h2>
+                    
+                    <div class="collaborative-exercise">
+                        <h3>Exercise: Build a COVID-19 Modeling Repository</h3>
+                        <p>In this exercise, you'll work with classmates to create a collaborative epidemiological modeling project.</p>
+                        
+                        <div class="exercise-setup">
+                            <h4>Setup Instructions</h4>
+                            <ol>
+                                <li>One person creates the main repository</li>
+                                <li>Others fork and contribute through pull requests</li>
+                                <li>Each person adds a different model component</li>
+                                <li>Practice code review and collaboration</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="exercise-tasks">
+                            <h4>Individual Tasks</h4>
+                            
+                            <div class="task-list">
+                                <div class="task">
+                                    <h5>Task 1: Repository Setup</h5>
+                                    <p>Create a new repository with proper structure:</p>
+                                    <div class="code-block">
+                                        <pre><code>covid-modeling-project/
+├── README.md
+├── .gitignore
+├── models/
+│   ├── sir_model.R
+│   ├── seir_model.R
+│   └── age_structured_model.R
+├── data/
+│   └── README.md
+├── analysis/
+│   └── main_analysis.R
+└── docs/
+    └── methodology.md</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="task">
+                                    <h5>Task 2: Model Implementation</h5>
+                                    <p>Each person implements one model:</p>
+                                    <ul>
+                                        <li><strong>Person A:</strong> Basic SIR model</li>
+                                        <li><strong>Person B:</strong> SEIR model with exposed compartment</li>
+                                        <li><strong>Person C:</strong> Age-structured model</li>
+                                        <li><strong>Person D:</strong> Model fitting and validation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="task">
+                                    <h5>Task 3: Documentation</h5>
+                                    <p>Create comprehensive documentation:</p>
+                                    <ul>
+                                        <li>Model descriptions and equations</li>
+                                        <li>Parameter definitions and ranges</li>
+                                        <li>Usage examples and tutorials</li>
+                                        <li>Installation and setup instructions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="collaboration-practice">
+                            <h4>Collaboration Practice</h4>
+                            <p>Practice these collaboration skills:</p>
+                            <ul>
+                                <li>Create pull requests for your contributions</li>
+                                <li>Review each other's code</li>
+                                <li>Resolve merge conflicts</li>
+                                <li>Provide constructive feedback</li>
+                                <li>Merge approved changes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module Summary and Next Steps</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>What You've Learned</h3>
+                            <ul>
+                                <li>✅ How to create and manage GitHub repositories</li>
+                                <li>✅ Working with remote repositories (push/pull)</li>
+                                <li>✅ Creating and managing pull requests</li>
+                                <li>✅ Code review best practices</li>
+                                <li>✅ Team collaboration workflows</li>
+                                <li>✅ Repository organization and documentation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3>Key Skills</h3>
+                            <ul>
+                                <li>Repository creation and management</li>
+                                <li>Remote workflow (clone, push, pull)</li>
+                                <li>Branch management and pull requests</li>
+                                <li>Code review and feedback</li>
+                                <li>Team collaboration and communication</li>
+                                <li>Project documentation and organization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for the Next Module?</h3>
+                        <p>In Module 3, you'll learn about integrating R with Git and GitHub:</p>
+                        <ul>
+                            <li>Managing R projects with Git</li>
+                            <li>R Markdown and reproducibility</li>
+                            <li>Best practices for scientific computing</li>
+                            <li>Creating reproducible research workflows</li>
+                        </ul>
+                        
+                        <div class="navigation-buttons">
+                            <a href="git-basics.html" class="nav-btn secondary">← Back to Module 1</a>
+                            <a href="r-git-workflow.html" class="nav-btn primary">Continue to Module 3 →</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/github-collaboration.js"></script>
+</body>
+</html>

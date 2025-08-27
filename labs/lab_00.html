@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab 0 - Introduction to Version Control (Git) - Learn the basics of Git version control">
     <title>Lab 0 - Introduction to Version Control (Git)</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Sidebar Menu -->
     <div id="menu">
         <p class="link-home">
@@ -31,55 +38,96 @@
     </div>
 
     <!-- Main Content Area -->
-    <div id="content">
-        <h1 class="lab_title"><em>Lab 0: </em> Introduction to Version Control (Git)</h1>
-        
-        <h2>What is Git?</h2>
-        <p>Git is a distributed version control system that allows multiple developers to work on a project simultaneously without interfering with each other's changes. It tracks changes in source code during software development, helping teams collaborate efficiently.</p>
-        <p>Git is the most popular and widely used version control system today...</p>
-        <p><a href="https://tom.preston-werner.com/2009/05/19/the-git-parable">Git Parable</a></p>
+    <main id="main-content">
+        <div id="content">
+            <h1 class="lab_title"><em>Lab 0: </em> Introduction to Version Control (Git)</h1>
+            
+            <section class="lab-section">
+                <h2>What is Git?</h2>
+                <p>Git is a distributed version control system that allows multiple developers to work on a project simultaneously without interfering with each other's changes. It tracks changes in source code during software development, helping teams collaborate efficiently.</p>
+                <p>Git is the most popular and widely used version control system today, created by Linus Torvalds in 2005 for the development of the Linux kernel.</p>
+                <p><a href="https://tom.preston-werner.com/2009/05/19/the-git-parable" target="_blank" rel="noopener">Git Parable</a> - A great read to understand Git's philosophy</p>
+            </section>
 
-        <!-- Image section -->
-        <div class="image-section">
-            <p><strong>This is not Git:</strong></p>
-            <img id="img1" src="https://git-scm.com/book/en/v2/images/deltas.png" alt="This is not Git" style="width:300px;">
-            <p><strong>This is Git:</strong></p>
-            <img id="img2" src="https://git-scm.com/book/en/v2/images/snapshots.png" alt="This is Git" style="width:300px;">
-        </div>
-
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <span class="close" id="close">&times;</span>
-            <div class="modal-body">
-                <div class="modal-image-section">
-                    <div class="modal-caption" id="caption1">This is not Git: Deltas method</div>
-                    <img class="modal-content" id="modalImg1">
+            <!-- Image section -->
+            <section class="lab-section">
+                <h2>Git vs Traditional Version Control</h2>
+                <div class="image-section">
+                    <div class="image-comparison">
+                        <div class="image-item">
+                            <p><strong>This is not Git:</strong></p>
+                            <img id="img1" src="https://git-scm.com/book/en/v2/images/deltas.png" alt="Traditional version control stores differences between versions" style="width:300px;">
+                            <p class="image-caption">Traditional systems store differences (deltas) between versions</p>
+                        </div>
+                        <div class="image-item">
+                            <p><strong>This is Git:</strong></p>
+                            <img id="img2" src="https://git-scm.com/book/en/v2/images/snapshots.png" alt="Git stores snapshots of the entire project at each commit" style="width:300px;">
+                            <p class="image-caption">Git stores snapshots of the entire project at each commit</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-image-section">
-                    <div class="modal-caption" id="caption2">This is Git: Snapshots method</div>
-                    <img class="modal-content" id="modalImg2">
+
+                <!-- Modal -->
+                <div id="modal" class="modal">
+                    <span class="close" id="close">&times;</span>
+                    <div class="modal-body">
+                        <div class="modal-image-section">
+                            <div class="modal-caption" id="caption1">Traditional Version Control: Deltas method</div>
+                            <img class="modal-content" id="modalImg1" alt="Traditional version control deltas">
+                        </div>
+                        <div class="modal-image-section">
+                            <div class="modal-caption" id="caption2">Git: Snapshots method</div>
+                            <img class="modal-content" id="modalImg2" alt="Git snapshots method">
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <section class="lab-section">
+                <h2>Why Use Git?</h2>
+                <ul class="benefits-list">
+                    <li><strong>Version Control:</strong> Keep track of changes and revert to previous versions if necessary.</li>
+                    <li><strong>Collaboration:</strong> Facilitate teamwork by merging changes from different contributors.</li>
+                    <li><strong>Branching:</strong> Experiment with new features in isolated branches without affecting the main codebase.</li>
+                    <li><strong>Backup:</strong> Keep your code safe on remote repositories like GitHub or GitLab.</li>
+                    <li><strong>History:</strong> Maintain a complete history of all changes with detailed commit messages.</li>
+                    <li><strong>Distributed:</strong> Work offline and sync when connected to the network.</li>
+                </ul>
+            </section>
+
+            <section class="lab-section">
+                <h2>Key Concepts</h2>
+                <div class="concepts-grid">
+                    <div class="concept-card">
+                        <h3>Repository</h3>
+                        <p>A directory that contains your project and the entire history of changes.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Commit</h3>
+                        <p>A snapshot of your project at a specific point in time.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Branch</h3>
+                        <p>A separate line of development that allows you to work on features independently.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h3>Merge</h3>
+                        <p>The process of combining changes from different branches.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation between labs -->
+            <nav class="foot-navigation">
+                <a class="start" href="../index.html">Home</a>
+                <a class="start" href="lab_01.html">Next</a>
+            </nav>
         </div>
-
-        <h2>Why Use Git?</h2>
-        <ul>
-            <li><strong>Version Control:</strong> Keep track of changes and revert to previous versions if necessary.</li>
-            <li><strong>Collaboration:</strong> Facilitate teamwork by merging changes from different contributors.</li>
-            <li><strong>Branching:</strong> Experiment with new features in isolated branches without affecting the main codebase.</li>
-            <li><strong>Backup:</strong> Keep your code safe on remote repositories like GitHub or GitLab.</li>
-        </ul>
-
-        <!-- Navigation between labs -->
-        <nav class="foot-navigation">
-            <a class="start" href="../index.html">Home</a>
-            <a class="start" href="lab_01.html">Next</a>
-        </nav>
-    </div>
+    </main>
 
     <!-- Footer -->
     <div class="footer">
-        <p>This is an adaptation of GitImmersion ️️❤️  Maintained for GWAC-MPPR</p>
+        <p>This is an adaptation of GitImmersion <span class="heart">❤️</span> Maintained for GWAC-MPPR</p>
     </div>
 
     <script src="../js/script.js"></script>

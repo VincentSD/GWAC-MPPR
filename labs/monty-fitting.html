@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 5: Model Fitting with monty - Learn to fit odin models to real data and estimate parameters">
+    <title>Module 5: Model Fitting with monty - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part2-section">Part 2: Modeling</a> > 
+            <span>Module 5: Model Fitting with monty</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 5</div>
+                <h1 class="module-title">Model Fitting with monty</h1>
+                <p class="module-subtitle">Fitting odin models to real data, parameter estimation, and model validation</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1.5 hours</span>
+                    <span class="difficulty">📚 Advanced</span>
+                    <span class="type">🔬 Analysis</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>What is monty?</h2>
+                    
+                    <div class="monty-overview">
+                        <div class="overview-card">
+                            <h3>Model Fitting Package</h3>
+                            <p>monty is an R package designed specifically for fitting odin models to data. It provides tools for parameter estimation, uncertainty quantification, and model validation.</p>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <h3>Key Features</h3>
+                            <ul>
+                                <li>Efficient parameter estimation</li>
+                                <li>Multiple optimization algorithms</li>
+                                <li>Uncertainty quantification</li>
+                                <li>Model validation tools</li>
+                                <li>Integration with odin models</li>
+                                <li>Parallel computing support</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <h3>Why Use monty?</h3>
+                            <ul>
+                                <li>Optimized for epidemiological models</li>
+                                <li>Handles complex model structures</li>
+                                <li>Provides confidence intervals</li>
+                                <li>Fast computation with C++ backend</li>
+                                <li>Easy integration with existing workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>The Model Fitting Workflow</h2>
+                    
+                    <div class="fitting-workflow">
+                        <h3>Step-by-Step Process</h3>
+                        
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-icon">🧹</div>
+                                <div class="step-content">
+                                    <h5>Data Preparation</h5>
+                                    <p>Clean and format your observational data</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-icon">📝</div>
+                                <div class="step-content">
+                                    <h5>Model Definition</h5>
+                                    <p>Specify your odin model with parameters to estimate</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-icon">🎯</div>
+                                <div class="step-content">
+                                    <h5>Objective Function</h5>
+                                    <p>Define how well the model fits the data</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-icon">🔍</div>
+                                <div class="step-content">
+                                    <h5>Parameter Estimation</h5>
+                                    <p>Use monty to find optimal parameters</p>
+                                </div>
+                            </div>
+                            
+                            <div class="workflow-arrow">→</div>
+                            
+                            <div class="workflow-step">
+                                <div class="step-number">5</div>
+                                <div class="step-icon">✅</div>
+                                <div class="step-content">
+                                    <h5>Validation</h5>
+                                    <p>Assess model fit and uncertainty</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Hands-on Exercise: Fitting SIR Model to COVID-19 Data</h2>
+                    
+                    <div class="fitting-exercise">
+                        <h3>Exercise: Estimate Transmission and Recovery Rates</h3>
+                        <p>In this exercise, you'll fit an SIR model to simulated COVID-19 case data to estimate the transmission rate (β) and recovery rate (γ).</p>
+                        
+                        <div class="exercise-setup">
+                            <h4>Setup</h4>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>Install required packages</span>
+                                    <button class="copy-btn" onclick="copyCode('install-monty')">Copy</button>
+                                </div>
+                                <pre><code id="install-monty"># Install monty and other required packages
+install.packages(
+  c("monty", "odin2"),
+  repos = c("https://mrc-ide.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Load packages
+library(monty)
+library(odin2)
+library(tidyverse)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-data">
+                            <h4>Step 1: Generate Simulated Data</h4>
+                            <p>First, let's create some realistic COVID-19 case data to fit our model to:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>Generate simulated data</span>
+                                    <button class="copy-btn" onclick="copyCode('generate-data')">Copy</button>
+                                </div>
+                                <pre><code id="generate-data"># True parameters (we'll try to estimate these)
+true_beta <- 0.3
+true_gamma <- 0.1
+N <- 10000
+I0 <- 100
+
+# Generate data with some noise
+set.seed(123)
+t <- seq(0, 100, by = 1)
+
+# Run SIR model
+sir_model <- odin({
+  initial(S) <- N - I0
+  initial(I) <- I0
+  initial(R) <- 0
+  
+  deriv(S) <- -beta * S * I / N
+  deriv(I) <- beta * S * I / N - gamma * I
+  deriv(R) <- gamma * I
+  
+  beta <- user(0.3)
+  gamma <- user(0.1)
+  N <- user(10000)
+})
+
+mod <- sir_model()
+result <- mod$run(t)
+result_df <- as.data.frame(result)
+
+# Add noise to simulate real data
+set.seed(456)
+observed_cases <- result_df$I + rnorm(length(t), 0, 50)
+observed_cases <- pmax(observed_cases, 0)  # Ensure non-negative
+
+# Create data frame for fitting
+data_for_fitting <- data.frame(
+  time = t,
+  cases = observed_cases
+)
+
+# Plot the data
+ggplot(data_for_fitting, aes(x = time, y = cases)) +
+  geom_point(color = "red", alpha = 0.7) +
+  geom_line(data = result_df, aes(y = I), color = "blue", size = 1) +
+  labs(
+    title = "Simulated COVID-19 Cases",
+    subtitle = "Red points: Observed data, Blue line: True model",
+    x = "Time (days)",
+    y = "Number of cases"
+  ) +
+  theme_minimal()</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-fitting">
+                            <h4>Step 2: Define the Fitting Model</h4>
+                            <p>Now let's create an odin model that we can fit to the data:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>Define fitting model</span>
+                                    <button class="copy-btn" onclick="copyCode('fitting-model')">Copy</button>
+                                </div>
+                                <pre><code id="fitting-model"># Define the model for fitting
+fitting_model <- odin({
+  initial(S) <- N - I0
+  initial(I) <- I0
+  initial(R) <- 0
+  
+  deriv(S) <- -beta * S * I / N
+  deriv(I) <- beta * S * I / N - gamma * I
+  deriv(R) <- gamma * I
+  
+  # Parameters to estimate
+  beta <- user(0.3)
+  gamma <- user(0.1)
+  
+  # Fixed parameters
+  N <- user(10000)
+  I0 <- user(100)
+  
+  # Output for fitting
+  output(incidence) <- beta * S * I / N
+})</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-objective">
+                            <h4>Step 3: Define the Objective Function</h4>
+                            <p>We need to define how well our model fits the data:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>Define objective function</span>
+                                    <button class="copy-btn" onclick="copyCode('objective-function')">Copy</button>
+                                </div>
+                                <pre><code id="objective-function"># Objective function for fitting
+objective_function <- function(pars, data, model) {
+  # Extract parameters
+  beta <- pars[1]
+  gamma <- pars[2]
+  
+  # Set model parameters
+  model$set_user(beta = beta, gamma = gamma)
+  
+  # Run model
+  result <- model$run(data$time)
+  result_df <- as.data.frame(result)
+  
+  # Calculate sum of squared errors
+  predicted <- result_df$I
+  observed <- data$cases
+  
+  # Use log-likelihood for better numerical properties
+  sigma <- 50  # Standard deviation of noise
+  log_likelihood <- sum(dnorm(observed, predicted, sigma, log = TRUE))
+  
+  # Return negative log-likelihood (for minimization)
+  return(-log_likelihood)
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-optimization">
+                            <h4>Step 4: Fit the Model with monty</h4>
+                            <p>Now let's use monty to find the optimal parameters:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>Fit model with monty</span>
+                                    <button class="copy-btn" onclick="copyCode('monty-fitting')">Copy</button>
+                                </div>
+                                <pre><code id="monty-fitting"># Compile the model
+mod <- fitting_model()
+
+# Initial parameter values
+initial_params <- c(beta = 0.2, gamma = 0.15)
+
+# Parameter bounds
+lower_bounds <- c(beta = 0.01, gamma = 0.01)
+upper_bounds <- c(beta = 1.0, gamma = 0.5)
+
+# Fit the model using monty
+fit_result <- monty::optimize_model(
+  objective_function,
+  initial_params,
+  data = data_for_fitting,
+  model = mod,
+  lower = lower_bounds,
+  upper = upper_bounds,
+  method = "L-BFGS-B"
+)
+
+# Extract results
+best_params <- fit_result$par
+best_value <- fit_result$value
+
+cat("Fitting completed!\n")
+cat("Best parameters:\n")
+cat("  beta (transmission rate):", round(best_params[1], 4), "\n")
+cat("  gamma (recovery rate):", round(best_params[2], 4), "\n")
+cat("  Objective value:", round(best_value, 2), "\n")
+
+# Compare with true values
+cat("\nTrue parameters:\n")
+cat("  beta:", true_beta, "\n")
+cat("  gamma:", true_gamma, "\n")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Interactive Model Fitting Explorer</h2>
+                    
+                    <div class="interactive-fitting">
+                        <h3>Experiment with Different Data Scenarios</h3>
+                        <p>Use the interactive tool below to explore how different data characteristics affect parameter estimation:</p>
+                        
+                        <div class="fitting-controls">
+                            <div class="control-group">
+                                <h4>Data Quality Controls</h4>
+                                <div class="param-group">
+                                    <label for="noise-level">Noise Level:</label>
+                                    <input type="range" id="noise-level" min="10" max="100" value="50" step="10">
+                                    <span id="noise-value">50</span>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="data-points">Data Points:</label>
+                                    <input type="range" id="data-points" min="20" max="200" value="100" step="10">
+                                    <span id="points-value">100</span>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="time-range">Time Range (days):</label>
+                                    <input type="range" id="time-range" min="50" max="200" value="100" step="10">
+                                    <span id="range-value">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <h4>Model Parameters</h4>
+                                <div class="param-group">
+                                    <label for="true-beta">True β:</label>
+                                    <input type="range" id="true-beta" min="0.1" max="0.8" value="0.3" step="0.05">
+                                    <span id="true-beta-value">0.3</span>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="true-gamma">True γ:</label>
+                                    <input type="range" id="true-gamma" min="0.05" max="0.3" value="0.1" step="0.01">
+                                    <span id="true-gamma-value">0.1</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="fitting-actions">
+                            <button id="generate-new-data" class="run-btn">🔄 Generate New Data</button>
+                            <button id="fit-model" class="run-btn">🎯 Fit Model</button>
+                            <button id="reset-fitting" class="reset-btn">🔄 Reset</button>
+                        </div>
+                        
+                        <div class="fitting-results">
+                            <div class="results-tabs">
+                                <button class="tab-btn active" data-tab="fitting-plot">📊 Data & Fit</button>
+                                <button class="tab-btn" data-tab="fitting-params">📋 Parameters</button>
+                                <button class="tab-btn" data-tab="fitting-diagnostics">🔍 Diagnostics</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="fitting-plot-tab">
+                                <div class="plot-container">
+                                    <canvas id="fitting-plot" width="800" height="400"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="fitting-params-tab">
+                                <div class="params-comparison">
+                                    <div class="param-table">
+                                        <h4>Parameter Comparison</h4>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Parameter</th>
+                                                    <th>True Value</th>
+                                                    <th>Estimated Value</th>
+                                                    <th>Error (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="params-table-body">
+                                                <tr>
+                                                    <td>β (transmission)</td>
+                                                    <td id="true-beta-display">0.3</td>
+                                                    <td id="est-beta-display">-</td>
+                                                    <td id="beta-error">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>γ (recovery)</td>
+                                                    <td id="true-gamma-display">0.1</td>
+                                                    <td id="est-gamma-display">-</td>
+                                                    <td id="gamma-error">-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="fitting-diagnostics-tab">
+                                <div class="diagnostics-container">
+                                    <div class="diagnostic-metric">
+                                        <h4>Goodness of Fit</h4>
+                                        <p id="r-squared">R²: -</p>
+                                        <p id="rmse">RMSE: -</p>
+                                    </div>
+                                    <div class="diagnostic-metric">
+                                        <h4>Convergence</h4>
+                                        <p id="convergence-status">Status: -</p>
+                                        <p id="iterations">Iterations: -</p>
+                                    </div>
+                                    <div class="diagnostic-metric">
+                                        <h4>Uncertainty</h4>
+                                        <p id="confidence-intervals">95% CI: -</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Model Validation and Diagnostics</h2>
+                    
+                    <div class="validation-section">
+                        <h3>Assessing Model Fit</h3>
+                        
+                        <div class="validation-methods">
+                            <div class="validation-method">
+                                <h4>Residual Analysis</h4>
+                                <p>Examine the differences between observed and predicted values:</p>
+                                <ul>
+                                    <li><strong>Patterns:</strong> Look for systematic deviations</li>
+                                    <li><strong>Distribution:</strong> Residuals should be normally distributed</li>
+                                    <li><strong>Heteroscedasticity:</strong> Check for changing variance</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="validation-method">
+                                <h4>Goodness of Fit Metrics</h4>
+                                <ul>
+                                    <li><strong>R²:</strong> Proportion of variance explained</li>
+                                    <li><strong>RMSE:</strong> Root mean square error</li>
+                                    <li><strong>AIC/BIC:</strong> Model comparison criteria</li>
+                                    <li><strong>Likelihood ratio tests:</strong> Nested model comparison</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="validation-method">
+                                <h4>Parameter Uncertainty</h4>
+                                <ul>
+                                    <li><strong>Confidence intervals:</strong> Range of plausible values</li>
+                                    <li><strong>Correlation matrix:</strong> Parameter dependencies</li>
+                                    <li><strong>Profile likelihoods:</strong> Individual parameter uncertainty</li>
+                                    <li><strong>Bootstrap methods:</strong> Non-parametric uncertainty</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module Summary and Next Steps</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>What You've Learned</h3>
+                            <ul>
+                                <li>✅ What monty is and how it works with odin</li>
+                                <li>✅ The model fitting workflow</li>
+                                <li>✅ How to define objective functions</li>
+                                <li>✅ Parameter estimation with monty</li>
+                                <li>✅ Model validation and diagnostics</li>
+                                <li>✅ Interactive model fitting exploration</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3>Key Skills</h3>
+                            <ul>
+                                <li>Setting up model fitting problems</li>
+                                <li>Defining objective functions</li>
+                                <li>Using monty for parameter estimation</li>
+                                <li>Assessing model fit quality</li>
+                                <li>Interpreting parameter uncertainty</li>
+                                <li>Model validation techniques</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for the Final Module?</h3>
+                        <p>In Module 6, you'll learn about advanced applications:</p>
+                        <ul>
+                            <li>Complex model structures</li>
+                            <li>Multi-parameter fitting</li>
+                            <li>Real-world case studies</li>
+                            <li>Model comparison and selection</li>
+                        </ul>
+                        
+                        <div class="navigation-buttons">
+                            <a href="odin-intro.html" class="nav-btn secondary">← Back to Module 4</a>
+                            <a href="advanced-modeling.html" class="nav-btn primary">Continue to Module 6 →</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/monty-fitting.js"></script>
+</body>
+</html>

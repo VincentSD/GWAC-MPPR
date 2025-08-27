@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 6: Advanced Applications - Complex model structures, uncertainty quantification, and real-world case studies">
+    <title>Module 6: Advanced Applications - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part2-section">Part 2: Modeling</a> > 
+            <span>Module 6: Advanced Applications</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 6</div>
+                <h1 class="module-title">Advanced Applications</h1>
+                <p class="module-subtitle">Complex model structures, uncertainty quantification, and real-world case studies</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1 hour</span>
+                    <span class="difficulty">📚 Expert</span>
+                    <span class="type">🌍 Real-world</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>Complex Model Structures</h2>
+                    
+                    <div class="complex-models">
+                        <h3>Beyond Simple SIR: Advanced Compartmental Models</h3>
+                        
+                        <div class="model-types">
+                            <div class="model-type">
+                                <h4>SEIR Model</h4>
+                                <p>Adds an Exposed compartment for diseases with incubation periods:</p>
+                                <div class="model-equation">
+                                    <p class="math">S → E → I → R</p>
+                                    <p>Where E represents exposed (infected but not yet infectious) individuals.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="model-type">
+                                <h4>Age-Structured Models</h4>
+                                <p>Separates populations by age groups with different transmission rates:</p>
+                                <div class="model-equation">
+                                    <p class="math">Sᵢ → Iᵢ → Rᵢ</p>
+                                    <p>Where i represents different age groups with age-specific parameters.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="model-type">
+                                <h4>Spatial Models</h4>
+                                <p>Incorporates geographic spread and movement between locations:</p>
+                                <div class="model-equation">
+                                    <p class="math">Sⱼ → Iⱼ → Rⱼ</p>
+                                    <p>Where j represents different spatial locations with migration terms.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="advanced-sir">
+                        <h3>Advanced SIR with Age Structure</h3>
+                        <p>Let's implement a more realistic age-structured SIR model:</p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Age-structured SIR model</span>
+                                <button class="copy-btn" onclick="copyCode('age-structured-sir')">Copy</button>
+                            </div>
+                            <pre><code id="age-structured-sir"># Age-structured SIR model with odin
+age_sir_model <- odin({
+  # Age groups: 0-19, 20-59, 60+
+  n_age <- 3
+  
+  # Initial conditions for each age group
+  initial(S[1:n_age]) <- S0[1:n_age]
+  initial(I[1:n_age]) <- I0[1:n_age]
+  initial(R[1:n_age]) <- R0[1:n_age]
+  
+  # Parameters
+  S0[1:n_age] <- user()
+  I0[1:n_age] <- user()
+  R0[1:n_age] <- user()
+  
+  # Age-specific transmission rates
+  beta[1:n_age] <- user()
+  
+  # Age-specific recovery rates
+  gamma[1:n_age] <- user()
+  
+  # Contact matrix between age groups
+  contact_matrix[1:n_age, 1:n_age] <- user()
+  
+  # Total population in each age group
+  N[1:n_age] <- S[i] + I[i] + R[i]
+  
+  # Force of infection for each age group
+  lambda[1:n_age] <- sum(contact_matrix[i, 1:n_age] * I[1:n_age] * beta[1:n_age] / N[1:n_age])
+  
+  # Derivatives
+  deriv(S[1:n_age]) <- -lambda[i] * S[i]
+  deriv(I[1:n_age]) <- lambda[i] * S[i] - gamma[i] * I[i]
+  deriv(R[1:n_age]) <- gamma[i] * I[i]
+  
+  # Outputs
+  output(total_infected) <- sum(I[1:n_age])
+  output(age_specific_incidence) <- lambda[i] * S[i]
+})</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Uncertainty Quantification</h2>
+                    
+                    <div class="uncertainty-intro">
+                        <h3>Why Uncertainty Matters</h3>
+                        <p>All models have uncertainty due to:</p>
+                        <ul>
+                            <li><strong>Parameter uncertainty:</strong> We don't know exact values</li>
+                            <li><strong>Model uncertainty:</strong> Our model may be wrong</li>
+                            <li><strong>Data uncertainty:</strong> Observations have errors</li>
+                            <li><strong>Structural uncertainty:</strong> Missing mechanisms</li>
+                        </ul>
+                    </div>
+
+                    <div class="uncertainty-methods">
+                        <h3>Methods for Quantifying Uncertainty</h3>
+                        
+                        <div class="method-grid">
+                            <div class="method-card">
+                                <h4>Monte Carlo Sampling</h4>
+                                <p>Sample parameters from probability distributions and run many simulations:</p>
+                                <div class="code-block">
+                                    <pre><code># Monte Carlo uncertainty analysis
+n_simulations <- 1000
+uncertainty_results <- matrix(0, n_simulations, 3)
+
+for (i in 1:n_simulations) {
+  # Sample parameters from distributions
+  beta_sample <- rnorm(1, mean = 0.3, sd = 0.05)
+  gamma_sample <- rnorm(1, mean = 0.1, sd = 0.02)
+  
+  # Run model
+  result <- run_sir_model(beta_sample, gamma_sample)
+  uncertainty_results[i, ] <- c(beta_sample, gamma_sample, max(result$I))
+}
+
+# Analyze results
+quantile(uncertainty_results[, 3], c(0.025, 0.5, 0.975))</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="method-card">
+                                <h4>Profile Likelihood</h4>
+                                <p>Explore how the likelihood changes as parameters vary:</p>
+                                <div class="code-block">
+                                    <pre><code># Profile likelihood for beta
+beta_range <- seq(0.1, 0.5, by = 0.01)
+profile_likelihood <- numeric(length(beta_range))
+
+for (i in 1:length(beta_range)) {
+  # Fix beta, optimize gamma
+  profile_likelihood[i] <- optimize_gamma_given_beta(beta_range[i], data)
+}
+
+# Plot profile likelihood
+plot(beta_range, profile_likelihood, type = "l")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="method-card">
+                                <h4>Bootstrap Methods</h4>
+                                <p>Resample data to estimate parameter uncertainty:</p>
+                                <div class="code-block">
+                                    <pre><code># Bootstrap parameter estimation
+n_bootstrap <- 1000
+bootstrap_params <- matrix(0, n_bootstrap, 2)
+
+for (i in 1:n_bootstrap) {
+  # Resample data with replacement
+  bootstrap_data <- data[sample(nrow(data), replace = TRUE), ]
+  
+  # Fit model to bootstrap sample
+  fit <- fit_sir_model(bootstrap_data)
+  bootstrap_params[i, ] <- fit$par
+}
+
+# Calculate confidence intervals
+apply(bootstrap_params, 2, quantile, c(0.025, 0.975))</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Interactive Uncertainty Explorer</h2>
+                    
+                    <div class="uncertainty-explorer">
+                        <div class="explorer-intro">
+                            <h3>🎲 Monte Carlo Uncertainty Analysis</h3>
+                            <p>Explore how parameter uncertainty affects model predictions. Run multiple simulations with varying parameters to understand the range of possible outcomes.</p>
+                        </div>
+                        
+                        <div class="uncertainty-controls">
+                            <h4>Parameter Distributions</h4>
+                            <div class="param-grid">
+                                <div class="param-group">
+                                    <label for="beta-mean">β Mean (Transmission):</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="beta-mean" min="0.1" max="0.8" value="0.3" step="0.05">
+                                        <span class="slider-value" id="beta-mean-value">0.3</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="beta-sd">β Standard Deviation:</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="beta-sd" min="0.01" max="0.2" value="0.05" step="0.01">
+                                        <span class="slider-value" id="beta-sd-value">0.05</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="gamma-mean">γ Mean (Recovery):</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="gamma-mean" min="0.05" max="0.3" value="0.1" step="0.01">
+                                        <span class="slider-value" id="gamma-mean-value">0.1</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="gamma-sd">γ Standard Deviation:</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="gamma-sd" min="0.01" max="0.1" value="0.02" step="0.01">
+                                        <span class="slider-value" id="gamma-sd-value">0.02</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="n-simulations">Number of Simulations:</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="n-simulations" min="100" max="1000" value="500" step="100">
+                                        <span class="slider-value" id="n-simulations-value">500</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="param-group">
+                                    <label for="time-horizon">Time Horizon (days):</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="time-horizon" min="50" max="200" value="100" step="10">
+                                        <span class="slider-value" id="time-horizon-value">100</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="uncertainty-actions">
+                            <button id="run-uncertainty" class="run-btn creative">🎲 Run Uncertainty Analysis</button>
+                            <button id="reset-uncertainty" class="reset-btn creative">🔄 Reset</button>
+                        </div>
+                        
+                        <div class="uncertainty-results">
+                            <div class="results-tabs">
+                                <button class="tab-btn active" data-tab="uncertainty-plot">📊 Uncertainty Bands</button>
+                                <button class="tab-btn" data-tab="uncertainty-params">📋 Parameter Distributions</button>
+                                <button class="tab-btn" data-tab="uncertainty-stats">📈 Statistical Summary</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="uncertainty-plot-tab">
+                                <div class="plot-container">
+                                    <canvas id="uncertainty-plot" width="800" height="400"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="uncertainty-params-tab">
+                                <div class="params-distributions">
+                                    <div class="distribution-plot">
+                                        <h4>β (Transmission Rate) Distribution</h4>
+                                        <canvas id="beta-dist-plot" width="400" height="200"></canvas>
+                                    </div>
+                                    <div class="distribution-plot">
+                                        <h4>γ (Recovery Rate) Distribution</h4>
+                                        <canvas id="gamma-dist-plot" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="uncertainty-stats-tab">
+                                <div class="stats-container">
+                                    <div class="stat-metric">
+                                        <h4>Peak Infections</h4>
+                                        <p id="peak-mean">Mean: -</p>
+                                        <p id="peak-ci">95% CI: -</p>
+                                    </div>
+                                    <div class="stat-metric">
+                                        <h4>Peak Timing</h4>
+                                        <p id="timing-mean">Mean: -</p>
+                                        <p id="timing-ci">95% CI: -</p>
+                                    </div>
+                                    <div class="stat-metric">
+                                        <h4>Final Size</h4>
+                                        <p id="size-mean">Mean: -</p>
+                                        <p id="size-ci">95% CI: -</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Real-World Case Studies</h2>
+                    
+                    <div class="case-studies">
+                        <h3>COVID-19 Modeling at Imperial College London</h3>
+                        
+                        <div class="case-study">
+                            <h4>Report 9: Impact of Non-Pharmaceutical Interventions</h4>
+                            <p>This landmark study used age-structured SEIR models to predict the impact of social distancing measures:</p>
+                            
+                            <div class="study-details">
+                                <div class="study-finding">
+                                    <h5>Key Findings</h5>
+                                    <ul>
+                                        <li>Without interventions: 510,000 deaths in UK</li>
+                                        <li>With interventions: 20,000 deaths in UK</li>
+                                        <li>Peak healthcare demand: 8x current capacity</li>
+                                        <li>Intervention duration: 12-18 months</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="study-methodology">
+                                    <h5>Methodology</h5>
+                                    <ul>
+                                        <li>Age-structured transmission model</li>
+                                        <li>Contact patterns from social surveys</li>
+                                        <li>Healthcare capacity constraints</li>
+                                        <li>Multiple intervention scenarios</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="case-study">
+                            <h4>Vaccination Impact Modeling</h4>
+                            <p>Models were used to prioritize vaccination strategies:</p>
+                            
+                            <div class="vaccination-strategies">
+                                <div class="strategy">
+                                    <h5>Strategy 1: Age-Based (Oldest First)</h5>
+                                    <p>Prioritize by age, targeting highest mortality risk</p>
+                                    <div class="strategy-metrics">
+                                        <span class="metric">Deaths Averted: 65,000</span>
+                                        <span class="metric">Peak Reduction: 45%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="strategy">
+                                    <h5>Strategy 2: Transmission-Based (Youngest First)</h5>
+                                    <p>Prioritize by transmission potential</p>
+                                    <div class="strategy-metrics">
+                                        <span class="metric">Deaths Averted: 45,000</span>
+                                        <span class="metric">Peak Reduction: 60%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="strategy">
+                                    <h5>Strategy 3: Hybrid Approach</h5>
+                                    <p>Balance mortality reduction and transmission control</p>
+                                    <div class="strategy-metrics">
+                                        <span class="metric">Deaths Averted: 58,000</span>
+                                        <span class="metric">Peak Reduction: 55%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Model Comparison and Selection</h2>
+                    
+                    <div class="model-comparison">
+                        <h3>How to Choose the Right Model</h3>
+                        
+                        <div class="comparison-criteria">
+                            <div class="criterion">
+                                <h4>Model Complexity vs. Data</h4>
+                                <p>More complex models require more data to estimate parameters reliably:</p>
+                                <ul>
+                                    <li><strong>Simple SIR:</strong> Good for limited data, basic insights</li>
+                                    <li><strong>Age-structured:</strong> Better fit, but needs age-specific data</li>
+                                    <li><strong>Spatial models:</strong> Most realistic, but data-intensive</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="criterion">
+                                <h4>Information Criteria</h4>
+                                <p>Use statistical measures to compare models:</p>
+                                <div class="code-block">
+                                    <pre><code># Calculate AIC and BIC for model comparison
+aic_values <- c(
+  simple_sir = AIC(simple_fit),
+  age_structured = AIC(age_fit),
+  spatial_model = AIC(spatial_fit)
+)
+
+bic_values <- c(
+  simple_sir = BIC(simple_fit),
+  age_structured = BIC(age_fit),
+  spatial_model = BIC(spatial_fit)
+)
+
+# Lower values are better
+best_aic <- names(which.min(aic_values))
+best_bic <- names(which.min(bic_values))</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="criterion">
+                                <h4>Out-of-Sample Validation</h4>
+                                <p>Test models on data they weren't fitted to:</p>
+                                <div class="code-block">
+                                    <pre><code># Split data into training and validation sets
+set.seed(123)
+train_indices <- sample(1:nrow(data), 0.7 * nrow(data))
+train_data <- data[train_indices, ]
+validation_data <- data[-train_indices, ]
+
+# Fit models to training data
+train_fits <- list(
+  simple = fit_simple_sir(train_data),
+  age = fit_age_sir(train_data),
+  spatial = fit_spatial_sir(train_data)
+)
+
+# Evaluate on validation data
+validation_errors <- sapply(train_fits, function(fit) {
+  mean((predict(fit, validation_data) - validation_data$cases)^2)
+})</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Course Completion and Next Steps</h2>
+                    
+                    <div class="completion-celebration">
+                        <h3>🎉 Congratulations! You've Completed the G-WAC Short Course!</h3>
+                        <p>You've successfully learned:</p>
+                        
+                        <div class="skills-summary">
+                            <div class="skill-category">
+                                <h4>Part 1: Git & GitHub</h4>
+                                <ul>
+                                    <li>✅ Version control fundamentals</li>
+                                    <li>✅ GitHub collaboration</li>
+                                    <li>✅ R project management</li>
+                                    <li>✅ Reproducible research</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h4>Part 2: Infectious Disease Modeling</h4>
+                                <ul>
+                                    <li>✅ Building models with odin</li>
+                                    <li>✅ Parameter estimation with monty</li>
+                                    <li>✅ Advanced model structures</li>
+                                    <li>✅ Uncertainty quantification</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Continue Your Learning Journey</h3>
+                        
+                        <div class="learning-paths">
+                            <div class="learning-path">
+                                <h4>🔄 Practice Projects</h4>
+                                <ul>
+                                    <li>Model your local disease data</li>
+                                    <li>Collaborate on GitHub repositories</li>
+                                    <li>Create reproducible research workflows</li>
+                                    <li>Share models with the community</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="learning-path">
+                                <h4>📚 Advanced Topics</h4>
+                                <ul>
+                                    <li>Stochastic models with dust2</li>
+                                    <li>Machine learning integration</li>
+                                    <li>Real-time modeling</li>
+                                    <li>Policy impact assessment</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="learning-path">
+                                <h4>🌍 Community Engagement</h4>
+                                <ul>
+                                    <li>Join the G-WAC community</li>
+                                    <li>Contribute to open-source projects</li>
+                                    <li>Attend workshops and conferences</li>
+                                    <li>Mentor other researchers</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="certificate-section">
+                            <h4>🎓 Course Certificate</h4>
+                            <p>You've earned a certificate of completion! Download it below:</p>
+                            <button id="download-certificate" class="certificate-btn">📄 Download Certificate</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/advanced-modeling.js"></script>
+</body>
+</html>

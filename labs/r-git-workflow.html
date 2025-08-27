@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 3: R with Git & GitHub - Learn reproducible research workflows and best practices for scientific computing">
+    <title>Module 3: R with Git & GitHub - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part1-section">Part 1: Git & GitHub</a> > 
+            <span>Module 3: R with Git & GitHub</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 3</div>
+                <h1 class="module-title">R with Git & GitHub</h1>
+                <p class="module-subtitle">Managing R projects with Git, creating reproducible research, and implementing best practices</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1 hour</span>
+                    <span class="difficulty">📚 Intermediate</span>
+                    <span class="type">🔬 Research</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>Why R Projects Need Version Control</h2>
+                    
+                    <div class="r-git-motivation">
+                        <div class="motivation-card">
+                            <h3>Reproducibility Crisis</h3>
+                            <p>Many scientific studies cannot be reproduced due to missing code, data, or unclear analysis steps. Git helps solve this by tracking every change.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <h3>Collaborative Research</h3>
+                            <p>Modern research is collaborative. Git enables multiple researchers to work on the same project without conflicts.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <h3>Experiment Tracking</h3>
+                            <p>Track different analysis approaches, parameter settings, and model variations. Always know which version produced which results.</p>
+                        </div>
+                        
+                        <div class="motivation-card">
+                            <h3>Publication Preparation</h3>
+                            <p>Prepare your code and data for publication with confidence. Journals increasingly require code and data sharing.</p>
+                        </div>
+                    </div>
+
+                    <div class="real-world-example">
+                        <h3>Real-World Example: COVID-19 Modeling Research</h3>
+                        <p>During the pandemic, researchers at Imperial College London used Git to manage their COVID-19 models:</p>
+                        <ul>
+                            <li>Multiple researchers contributed to the same models</li>
+                            <li>Parameter updates were tracked and documented</li>
+                            <li>Results could be reproduced for any specific date</li>
+                            <li>Code was shared with policymakers and other researchers</li>
+                            <li>Models evolved rapidly with new data and insights</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Setting Up an R Project with Git</h2>
+                    
+                    <div class="r-project-setup">
+                        <h3>Creating a Reproducible R Project</h3>
+                        
+                        <div class="setup-steps">
+                            <div class="step">
+                                <h4>Step 1: Project Structure</h4>
+                                <p>Create a well-organized project structure:</p>
+                                <div class="code-block">
+                                    <pre><code>my-research-project/
+├── README.md
+├── .gitignore
+├── R/
+│   ├── functions.R
+│   ├── analysis.R
+│   └── plotting.R
+├── data/
+│   ├── raw/
+│   └── processed/
+├── results/
+│   ├── figures/
+│   └── tables/
+├── docs/
+├── tests/
+└── my-research-project.Rproj</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 2: Initialize Git Repository</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Initialize Git in your R project</span>
+                                        <button class="copy-btn" onclick="copyCode('init-r-git')">Copy</button>
+                                    </div>
+                                    <pre><code id="init-r-git"># Navigate to your project directory
+cd my-research-project
+
+# Initialize Git repository
+git init
+
+# Create initial commit
+git add .
+git commit -m "Initial commit: Set up R project structure"</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 3: Configure .gitignore for R</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Create .gitignore file for R projects</span>
+                                        <button class="copy-btn" onclick="copyCode('r-gitignore')">Copy</button>
+                                    </div>
+                                    <pre><code id="r-gitignore"># R specific files
+.Rhistory
+.RData
+.Ruserdata
+.Rapp.history
+
+# RStudio files
+.Rproj.user/
+*.Rproj
+
+# R package files
+*.Rcheck/
+*.tar.gz
+*.tgz
+
+# Data files (often too large for Git)
+*.csv
+*.rds
+*.rda
+*.xlsx
+*.xls
+
+# Results and outputs
+results/figures/*.png
+results/figures/*.pdf
+results/tables/*.csv
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db</code></pre>
+                                </div>
+                                <p class="explanation">This .gitignore file excludes R-specific temporary files, large data files, and generated outputs that shouldn't be version controlled.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>R Markdown for Reproducible Research</h2>
+                    
+                    <div class="rmarkdown-intro">
+                        <h3>What is R Markdown?</h3>
+                        <p>R Markdown combines R code, text, and output in a single document that can be rendered to HTML, PDF, or other formats. It's perfect for reproducible research because:</p>
+                        <ul>
+                            <li>Code and results are integrated</li>
+                            <li>Documents can be regenerated from scratch</li>
+                            <li>Multiple output formats are supported</li>
+                            <li>Version control works seamlessly</li>
+                        </ul>
+                    </div>
+
+                    <div class="rmarkdown-example">
+                        <h3>Creating Your First R Markdown Document</h3>
+                        
+                        <div class="rmarkdown-steps">
+                            <div class="rmarkdown-step">
+                                <h4>Step 1: Create R Markdown File</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Create analysis.Rmd</span>
+                                        <button class="copy-btn" onclick="copyCode('create-rmd')">Copy</button>
+                                    </div>
+                                    <pre><code id="create-rmd">---
+title: "COVID-19 SIR Model Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+params:
+  population: 1000000
+  initial_infected: 100
+  beta: 0.3
+  gamma: 0.1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 8,
+  fig.height = 6
+)
+```
+
+## Introduction
+
+This document analyzes the spread of COVID-19 using a simple SIR model.
+
+## Data Loading
+
+```{r data-loading}
+# Load required packages
+library(tidyverse)
+library(deSolve)
+
+# Set parameters
+params <- list(
+  N = params$population,
+  I0 = params$initial_infected,
+  beta = params$beta,
+  gamma = params$gamma
+)
+```
+
+## Model Definition
+
+```{r model-definition}
+# SIR model function
+sir_model <- function(t, state, params) {
+  with(as.list(c(state, params)), {
+    dS <- -beta * S * I / N
+    dI <- beta * S * I / N - gamma * I
+    dR <- gamma * I
+    
+    list(c(dS, dI, dR))
+  })
+}
+```
+
+## Model Simulation
+
+```{r simulation}
+# Initial conditions
+initial_state <- c(
+  S = params$N - params$I0,
+  I = params$I0,
+  R = 0
+)
+
+# Time points
+times <- seq(0, 100, by = 0.1)
+
+# Run simulation
+results <- ode(
+  y = initial_state,
+  times = times,
+  func = sir_model,
+  parms = params
+) %>% as.data.frame()
+
+# Plot results
+ggplot(results, aes(x = time)) +
+  geom_line(aes(y = S, color = "Susceptible")) +
+  geom_line(aes(y = I, color = "Infected")) +
+  geom_line(aes(y = R, color = "Recovered")) +
+  labs(
+    title = "SIR Model Simulation",
+    x = "Time (days)",
+    y = "Population",
+    color = "Compartment"
+  ) +
+  theme_minimal()
+```
+
+## Results Summary
+
+```{r results}
+# Calculate key metrics
+peak_infections <- max(results$I)
+peak_day <- results$time[which.max(results$I)]
+final_recovered <- tail(results$R, 1)
+
+cat("Peak infections:", round(peak_infections), "\n")
+cat("Peak day:", peak_day, "\n")
+cat("Final recovered:", round(final_recovered), "\n")
+```</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="rmarkdown-step">
+                                <h4>Step 2: Render the Document</h4>
+                                <div class="code-block">
+                                    <pre><code># In R console or RStudio
+rmarkdown::render("analysis.Rmd")
+
+# Or use the "Knit" button in RStudio</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rmarkdown-benefits">
+                        <h3>Benefits of R Markdown for Research</h3>
+                        
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <h4>Reproducibility</h4>
+                                <p>Anyone can regenerate your results by running the R Markdown file. No more "it worked on my machine" issues.</p>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <h4>Documentation</h4>
+                                <p>Code, results, and explanations are all in one place. Perfect for lab notebooks and research papers.</p>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <h4>Version Control</h4>
+                                <p>Track changes to both code and documentation together. See how your analysis evolved over time.</p>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <h4>Collaboration</h4>
+                                <p>Team members can see exactly what you did and build upon your work. Pull requests can include both code and documentation changes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Best Practices for R Projects</h2>
+                    
+                    <div class="r-best-practices">
+                        <h3>Project Organization</h3>
+                        
+                        <div class="practice-grid">
+                            <div class="practice-item">
+                                <h4>File Naming</h4>
+                                <p>Use consistent, descriptive file names:</p>
+                                <ul>
+                                    <li><code>01_data_cleaning.R</code> - Data preparation</li>
+                                    <li><code>02_exploratory_analysis.R</code> - Initial exploration</li>
+                                    <li><code>03_model_fitting.R</code> - Statistical modeling</li>
+                                    <li><code>04_results_visualization.R</code> - Creating figures</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="practice-item">
+                                <h4>Function Organization</h4>
+                                <p>Separate functions into logical files:</p>
+                                <ul>
+                                    <li><code>R/functions_data.R</code> - Data manipulation functions</li>
+                                    <li><code>R/functions_models.R</code> - Model-related functions</li>
+                                    <li><code>R/functions_plotting.R</code> - Visualization functions</li>
+                                    <li><code>R/functions_utilities.R</code> - Helper functions</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="practice-item">
+                                <h4>Data Management</h4>
+                                <p>Organize data files properly:</p>
+                                <ul>
+                                    <li><code>data/raw/</code> - Original, unmodified data</li>
+                                    <li><code>data/processed/</code> - Cleaned and processed data</li>
+                                    <li><code>data/external/</code> - Data from external sources</li>
+                                    <li>Never commit large data files to Git</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="r-coding-standards">
+                        <h3>R Coding Standards</h3>
+                        
+                        <div class="standards-grid">
+                            <div class="standard-item">
+                                <h4>Style Guidelines</h4>
+                                <ul>
+                                    <li>Use snake_case for file and variable names</li>
+                                    <li>Use descriptive variable names (avoid x, y, temp)</li>
+                                    <li>Add comments explaining complex logic</li>
+                                    <li>Keep functions focused and short</li>
+                                    <li>Use consistent indentation (2 spaces)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="standard-item">
+                                <h4>Package Management</h4>
+                                <ul>
+                                    <li>Use <code>library()</code> at the top of scripts</li>
+                                    <li>Specify package versions for reproducibility</li>
+                                    <li>Use <code>require()</code> sparingly</li>
+                                    <li>Document package dependencies in README</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="standard-item">
+                                <h4>Error Handling</h4>
+                                <ul>
+                                    <li>Use <code>stopifnot()</code> for input validation</li>
+                                    <li>Add meaningful error messages</li>
+                                    <li>Use <code>tryCatch()</code> for graceful failures</li>
+                                    <li>Test functions with edge cases</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Git Workflow for R Projects</h2>
+                    
+                    <div class="r-git-workflow">
+                        <h3>Daily Git Workflow for R Research</h3>
+                        
+                        <div class="workflow-intro">
+                            <p><strong>Key Principle:</strong> Commit incrementally for the smallest updates you're satisfied with. This creates a clear history and allows you to track progress throughout the day.</p>
+                        </div>
+                        
+                        <div class="workflow-example">
+                            <h4>Iterative Development Workflow</h4>
+                            
+                            <div class="iterative-workflow-steps">
+                                <div class="iterative-workflow-step">
+                                    <div class="step-header">
+                                        <span class="step-icon">🌅</span>
+                                        <h5>Morning: Setup & Planning</h5>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Start your research day with proper Git setup</p>
+                                        <div class="code-block">
+                                            <pre><code># Pull latest changes and start fresh
+git pull origin main
+git checkout -b feature/age-structured-sir
+
+# Plan your incremental goals for the day
+# Break down the feature into small, testable pieces</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="iterative-workflow-step">
+                                    <div class="step-header">
+                                        <span class="step-icon">⚡</span>
+                                        <h5>Throughout Day: Iterative Commits</h5>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Commit each small, working increment as you complete it</p>
+                                        <div class="code-block">
+                                            <pre><code># After implementing a small feature:
+git add R/age_structure.R
+git commit -m "Add basic age group structure
+
+- Define age categories (0-4, 5-14, 15-64, 65+)
+- Create age group vector
+- Test age structure initialization"
+
+# Continue working, commit again when satisfied:
+git add R/contact_matrix.R
+git commit -m "Implement age-specific contact matrix
+
+- Add contact rates between age groups
+- Use POLYMOD survey data
+- Validate matrix properties"
+
+# Push incremental progress to remote
+git push origin feature/age-structured-sir</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="iterative-workflow-step">
+                                    <div class="step-header">
+                                        <span class="step-icon">🧪</span>
+                                        <h5>Testing & Validation</h5>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Test each increment and commit working tests</p>
+                                        <div class="code-block">
+                                            <pre><code># After each feature, add tests:
+git add tests/test-age-structure.R
+git commit -m "Add tests for age structure validation
+
+- Test age group boundaries
+- Validate age vector creation
+- Check error handling for invalid ages"
+
+# Run tests to ensure everything works
+# Only commit when tests pass</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="iterative-workflow-step">
+                                    <div class="step-header">
+                                        <span class="step-icon">📚</span>
+                                        <h5>Documentation Updates</h5>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Update documentation with each significant change</p>
+                                        <div class="code-block">
+                                            <pre><code># Update documentation as you go:
+git add README.md
+git add vignettes/age-structured-model.Rmd
+git commit -m "Update documentation for age structure
+
+- Add age group definitions to README
+- Include usage examples in vignette
+- Document parameter ranges and constraints"</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="iterative-workflow-step">
+                                    <div class="step-header">
+                                        <span class="step-icon">🚀</span>
+                                        <h5>End of Day: Integration</h5>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>When satisfied with the complete feature, integrate with main</p>
+                                        <div class="code-block">
+                                            <pre><code># Final push of the day
+git push origin feature/age-structured-sir
+
+# If working solo: merge to main
+git checkout main
+git merge feature/age-structured-sir
+git push origin main
+
+# If collaborating: create pull request
+# Request review from maintainers
+# Address feedback and merge when approved</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-benefits">
+                            <h4>Benefits of This Approach</h4>
+                            <div class="benefits-grid">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">📈</span>
+                                    <h5>Clear Progress Tracking</h5>
+                                    <p>See exactly what you accomplished each day with detailed commit history</p>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🔄</span>
+                                    <h5>Easy Rollback</h5>
+                                    <p>If something breaks, you can easily revert to the last working increment</p>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">👥</span>
+                                    <h5>Better Collaboration</h5>
+                                    <p>Smaller, focused commits are easier for others to review and understand</p>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">💡</span>
+                                    <h5>Learning & Debugging</h5>
+                                    <p>Each commit represents a learning step, making debugging much easier</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="git-tips-r">
+                        <h3>Git Tips Specific to R Projects</h3>
+                        
+                        <div class="tips-grid">
+                            <div class="tip-item">
+                                <h4>Commit R Markdown Files</h4>
+                                <p>Always commit your .Rmd files. They contain both code and documentation, making them perfect for version control.</p>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <h4>Don't Commit Generated Files</h4>
+                                <p>Use .gitignore to exclude HTML, PDF, and other generated outputs. These can be regenerated from the source.</p>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <h4>Commit Data Processing Scripts</h4>
+                                <p>Scripts that process raw data into analysis-ready formats should be version controlled.</p>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <h4>Use Meaningful Commit Messages</h4>
+                                <p>Describe what changed and why. For R projects, mention the analysis step or model improvement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Hands-on Exercise: Create a Reproducible R Project</h2>
+                    
+                    <div class="r-project-exercise">
+                        <h3>Exercise: Build a Reproducible Epidemiological Analysis</h3>
+                        <p>In this exercise, you'll create a complete R project that demonstrates reproducible research practices.</p>
+                        
+                        <div class="exercise-tasks">
+                            <div class="task">
+                                <h4>Task 1: Project Setup</h4>
+                                <p>Create a new R project with proper structure:</p>
+                                <div class="code-block">
+                                    <pre><code># In RStudio
+# File > New Project > New Directory > R Project
+# Name: covid-analysis-project
+# Create project in: Choose your location
+
+# Create the directory structure
+dir.create("R")
+dir.create("data/raw")
+dir.create("data/processed")
+dir.create("results/figures")
+dir.create("results/tables")
+dir.create("docs")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="task">
+                                <h4>Task 2: Initialize Git</h4>
+                                <p>Set up version control for your project:</p>
+                                <div class="code-block">
+                                    <pre><code># In R console or terminal
+# Navigate to project directory
+setwd("path/to/covid-analysis-project")
+
+# Initialize Git
+system("git init")
+
+# Create .gitignore file
+# (Use the content from earlier in this module)
+
+# Initial commit
+system("git add .")
+system("git commit -m 'Initial commit: Set up R project structure'")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="task">
+                                <h4>Task 3: Create R Markdown Analysis</h4>
+                                <p>Create a comprehensive analysis document:</p>
+                                <ul>
+                                    <li>Use the R Markdown template from earlier</li>
+                                    <li>Include data loading, cleaning, and analysis</li>
+                                    <li>Add proper documentation and comments</li>
+                                    <li>Test that it renders correctly</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="task">
+                                <h4>Task 4: Implement Git Workflow</h4>
+                                <p>Practice the daily Git workflow:</p>
+                                <ul>
+                                    <li>Make changes to your analysis</li>
+                                    <li>Create a feature branch</li>
+                                    <li>Commit your changes</li>
+                                    <li>Push to remote repository</li>
+                                    <li>Create a pull request</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module Summary and Next Steps</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>What You've Learned</h3>
+                            <ul>
+                                <li>✅ Why R projects need version control</li>
+                                <li>✅ How to set up R projects with Git</li>
+                                <li>✅ Creating reproducible R Markdown documents</li>
+                                <li>✅ Best practices for R project organization</li>
+                                <li>✅ Git workflow for daily research</li>
+                                <li>✅ Tips for managing R projects with Git</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3>Key Skills</h3>
+                            <ul>
+                                <li>R project structure and organization</li>
+                                <li>R Markdown for reproducible research</li>
+                                <li>Git workflow for R development</li>
+                                <li>Best practices for scientific computing</li>
+                                <li>Collaborative R development</li>
+                                <li>Research reproducibility</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for Part 2: Infectious Disease Modeling?</h3>
+                        <p>In Part 2, you'll learn about building models with odin and monty:</p>
+                        <ul>
+                            <li>Introduction to odin for model specification</li>
+                            <li>Model fitting with monty</li>
+                            <li>Advanced modeling applications</li>
+                            <li>Real-world case studies</li>
+                        </ul>
+                        
+                        <div class="navigation-buttons">
+                            <a href="github-collaboration.html" class="nav-btn secondary">← Back to Module 2</a>
+                            <a href="../index.html#part2-section" class="nav-btn primary">Continue to Part 2 →</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/r-git-workflow.js"></script>
+</body>
+</html>

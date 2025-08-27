@@ -1,0 +1,166 @@
+/* Base CSS for G-WAC Short Course - Core Styles */
+
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* G-WAC Color Palette - Based on g-wac.org branding */
+    --primary-color: #1a5f7a;      /* G-WAC primary blue */
+    --primary-dark: #0f3d4f;       /* Darker blue */
+    --primary-light: #2d8bb8;      /* Lighter blue */
+    --secondary-color: #e67e22;    /* G-WAC orange */
+    --accent-color: #27ae60;       /* G-WAC green */
+    --error-color: #e74c3c;        /* Error red */
+    --warning-color: #f39c12;      /* Warning orange */
+    --success-color: #27ae60;      /* Success green */
+    --text-primary: #2c3e50;       /* Dark text */
+    --text-secondary: #7f8c8d;     /* Secondary text */
+    --text-light: #bdc3c7;         /* Light text */
+    --background-primary: #ffffff;  /* White background */
+    --background-secondary: #f8f9fa; /* Light gray background */
+    --background-tertiary: #ecf0f1; /* Lighter gray */
+    --border-color: #d5dbdb;       /* Border color */
+    --border-light: #ecf0f1;       /* Light border */
+    --shadow-sm: 0 2px 4px rgba(26, 95, 122, 0.1);
+    --shadow-md: 0 4px 8px rgba(26, 95, 122, 0.15);
+    --shadow-lg: 0 8px 16px rgba(26, 95, 122, 0.2);
+    --shadow-xl: 0 16px 32px rgba(26, 95, 122, 0.25);
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    
+    /* Spacing */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-20: 5rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+    
+    /* Additional Variables */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary-color: #2d8bb8;
+    --primary-dark: #1a5f7a;
+    --primary-light: #4a9fd8;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --text-light: #7f8c8d;
+    --background-primary: #1a1a1a;
+    --background-secondary: #2c2c2c;
+    --background-tertiary: #3a3a3a;
+    --border-color: #4a4a4a;
+    --border-light: #5a5a5a;
+}
+
+/* Base Styles */
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-secondary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-size: var(--font-size-base);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    z-index: 1000;
+    transition: var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Button focus styles */
+button:focus,
+a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --text-primary: #000000;
+        --background-primary: #ffffff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .main-nav,
+    .collaboration-demo,
+    .interactive-demo,
+    .code-controls {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .content-section {
+        page-break-inside: avoid;
+    }
+}

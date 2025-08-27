@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 4: Introduction to odin - Learn to build epidemiological models using the odin package">
+    <title>Module 4: Introduction to odin - G-WAC Short Course</title>
+    <link rel="icon" type="image/jpeg" href="../images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="../index.html#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="../index.html#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="../index.html#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a> > 
+            <a href="../index.html#part2-section">Part 2: Modeling</a> > 
+            <span>Module 4: Introduction to odin</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="lab-container">
+            <header class="module-header">
+                <div class="module-badge">Module 4</div>
+                <h1 class="module-title">Introduction to odin</h1>
+                <p class="module-subtitle">Building epidemiological models using the powerful odin package for model specification</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ 1.5 hours</span>
+                    <span class="difficulty">📚 Intermediate</span>
+                    <span class="type">🔬 Modeling</span>
+                </div>
+            </header>
+
+            <div class="module-content">
+                <section class="content-section">
+                    <h2>What is odin?</h2>
+                    
+                    <div class="odin-overview">
+                        <div class="overview-card">
+                            <h3>Model Specification Language</h3>
+                            <p>odin is a domain-specific language for specifying mathematical models, particularly differential equation models used in epidemiology, ecology, and other dynamic systems.</p>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <h3>Key Features</h3>
+                            <ul>
+                                <li>Declarative model specification</li>
+                                <li>Automatic code generation</li>
+                                <li>Efficient C++ compilation</li>
+                                <li>Integration with R workflows</li>
+                                <li>Support for complex model structures</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <h3>Why Use odin?</h3>
+                            <ul>
+                                <li>Models are easier to read and understand</li>
+                                <li>Automatic handling of technical details</li>
+                                <li>Better performance than pure R implementations</li>
+                                <li>Easier to maintain and modify</li>
+                                <li>Built-in validation and error checking</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="real-world-example">
+                        <h3>Real-World Example: Imperial College COVID-19 Models</h3>
+                        <p>The Imperial College London team used odin extensively for their COVID-19 modeling work:</p>
+                        <ul>
+                            <li>Age-structured transmission models</li>
+                            <li>Multi-compartment SEIR models</li>
+                            <li>Healthcare capacity models</li>
+                            <li>Vaccination impact models</li>
+                            <li>Policy intervention scenarios</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Your First odin Model: SIR</h2>
+                    
+                    <div class="sir-introduction">
+                        <h3>The SIR Model</h3>
+                        <p>The Susceptible-Infected-Recovered (SIR) model is the foundation of infectious disease modeling. It tracks three populations over time:</p>
+                        
+                        <div class="sir-compartments">
+                            <div class="compartment">
+                                <h4>S (Susceptible)</h4>
+                                <p>People who can become infected</p>
+                            </div>
+                            <div class="compartment">
+                                <h4>I (Infected)</h4>
+                                <p>People who are currently infected and can spread the disease</p>
+                            </div>
+                            <div class="compartment">
+                                <h4>R (Recovered)</h4>
+                                <p>People who have recovered and are immune</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sir-equations">
+                        <h3>Mathematical Equations</h3>
+                        <p>The SIR model is described by these differential equations:</p>
+                        
+                        <div class="equation-block">
+                            <div class="equation">
+                                <h4>Rate of Change in Susceptible Population</h4>
+                                <p class="math">dS/dt = -β × S × I / N</p>
+                                <p>Susceptible people become infected at rate β (transmission rate)</p>
+                            </div>
+                            
+                            <div class="equation">
+                                <h4>Rate of Change in Infected Population</h4>
+                                <p class="math">dI/dt = β × S × I / N - γ × I</p>
+                                <p>Infected people recover at rate γ (recovery rate)</p>
+                            </div>
+                            
+                            <div class="equation">
+                                <h4>Rate of Change in Recovered Population</h4>
+                                <p class="math">dR/dt = γ × I</p>
+                                <p>Recovered people accumulate as infected people recover</p>
+                            </div>
+                        </div>
+                        
+                        <div class="parameters">
+                            <h4>Key Parameters</h4>
+                            <ul>
+                                <li><strong>β (beta):</strong> Transmission rate - how easily the disease spreads</li>
+                                <li><strong>γ (gamma):</strong> Recovery rate - how quickly people recover</li>
+                                <li><strong>N:</strong> Total population size</li>
+                                <li><strong>R₀:</strong> Basic reproduction number = β/γ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Building the SIR Model with odin</h2>
+                    
+                    <div class="odin-implementation">
+                        <h3>Step-by-Step Implementation</h3>
+                        
+                        <div class="implementation-steps">
+                            <div class="step">
+                                <h4>Step 1: Install and Load odin</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Install odin package</span>
+                                        <button class="copy-btn" onclick="copyCode('install-odin')">Copy</button>
+                                    </div>
+                                    <pre><code id="install-odin"># Install from R-universe
+install.packages("odin2", repos = c("https://mrc-ide.r-universe.dev", "https://cloud.r-project.org"))
+
+# Load the package
+library(odin2)</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 2: Define the SIR Model</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>SIR model specification</span>
+                                        <button class="copy-btn" onclick="copyCode('sir-odin')">Copy</button>
+                                    </div>
+                                    <pre><code id="sir-odin">sir_model <- odin({
+  # Initial conditions
+  initial(S) <- N - I0 - R0
+  initial(I) <- I0
+  initial(R) <- R0
+  
+  # Parameters
+  N <- user(1000)    # Total population
+  I0 <- user(1)      # Initial infected
+  R0 <- user(0)      # Initial recovered
+  beta <- user(0.3)  # Transmission rate
+  gamma <- user(0.1) # Recovery rate
+  
+  # Derivatives (differential equations)
+  deriv(S) <- -beta * S * I / N
+  deriv(I) <- beta * S * I / N - gamma * I
+  deriv(R) <- gamma * I
+  
+  # Output variables
+  output(R0_basic) <- beta / gamma
+  output(incidence) <- beta * S * I / N
+})</code></pre>
+                                </div>
+                                <p class="explanation">This odin code defines the complete SIR model with initial conditions, parameters, differential equations, and output variables.</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Step 3: Compile and Run the Model</h4>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span>Compile and simulate</span>
+                                        <button class="copy-btn" onclick="copyCode('run-sir')">Copy</button>
+                                    </div>
+                                    <pre><code id="run-sir"># Compile the model
+mod <- sir_model()
+
+# Set time points for simulation
+t <- seq(0, 100, by = 0.1)
+
+# Run the simulation
+result <- mod$run(t)
+
+# Convert to data frame for analysis
+result_df <- as.data.frame(result)</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Interactive SIR Model Explorer</h2>
+                    
+                    <div class="interactive-model">
+                        <h3>Experiment with Parameters</h3>
+                        <p>Use the interactive model below to explore how different parameters affect the epidemic dynamics:</p>
+                        
+                        <div class="parameter-controls">
+                            <div class="parameter-group">
+                                <label for="population">Total Population (N):</label>
+                                <input type="range" id="population" min="100" max="10000" value="1000" step="100">
+                                <span id="population-value">1000</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="transmission">Transmission Rate (β):</label>
+                                <input type="range" id="transmission" min="0.1" max="0.8" value="0.3" step="0.05">
+                                <span id="transmission-value">0.3</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="recovery">Recovery Rate (γ):</label>
+                                <input type="range" id="recovery" min="0.05" max="0.3" value="0.1" step="0.01">
+                                <span id="recovery-value">0.1</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="initial-infected">Initial Infected:</label>
+                                <input type="range" id="initial-infected" min="1" max="100" value="1" step="1">
+                                <span id="initial-infected-value">1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="model-controls">
+                            <button id="run-model" class="run-btn">▶️ Run Simulation</button>
+                            <button id="reset-model" class="reset-btn">🔄 Reset Parameters</button>
+                        </div>
+                        
+                        <div class="model-output">
+                            <div class="output-tabs">
+                                <button class="tab-btn active" data-tab="plot">📊 Epidemic Curve</button>
+                                <button class="tab-btn" data-tab="table">📋 Results Table</button>
+                                <button class="tab-btn" data-tab="metrics">📈 Key Metrics</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="plot-tab">
+                                <div class="plot-container">
+                                    <canvas id="sir-plot" width="800" height="400"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="table-tab">
+                                <div class="table-container">
+                                    <table id="results-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Time (days)</th>
+                                                <th>Susceptible</th>
+                                                <th>Infected</th>
+                                                <th>Recovered</th>
+                                                <th>Incidence</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                            <!-- Results will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="metrics-tab">
+                                <div class="metrics-container">
+                                    <div class="metric">
+                                        <h4>Basic Reproduction Number (R₀)</h4>
+                                        <p id="r0-value">3.0</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Peak Infections</h4>
+                                        <p id="peak-infections">-</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Peak Day</h4>
+                                        <p id="peak-day">-</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Final Epidemic Size</h4>
+                                        <p id="final-size">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding Model Outputs</h2>
+                    
+                    <div class="model-interpretation">
+                        <h3>Key Insights from the SIR Model</h3>
+                        
+                        <div class="insights-grid">
+                            <div class="insight-card">
+                                <h4>Epidemic Peak</h4>
+                                <p>The peak of infections occurs when the number of new infections equals the number of recoveries. This happens when S = N × γ/β.</p>
+                            </div>
+                            
+                            <div class="insight-card">
+                                <h4>Herd Immunity</h4>
+                                <p>Herd immunity is reached when enough people are immune (recovered) that the disease can no longer spread effectively.</p>
+                            </div>
+                            
+                            <div class="insight-card">
+                                <h4>R₀ and Epidemic Dynamics</h4>
+                                <ul>
+                                    <li><strong>R₀ > 1:</strong> Epidemic grows</li>
+                                    <li><strong>R₀ = 1:</strong> Endemic equilibrium</li>
+                                    <li><strong>R₀ < 1:</strong> Epidemic declines</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="insight-card">
+                                <h4>Parameter Sensitivity</h4>
+                                <p>Small changes in transmission rate (β) can have large effects on epidemic timing and size. This is why interventions like social distancing are so important.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module Summary and Next Steps</h2>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>What You've Learned</h3>
+                            <ul>
+                                <li>✅ What odin is and why it's useful for modeling</li>
+                                <li>✅ The SIR model structure and equations</li>
+                                <li>✅ How to implement models in odin</li>
+                                <li>✅ Parameter interpretation and sensitivity</li>
+                                <li>✅ Model output analysis and interpretation</li>
+                                <li>✅ Interactive model exploration</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3>Key Skills</h3>
+                            <ul>
+                                <li>Writing odin model specifications</li>
+                                <li>Understanding differential equations</li>
+                                <li>Parameter sensitivity analysis</li>
+                                <li>Model output interpretation</li>
+                                <li>Epidemiological modeling concepts</li>
+                                <li>Interactive model exploration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for the Next Module?</h3>
+                        <p>In Module 5, you'll learn about model fitting with monty:</p>
+                        <ul>
+                            <li>Fitting odin models to real data</li>
+                            <li>Parameter estimation techniques</li>
+                            <li>Model validation and diagnostics</li>
+                            <li>Uncertainty quantification</li>
+                        </ul>
+                        
+                        <div class="navigation-buttons">
+                            <a href="../index.html#part2-section" class="nav-btn secondary">← Back to Part 2</a>
+                            <a href="monty-fitting.html" class="nav-btn primary">Continue to Module 5 →</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="../images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-title">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+    <script src="../js/collaboration.js"></script>
+    <script src="../js/code-execution.js"></script>
+    <script src="../js/odin-model.js"></script>
+</body>
+</html>

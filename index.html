@@ -3,111 +3,679 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GWAC-MPPR</title>
+    <meta name="description" content="G-WAC Short Course: Git, GitHub & Infectious Disease Modeling with odin & monty">
+    <meta name="keywords" content="G-WAC, Git, GitHub, R, odin, monty, infectious disease modeling, version control">
+    <meta name="author" content="G-WAC">
+    <meta property="og:title" content="G-WAC Short Course - Git, GitHub & Infectious Disease Modeling">
+    <meta property="og:description" content="Learn version control and infectious disease modeling in this interactive short course">
+    <meta property="og:type" content="website">
+    <title>G-WAC Short Course - Git, GitHub & Infectious Disease Modeling</title>
+    <link rel="icon" type="image/jpeg" href="images/g-wac-favicon.jpg">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pwa.css">
+    <link rel="stylesheet" href="css/error-handler.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="G-WAC Course">
+    <link rel="apple-touch-icon" href="images/g-wac-logo.png">
 </head>
-<body id="index_body" class="animation-fade-in">
-    <h1>Git Tutorials</h1>
+<body class="animation-fade-in">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <p><em>A guided tour that walks through the fundamentals of Git, inspired by the premise that to know a thing is to do it.</em></p>
+    <!-- Header with G-WAC Branding -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="title-section">
+                    <h1 class="main-title">G-WAC Short Course</h1>
+                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                </div>
+            </div>
+            <div class="course-info">
+                <div class="course-badge">
+                    <span class="badge-icon">⏱️</span>
+                    <span class="badge-text">8 Hours Total</span>
+                </div>
+                <div class="course-badge">
+                    <span class="badge-icon">👥</span>
+                    <span class="badge-text">Interactive</span>
+                </div>
+                <div class="course-badge">
+                    <span class="badge-icon">💻</span>
+                    <span class="badge-text">Hands-on</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <hr>
+    <!-- Main Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="#course-overview" class="nav-link">Overview</a></li>
+                <li><a href="#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
+                <li><a href="#part2-section" class="nav-link">Part 2: Modeling</a></li>
+                <li><a href="#collaboration" class="nav-link">Collaborate</a></li>
+                <li><a href="#submission-portal" class="nav-link">Submissions</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <p>Git is a powerful, sophisticated system for distributed version control. Gaining an understanding of its features opens to developers a new and liberating approach to source code management. The surest path to mastering Git is to immerse oneself in its utilities and operations, to experience it first-hand.</p>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Course Overview Section -->
+        <section id="course-overview" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">Course Overview</h2>
+                
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">📚</div>
+                        <h3>Course Structure</h3>
+                        <p>Two focused parts designed for maximum learning in minimal time</p>
+                        <ul>
+                            <li><strong>Part 1:</strong> Git & GitHub Fundamentals (4 hours)</li>
+                            <li><strong>Part 2:</strong> Infectious Disease Modeling (4 hours)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Learning Objectives</h3>
+                        <p>By the end of this course, you will be able to:</p>
+                        <ul>
+                            <li>Use Git for version control</li>
+                            <li>Collaborate on GitHub</li>
+                            <li>Build models with odin & monty</li>
+                            <li>Create reproducible research</li>
+                        </ul>
+                    </div>
+                    
+                                            <div class="overview-card">
+                            <div class="card-icon">🚀</div>
+                            <h3>Interactive Features</h3>
+                            <p>Learn by doing with our interactive platform:</p>
+                            <ul>
+                                <li>Run code directly in notes</li>
+                                <li>Real-time collaboration</li>
+                                <li>Instant feedback</li>
+                                <li>Progress tracking</li>
+                                <li>Submission portal</li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+        </section>
 
-    <div>
-        <ul>
-            <li><a href="http://git-scm.com/download" target="_blank" rel="noopener">Install Git</a></li>
-            <li><a href="https://git-scm.com/downloads/guis" target="_blank" rel="noopener">Graphical Clients</a></li>
-            <li><a href="https://github.com/edgecase/git_immersion/issues" target="_blank" rel="noopener">Report an Issue</a></li>
-        </ul>
-    </div>
-    <a class="start" href="labs/lab_00.html">Start Git</a>
+        <!-- Part 1: Git & GitHub Section -->
+        <section id="part1-section" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">Part 1: Git & GitHub Fundamentals</h2>
+                <div class="part-header">
+                    <div class="part-info">
+                        <span class="part-badge">Part 1</span>
+                        <span class="duration">4 Hours</span>
+                    </div>
+                    <p class="part-description">
+                        Master version control with Git and collaborative development on GitHub. 
+                        Learn best practices for reproducible scientific computing.
+                    </p>
+                </div>
 
-    <div class="footer">
-        <p>This is an adaptation of GitImmersion ️️❤️  Maintained for GWAC-MPPR</p>
-        <p>
-            GitImmersion is released under a
-            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank" rel="noopener">Creative Commons BY-NC-SA 3.0 License.</a>
-        </p>
-    </div>
+                <div class="learning-modules">
+                    <div class="module-card">
+                        <h3>Module 1: Introduction to Version Control</h3>
+                        <ul>
+                            <li>Why version control matters in research</li>
+                            <li>Git basics: commits, branches, history</li>
+                            <li>Setting up your Git environment</li>
+                        </ul>
+                        <a href="labs/git-basics.html" class="module-link">Start Learning →</a>
+                    </div>
+                    
+                    <div class="module-card">
+                        <h3>Module 2: GitHub Collaboration</h3>
+                        <ul>
+                            <li>Creating and managing repositories</li>
+                            <li>Pull requests and code review</li>
+                            <li>Team collaboration workflows</li>
+                        </ul>
+                        <a href="labs/github-collaboration.html" class="module-link">Start Learning →</a>
+                    </div>
+                    
+                    <div class="module-card">
+                        <h3>Module 3: R with Git & GitHub</h3>
+                        <ul>
+                            <li>Managing R projects with Git</li>
+                            <li>R Markdown and reproducibility</li>
+                            <li>Best practices for scientific computing</li>
+                        </ul>
+                        <a href="labs/r-git-workflow.html" class="module-link">Start Learning →</a>
+                    </div>
+                </div>
 
-    <div>
-        <h1>Welcome to the Submission Portal</h1>
-        <p>Please take note:</p>
-        <p>If your Pull Request for the assignment on collaboration gets accepted, you will see your submission listed below.</p>
-        <h2 style="text-align: center;">Recent Submissions:</h2>
-        
-        <table id="submissions" border="1" style="width: 100%; text-align: left;">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Time Submitted</th>
-                    <th>Download Link</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Text file submissions will be loaded here -->
-            </tbody>
-        </table>
-    </div>
+                <div class="interactive-demo">
+                    <h3>Try Git Commands Live</h3>
+                    <div class="code-playground">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">Git Terminal</span>
+                                <div class="terminal-buttons">
+                                    <span class="btn btn-close"></span>
+                                    <span class="btn btn-minimize"></span>
+                                    <span class="btn btn-maximize"></span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="command-line">
+                                    <span class="prompt">$</span>
+                                    <input type="text" class="command-input" placeholder="Try: git init" id="git-command">
+                                </div>
+                                <div class="command-output" id="git-output">
+                                    <p>Welcome to the interactive Git terminal! Try some commands:</p>
+                                    <ul>
+                                        <li><code>git init</code> - Initialize a new repository</li>
+                                        <li><code>git status</code> - Check repository status</li>
+                                        <li><code>git add .</code> - Stage all changes</li>
+                                        <li><code>git commit -m "message"</code> - Commit changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div>
-        <h2>Participants List:</h2>
-        <ul id="participants">
-            <!-- Participants will be loaded here -->
-        </ul>
-    </div>
+        <!-- Part 2: Infectious Disease Modeling Section -->
+        <section id="part2-section" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">Part 2: Infectious Disease Modeling with odin & monty</h2>
+                <div class="part-header">
+                    <div class="part-info">
+                        <span class="part-badge">Part 2</span>
+                        <span class="duration">4 Hours</span>
+                    </div>
+                    <p class="part-description">
+                        Build and simulate infectious disease models using the powerful odin and monty packages. 
+                        Based on the latest workshop materials from Imperial College London.
+                    </p>
+                </div>
 
-    <!-- Link to external JavaScript file -->
-    <script>
-        // Fetch submissions
-        fetch("https://api.github.com/repos/vincentsd/GWAC-MPPR/contents/submissions/")
-            .then(response => response.json())
-            .then(data => {
-                const submissionsTableBody = document.querySelector("#submissions tbody");
-                data.forEach(file => {
-                    if (file.name.endsWith(".txt")) {
-                        const row = document.createElement("tr");
+                <div class="learning-modules">
+                    <div class="module-card">
+                        <h3>Module 4: Introduction to odin</h3>
+                        <ul>
+                            <li>Writing odin code for model specification</li>
+                            <li>Understanding the odin language</li>
+                            <li>Building your first epidemiological model</li>
+                        </ul>
+                        <a href="labs/odin-intro.html" class="module-link">Start Learning →</a>
+                    </div>
+                    
+                    <div class="module-card">
+                        <h3>Module 5: Model Fitting with monty</h3>
+                        <ul>
+                            <li>Fitting odin models to data</li>
+                            <li>Parameter estimation techniques</li>
+                            <li>Model validation and diagnostics</li>
+                        </ul>
+                        <a href="labs/monty-fitting.html" class="module-link">Start Learning →</a>
+                    </div>
+                    
+                    <div class="module-card">
+                        <h3>Module 6: Advanced Applications</h3>
+                        <ul>
+                            <li>Complex model structures</li>
+                            <li>Uncertainty quantification</li>
+                            <li>Real-world case studies</li>
+                        </ul>
+                        <a href="labs/advanced-modeling.html" class="module-link">Start Learning →</a>
+                    </div>
+                </div>
 
-                        const nameCell = document.createElement("td");
-                        nameCell.textContent = file.name;
-                        row.appendChild(nameCell);
+                <div class="interactive-demo">
+                    <h3>Run odin Models Live</h3>
+                    <div class="code-playground">
+                        <div class="r-studio">
+                            <div class="r-studio-header">
+                                <span class="r-studio-title">R Studio Environment</span>
+                                <div class="r-studio-tabs">
+                                    <span class="tab active">odin-model.R</span>
+                                    <span class="tab">Console</span>
+                                    <span class="tab">Plots</span>
+                                </div>
+                            </div>
+                            <div class="r-studio-body">
+                                <div class="code-editor">
+                                    <pre><code class="language-r" id="odin-code"># SIR Model with odin
+library(odin)
 
-                        const timeCell = document.createElement("td");
-                        timeCell.textContent = new Date().toLocaleString();
-                        row.appendChild(timeCell);
+sir_model <- odin({
+  # Initial conditions
+  initial(S) <- N - I0 - R0
+  initial(I) <- I0
+  initial(R) <- R0
+  
+  # Parameters
+  N <- user(1000)    # Total population
+  I0 <- user(1)      # Initial infected
+  R0 <- user(0)      # Initial recovered
+  beta <- user(0.3)  # Transmission rate
+  gamma <- user(0.1) # Recovery rate
+  
+  # Derivatives
+  deriv(S) <- -beta * S * I / N
+  deriv(I) <- beta * S * I / N - gamma * I
+  deriv(R) <- gamma * I
+})
 
-                        const linkCell = document.createElement("td");
-                        const fileLink = document.createElement("a");
-                        fileLink.href = file.download_url;
-                        fileLink.textContent = "Download";
-                        linkCell.appendChild(fileLink);
-                        row.appendChild(linkCell);
+# Run the model
+mod <- sir_model()
+t <- seq(0, 100, by = 0.1)
+result <- mod$run(t)
+plot(result[, "time"], result[, "I"], type = "l", 
+     xlab = "Time", ylab = "Infected", 
+     main = "SIR Model Simulation")</code></pre>
+                                </div>
+                                <div class="code-controls">
+                                    <button class="run-btn" onclick="runOdinCode()">▶️ Run Code</button>
+                                    <button class="reset-btn" onclick="resetOdinCode()">🔄 Reset</button>
+                                </div>
+                                
+                                <!-- Enhanced Parameter Controls -->
+                                <div class="parameter-controls-enhanced" id="parameter-controls">
+                                    <h4>Adjust Model Parameters:</h4>
+                                    <div class="param-group">
+                                        <label for="beta-param">Transmission Rate (β):</label>
+                                        <div class="slider-container">
+                                            <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
+                                            <span class="slider-value" id="beta-value">0.3</span>
+                                        </div>
+                                    </div>
+                                    <div class="param-group">
+                                        <label for="gamma-param">Recovery Rate (γ):</label>
+                                        <div class="slider-container">
+                                            <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
+                                            <span class="slider-value" id="gamma-value">0.1</span>
+                                        </div>
+                                    </div>
+                                    <div class="param-group">
+                                        <label for="population-param">Population (N):</label>
+                                        <div class="slider-container">
+                                            <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
+                                            <span class="slider-value" id="population-value">1000</span>
+                                        </div>
+                                    </div>
+                                    <button id="run-with-params" class="run-btn enhanced">▶️ Run with New Parameters</button>
+                                </div>
+                                
+                                <div class="code-output" id="odin-output">
+                                    <p>Click "Run Code" to execute this SIR model simulation!</p>
+                                </div>
+                                
+                                <!-- Interactive Plots Section -->
+                                <div class="plots-section" id="plots-section">
+                                    <h4>Model Outputs:</h4>
+                                    <div class="plot-container">
+                                        <canvas id="sir-plot-main" width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="plot-controls">
+                                        <button id="update-plot" class="btn btn-primary">📊 Update Plot</button>
+                                        <button id="download-plot" class="btn btn-secondary">💾 Download Plot</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        submissionsTableBody.appendChild(row);
-                    }
-                });
-            })
-            .catch(error => console.error('Error fetching submissions:', error));
+        <!-- Real-time Collaboration Section -->
+        <section id="collaboration" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">Real-time Collaboration</h2>
+                <p class="section-description">
+                    Work together with your classmates in real-time. Share code, discuss solutions, 
+                    and learn from each other as you progress through the course.
+                </p>
 
-        // Fetch participants from README
-        fetch("https://api.github.com/repos/vincentsd/GWAC-MPPR/contents/README.md")
-            .then(response => response.json())
-            .then(data => {
-                const content = atob(data.content); // Decode the base64 content
-                const participants = content.match(/## Participants([\s\S]*?)\n\n/);
-                if (participants) {
-                    const participantsList = participants[1].trim().split('\n').slice(1); // Get lines after the header
-                    const participantsUl = document.getElementById("participants");
-                    participantsList.forEach(participant => {
-                        const li = document.createElement("li");
-                        li.textContent = participant.trim();
-                        participantsUl.appendChild(li);
-                    });
-                }
-            })
-            .catch(error => console.error('Error fetching participants:', error));
-    </script>
+                <div class="collaboration-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Live Collaboration</h3>
+                        <p>See what your classmates are working on in real-time</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Group Discussions</h3>
+                        <p>Chat and discuss problems as you solve them</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your progress and compare with peers</p>
+                    </div>
+                </div>
+
+                <div class="collaboration-demo">
+                    <h3>Join the Collaboration</h3>
+                    <div class="collab-interface">
+                        <div class="collab-header">
+                            <span class="collab-title">Active Collaborators</span>
+                            <span class="collab-count">3 online</span>
+                        </div>
+                        <div class="collab-body">
+                            <div class="collaborator-list">
+                                <div class="collaborator">
+                                    <span class="collab-avatar">👤</span>
+                                    <span class="collab-name">Student 1</span>
+                                    <span class="collab-status">Working on Git Module 2</span>
+                                </div>
+                                <div class="collaborator">
+                                    <span class="collab-avatar">👤</span>
+                                    <span class="collab-name">Student 2</span>
+                                    <span class="collab-status">Completed Part 1</span>
+                                </div>
+                                <div class="collaborator">
+                                    <span class="collab-avatar">👤</span>
+                                    <span class="collab-name">Student 3</span>
+                                    <span class="collab-status">Working on SIR Model</span>
+                                </div>
+                            </div>
+                            <div class="chat-section">
+                                <div class="chat-messages" id="chat-messages">
+                                    <div class="message">
+                                        <span class="message-author">Student 1:</span>
+                                        <span class="message-text">Anyone having trouble with git merge conflicts?</span>
+                                    </div>
+                                    <div class="message">
+                                        <span class="message-author">Student 2:</span>
+                                        <span class="message-text">I can help! What's the issue?</span>
+                                    </div>
+                                </div>
+                                <div class="chat-input">
+                                    <input type="text" placeholder="Type your message..." id="chat-input">
+                                    <button onclick="sendMessage()">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Submission Portal Section -->
+        <section id="submission-portal" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">🎯 Submission Portal</h2>
+                <p class="section-description">Track your collaborative assignments and see what others have submitted</p>
+                
+                <div class="submission-portal-container">
+                    <!-- Assignment Overview -->
+                    <div class="assignment-overview">
+                        <h3>📋 Current Assignment: Git Collaboration Practice</h3>
+                        <p>Create a pull request to submit your solution for the collaborative Git workflow exercise.</p>
+                        <div class="assignment-details">
+                            <div class="detail-item">
+                                <span class="detail-label">📅 Due Date:</span>
+                                <span class="detail-value">December 31, 2024</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">👥 Participants:</span>
+                                <span class="detail-value">12 students</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">✅ Submissions:</span>
+                                <span class="detail-value">8 completed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Submissions Table -->
+                    <div class="submissions-table-container">
+                        <h3>📊 Recent Submissions</h3>
+                        <div class="submissions-table">
+                            <div class="table-header">
+                                <div class="header-cell">👤 Student</div>
+                                <div class="header-cell">📁 File</div>
+                                <div class="header-cell">⏰ Submitted</div>
+                                <div class="header-cell">📝 Status</div>
+                                <div class="header-cell">🔗 Actions</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell student-info">
+                                    <div class="student-avatar">👤</div>
+                                    <div class="student-details">
+                                        <div class="student-name">Alice Johnson</div>
+                                        <div class="student-username">@alice-j</div>
+                                    </div>
+                                </div>
+                                <div class="table-cell">git-collaboration-solution.md</div>
+                                <div class="table-cell">2 hours ago</div>
+                                <div class="table-cell"><span class="status-badge approved">✅ Approved</span></div>
+                                <div class="table-cell">
+                                    <button class="action-btn view-btn">👁️ View</button>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell student-info">
+                                    <div class="student-avatar">👤</div>
+                                    <div class="student-details">
+                                        <div class="student-name">Bob Smith</div>
+                                        <div class="student-username">@bob-smith</div>
+                                    </div>
+                                </div>
+                                <div class="table-cell">git-workflow-exercise.R</div>
+                                <div class="table-cell">4 hours ago</div>
+                                <div class="table-cell"><span class="status-badge pending">⏳ Pending</span></div>
+                                <div class="table-cell">
+                                    <button class="action-btn review-btn">🔍 Review</button>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell student-info">
+                                    <div class="student-avatar">👤</div>
+                                    <div class="student-details">
+                                        <div class="student-name">Charlie Brown</div>
+                                        <div class="student-username">@charlie-b</div>
+                                    </div>
+                                </div>
+                                <div class="table-cell">collaboration-demo.md</div>
+                                <div class="table-cell">6 hours ago</div>
+                                <div class="table-cell"><span class="status-badge approved">✅ Approved</span></div>
+                                <div class="table-cell">
+                                    <button class="action-btn view-btn">👁️ View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Participants List -->
+                    <div class="participants-section">
+                        <h3>👥 Course Participants</h3>
+                        <div class="participants-grid">
+                            <div class="participant-card">
+                                <div class="participant-avatar">👤</div>
+                                <div class="participant-info">
+                                    <div class="participant-name">Alice Johnson</div>
+                                    <div class="participant-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 90%"></div>
+                                        </div>
+                                        <span>90% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="participant-card">
+                                <div class="participant-avatar">👤</div>
+                                <div class="participant-info">
+                                    <div class="participant-name">Bob Smith</div>
+                                    <div class="participant-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 75%"></div>
+                                        </div>
+                                        <span>75% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="participant-card">
+                                <div class="participant-avatar">👤</div>
+                                <div class="participant-info">
+                                    <div class="participant-name">Charlie Brown</div>
+                                    <div class="participant-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 85%"></div>
+                                        </div>
+                                        <span>85% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="participant-card">
+                                <div class="participant-avatar">👤</div>
+                                <div class="participant-info">
+                                    <div class="participant-name">Diana Prince</div>
+                                    <div class="participant-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 60%"></div>
+                                        </div>
+                                        <span>60% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submission Instructions -->
+                    <div class="submission-instructions">
+                        <h3>📝 How to Submit</h3>
+                        <div class="instructions-steps">
+                            <div class="instruction-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Fork the Repository</h4>
+                                    <p>Click the fork button on the course repository to create your own copy</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Create Your Solution</h4>
+                                    <p>Add your solution files to your forked repository</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Submit Pull Request</h4>
+                                    <p>Create a pull request to submit your work for review</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="content-section">
+            <div class="section-container">
+                <h2 class="section-title">Course Resources</h2>
+                
+                <div class="resources-grid">
+                    <div class="resource-category">
+                        <h3>📚 Required Software</h3>
+                        <ul>
+                            <li><a href="https://git-scm.com/download" target="_blank" rel="noopener">Git</a></li>
+                            <li><a href="https://cran.r-project.org/" target="_blank" rel="noopener">R (4.4.x recommended)</a></li>
+                            <li><a href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener">RStudio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h3>🔧 R Packages</h3>
+                        <ul>
+                            <li><code>odin2</code> - Model specification</li>
+                            <li><code>monty</code> - Model fitting</li>
+                            <li><code>dust2</code> - Stochastic simulation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h3>📖 Additional Reading</h3>
+                        <ul>
+                            <li><a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener">Odin-Monty Workshop Materials</a></li>
+                            <li><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener">Pro Git Book</a></li>
+                            <li><a href="https://r4ds.had.co.nz/" target="_blank" rel="noopener">R for Data Science</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="installation-guide">
+                    <h3>Quick Installation Guide</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Install required R packages</span>
+                            <button class="copy-btn" onclick="copyCode('install-code')">Copy</button>
+                        </div>
+                        <pre><code id="install-code"># Install from R-universe
+install.packages(
+  c("monty", "dust2", "odin2"),
+  repos = c("https://mrc-ide.r-universe.dev", "https://cloud.r-project.org")
+)
+
+# Verify installation
+library(odin2)
+library(monty)
+library(dust2)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-branding">
+                    <img src="images/g-wac-logo.svg" alt="G-WAC Logo" class="footer-logo">
+                    <div class="footer-text">
+                        <p class="footer-title">G-WAC Short Course</p>
+                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <p class="footer-license">
+                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
+                    </p>
+                    <p class="footer-acknowledgment">
+                        Special thanks to Imperial College London MRC-IDE team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/pwa.js"></script>
+    <script src="js/error-handler.js"></script>
+    <script src="js/collaboration.js"></script>
+    <script src="js/code-execution.js"></script>
 </body>
 </html>
