@@ -67,6 +67,388 @@
     100% { transform: scale(1); }
 }
 
+/* Enhanced R Studio Layout */
+.r-studio-body {
+    display: flex;
+    gap: var(--spacing-4);
+    height: 600px;
+    overflow: hidden;
+}
+
+.r-studio-left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.r-studio-right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    min-width: 0;
+}
+
+/* Code Editor */
+.code-editor {
+    flex: 1;
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--spacing-3);
+}
+
+.code-editor pre {
+    margin: 0;
+    padding: var(--spacing-4);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    overflow: auto;
+    height: 100%;
+}
+
+.code-editor code {
+    color: var(--text-primary);
+}
+
+/* Code Controls */
+.code-controls {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+}
+
+.run-btn, .reset-btn {
+    padding: var(--spacing-2) var(--spacing-3);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+}
+
+.run-btn {
+    background: var(--success-color);
+    color: white;
+}
+
+.run-btn:hover {
+    background: #229954;
+    transform: translateY(-1px);
+}
+
+.reset-btn {
+    background: var(--warning-color);
+    color: white;
+}
+
+.reset-btn:hover {
+    background: #e67e22;
+    transform: translateY(-1px);
+}
+
+/* Parameter Controls */
+.parameter-controls-enhanced {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-3);
+}
+
+.parameter-controls-enhanced h4 {
+    margin: 0 0 var(--spacing-3) 0;
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.param-group {
+    margin-bottom: var(--spacing-3);
+}
+
+.param-group label {
+    display: block;
+    margin-bottom: var(--spacing-2);
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.slider-container input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--background-tertiary);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.slider-value {
+    min-width: 40px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+}
+
+/* Model Outputs */
+.model-outputs {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.model-outputs h4 {
+    margin: 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.output-tabs {
+    display: flex;
+    background: var(--background-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.output-tab {
+    flex: 1;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: none;
+    background: none;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    border-bottom: 2px solid transparent;
+}
+
+.output-tab:hover {
+    color: var(--text-primary);
+    background: var(--background-secondary);
+}
+
+.output-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--background-primary);
+}
+
+.output-content {
+    display: none;
+    flex: 1;
+    padding: var(--spacing-4);
+    overflow: auto;
+}
+
+.output-content.active {
+    display: block;
+}
+
+/* Plot Tab */
+.plot-container {
+    text-align: center;
+    margin-bottom: var(--spacing-3);
+}
+
+.plot-container canvas {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: white;
+}
+
+.plot-controls {
+    display: flex;
+    gap: var(--spacing-2);
+    justify-content: center;
+}
+
+/* Data Tab */
+.data-table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+
+.data-table th,
+.data-table td {
+    padding: var(--spacing-2);
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.data-table th {
+    background: var(--background-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.data-table td {
+    color: var(--text-secondary);
+}
+
+/* Summary Tab */
+.summary-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-2) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.stat-value {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Console Output */
+.console-output {
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.console-output h4 {
+    margin: 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.console-content {
+    padding: var(--spacing-4);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.console-content p {
+    margin: var(--spacing-1) 0;
+    line-height: 1.4;
+}
+
+.console-content .timestamp {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-right: var(--spacing-2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .r-studio-body {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .r-studio-left-panel,
+    .r-studio-right-panel {
+        flex: none;
+    }
+    
+    .code-editor {
+        height: 300px;
+    }
+    
+    .model-outputs {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .r-studio-body {
+        gap: var(--spacing-3);
+    }
+    
+    .parameter-controls-enhanced,
+    .model-outputs,
+    .console-output {
+        padding: var(--spacing-3);
+    }
+    
+    .slider-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-2);
+    }
+    
+    .slider-value {
+        text-align: center;
+        padding: var(--spacing-1);
+        background: var(--background-tertiary);
+        border-radius: var(--radius-sm);
+    }
+}
+
 /* Enhanced Button Styles */
 .btn {
     display: inline-flex;

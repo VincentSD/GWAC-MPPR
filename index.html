@@ -257,8 +257,10 @@
                                 </div>
                             </div>
                             <div class="r-studio-body">
-                                <div class="code-editor">
-                                    <pre><code class="language-r" id="odin-code"># SIR Model with odin
+                                <!-- Left Panel: Code Editor and Controls -->
+                                <div class="r-studio-left-panel">
+                                    <div class="code-editor">
+                                        <pre><code class="language-r" id="odin-code"># SIR Model with odin
 library(odin)
 
 sir_model <- odin({
@@ -287,52 +289,111 @@ result <- mod$run(t)
 plot(result[, "time"], result[, "I"], type = "l", 
      xlab = "Time", ylab = "Infected", 
      main = "SIR Model Simulation")</code></pre>
+                                    </div>
+                                    
+                                    <div class="code-controls">
+                                        <button class="run-btn" onclick="runOdinCode()">▶️ Run Code</button>
+                                        <button class="reset-btn" onclick="resetOdinCode()">🔄 Reset</button>
+                                    </div>
                                 </div>
-                                <div class="code-controls">
-                                    <button class="run-btn" onclick="runOdinCode()">▶️ Run Code</button>
-                                    <button class="reset-btn" onclick="resetOdinCode()">🔄 Reset</button>
-                                </div>
-                                
-                                <!-- Enhanced Parameter Controls -->
-                                <div class="parameter-controls-enhanced" id="parameter-controls">
-                                    <h4>Adjust Model Parameters:</h4>
-                                    <div class="param-group">
-                                        <label for="beta-param">Transmission Rate (β):</label>
-                                        <div class="slider-container">
-                                            <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
-                                            <span class="slider-value" id="beta-value">0.3</span>
+
+                                <!-- Right Panel: Parameters and Outputs -->
+                                <div class="r-studio-right-panel">
+                                    <!-- Parameter Controls -->
+                                    <div class="parameter-controls-enhanced" id="parameter-controls">
+                                        <h4>🎛️ Model Parameters</h4>
+                                        <div class="param-group">
+                                            <label for="beta-param">Transmission Rate (β):</label>
+                                            <div class="slider-container">
+                                                <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
+                                                <span class="slider-value" id="beta-value">0.3</span>
+                                            </div>
+                                        </div>
+                                        <div class="param-group">
+                                            <label for="gamma-param">Recovery Rate (γ):</label>
+                                            <div class="slider-container">
+                                                <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
+                                                <span class="slider-value" id="gamma-value">0.1</span>
+                                            </div>
+                                        </div>
+                                        <div class="param-group">
+                                            <label for="population-param">Population (N):</label>
+                                            <div class="slider-container">
+                                                <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
+                                                <span class="slider-value" id="population-value">1000</span>
+                                            </div>
+                                        </div>
+                                        <button id="run-with-params" class="run-btn enhanced">▶️ Run with New Parameters</button>
+                                    </div>
+
+                                    <!-- Model Outputs -->
+                                    <div class="model-outputs" id="model-outputs">
+                                        <h4>📊 Model Results</h4>
+                                        <div class="output-tabs">
+                                            <button class="output-tab active" data-tab="plot">Plot</button>
+                                            <button class="output-tab" data-tab="data">Data</button>
+                                            <button class="output-tab" data-tab="summary">Summary</button>
+                                        </div>
+                                        
+                                        <!-- Plot Tab -->
+                                        <div class="output-content active" id="plot-tab">
+                                            <div class="plot-container">
+                                                <canvas id="sir-plot-main" width="500" height="300"></canvas>
+                                            </div>
+                                            <div class="plot-controls">
+                                                <button id="update-plot" class="btn btn-primary">📊 Update Plot</button>
+                                                <button id="download-plot" class="btn btn-secondary">💾 Download</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Data Tab -->
+                                        <div class="output-content" id="data-tab">
+                                            <div class="data-table-container">
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Time</th>
+                                                            <th>Susceptible</th>
+                                                            <th>Infected</th>
+                                                            <th>Recovered</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="data-table-body">
+                                                        <tr><td colspan="4">Run the model to see data</td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Summary Tab -->
+                                        <div class="output-content" id="summary-tab">
+                                            <div class="summary-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-label">Peak Infections:</span>
+                                                    <span class="stat-value" id="peak-infections">-</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-label">Peak Time:</span>
+                                                    <span class="stat-value" id="peak-time">-</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-label">Total Recovered:</span>
+                                                    <span class="stat-value" id="total-recovered">-</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-label">R₀ (Basic Reproduction):</span>
+                                                    <span class="stat-value" id="r-naught">-</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="param-group">
-                                        <label for="gamma-param">Recovery Rate (γ):</label>
-                                        <div class="slider-container">
-                                            <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
-                                            <span class="slider-value" id="gamma-value">0.1</span>
+
+                                    <!-- Console Output -->
+                                    <div class="console-output" id="odin-output">
+                                        <h4>💻 Console Output</h4>
+                                        <div class="console-content">
+                                            <p>Click "Run Code" to execute this SIR model simulation!</p>
                                         </div>
-                                    </div>
-                                    <div class="param-group">
-                                        <label for="population-param">Population (N):</label>
-                                        <div class="slider-container">
-                                            <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
-                                            <span class="slider-value" id="population-value">1000</span>
-                                        </div>
-                                    </div>
-                                    <button id="run-with-params" class="run-btn enhanced">▶️ Run with New Parameters</button>
-                                </div>
-                                
-                                <div class="code-output" id="odin-output">
-                                    <p>Click "Run Code" to execute this SIR model simulation!</p>
-                                </div>
-                                
-                                <!-- Interactive Plots Section -->
-                                <div class="plots-section" id="plots-section">
-                                    <h4>Model Outputs:</h4>
-                                    <div class="plot-container">
-                                        <canvas id="sir-plot-main" width="600" height="400"></canvas>
-                                    </div>
-                                    <div class="plot-controls">
-                                        <button id="update-plot" class="btn btn-primary">📊 Update Plot</button>
-                                        <button id="download-plot" class="btn btn-secondary">💾 Download Plot</button>
                                     </div>
                                 </div>
                             </div>
@@ -677,5 +738,6 @@ library(dust2)</code></pre>
     <script src="js/error-handler.js"></script>
     <script src="js/collaboration.js"></script>
     <script src="js/code-execution.js"></script>
+    <script src="js/odin-model.js"></script>
 </body>
 </html>

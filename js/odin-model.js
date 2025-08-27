@@ -1,176 +1,135 @@
-// Interactive odin SIR Model for G-WAC Short Course
-class OdinSIRModel {
+// Enhanced Odin Model JavaScript for G-WAC Short Course
+class OdinModelManager {
     constructor() {
-        this.canvas = document.getElementById('sir-plot');
-        this.ctx = this.canvas.getContext('2d');
-        this.parameters = {
-            population: 1000,
-            transmission: 0.3,
-            recovery: 0.1,
-            initialInfected: 1
-        };
-        this.results = null;
+        this.currentModel = null;
+        this.currentResult = null;
         this.init();
     }
 
     init() {
+        this.setupTabSwitching();
+        this.setupParameterControls();
         this.setupEventListeners();
-        this.setupCanvas();
-        this.runSimulation();
+        this.initializeCanvas();
     }
 
-    setupEventListeners() {
-        // Parameter controls
-        const populationSlider = document.getElementById('population');
-        const transmissionSlider = document.getElementById('transmission');
-        const recoverySlider = document.getElementById('recovery');
-        const initialInfectedSlider = document.getElementById('initial-infected');
+    setupTabSwitching() {
+        const outputTabs = document.querySelectorAll('.output-tab');
+        const outputContents = document.querySelectorAll('.output-content');
 
-        if (populationSlider) {
-            populationSlider.addEventListener('input', (e) => {
-                this.parameters.population = parseInt(e.target.value);
-                document.getElementById('population-value').textContent = e.target.value;
-                this.updateR0();
-            });
-        }
-
-        if (transmissionSlider) {
-            transmissionSlider.addEventListener('input', (e) => {
-                this.parameters.transmission = parseFloat(e.target.value);
-                document.getElementById('transmission-value').textContent = e.target.value;
-                this.updateR0();
-            });
-        }
-
-        if (recoverySlider) {
-            recoverySlider.addEventListener('input', (e) => {
-                this.parameters.recovery = parseFloat(e.target.value);
-                document.getElementById('recovery-value').textContent = e.target.value;
-                this.updateR0();
-            });
-        }
-
-        if (initialInfectedSlider) {
-            initialInfectedSlider.addEventListener('input', (e) => {
-                this.parameters.initialInfected = parseInt(e.target.value);
-                document.getElementById('initial-infected-value').textContent = e.target.value;
-            });
-        }
-
-        // Model controls
-        const runButton = document.getElementById('run-model');
-        const resetButton = document.getElementById('reset-model');
-
-        if (runButton) {
-            runButton.addEventListener('click', () => this.runSimulation());
-        }
-
-        if (resetButton) {
-            resetButton.addEventListener('click', () => this.resetParameters());
-        }
-
-        // Tab switching
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                this.switchTab(button.dataset.tab);
+        outputTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                outputTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update active content
+                outputContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${targetTab}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
             });
         });
     }
 
-    setupCanvas() {
-        // Set canvas size for high DPI displays
-        const dpr = window.devicePixelRatio || 1;
-        const rect = this.canvas.getBoundingClientRect();
-        
-        this.canvas.width = rect.width * dpr;
-        this.canvas.height = rect.height * dpr;
-        this.ctx.scale(dpr, dpr);
-        
-        this.canvas.style.width = rect.width + 'px';
-        this.canvas.style.height = rect.height + 'px';
+    setupParameterControls() {
+        // Setup slider value updates
+        const sliders = document.querySelectorAll('input[type="range"]');
+        sliders.forEach(slider => {
+            const valueDisplay = slider.nextElementSibling;
+            slider.addEventListener('input', () => {
+                valueDisplay.textContent = slider.value;
+            });
+        });
+
+        // Setup run with parameters button
+        const runWithParamsBtn = document.getElementById('run-with-params');
+        if (runWithParamsBtn) {
+            runWithParamsBtn.addEventListener('click', () => {
+                this.runModelWithParameters();
+            });
+        }
     }
 
-    switchTab(tabName) {
-        // Remove active class from all tabs and content
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        
-        // Add active class to selected tab and content
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-        document.getElementById(`${tabName}-tab`).classList.add('active');
+    setupEventListeners() {
+        // Setup update plot button
+        const updatePlotBtn = document.getElementById('update-plot');
+        if (updatePlotBtn) {
+            updatePlotBtn.addEventListener('click', () => {
+                this.updatePlot();
+            });
+        }
+
+        // Setup download plot button
+        const downloadPlotBtn = document.getElementById('download-plot');
+        if (downloadPlotBtn) {
+            downloadPlotBtn.addEventListener('click', () => {
+                this.downloadPlot();
+            });
+        }
     }
 
-    updateR0() {
-        const r0 = this.parameters.transmission / this.parameters.recovery;
-        document.getElementById('r0-value').textContent = r0.toFixed(2);
+    initializeCanvas() {
+        const canvas = document.getElementById('sir-plot-main');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#f8f9fa';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw placeholder text
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Run the model to see the plot', canvas.width / 2, canvas.height / 2);
+        }
     }
 
-    resetParameters() {
-        this.parameters = {
-            population: 1000,
-            transmission: 0.3,
-            recovery: 0.1,
-            initialInfected: 1
-        };
+    runModelWithParameters() {
+        // Get current parameter values
+        const beta = parseFloat(document.getElementById('beta-param').value);
+        const gamma = parseFloat(document.getElementById('gamma-param').value);
+        const population = parseInt(document.getElementById('population-param').value);
 
-        // Update sliders
-        document.getElementById('population').value = 1000;
-        document.getElementById('transmission').value = 0.3;
-        document.getElementById('recovery').value = 0.1;
-        document.getElementById('initial-infected').value = 1;
+        // Update console output
+        this.updateConsoleOutput(`Running SIR model with parameters:
+β (Transmission Rate): ${beta}
+γ (Recovery Rate): ${gamma}
+N (Population): ${population}`);
 
-        // Update display values
-        document.getElementById('population-value').textContent = '1000';
-        document.getElementById('transmission-value').textContent = '0.3';
-        document.getElementById('recovery-value').textContent = '0.1';
-        document.getElementById('initial-infected-value').textContent = '1';
-
-        this.updateR0();
-        this.runSimulation();
+        // Simulate model run (in real implementation, this would call actual R/odin code)
+        this.simulateModelRun(beta, gamma, population);
     }
 
-    runSimulation() {
-        // Simulate SIR model using numerical integration (Euler method)
-        this.results = this.simulateSIR();
-        this.plotResults();
-        this.updateTable();
-        this.updateMetrics();
-    }
-
-    simulateSIR() {
-        const { population, transmission, recovery, initialInfected } = this.parameters;
-        const dt = 0.1; // Time step
-        const tMax = 100; // Maximum time
-        const steps = Math.floor(tMax / dt);
-        
+    simulateModelRun(beta, gamma, population) {
+        // Simulate SIR model results
+        const timeSteps = 100;
+        const dt = 1.0;
         const results = {
             time: [],
             S: [],
             I: [],
-            R: [],
-            incidence: []
+            R: []
         };
 
         // Initial conditions
-        let S = population - initialInfected;
-        let I = initialInfected;
+        let S = population - 1;
+        let I = 1;
         let R = 0;
 
-        for (let i = 0; i <= steps; i++) {
-            const t = i * dt;
-            
-            // Store current values
-            results.time.push(t);
+        for (let t = 0; t <= timeSteps; t++) {
+            results.time.push(t * dt);
             results.S.push(S);
             results.I.push(I);
             results.R.push(R);
-            results.incidence.push(transmission * S * I / population);
 
-            // Euler integration
-            const dS = -transmission * S * I / population;
-            const dI = transmission * S * I / population - recovery * I;
-            const dR = recovery * I;
+            // Simple Euler integration
+            const dS = -beta * S * I / population;
+            const dI = beta * S * I / population - gamma * I;
+            const dR = gamma * I;
 
             S += dS * dt;
             I += dI * dt;
@@ -182,154 +141,253 @@ class OdinSIRModel {
             R = Math.max(0, R);
         }
 
-        return results;
+        this.currentResult = results;
+        this.updateAllOutputs(results);
+        this.updateConsoleOutput('Model simulation completed successfully!');
     }
 
-    plotResults() {
-        if (!this.results) return;
+    updateAllOutputs(results) {
+        this.updatePlot(results);
+        this.updateDataTable(results);
+        this.updateSummaryStats(results);
+    }
 
-        const { time, S, I, R } = this.results;
-        
+    updatePlot(results) {
+        const canvas = document.getElementById('sir-plot-main');
+        if (!canvas || !results) return;
+
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+
         // Clear canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // Set canvas dimensions
-        const width = this.canvas.width;
-        const height = this.canvas.height;
-        const padding = 60;
-        const plotWidth = width - 2 * padding;
-        const plotHeight = height - 2 * padding;
+        ctx.clearRect(0, 0, width, height);
+
+        // Set background
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
 
         // Find data ranges
-        const maxTime = Math.max(...time);
-        const maxValue = Math.max(...S, ...I, ...R);
-
-        // Draw axes
-        this.ctx.strokeStyle = '#333';
-        this.ctx.lineWidth = 2;
-        this.ctx.beginPath();
-        this.ctx.moveTo(padding, padding);
-        this.ctx.lineTo(padding, height - padding);
-        this.ctx.lineTo(width - padding, height - padding);
-        this.ctx.stroke();
+        const maxTime = Math.max(...results.time);
+        const maxValue = Math.max(
+            Math.max(...results.S),
+            Math.max(...results.I),
+            Math.max(...results.R)
+        );
 
         // Draw grid
-        this.ctx.strokeStyle = '#eee';
-        this.ctx.lineWidth = 1;
-        for (let i = 0; i <= 10; i++) {
-            const x = padding + (i / 10) * plotWidth;
-            const y = padding + (i / 10) * plotHeight;
-            
-            this.ctx.beginPath();
-            this.ctx.moveTo(x, padding);
-            this.ctx.lineTo(x, height - padding);
-            this.ctx.stroke();
-            
-            this.ctx.beginPath();
-            this.ctx.moveTo(padding, y);
-            this.ctx.lineTo(width - padding, y);
-            this.ctx.stroke();
-        }
+        this.drawGrid(ctx, width, height, maxTime, maxValue);
 
         // Draw curves
-        this.drawCurve(time, S, '#2E86AB', 'Susceptible', padding, plotWidth, plotHeight, maxTime, maxValue);
-        this.drawCurve(time, I, '#A23B72', 'Infected', padding, plotWidth, plotHeight, maxTime, maxValue);
-        this.drawCurve(time, R, '#F18F01', 'Recovered', padding, plotWidth, plotHeight, maxTime, maxValue);
+        this.drawCurve(ctx, results.time, results.S, width, height, maxTime, maxValue, '#28a745', 'Susceptible');
+        this.drawCurve(ctx, results.time, results.I, width, height, maxTime, maxValue, '#dc3545', 'Infected');
+        this.drawCurve(ctx, results.time, results.R, width, height, maxTime, maxValue, '#007bff', 'Recovered');
 
         // Draw legend
-        this.drawLegend();
+        this.drawLegend(ctx, width, height);
     }
 
-    drawCurve(time, values, color, label, padding, plotWidth, plotHeight, maxTime, maxValue) {
-        this.ctx.strokeStyle = color;
-        this.ctx.lineWidth = 3;
-        this.ctx.beginPath();
+    drawGrid(ctx, width, height, maxTime, maxValue) {
+        ctx.strokeStyle = '#e9ecef';
+        ctx.lineWidth = 1;
 
-        for (let i = 0; i < time.length; i++) {
-            const x = padding + (time[i] / maxTime) * plotWidth;
-            const y = padding + (1 - values[i] / maxValue) * plotHeight;
+        // Vertical grid lines
+        for (let i = 0; i <= 10; i++) {
+            const x = (i / 10) * width;
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+        }
+
+        // Horizontal grid lines
+        for (let i = 0; i <= 10; i++) {
+            const y = (i / 10) * height;
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+        }
+    }
+
+    drawCurve(ctx, xData, yData, width, height, maxX, maxY, color, label) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        for (let i = 0; i < xData.length; i++) {
+            const x = (xData[i] / maxX) * width;
+            const y = height - (yData[i] / maxY) * height;
 
             if (i === 0) {
-                this.ctx.moveTo(x, y);
+                ctx.moveTo(x, y);
             } else {
-                this.ctx.lineTo(x, y);
+                ctx.lineTo(x, y);
             }
         }
 
-        this.ctx.stroke();
+        ctx.stroke();
     }
 
-    drawLegend() {
+    drawLegend(ctx, width, height) {
         const legendItems = [
-            { color: '#2E86AB', label: 'Susceptible' },
-            { color: '#A23B72', label: 'Infected' },
-            { color: '#F18F01', label: 'Recovered' }
+            { color: '#28a745', label: 'Susceptible' },
+            { color: '#dc3545', label: 'Infected' },
+            { color: '#007bff', label: 'Recovered' }
         ];
 
-        this.ctx.font = '14px Inter, sans-serif';
-        this.ctx.textAlign = 'left';
+        const legendX = width - 150;
+        const legendY = 30;
+        const itemHeight = 20;
 
         legendItems.forEach((item, index) => {
-            const y = 30 + index * 25;
-            
-            // Draw color box
-            this.ctx.fillStyle = item.color;
-            this.ctx.fillRect(20, y - 10, 20, 20);
-            
+            const y = legendY + index * itemHeight;
+
+            // Draw color line
+            ctx.strokeStyle = item.color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(legendX, y + 5);
+            ctx.lineTo(legendX + 20, y + 5);
+            ctx.stroke();
+
             // Draw label
-            this.ctx.fillStyle = '#333';
-            this.ctx.fillText(item.label, 50, y + 5);
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText(item.label, legendX + 25, y + 12);
         });
     }
 
-    updateTable() {
-        if (!this.results) return;
+    updateDataTable(results) {
+        const tableBody = document.getElementById('data-table-body');
+        if (!tableBody || !results) return;
 
-        const tableBody = document.getElementById('table-body');
-        if (!tableBody) return;
-
+        // Clear existing rows
         tableBody.innerHTML = '';
 
-        // Show every 10th data point to avoid overwhelming the table
-        for (let i = 0; i < this.results.time.length; i += 10) {
+        // Add data rows (show every 10th point to avoid overwhelming the table)
+        for (let i = 0; i < results.time.length; i += 10) {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${this.results.time[i].toFixed(1)}</td>
-                <td>${Math.round(this.results.S[i])}</td>
-                <td>${Math.round(this.results.I[i])}</td>
-                <td>${Math.round(this.results.R[i])}</td>
-                <td>${Math.round(this.results.incidence[i])}</td>
+                <td>${results.time[i].toFixed(1)}</td>
+                <td>${Math.round(results.S[i])}</td>
+                <td>${Math.round(results.I[i])}</td>
+                <td>${Math.round(results.R[i])}</td>
             `;
             tableBody.appendChild(row);
         }
     }
 
-    updateMetrics() {
-        if (!this.results) return;
+    updateSummaryStats(results) {
+        if (!results) return;
 
-        const { I, time } = this.results;
-        
         // Find peak infections
-        const peakInfections = Math.max(...I);
-        const peakIndex = I.indexOf(peakInfections);
-        const peakDay = time[peakIndex];
-        
-        // Final epidemic size (total recovered)
-        const finalSize = this.results.R[this.results.R.length - 1];
+        const maxInfections = Math.max(...results.I);
+        const peakTimeIndex = results.I.indexOf(maxInfections);
+        const peakTime = results.time[peakTimeIndex];
 
-        // Update display
-        document.getElementById('peak-infections').textContent = Math.round(peakInfections);
-        document.getElementById('peak-day').textContent = peakDay.toFixed(1);
-        document.getElementById('final-size').textContent = Math.round(finalSize);
+        // Calculate R₀ (Basic Reproduction Number)
+        const beta = parseFloat(document.getElementById('beta-param').value);
+        const gamma = parseFloat(document.getElementById('gamma-param').value);
+        const rNaught = beta / gamma;
+
+        // Update summary values
+        this.updateSummaryValue('peak-infections', Math.round(maxInfections));
+        this.updateSummaryValue('peak-time', peakTime.toFixed(1));
+        this.updateSummaryValue('total-recovered', Math.round(results.R[results.R.length - 1]));
+        this.updateSummaryValue('r-naught', rNaught.toFixed(2));
+    }
+
+    updateSummaryValue(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+
+    updateConsoleOutput(message) {
+        const consoleContent = document.querySelector('.console-content');
+        if (consoleContent) {
+            const timestamp = new Date().toLocaleTimeString();
+            const outputLine = document.createElement('p');
+            outputLine.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+            consoleContent.appendChild(outputLine);
+            
+            // Auto-scroll to bottom
+            consoleContent.scrollTop = consoleContent.scrollHeight;
+        }
+    }
+
+    updatePlot() {
+        if (this.currentResult) {
+            this.updatePlot(this.currentResult);
+        }
+    }
+
+    downloadPlot() {
+        const canvas = document.getElementById('sir-plot-main');
+        if (!canvas) return;
+
+        // Create download link
+        const link = document.createElement('a');
+        link.download = 'sir-model-plot.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    }
+
+    // Public method to run the model
+    runModel() {
+        this.runModelWithParameters();
+    }
+
+    // Public method to reset the model
+    resetModel() {
+        this.currentResult = null;
+        this.initializeCanvas();
+        this.updateConsoleOutput('Model reset. Ready for new simulation.');
+        
+        // Reset parameter sliders to default values
+        document.getElementById('beta-param').value = 0.3;
+        document.getElementById('beta-value').textContent = '0.3';
+        document.getElementById('gamma-param').value = 0.1;
+        document.getElementById('gamma-value').textContent = '0.1';
+        document.getElementById('population-param').value = 1000;
+        document.getElementById('population-value').textContent = '1000';
+        
+        // Clear data table
+        const tableBody = document.getElementById('data-table-body');
+        if (tableBody) {
+            tableBody.innerHTML = '<tr><td colspan="4">Run the model to see data</td></tr>';
+        }
+        
+        // Reset summary stats
+        this.updateSummaryValue('peak-infections', '-');
+        this.updateSummaryValue('peak-time', '-');
+        this.updateSummaryValue('total-recovered', '-');
+        this.updateSummaryValue('r-naught', '-');
     }
 }
 
-// Initialize the model when the page loads
+// Initialize Odin Model Manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('sir-plot')) {
-        new OdinSIRModel();
-    }
+    window.odinModelManager = new OdinModelManager();
 });
 
-// Export for use in other modules
-window.OdinSIRModel = OdinSIRModel;
+// Global functions for backward compatibility
+function runOdinCode() {
+    if (window.odinModelManager) {
+        window.odinModelManager.runModel();
+    }
+}
+
+function resetOdinCode() {
+    if (window.odinModelManager) {
+        window.odinModelManager.resetModel();
+    }
+}
+
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = OdinModelManager;
+}
