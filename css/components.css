@@ -331,12 +331,19 @@
 .plot-container {
     text-align: center;
     margin-bottom: var(--spacing-3);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .plot-container canvas {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     background: white;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .plot-controls {

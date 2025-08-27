@@ -12,6 +12,15 @@ class OdinModelManager {
         this.setupParameterControls();
         this.setupEventListeners();
         this.initializeCanvas();
+        
+        // Ensure Plots tab is active and visible
+        this.ensurePlotsTabActive();
+        
+        // Run the model automatically on page load to show initial results
+        setTimeout(() => {
+            console.log('Auto-running model on page load...');
+            this.runModelWithParameters();
+        }, 500);
     }
 
     setupMainTabSwitching() {
@@ -35,6 +44,22 @@ class OdinModelManager {
                 });
             });
         });
+    }
+
+    ensurePlotsTabActive() {
+        // Make sure Plots tab is active by default
+        const plotsTab = document.querySelector('.r-studio-tabs .tab[data-tab="plots"]');
+        const plotsContent = document.getElementById('plots-tab');
+        
+        if (plotsTab && plotsContent) {
+            // Remove active from all tabs and content
+            document.querySelectorAll('.r-studio-tabs .tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.r-studio-tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Activate Plots tab
+            plotsTab.classList.add('active');
+            plotsContent.classList.add('active');
+        }
     }
 
     setupOutputTabSwitching() {
@@ -100,23 +125,39 @@ class OdinModelManager {
     initializeCanvas() {
         const canvas = document.getElementById('sir-plot-main');
         if (canvas) {
+            // Set canvas size for high DPI displays
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            
             const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            
+            // Clear and draw placeholder
             ctx.fillStyle = '#f8f9fa';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, rect.width, rect.height);
             
             // Draw placeholder text
             ctx.fillStyle = '#6c757d';
             ctx.font = '16px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('Run the model to see the plot', canvas.width / 2, canvas.height / 2);
+            ctx.fillText('Loading model...', rect.width / 2, rect.height / 2);
         }
     }
 
     runModelWithParameters() {
+        console.log('Running model with parameters...');
+        
         // Get current parameter values
         const beta = parseFloat(document.getElementById('beta-param').value);
         const gamma = parseFloat(document.getElementById('gamma-param').value);
         const population = parseInt(document.getElementById('population-param').value);
+        
+        console.log('Parameters:', { beta, gamma, population });
 
         // Update console output
         this.updateConsoleOutput(`Running SIR model with parameters:
@@ -181,8 +222,9 @@ N (Population): ${population}`);
         if (!canvas || !results) return;
 
         const ctx = canvas.getContext('2d');
-        const width = canvas.width;
-        const height = canvas.height;
+        const rect = canvas.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
 
         // Clear canvas
         ctx.clearRect(0, 0, width, height);
