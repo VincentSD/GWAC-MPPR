@@ -7,20 +7,30 @@ class OdinModelManager {
     }
 
     init() {
-        this.setupMainTabSwitching();
-        this.setupOutputTabSwitching();
-        this.setupParameterControls();
-        this.setupEventListeners();
-        this.initializeCanvas();
-        
-        // Ensure Plots tab is active and visible
-        this.ensurePlotsTabActive();
-        
-        // Run the model automatically on page load to show initial results
-        setTimeout(() => {
-            console.log('Auto-running model on page load...');
-            this.runModelWithParameters();
-        }, 500);
+        try {
+            console.log('Initializing Odin Model Manager...');
+            
+            // Wait a bit for DOM to be fully ready
+            setTimeout(() => {
+                this.setupMainTabSwitching();
+                this.setupOutputTabSwitching();
+                this.setupParameterControls();
+                this.setupEventListeners();
+                this.initializeCanvas();
+                
+                // Ensure Plots tab is active and visible
+                this.ensurePlotsTabActive();
+                
+                // Run the model automatically on page load to show initial results
+                setTimeout(() => {
+                    console.log('Auto-running model on page load...');
+                    this.runModelWithParameters();
+                }, 500);
+            }, 100);
+            
+        } catch (error) {
+            console.error('Error in Odin Model Manager init:', error);
+        }
     }
 
     setupMainTabSwitching() {
@@ -47,27 +57,31 @@ class OdinModelManager {
     }
 
     ensurePlotsTabActive() {
-        console.log('Ensuring Plots tab is active...');
-        
-        // Make sure Plots tab is active by default
-        const plotsTab = document.querySelector('.r-studio-tabs .tab[data-tab="plots"]');
-        const plotsContent = document.getElementById('plots-tab');
-        
-        console.log('Plots tab element:', plotsTab);
-        console.log('Plots content element:', plotsContent);
-        
-        if (plotsTab && plotsContent) {
-            // Remove active from all tabs and content
-            document.querySelectorAll('.r-studio-tabs .tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.r-studio-tab-content').forEach(c => c.classList.remove('active'));
+        try {
+            console.log('Ensuring Plots tab is active...');
             
-            // Activate Plots tab
-            plotsTab.classList.add('active');
-            plotsContent.classList.add('active');
+            // Make sure Plots tab is active by default
+            const plotsTab = document.querySelector('.r-studio-tabs .tab[data-tab="plots"]');
+            const plotsContent = document.getElementById('plots-tab');
             
-            console.log('Plots tab activated successfully');
-        } else {
-            console.error('Could not find Plots tab elements!');
+            console.log('Plots tab element:', plotsTab);
+            console.log('Plots content element:', plotsContent);
+            
+            if (plotsTab && plotsContent) {
+                // Remove active from all tabs and content
+                document.querySelectorAll('.r-studio-tabs .tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.r-studio-tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Activate Plots tab
+                plotsTab.classList.add('active');
+                plotsContent.classList.add('active');
+                
+                console.log('Plots tab activated successfully');
+            } else {
+                console.error('Could not find Plots tab elements!');
+            }
+        } catch (error) {
+            console.error('Error in ensurePlotsTabActive:', error);
         }
     }
 
@@ -456,16 +470,24 @@ N (Population): ${population}`);
 
 // Initialize Odin Model Manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing Odin Model Manager...');
-    window.odinModelManager = new OdinModelManager();
+    try {
+        console.log('DOM loaded, initializing Odin Model Manager...');
+        window.odinModelManager = new OdinModelManager();
+    } catch (error) {
+        console.error('Error initializing Odin Model Manager:', error);
+    }
 });
 
 // Also try to initialize if DOM is already loaded
 if (document.readyState === 'loading') {
     console.log('DOM still loading...');
 } else {
-    console.log('DOM already loaded, initializing immediately...');
-    window.odinModelManager = new OdinModelManager();
+    try {
+        console.log('DOM already loaded, initializing immediately...');
+        window.odinModelManager = new OdinModelManager();
+    } catch (error) {
+        console.error('Error initializing Odin Model Manager immediately:', error);
+    }
 }
 
 // Global functions for backward compatibility
