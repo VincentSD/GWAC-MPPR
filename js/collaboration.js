@@ -25,10 +25,14 @@ class CollaborationSystem {
             });
         }
 
+        // EMERGENCY: Real-time updates disabled to prevent crashes
+        console.log('EMERGENCY: Real-time updates disabled to prevent crashes');
+        /*
         // Real-time updates
         setInterval(() => {
             this.updateCollaboratorStatus();
         }, 5000);
+        */
     }
 
     initializeUser() {

@@ -77,6 +77,9 @@ class ErrorHandler {
             }
         }
 
+        // EMERGENCY: Memory monitoring disabled to prevent crashes
+        console.log('EMERGENCY: Memory monitoring disabled to prevent crashes');
+        /*
         // Monitor memory usage
         if ('memory' in performance) {
             setInterval(() => {
@@ -90,6 +93,7 @@ class ErrorHandler {
                 }
             }, 30000); // Check every 30 seconds
         }
+        */
     }
 
     handleError(error, context = {}) {

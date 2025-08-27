@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/pwa.css">
+    <!-- PWA CSS removed to prevent memory issues -->
     <link rel="stylesheet" href="css/error-handler.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
+    <!-- PWA manifest removed to prevent memory issues -->
     <meta name="theme-color" content="#1a5f7a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -34,7 +34,7 @@
     <header class="main-header">
         <div class="header-container">
             <div class="logo-section">
-                <img src="images/g-wac-logo.svg" alt="G-WAC Logo" class="g-wac-logo">
+                <img src="images/g-wac-logo.jpeg" alt="G-WAC Logo" class="g-wac-logo">
                 <div class="title-section">
                     <h1 class="main-title">G-WAC Short Course</h1>
                     <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
@@ -52,6 +52,17 @@
                 <div class="course-badge">
                     <span class="badge-icon">💻</span>
                     <span class="badge-text">Hands-on</span>
+                </div>
+                <!-- Memory Monitor -->
+                <div class="course-badge memory-monitor" id="memory-monitor">
+                    <span class="badge-icon">💾</span>
+                    <span class="badge-text" id="memory-usage">Memory: --</span>
+                    <button class="memory-clear-btn" onclick="window.codeExecutionSystem?.moveDataToStorage()">Clear</button>
+                </div>
+                <!-- Emergency Memory Alert -->
+                <div class="emergency-alert" id="emergency-alert" style="display: none;">
+                    <span class="alert-icon">🚨</span>
+                    <span class="alert-text">MEMORY CRITICAL - Cleanup in progress</span>
                 </div>
             </div>
         </div>
@@ -244,160 +255,149 @@
                     </div>
                 </div>
 
-                <div class="interactive-demo">
+                                <div class="interactive-demo">
                     <h3>Run odin Models Live</h3>
-                    <div class="code-playground">
-                        <div class="r-studio">
-                            <div class="r-studio-header">
-                                <span class="r-studio-title">R Studio Environment</span>
-                                <div class="r-studio-tabs">
-                                    <span class="tab" data-tab="code">odin-model.R</span>
-                                    <span class="tab active" data-tab="plots">Plots</span>
-                                    <span class="tab" data-tab="console">Console</span>
+                    
+                    <div class="interactive-model">
+                        <h4>Interactive odin SIR Model</h4>
+                        <p>Use the interactive model below to explore how different parameters affect the epidemic dynamics using odin:</p>
+                        
+                        <div class="parameter-controls">
+                            <div class="parameter-group">
+                                <label for="beta-param">Transmission Rate (β):</label>
+                                <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
+                                <span id="beta-value">0.3</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="gamma-param">Recovery Rate (γ):</label>
+                                <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
+                                <span id="gamma-value">0.1</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="population-param">Total Population (N):</label>
+                                <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
+                                <span id="population-value">1000</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="initial-infected-param">Initial Infected:</label>
+                                <input type="range" id="initial-infected-param" min="1" max="100" value="1" step="1">
+                                <span id="initial-infected-value">1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="model-controls">
+                            <button id="run-model-main" class="run-btn">▶️ Run Simulation</button>
+                            <button id="reset-model-main" class="reset-btn">🔄 Reset Parameters</button>
+                        </div>
+                        
+                        <div class="model-output">
+                            <div class="output-tabs">
+                                <button class="tab-btn active" data-tab="plot-main">📊 Epidemic Curve</button>
+                                <button class="tab-btn" data-tab="table-main">📋 Results Table</button>
+                                <button class="tab-btn" data-tab="metrics-main">📈 Key Metrics</button>
+                                <button class="tab-btn" data-tab="code-main">💻 Model Code</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="plot-main-tab">
+                                <div class="plot-container">
+                                    <canvas id="sir-plot-main" width="800" height="500"></canvas>
                                 </div>
                             </div>
-                            <div class="r-studio-body">
-                                <!-- Code Tab -->
-                                <div class="r-studio-tab-content active" id="code-tab">
-                                    <div class="code-editor">
-                                        <pre><code class="language-r" id="odin-code"># SIR Model with odin
+                            
+                            <div class="tab-content" id="table-main-tab">
+                                <div class="table-container">
+                                    <table id="results-table-main">
+                                        <thead>
+                                            <tr>
+                                                <th>Time (days)</th>
+                                                <th>Susceptible</th>
+                                                <th>Infected</th>
+                                                <th>Recovered</th>
+                                                <th>Incidence</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body-main">
+                                            <!-- Results will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="metrics-main-tab">
+                                <div class="metrics-container">
+                                    <div class="metric">
+                                        <h4>Basic Reproduction Number (R₀)</h4>
+                                        <p id="r0-value-main">3.0</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Peak Infections</h4>
+                                        <p id="peak-infections-main">-</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Peak Day</h4>
+                                        <p id="peak-day-main">-</p>
+                                    </div>
+                                    <div class="metric">
+                                        <h4>Final Epidemic Size</h4>
+                                        <p id="final-size-main">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="code-main-tab">
+                                <div class="code-container">
+                                    <h4>odin SIR Model Implementation</h4>
+                                    <div class="code-block">
+                                        <pre><code class="language-r"># SIR Model using odin
 library(odin)
 
-sir_model <- odin({
-  # Initial conditions
-  initial(S) <- N - I0 - R0
-  initial(I) <- I0
-  initial(R) <- R0
-  
-  # Parameters
-  N <- user(1000)    # Total population
-  I0 <- user(1)      # Initial infected
-  R0 <- user(0)      # Initial recovered
-  beta <- user(0.3)  # Transmission rate
-  gamma <- user(0.1) # Recovery rate
-  
-  # Derivatives
-  deriv(S) <- -beta * S * I / N
-  deriv(I) <- beta * S * I / N - gamma * I
-  deriv(R) <- gamma * I
+# Define the SIR model
+sir_model <- odin::odin({
+    ## Core equations for transitions between compartments:
+    deriv(S) <- -beta * S * I / N
+    deriv(I) <- beta * S * I / N - gamma * I
+    deriv(R) <- gamma * I
+    
+    ## Total population size (sum of all compartments)
+    N <- S + I + R
+    
+    ## Initial conditions
+    initial(S) <- S0
+    initial(I) <- I0
+    initial(R) <- R0
+    
+    ## User defined parameters
+    beta <- user(0.3)    # Transmission rate
+    gamma <- user(0.1)   # Recovery rate
+    S0 <- user(999)      # Initial susceptible
+    I0 <- user(1)        # Initial infected
+    R0 <- user(0)        # Initial recovered
 })
 
+# Create model instance
+model <- sir_model(beta = 0.3, gamma = 0.1, S0 = 999, I0 = 1, R0 = 0)
+
 # Run the model
-mod <- sir_model()
 t <- seq(0, 100, by = 0.1)
-result <- mod$run(t)
-plot(result[, "time"], result[, "I"], type = "l", 
-     xlab = "Time", ylab = "Infected", 
-     main = "SIR Model Simulation")</code></pre>
-                                    </div>
-                                    
-                                    <div class="code-controls">
-                                        <button class="run-btn" onclick="runOdinCode()">▶️ Run Code</button>
-                                        <button class="reset-btn" onclick="resetOdinCode()">🔄 Reset</button>
-                                    </div>
-                                </div>
+result <- model$run(t)
 
-                                <!-- Plots Tab (Default Active) -->
-                                <div class="r-studio-tab-content" id="plots-tab">
-                                    <div class="plots-tab-container">
-                                        <!-- Parameter Controls -->
-                                        <div class="parameter-controls-enhanced" id="parameter-controls">
-                                            <h4>🎛️ Model Parameters</h4>
-                                            <div class="param-group">
-                                                <label for="beta-param">Transmission Rate (β):</label>
-                                                <div class="slider-container">
-                                                    <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
-                                                    <span class="slider-value" id="beta-value">0.3</span>
-                                                </div>
-                                            </div>
-                                            <div class="param-group">
-                                                <label for="gamma-param">Recovery Rate (γ):</label>
-                                                <div class="slider-container">
-                                                    <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
-                                                    <span class="slider-value" id="gamma-value">0.1</span>
-                                                </div>
-                                            </div>
-                                            <div class="param-group">
-                                                <label for="population-param">Population (N):</label>
-                                                <div class="slider-container">
-                                                    <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
-                                                    <span class="slider-value" id="population-value">1000</span>
-                                                </div>
-                                            </div>
-                                            <button id="run-with-params" class="run-btn enhanced">▶️ Run with New Parameters</button>
-                                        </div>
+# Extract results
+S <- result[, "S"]
+I <- result[, "I"]
+R <- result[, "R"]
+time <- result[, "t"]
 
-                                        <!-- Model Outputs -->
-                                        <div class="model-outputs" id="model-outputs">
-                                            <h4>📊 Model Results</h4>
-                                            <div class="output-tabs">
-                                                <button class="output-tab active" data-tab="plot">Plot</button>
-                                                <button class="output-tab" data-tab="data">Data</button>
-                                                <button class="output-tab" data-tab="summary">Summary</button>
-                                            </div>
-                                            
-                                            <!-- Plot Tab -->
-                                            <div class="output-content active" id="plot-tab">
-                                                <div class="plot-container">
-                                                    <canvas id="sir-plot-main" width="600" height="400"></canvas>
-                                                </div>
-                                                <div class="plot-controls">
-                                                    <button id="update-plot" class="btn btn-primary">📊 Update Plot</button>
-                                                    <button id="download-plot" class="btn btn-secondary">💾 Download</button>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Data Tab -->
-                                            <div class="output-content" id="data-tab">
-                                                <div class="data-table-container">
-                                                    <table class="data-table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Time</th>
-                                                                <th>Susceptible</th>
-                                                                <th>Infected</th>
-                                                                <th>Recovered</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="data-table-body">
-                                                            <tr><td colspan="4">Run the model to see data</td></tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Summary Tab -->
-                                            <div class="output-content" id="summary-tab">
-                                                <div class="summary-stats">
-                                                    <div class="stat-item">
-                                                        <span class="stat-label">Peak Infections:</span>
-                                                        <span class="stat-value" id="peak-infections">-</span>
-                                                    </div>
-                                                    <div class="stat-item">
-                                                        <span class="stat-label">Peak Time:</span>
-                                                        <span class="stat-value" id="peak-time">-</span>
-                                                    </div>
-                                                    <div class="stat-item">
-                                                        <span class="stat-label">Total Recovered:</span>
-                                                        <span class="stat-value" id="total-recovered">-</span>
-                                                    </div>
-                                                    <div class="stat-item">
-                                                        <span class="stat-label">R₀ (Basic Reproduction):</span>
-                                                        <span class="stat-value" id="r-naught">-</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Console Tab -->
-                                <div class="r-studio-tab-content" id="console-tab">
-                                    <div class="console-output" id="odin-output">
-                                        <h4>💻 Console Output</h4>
-                                        <div class="console-content">
-                                            <p>Click "Run Code" to execute this SIR model simulation!</p>
-                                        </div>
+# Plot results
+plot(time, S, type = "l", col = "green", lwd = 2, 
+     xlab = "Time (days)", ylab = "Population",
+     main = "SIR Model Results")
+lines(time, I, col = "red", lwd = 2)
+lines(time, R, col = "blue", lwd = 2)
+legend("topright", legend = c("Susceptible", "Infected", "Recovered"),
+       col = c("green", "red", "blue"), lwd = 2)</code></pre>
                                     </div>
                                 </div>
                             </div>
@@ -717,7 +717,7 @@ library(dust2)</code></pre>
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-branding">
-                    <img src="images/g-wac-logo.svg" alt="G-WAC Logo" class="footer-logo">
+                    <img src="images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
                     <div class="footer-text">
                         <p class="footer-title">G-WAC Short Course</p>
                         <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
@@ -738,7 +738,7 @@ library(dust2)</code></pre>
     <!-- Scripts -->
     <script src="js/script.js"></script>
     <script src="js/theme-toggle.js"></script>
-    <script src="js/pwa.js"></script>
+    <!-- PWA script removed to prevent memory issues -->
     <script src="js/error-handler.js"></script>
     <script src="js/collaboration.js"></script>
     <script src="js/code-execution.js"></script>

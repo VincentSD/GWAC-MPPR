@@ -291,6 +291,7 @@ result_df <- as.data.frame(result)</code></pre>
                                 <button class="tab-btn active" data-tab="plot">📊 Epidemic Curve</button>
                                 <button class="tab-btn" data-tab="table">📋 Results Table</button>
                                 <button class="tab-btn" data-tab="metrics">📈 Key Metrics</button>
+                                <button class="tab-btn" data-tab="code">💻 Model Code</button>
                             </div>
                             
                             <div class="tab-content active" id="plot-tab">
@@ -335,6 +336,66 @@ result_df <- as.data.frame(result)</code></pre>
                                     <div class="metric">
                                         <h4>Final Epidemic Size</h4>
                                         <p id="final-size">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="code-tab">
+                                <div class="code-container">
+                                    <h4>SIR Model Implementation</h4>
+                                    <div class="code-block">
+                                        <pre><code class="language-r"># SIR Model Differential Equations
+# dS/dt = -β * S * I / N
+# dI/dt = β * S * I / N - γ * I  
+# dR/dt = γ * I
+
+# Parameters
+N <- 1000        # Total population
+β <- 0.3         # Transmission rate
+γ <- 0.1         # Recovery rate
+I0 <- 1          # Initial infected
+
+# Initial conditions
+S0 <- N - I0     # Initial susceptible
+R0 <- 0          # Initial recovered
+
+# Time steps
+time_steps <- 100
+dt <- 0.1
+
+# Arrays to store results
+S <- numeric(time_steps)
+I <- numeric(time_steps)
+R <- numeric(time_steps)
+time <- numeric(time_steps)
+
+# Set initial values
+S[1] <- S0
+I[1] <- I0
+R[1] <- R0
+time[1] <- 0
+
+# Euler integration
+for (i in 2:time_steps) {
+    # Calculate rates
+    infection_rate <- β * S[i-1] * I[i-1] / N
+    recovery_rate <- γ * I[i-1]
+    
+    # Update compartments
+    S[i] <- S[i-1] - infection_rate * dt
+    I[i] <- I[i-1] + infection_rate * dt - recovery_rate * dt
+    R[i] <- R[i-1] + recovery_rate * dt
+    
+    # Ensure population conservation
+    S[i] <- max(0, S[i])
+    I[i] <- max(0, I[i])
+    R[i] <- max(0, R[i])
+    
+    # Update time
+    time[i] <- time[i-1] + dt
+}
+
+# Results are now in S, I, R, and time arrays</code></pre>
                                     </div>
                                 </div>
                             </div>
@@ -452,6 +513,5 @@ result_df <- as.data.frame(result)</code></pre>
     <script src="../js/script.js"></script>
     <script src="../js/collaboration.js"></script>
     <script src="../js/code-execution.js"></script>
-    <script src="../js/odin-model.js"></script>
 </body>
 </html>

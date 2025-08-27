@@ -119,13 +119,51 @@ body {
     justify-content: center;
     gap: var(--spacing-6);
     margin-bottom: var(--spacing-8);
+    padding: var(--spacing-4);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .g-wac-logo {
-    width: 80px;
-    height: 80px;
+    width: 200px;
+    height: auto;
+    max-height: 80px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Make logo white */
+    filter: none; /* Remove white filter to show original colors */
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: logoFadeIn 1s ease-out;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.g-wac-logo:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+    filter: brightness(1.1);
+}
+
+.g-wac-logo:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.g-wac-logo:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
 }
 
 .title-section {
@@ -169,8 +207,67 @@ body {
 }
 
 .badge-text {
-    font-weight: 500;
     font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: white;
+}
+
+/* Memory monitor styles */
+.memory-monitor {
+    position: relative;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.memory-clear-btn {
+    background: rgba(220, 53, 69, 0.8);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: all 0.2s ease;
+}
+
+.memory-clear-btn:hover {
+    background: rgba(220, 53, 69, 1);
+    transform: scale(1.05);
+}
+
+.memory-clear-btn:active {
+    transform: scale(0.95);
+}
+
+/* Emergency memory alert styles */
+.emergency-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+    z-index: 10000;
+    animation: emergencyPulse 2s infinite;
+    border: 2px solid #ff4757;
+}
+
+.emergency-alert .alert-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.emergency-alert .alert-text {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@keyframes emergencyPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* Navigation Styles */
@@ -1014,10 +1111,17 @@ main {
 }
 
 .footer-logo {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: auto;
+    max-height: 60px;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1); /* Keep white for footer */
+    opacity: 1;
+    display: block;
+}
+
+.footer-logo:hover {
+    opacity: 1;
 }
 
 .footer-title {
@@ -1107,11 +1211,14 @@ main {
     .logo-section {
         flex-direction: column;
         gap: var(--spacing-4);
+        padding: var(--spacing-3);
+        background: rgba(255, 255, 255, 0.03);
     }
     
     .g-wac-logo {
-        width: 60px;
-        height: 60px;
+        width: 150px;
+        height: auto;
+        max-height: 60px;
     }
     
     .nav-list {

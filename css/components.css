@@ -412,6 +412,43 @@
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
+/* Code Container */
+.code-container {
+    padding: var(--spacing-4);
+}
+
+.code-container h4 {
+    margin-bottom: var(--spacing-3);
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+}
+
+.code-block {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: var(--spacing-4);
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
 /* Console Output */
 .console-output {
     background: var(--background-primary);

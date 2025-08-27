@@ -475,6 +475,9 @@ sir_model <- function(population, transmission, recovery, age_groups) {
             'Ready for the code review session at 2 PM?'
         ];
 
+        // EMERGENCY: Auto-messaging disabled to prevent crashes
+        console.log('EMERGENCY: Auto-messaging disabled to prevent crashes');
+        /*
         let messageIndex = 0;
         setInterval(() => {
             if (messageIndex < messages.length) {
@@ -482,6 +485,7 @@ sir_model <- function(population, transmission, recovery, age_groups) {
                 messageIndex++;
             }
         }, 10000); // Send message every 10 seconds
+        */
     }
 
     receiveChatMessage(message, sender) {
