@@ -420,26 +420,38 @@ class GWACApp {
     }
 
     updateProgressOnNavigation() {
-        // Mark modules as completed when navigating to them
+        // Only mark the current page's module as completed, not all modules
         const currentPath = window.location.pathname;
         const moduleMap = {
             'git-basics.html': 'git-basics',
             'github-collaboration.html': 'github-collaboration',
             'r-git-workflow.html': 'r-git-workflow',
             'odin-intro.html': 'odin-intro',
-            'monty-fitting.html': 'monty-fitting',
+            'monty-fitting.html': 'odin-intro', // This seems to be the main page
             'advanced-modeling.html': 'advanced-modeling'
         };
         
-        Object.entries(moduleMap).forEach(([path, module]) => {
-            {
-                localStorage.setItem(`module-${module}-completed`, 'true');
+        // Find the current module
+        const currentModule = Object.entries(moduleMap).find(([path, module]) => 
+            currentPath.includes(path) || currentPath.includes(module)
+        );
+        
+        if (currentModule) {
+            const [, moduleName] = currentModule;
+            // Only mark current module as completed if not already marked
+            if (!localStorage.getItem(`module-${moduleName}-completed`)) {
+                localStorage.setItem(`module-${moduleName}-completed`, 'true');
                 this.updateProgress();
             }
-        });
+        }
     }
 
     showCompletionCelebration() {
+        // Check if user has already seen the completion modal
+        if (localStorage.getItem('completion-modal-shown')) {
+            return;
+        }
+        
         const celebration = document.createElement('div');
         celebration.className = 'completion-celebration-popup';
         celebration.innerHTML = `
@@ -447,13 +459,19 @@ class GWACApp {
                 <h2>🎉 Congratulations!</h2>
                 <p>You've completed the entire G-WAC Short Course!</p>
                 <div class="celebration-actions">
-                    <button onclick="this.downloadCertificate()">📄 Download Certificate</button>
-                    <button onclick="this.closeCelebration()">Close</button>
+                    <button onclick="window.gwacApp.downloadCertificate()">📄 Download Certificate</button>
+                    <button onclick="window.gwacApp.closeCelebration()">Close</button>
                 </div>
             </div>
         `;
         
         document.body.appendChild(celebration);
+        
+        // Mark as shown so it won't appear again
+        localStorage.setItem('completion-modal-shown', 'true');
+        
+        // For testing purposes, you can uncomment the next line to reset the completion state
+        // localStorage.removeItem('completion-modal-shown');
         
         // Auto-remove after 10 seconds
         setTimeout(() => {
@@ -463,64 +481,71 @@ class GWACApp {
         }, 10000);
     }
 
-    initThemeToggle() {
-        // Create theme toggle button
-        this.createThemeToggle();
-        
-        // Load saved theme preference
-        this.loadThemePreference();
-        
-        // Add theme toggle event listener
-        this.setupThemeToggle();
-        
-        // Initialize copy functionality
-        this.initCopyFunctionality();
-    }
-
-    createThemeToggle() {
-        const toggle = document.createElement('div');
-        toggle.className = 'theme-toggle';
-        toggle.innerHTML = '<span class="icon">🌙</span>';
-        toggle.setAttribute('aria-label', 'Toggle dark mode');
-        
-        document.body.appendChild(toggle);
-    }
-
-    loadThemePreference() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        this.updateThemeIcon(savedTheme);
-    }
-
-    setupThemeToggle() {
-        const toggle = document.querySelector('.theme-toggle');
-        if (toggle) {
-            toggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
+    closeCelebration() {
+        const celebration = document.querySelector('.completion-celebration-popup');
+        if (celebration) {
+            celebration.remove();
         }
     }
 
-    toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    downloadCertificate() {
+        // Create a simple certificate download
+        const certificate = document.createElement('div');
+        certificate.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 10000;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        `;
         
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        this.updateThemeIcon(newTheme);
+        certificate.innerHTML = `
+            <h1 style="color: #1a5f7a; margin-bottom: 40px;">🎓 G-WAC Short Course Certificate</h1>
+            <p style="font-size: 18px; margin-bottom: 20px;">This is to certify that</p>
+            <h2 style="color: #333; margin-bottom: 20px;">[Your Name]</h2>
+            <p style="font-size: 18px; margin-bottom: 40px;">has successfully completed the G-WAC Short Course</p>
+            <p style="font-size: 16px; color: #666; margin-bottom: 40px;">Date: ${new Date().toLocaleDateString()}</p>
+            <button onclick="this.parentElement.remove()" style="padding: 10px 20px; background: #1a5f7a; color: white; border: none; border-radius: 5px; cursor: pointer;">Close</button>
+        `;
         
-        // Add transition effect
-        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+        document.body.appendChild(certificate);
+        
+        // Auto-remove after 30 seconds
         setTimeout(() => {
-            document.body.style.transition = '';
-        }, 300);
+            if (certificate.parentNode) {
+                certificate.remove();
+            }
+        }, 30000);
     }
 
-    updateThemeIcon(theme) {
-        const icon = document.querySelector('.theme-toggle .icon');
-        if (icon) {
-                    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    // Method to reset completion state for testing
+    resetCompletionState() {
+        localStorage.removeItem('completion-modal-shown');
+        const modules = [
+            'git-basics', 'github-collaboration', 'r-git-workflow',
+            'odin-intro', 'monty-fitting', 'advanced-modeling'
+        ];
+        modules.forEach(module => {
+            localStorage.removeItem(`module-${module}-completed`);
+        });
+        this.updateProgress();
+        console.log('Completion state reset. Refresh the page to test again.');
     }
+
+    initThemeToggle() {
+        // Theme toggle is now handled by theme-toggle.js
+        // Just initialize copy functionality
+        this.initCopyFunctionality();
+    }
+
+
+
+
 
     initCopyFunctionality() {
         // Add copy buttons to all code blocks
@@ -604,12 +629,11 @@ class GWACApp {
         document.body.removeChild(textArea);
     }
 }
-}
 
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('GWACApp: DOM loaded, creating app...');
-    new GWACApp();
+    window.gwacApp = new GWACApp();
 });
 
 // Add some additional utility functions

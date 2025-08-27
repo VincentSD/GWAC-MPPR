@@ -12,23 +12,19 @@ class ThemeToggle {
     }
 
     createThemeToggle() {
-        // Create theme toggle button
-        const header = document.querySelector('.header-container');
-        if (header) {
-            const themeToggle = document.createElement('button');
-            themeToggle.className = 'theme-toggle-btn';
-            themeToggle.setAttribute('aria-label', 'Toggle dark mode');
-            themeToggle.innerHTML = `
-                <span class="theme-icon light-icon">☀️</span>
-                <span class="theme-icon dark-icon">🌙</span>
-            `;
-            
-            // Insert after the course-info div
-            const courseInfo = header.querySelector('.course-info');
-            if (courseInfo) {
-                courseInfo.parentNode.insertBefore(themeToggle, courseInfo.nextSibling);
-            }
-        }
+        // Create theme toggle button in the top-left corner
+        const themeToggle = document.createElement('button');
+        themeToggle.className = 'theme-toggle';
+        themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+        themeToggle.innerHTML = '<span class="icon">🌙</span>';
+        
+        // Add to body for fixed positioning
+        document.body.appendChild(themeToggle);
+        
+        // Set up click event for this specific toggle
+        themeToggle.addEventListener('click', () => {
+            this.toggleTheme();
+        });
     }
 
     setupEventListeners() {
@@ -71,16 +67,20 @@ class ThemeToggle {
         this.setStoredTheme(this.currentTheme);
         this.applyTheme();
         this.animateToggle();
+        this.updateThemeIcon();
     }
 
     applyTheme() {
         document.documentElement.setAttribute('data-theme', this.currentTheme);
         
         // Update theme toggle button appearance
-        const themeToggle = document.querySelector('.theme-toggle-btn');
+        const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             themeToggle.setAttribute('data-theme', this.currentTheme);
         }
+
+        // Update the icon
+        this.updateThemeIcon();
 
         // Update meta theme-color for mobile browsers
         this.updateMetaThemeColor();
@@ -100,7 +100,7 @@ class ThemeToggle {
     }
 
     animateToggle() {
-        const themeToggle = document.querySelector('.theme-toggle-btn');
+        const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             themeToggle.classList.add('theme-toggle-animate');
             setTimeout(() => {
@@ -120,6 +120,13 @@ class ThemeToggle {
             this.currentTheme = theme;
             this.setStoredTheme(theme);
             this.applyTheme();
+        }
+    }
+
+    updateThemeIcon() {
+        const icon = document.querySelector('.theme-toggle .icon');
+        if (icon) {
+            icon.textContent = this.currentTheme === 'dark' ? '☀️' : '🌙';
         }
     }
 }

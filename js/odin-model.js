@@ -25,7 +25,7 @@ class OdinModelManager {
                 setTimeout(() => {
                     console.log('Auto-running model on page load...');
                     this.runModelWithParameters();
-                }, 500);
+                }, 1000);
             }, 100);
             
         } catch (error) {
@@ -50,6 +50,16 @@ class OdinModelManager {
                     content.classList.remove('active');
                     if (content.id === `${targetTab}-tab`) {
                         content.classList.add('active');
+                        
+                        // If plots tab becomes active, ensure canvas is properly sized and redraw
+                        if (content.id === 'plots-tab') {
+                            setTimeout(() => {
+                                this.initializeCanvas();
+                                if (this.currentResult) {
+                                    this.updatePlot(this.currentResult);
+                                }
+                            }, 100);
+                        }
                     }
                 });
             });
@@ -158,25 +168,53 @@ class OdinModelManager {
             console.log('Canvas rect:', rect);
             console.log('Device pixel ratio:', dpr);
             
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            canvas.style.width = rect.width + 'px';
-            canvas.style.height = rect.height + 'px';
+            // Use fallback dimensions if rect is 0
+            let width = rect.width || 400;
+            let height = rect.height || 300;
+            
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
             
             const ctx = canvas.getContext('2d');
             ctx.scale(dpr, dpr);
             
             // Clear and draw placeholder
             ctx.fillStyle = '#f8f9fa';
-            ctx.fillRect(0, 0, rect.width, rect.height);
+            ctx.fillRect(0, 0, width, height);
             
             // Draw placeholder text
             ctx.fillStyle = '#6c757d';
             ctx.font = '16px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('Loading model...', rect.width / 2, rect.height / 2);
+            ctx.fillText('Loading model...', width / 2, height / 2);
             
-            console.log('Canvas initialized successfully');
+            console.log('Canvas initialized successfully with dimensions:', width, 'x', height);
+            
+            // Set up resize observer to handle dynamic resizing
+            if (window.ResizeObserver) {
+                const resizeObserver = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                        const newWidth = entry.contentRect.width;
+                        const newHeight = entry.contentRect.height;
+                        if (newWidth > 0 && newHeight > 0) {
+                            canvas.width = newWidth * dpr;
+                            canvas.height = newHeight * dpr;
+                            canvas.style.width = newWidth + 'px';
+                            canvas.style.height = newHeight + 'px';
+                            ctx.scale(dpr, dpr);
+                            console.log('Canvas resized to:', newWidth, 'x', newHeight);
+                            
+                            // Redraw if we have results
+                            if (this.currentResult) {
+                                this.updatePlot(this.currentResult);
+                            }
+                        }
+                    }
+                });
+                resizeObserver.observe(canvas);
+            }
         } else {
             console.error('Canvas element not found!');
         }
@@ -251,13 +289,38 @@ N (Population): ${population}`);
     }
 
     updatePlot(results) {
+        if (!results) {
+            results = this.currentResult;
+        }
+        if (!results) return;
+
         const canvas = document.getElementById('sir-plot-main');
-        if (!canvas || !results) return;
+        if (!canvas) {
+            console.error('Canvas element not found in updatePlot');
+            return;
+        }
 
         const ctx = canvas.getContext('2d');
         const rect = canvas.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
+        let width = rect.width;
+        let height = rect.height;
+        
+        console.log('updatePlot called with canvas dimensions:', width, 'x', height);
+        console.log('Canvas element:', canvas);
+        console.log('Canvas rect:', rect);
+
+        // Check if we have valid dimensions
+        if (width <= 0 || height <= 0) {
+            console.warn('Canvas has invalid dimensions, using fallback');
+            const fallbackWidth = 400;
+            const fallbackHeight = 300;
+            canvas.width = fallbackWidth;
+            canvas.height = fallbackHeight;
+            canvas.style.width = fallbackWidth + 'px';
+            canvas.style.height = fallbackHeight + 'px';
+            width = fallbackWidth;
+            height = fallbackHeight;
+        }
 
         // Clear canvas
         ctx.clearRect(0, 0, width, height);
@@ -418,11 +481,7 @@ N (Population): ${population}`);
         }
     }
 
-    updatePlot() {
-        if (this.currentResult) {
-            this.updatePlot(this.currentResult);
-        }
-    }
+
 
     downloadPlot() {
         const canvas = document.getElementById('sir-plot-main');
