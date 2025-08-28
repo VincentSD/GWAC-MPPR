@@ -36,11 +36,11 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#schedule" class="nav-link">Schedule</a></li>
-                    <li><a href="#courses" class="nav-link">Courses</a></li>
-                    <li><a href="#students" class="nav-link">Students</a></li>
-                    <li><a href="#resources" class="nav-link">Resources</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses</a></li>
+                    <li><a href="students.html" class="nav-link">Students</a></li>
+                    <li><a href="resources.html" class="nav-link">Resources</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             
@@ -86,8 +86,8 @@
                     </div>
                 </div>
                 <div class="hero-actions">
-                    <a href="#schedule" class="btn btn-primary">View Schedule</a>
-                    <a href="#courses" class="btn btn-secondary">Explore Courses</a>
+                    <a href="schedule.html" class="btn btn-primary">View Schedule</a>
+                    <a href="courses.html" class="btn btn-secondary">Explore Courses</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -109,602 +109,107 @@
         </div>
     </section>
 
-    <!-- Schedule Section -->
-    <section id="schedule" class="schedule-section">
+    <!-- Key Highlights Section -->
+    <section class="highlights-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Program Schedule</h2>
-                <p class="section-subtitle">Two weeks of intensive learning and hands-on experience</p>
+                <h2 class="section-title">Why Choose G-WAC Summer School?</h2>
+                <p class="section-subtitle">Transform your skills and advance your career in mathematical modeling</p>
             </div>
             
-            <div class="schedule-timeline">
-                <div class="timeline-nav">
-                    <button class="timeline-nav-btn active" data-week="1">Week 1</button>
-                    <button class="timeline-nav-btn" data-week="2">Week 2</button>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Expert-Led Learning</h3>
+                    <p>Learn from world-renowned researchers and practitioners in mathematical modeling and public health.</p>
                 </div>
                 
-                <div class="timeline-content">
-                    <!-- Week 1 -->
-                    <div class="week-content active" id="week-1">
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Monday, July 14</h3>
-                                <span class="day-theme">Foundation & Introduction</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Welcome & Course Overview</h4>
-                                    <p>Introduction to mathematical modeling in public health</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Sarah Johnson</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Basic Epidemiological Concepts</h4>
-                                    <p>Understanding disease transmission and population dynamics</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Prof. Michael Chen</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Hands-on Workshop: R Basics</h4>
-                                    <p>Introduction to R programming for data analysis</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Emily Rodriguez</span>
-                                        <span class="room">Computer Lab</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Tuesday, July 15</h3>
-                                <span class="day-theme">Mathematical Foundations</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Differential Equations in Epidemiology</h4>
-                                    <p>SIR models and compartmental modeling</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Prof. David Kim</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Parameter Estimation</h4>
-                                    <p>Methods for fitting models to data</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Lisa Wang</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Interactive Modeling Session</h4>
-                                    <p>Build and simulate SIR models</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. James Wilson</span>
-                                        <span class="room">Computer Lab</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Wednesday, July 16</h3>
-                                <span class="day-theme">Advanced Modeling</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Stochastic Models</h4>
-                                    <p>Incorporating randomness in disease modeling</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Prof. Robert Taylor</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Network Models</h4>
-                                    <p>Social network analysis in epidemiology</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Amanda Foster</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Group Project Work</h4>
-                                    <p>Begin collaborative modeling projects</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Instructors</span>
-                                        <span class="room">Project Rooms</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Thursday, July 17</h3>
-                                <span class="day-theme">Data Analysis</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Data Visualization</h4>
-                                    <p>Creating effective plots and charts</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Maria Garcia</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Statistical Inference</h4>
-                                    <p>Hypothesis testing and confidence intervals</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Prof. Thomas Lee</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Case Study Analysis</h4>
-                                    <p>Real-world epidemiological data</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Jennifer Brown</span>
-                                        <span class="room">Computer Lab</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Friday, July 18</h3>
-                                <span class="day-theme">Integration & Review</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Week 1 Review</h4>
-                                    <p>Consolidating key concepts and methods</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Course Directors</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Project Planning</h4>
-                                    <p>Finalizing group project objectives</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Project Mentors</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Social Event & Networking</h4>
-                                    <p>Building connections with peers and faculty</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Participants</span>
-                                        <span class="room">Campus Center</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-hands-on"></i>
                     </div>
-                    
-                    <!-- Week 2 -->
-                    <div class="week-content" id="week-2">
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Monday, July 21</h3>
-                                <span class="day-theme">Advanced Topics</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Machine Learning in Epidemiology</h4>
-                                    <p>AI and ML approaches to disease modeling</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Alex Thompson</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Geographic Information Systems</h4>
-                                    <p>Spatial analysis of disease spread</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Rachel Green</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Project Development</h4>
-                                    <p>Intensive work on group projects</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Project Mentors</span>
-                                        <span class="room">Project Rooms</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Tuesday, July 22</h3>
-                                <span class="day-theme">Policy & Communication</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Modeling for Policy Decisions</h4>
-                                    <p>Translating research into actionable insights</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Patricia Martinez</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Science Communication</h4>
-                                    <p>Effectively presenting complex findings</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Dr. Kevin O'Connor</span>
-                                        <span class="room">Lab A</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Project Refinement</h4>
-                                    <p>Polishing presentations and analyses</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Project Mentors</span>
-                                        <span class="room">Project Rooms</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Wednesday, July 23</h3>
-                                <span class="day-theme">Project Work</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 12:00</div>
-                                    <h4>Intensive Project Development</h4>
-                                    <p>Full morning dedicated to group projects</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Project Mentors</span>
-                                        <span class="room">Project Rooms</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Presentation Preparation</h4>
-                                    <p>Finalizing slides and rehearsing</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Groups</span>
-                                        <span class="room">Project Rooms</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Thursday, July 24</h3>
-                                <span class="day-theme">Presentations & Feedback</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 12:00</div>
-                                    <h4>Group Project Presentations</h4>
-                                    <p>All groups present their findings</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Participants</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Feedback & Discussion</h4>
-                                    <p>Constructive feedback and Q&A sessions</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Participants</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="day-schedule">
-                            <div class="day-header">
-                                <h3>Friday, July 25</h3>
-                                <span class="day-theme">Closing & Celebration</span>
-                            </div>
-                            <div class="schedule-grid">
-                                <div class="session-card morning">
-                                    <div class="session-time">09:00 - 10:30</div>
-                                    <h4>Course Reflection</h4>
-                                    <p>What we learned and next steps</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">Course Directors</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card morning">
-                                    <div class="session-time">11:00 - 12:30</div>
-                                    <h4>Certificate Ceremony</h4>
-                                    <p>Celebrating achievements and completion</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Faculty</span>
-                                        <span class="room">Main Hall</span>
-                                    </div>
-                                </div>
-                                <div class="session-card afternoon">
-                                    <div class="session-time">14:00 - 17:00</div>
-                                    <h4>Graduation Celebration</h4>
-                                    <p>Networking, refreshments, and farewells</p>
-                                    <div class="session-meta">
-                                        <span class="instructor">All Participants</span>
-                                        <span class="room">Campus Center</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <h3>Hands-On Experience</h3>
+                    <p>Apply theoretical knowledge through practical workshops, real-world case studies, and collaborative projects.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-network-wired"></i>
                     </div>
+                    <h3>Global Network</h3>
+                    <p>Connect with peers from around the world and build lasting professional relationships.</p>
+                </div>
+                
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Professional Certification</h3>
+                    <p>Earn a recognized certificate upon completion, enhancing your professional credentials.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Course Overview Section -->
-    <section id="courses" class="course-overview-section">
+    <!-- Quick Access Section -->
+    <section class="quick-access-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Course Overview</h2>
-                <p class="section-subtitle">Comprehensive curriculum covering essential topics in mathematical modeling and public health</p>
+                <h2 class="section-title">Get Started</h2>
+                <p class="section-subtitle">Everything you need to begin your G-WAC journey</p>
             </div>
             
-            <div class="overview-content">
-                <div class="overview-text">
-                    <h3>What You'll Learn</h3>
-                    <p>Our intensive 2-week program covers five core areas that will transform your understanding of mathematical modeling in public health:</p>
-                    
-                    <div class="learning-areas">
-                        <div class="learning-area">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <h4>Mathematical Foundations</h4>
-                                <p>Master differential equations, parameter estimation, and model validation techniques essential for epidemiological modeling.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="learning-area">
-                            <i class="fas fa-microscope"></i>
-                            <div>
-                                <h4>Epidemiological Modeling</h4>
-                                <p>Explore advanced techniques including SIR models, stochastic processes, and network-based approaches to disease dynamics.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="learning-area">
-                            <i class="fas fa-laptop-code"></i>
-                            <div>
-                                <h4>Computational Methods</h4>
-                                <p>Develop programming skills in R, data visualization, statistical analysis, and machine learning applications.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="learning-area">
-                            <i class="fas fa-database"></i>
-                            <div>
-                                <h4>Data Analysis & Visualization</h4>
-                                <p>Learn data cleaning, exploratory analysis, statistical inference, and effective communication of results.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="learning-area">
-                            <i class="fas fa-users"></i>
-                            <div>
-                                <h4>Collaborative Research</h4>
-                                <p>Engage in group projects, peer learning, scientific communication, and policy-relevant research applications.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overview-actions">
-                    <a href="courses.html" class="btn btn-primary">
-                        <i class="fas fa-book-open"></i>
-                        Explore Full Course Materials
-                    </a>
-                    <a href="#schedule" class="btn btn-secondary">
+            <div class="quick-access-grid">
+                <a href="schedule.html" class="quick-access-card">
+                    <div class="card-icon">
                         <i class="fas fa-calendar-alt"></i>
-                        View Program Schedule
-                    </a>
-                </div>
+                    </div>
+                    <h3>Program Schedule</h3>
+                    <p>View the complete 2-week program with daily sessions, workshops, and activities.</p>
+                    <span class="card-action">View Schedule <i class="fas fa-arrow-right"></i></span>
+                </a>
+                
+                <a href="courses.html" class="quick-access-card">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Course Materials</h3>
+                    <p>Access all learning resources, labs, and materials for the five core modules.</p>
+                    <span class="card-action">Explore Courses <i class="fas fa-arrow-right"></i></span>
+                </a>
+                
+                <a href="students.html" class="quick-access-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Student Portal</h3>
+                    <p>Track your progress, access resources, and connect with fellow participants.</p>
+                    <span class="card-action">Access Portal <i class="fas fa-arrow-right"></i></span>
+                </a>
+                
+                <a href="resources.html" class="quick-access-card">
+                    <div class="card-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Resources</h3>
+                    <p>Download course materials, software tools, and additional learning resources.</p>
+                    <span class="card-action">Browse Resources <i class="fas fa-arrow-right"></i></span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Students Section -->
-    <section id="students" class="students-section">
+    <!-- Call to Action Section -->
+    <section class="cta-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Student Portal</h2>
-                <p class="section-subtitle">Access your course materials, track progress, and collaborate with peers</p>
-            </div>
-            
-            <div class="student-dashboard">
-                <div class="dashboard-header">
-                    <h3>Welcome to G-WAC Summer School 2025</h3>
-                    <p>You are one of <strong id="total-students">0</strong> selected participants</p>
-                </div>
-                
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <i class="fas fa-book-open"></i>
-                            <h4>Course Materials</h4>
-                        </div>
-                        <div class="card-content">
-                            <p>Access all lectures, exercises, and supplementary materials</p>
-                            <a href="#courses" class="btn btn-outline">Browse Materials</a>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <i class="fas fa-tasks"></i>
-                            <h4>Progress Tracking</h4>
-                        </div>
-                        <div class="card-content">
-                            <p>Monitor your completion of modules and assignments</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
-                            </div>
-                            <span class="progress-text">0% Complete</span>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <i class="fas fa-users"></i>
-                            <h4>Collaboration</h4>
-                        </div>
-                        <div class="card-content">
-                            <p>Connect with fellow students and form study groups</p>
-                            <a href="#" class="btn btn-outline">View Participants</a>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <i class="fas fa-calendar-alt"></i>
-                            <h4>Schedule</h4>
-                        </div>
-                        <div class="card-content">
-                            <p>Keep track of sessions, deadlines, and events</p>
-                            <a href="#schedule" class="btn btn-outline">View Schedule</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resources Section -->
-    <section id="resources" class="resources-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Resources & Materials</h2>
-                <p class="section-subtitle">Comprehensive collection of learning resources, tools, and references</p>
-            </div>
-            
-            <div class="resources-grid">
-                <div class="resource-category">
-                    <h3><i class="fas fa-download"></i> Downloads</h3>
-                    <ul class="resource-list">
-                        <li><a href="#" class="resource-link"><i class="fas fa-file-pdf"></i> Course Syllabus</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-file-excel"></i> Student List</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-file-word"></i> Program Outline</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-file-pdf"></i> Reading Materials</a></li>
-                    </ul>
-                </div>
-                
-                <div class="resource-category">
-                    <h3><i class="fas fa-link"></i> External Links</h3>
-                    <ul class="resource-list">
-                        <li><a href="https://www.r-project.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> R Project</a></li>
-                        <li><a href="https://cran.r-project.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> CRAN Repository</a></li>
-                        <li><a href="https://www.ici3d.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> ICI3D Program</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-external-link-alt"></i> Additional Resources</a></li>
-                    </ul>
-                </div>
-                
-                <div class="resource-category">
-                    <h3><i class="fas fa-tools"></i> Tools & Software</h3>
-                    <ul class="resource-list">
-                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> R Installation Guide</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Required Packages</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Sample Datasets</a></li>
-                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Code Templates</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Contact & Support</h2>
-                <p class="section-subtitle">Get in touch with our team for questions, technical support, or general inquiries</p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>summerschool@g-wac.org</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Location</h4>
-                            <p>University Campus, Research Building</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3>Send us a Message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
+            <div class="cta-content">
+                <h2>Ready to Transform Your Skills?</h2>
+                <p>Join the G-WAC Summer School 2025 and become part of a global community of mathematical modeling experts.</p>
+                <div class="cta-actions">
+                    <a href="courses.html" class="btn btn-primary">Start Learning</a>
+                    <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
                 </div>
             </div>
         </div>
@@ -722,9 +227,9 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#schedule">Schedule</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#students">Students</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="students.html">Students</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">

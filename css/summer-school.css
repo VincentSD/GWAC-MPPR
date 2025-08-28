@@ -327,6 +327,26 @@
     color: #64748b;
 }
 
+/* Schedule Hero Section */
+.schedule-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.schedule-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.schedule-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
 /* Course Hero Section */
 .course-hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -393,6 +413,174 @@
 .progress-actions .btn {
     padding: 10px 20px;
     font-size: 0.9rem;
+}
+
+/* Highlights Section */
+.highlights-section {
+    padding: 100px 0;
+    background: #f8fafc;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.highlight-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.highlight-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.highlight-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.highlight-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+}
+
+.highlight-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Quick Access Section */
+.quick-access-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.quick-access-card {
+    background: #f8fafc;
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.card-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.card-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.quick-access-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+    text-align: center;
+}
+
+.quick-access-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+    text-align: center;
+}
+
+.card-action {
+    color: #3b82f6;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.quick-access-card:hover .card-action {
+    color: #1d4ed8;
+    transform: translateX(4px);
+}
+
+/* Call to Action Section */
+.cta-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin: 0 0 40px 0;
+    line-height: 1.6;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-actions .btn {
+    min-width: 180px;
 }
 
 /* Course Overview Section */
@@ -980,6 +1168,32 @@
     .progress-actions .btn {
         width: 100%;
         max-width: 200px;
+    }
+    
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-access-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .schedule-hero h1 {
+        font-size: 2rem;
     }
 }
 
