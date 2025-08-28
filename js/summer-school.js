@@ -1,0 +1,501 @@
+/**
+ * G-WAC Summer School 2025 - Interactive Features
+ * Handles schedule navigation, student portal, and dynamic content
+ */
+
+class SummerSchoolManager {
+    constructor() {
+        this.currentWeek = 1;
+        this.totalStudents = 0;
+        this.init();
+    }
+
+    init() {
+        this.setupScheduleNavigation();
+        this.loadStudentCount();
+        this.setupSmoothScrolling();
+        this.setupMobileMenu();
+        this.setupContactForm();
+        this.setupProgressTracking();
+        this.setupAnimations();
+        this.setupBackToTop();
+    }
+
+    /**
+     * Setup schedule week navigation
+     */
+    setupScheduleNavigation() {
+        const navButtons = document.querySelectorAll('.timeline-nav-btn');
+        const weekContents = document.querySelectorAll('.week-content');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetWeek = button.dataset.week;
+                this.switchWeek(targetWeek);
+            });
+        });
+    }
+
+    /**
+     * Switch between week 1 and week 2
+     */
+    switchWeek(weekNumber) {
+        // Update navigation buttons
+        document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-week="${weekNumber}"]`).classList.add('active');
+
+        // Update week content
+        document.querySelectorAll('.week-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(`week-${weekNumber}`).classList.add('active');
+
+        this.currentWeek = parseInt(weekNumber);
+        
+        // Add smooth transition effect
+        const activeContent = document.getElementById(`week-${weekNumber}`);
+        activeContent.style.opacity = '0';
+        activeContent.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            activeContent.style.transition = 'all 0.5s ease';
+            activeContent.style.opacity = '1';
+            activeContent.style.transform = 'translateY(0)';
+        }, 50);
+    }
+
+    /**
+     * Load student count from Excel data (placeholder for now)
+     */
+    loadStudentCount() {
+        // In a real implementation, this would fetch data from the Excel file
+        // For now, we'll use a placeholder number
+        this.totalStudents = 52; // Based on your Excel file
+        
+        const studentCountElement = document.getElementById('total-students');
+        if (studentCountElement) {
+            studentCountElement.textContent = this.totalStudents;
+        }
+
+        // Update progress tracking
+        this.updateProgressDisplay();
+    }
+
+    /**
+     * Setup smooth scrolling for navigation links
+     */
+    setupSmoothScrolling() {
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Update active navigation
+                    this.updateActiveNavigation(targetId);
+                }
+            });
+        });
+    }
+
+    /**
+     * Update active navigation state
+     */
+    updateActiveNavigation(targetId) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const activeLink = document.querySelector(`[href="${targetId}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    /**
+     * Setup mobile menu functionality
+     */
+    setupMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        
+        if (mobileMenuToggle && mainNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('mobile-open');
+                mobileMenuToggle.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('mobile-open');
+                    mobileMenuToggle.classList.remove('active');
+                });
+            });
+        }
+    }
+
+    /**
+     * Setup contact form functionality
+     */
+    setupContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleContactFormSubmission(contactForm);
+            });
+        }
+    }
+
+    /**
+     * Handle contact form submission
+     */
+    handleContactFormSubmission(form) {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        // Validate form data
+        if (!this.validateContactForm(data)) {
+            return;
+        }
+
+        // Show success message (in real implementation, this would send to server)
+        this.showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
+        
+        // Reset form
+        form.reset();
+    }
+
+    /**
+     * Validate contact form data
+     */
+    validateContactForm(data) {
+        const requiredFields = ['name', 'email', 'subject', 'message'];
+        
+        for (const field of requiredFields) {
+            if (!data[field] || data[field].trim() === '') {
+                this.showNotification(`Please fill in the ${field} field.`, 'error');
+                return false;
+            }
+        }
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            this.showNotification('Please enter a valid email address.', 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Show notification message
+     */
+    showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+            <button class="notification-close">&times;</button>
+        `;
+
+        // Add styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 400px;
+            animation: slideInRight 0.3s ease;
+        `;
+
+        // Add close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            notification.remove();
+        });
+
+        // Add to page
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+
+    /**
+     * Setup progress tracking for student dashboard
+     */
+    setupProgressTracking() {
+        // Simulate progress based on current date
+        this.updateProgressDisplay();
+    }
+
+    /**
+     * Update progress display
+     */
+    updateProgressDisplay() {
+        const progressFill = document.querySelector('.progress-fill');
+        const progressText = document.querySelector('.progress-text');
+        
+        if (progressFill && progressText) {
+            // Calculate progress based on current date relative to course dates
+            const courseStart = new Date('2025-07-14');
+            const courseEnd = new Date('2025-07-25');
+            const now = new Date();
+            
+            let progress = 0;
+            if (now >= courseStart) {
+                if (now >= courseEnd) {
+                    progress = 100;
+                } else {
+                    const totalDuration = courseEnd - courseStart;
+                    const elapsed = now - courseStart;
+                    progress = Math.min((elapsed / totalDuration) * 100, 100);
+                }
+            }
+            
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${Math.round(progress)}% Complete`;
+        }
+    }
+
+    /**
+     * Setup animations and interactions
+     */
+    setupAnimations() {
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        const animateElements = document.querySelectorAll('.course-card, .dashboard-card, .resource-category');
+        animateElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to hero cards
+        this.setupFloatingCards();
+    }
+
+    /**
+     * Setup floating cards animation
+     */
+    setupFloatingCards() {
+        const floatingCards = document.querySelectorAll('.floating-card');
+        
+        floatingCards.forEach((card, index) => {
+            // Add staggered animation delay
+            card.style.animationDelay = `${index * 2}s`;
+            
+            // Add hover effect
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotate(2deg)';
+                card.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    }
+
+    /**
+     * Setup back to top button
+     */
+    setupBackToTop() {
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        if (backToTopButton) {
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+            
+            // Smooth scroll to top when clicked
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    }
+
+    /**
+     * Get current course progress
+     */
+    getCourseProgress() {
+        // This would integrate with your actual course completion system
+        return {
+            mathematicalFoundations: 0,
+            epidemiologicalModeling: 0,
+            computationalMethods: 0,
+            dataAnalysis: 0,
+            collaborativeResearch: 0
+        };
+    }
+
+    /**
+     * Update student dashboard with real-time data
+     */
+    updateDashboard() {
+        // Update student count
+        this.loadStudentCount();
+        
+        // Update progress
+        this.updateProgressDisplay();
+        
+        // Update any other dynamic content
+        this.updateScheduleStatus();
+    }
+
+    /**
+     * Update schedule status (current day highlighting)
+     */
+    updateScheduleStatus() {
+        const today = new Date();
+        const courseStart = new Date('2025-07-14');
+        const courseEnd = new Date('2025-07-25');
+        
+        if (today >= courseStart && today <= courseEnd) {
+            // Highlight current day in schedule
+            const currentDay = today.getDay();
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const currentDayName = dayNames[currentDay];
+            
+            // Find and highlight current day in schedule
+            const dayHeaders = document.querySelectorAll('.day-header h3');
+            dayHeaders.forEach(header => {
+                if (header.textContent.includes(currentDayName)) {
+                    header.closest('.day-schedule').classList.add('current-day');
+                }
+            });
+        }
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.summerSchool = new SummerSchoolManager();
+    
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .current-day {
+            border-left-color: #10b981 !important;
+            background: #ecfdf5 !important;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .main-nav.mobile-open {
+            display: flex !important;
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .mobile-menu-toggle.active .fa-bars::before {
+                content: "\\f00d";
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+// Export for potential external use
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SummerSchoolManager;
+}

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Materials - G-WAC Summer School 2025</title>
+    <meta name="description" content="Access all course materials, labs, and resources for the G-WAC Summer School 2025 Mathematical Modeling program.">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/summer-school.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/g-wac-favicon.jpg">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="images/g-wac-logo.jpeg" alt="G-WAC Logo" class="g-wac-logo">
+                <div class="header-text">
+                    <h1 class="institution-name">G-WAC</h1>
+                    <p class="institution-subtitle">Global Workshop on Advanced Computing</p>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#schedule" class="nav-link">Schedule</a></li>
+                    <li><a href="courses.html" class="nav-link active">Courses</a></li>
+                    <li><a href="index.html#students" class="nav-link">Students</a></li>
+                    <li><a href="index.html#resources" class="nav-link">Resources</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Course Materials Hero -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Course Materials & Labs</h1>
+                <p>Comprehensive learning resources for mathematical modeling and public health research</p>
+                <div class="course-progress">
+                    <div class="progress-indicator">
+                        <span class="progress-label">Overall Progress</span>
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large" id="overall-progress"></div>
+                        </div>
+                        <span class="progress-percentage" id="progress-text">0%</span>
+                    </div>
+                    <div class="progress-actions">
+                        <button class="btn btn-outline" onclick="courseMaterials.exportProgress()">
+                            <i class="fas fa-download"></i>
+                            Export Progress
+                        </button>
+                        <button class="btn btn-outline" onclick="courseMaterials.resetProgress()">
+                            <i class="fas fa-refresh"></i>
+                            Reset Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Modules -->
+    <section class="course-modules">
+        <div class="container">
+            <div class="modules-grid">
+                <!-- Module 1: Mathematical Foundations -->
+                <div class="module-card" data-module="mathematical-foundations">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="module-info">
+                            <h3>Mathematical Foundations</h3>
+                            <p>Core mathematical concepts and modeling principles</p>
+                        </div>
+                        <div class="module-status">
+                            <span class="status-badge" id="status-1">Not Started</span>
+                        </div>
+                    </div>
+                    
+                    <div class="module-content">
+                        <div class="module-topics">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Differential equations in epidemiology</li>
+                                <li>Parameter estimation methods</li>
+                                <li>Model validation techniques</li>
+                                <li>Basic SIR modeling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="module-labs">
+                            <h4>Labs & Exercises:</h4>
+                            <div class="lab-links">
+                                <a href="labs/lab_00.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 0: Introduction to R</span>
+                                    <span class="lab-status" id="lab-0-status">Not Started</span>
+                                </a>
+                                <a href="labs/lab_01.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 1: Basic Modeling</span>
+                                    <span class="lab-status" id="lab-1-status">Not Started</span>
+                                </a>
+                                <a href="labs/lab_02.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 2: SIR Models</span>
+                                    <span class="lab-status" id="lab-2-status">Not Started</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary" onclick="startModule('mathematical-foundations')">
+                                Start Module
+                            </button>
+                            <button class="btn btn-outline" onclick="viewModuleDetails('mathematical-foundations')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2: Epidemiological Modeling -->
+                <div class="module-card" data-module="epidemiological-modeling">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div class="module-info">
+                            <h3>Epidemiological Modeling</h3>
+                            <p>Advanced modeling techniques and disease dynamics</p>
+                        </div>
+                        <div class="module-status">
+                            <span class="status-badge" id="status-2">Not Started</span>
+                        </div>
+                    </div>
+                    
+                    <div class="module-content">
+                        <div class="module-topics">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Stochastic models and randomness</li>
+                                <li>Network-based approaches</li>
+                                <li>Multi-compartment models</li>
+                                <li>Age-structured modeling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="module-labs">
+                            <h4>Labs & Exercises:</h4>
+                            <div class="lab-links">
+                                <a href="labs/lab_03.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 3: Advanced SIR</span>
+                                    <span class="lab-status" id="lab-3-status">Not Started</span>
+                                </a>
+                                <a href="labs/lab_04.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 4: Stochastic Models</span>
+                                    <span class="lab-status" id="lab-4-status">Not Started</span>
+                                </a>
+                                <a href="labs/lab_05.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 5: Network Models</span>
+                                    <span class="lab-status" id="lab-5-status">Not Started</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary" onclick="startModule('epidemiological-modeling')">
+                                Start Module
+                            </button>
+                            <button class="btn btn-outline" onclick="viewModuleDetails('epidemiological-modeling')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3: Computational Methods -->
+                <div class="module-card" data-module="computational-methods">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="module-info">
+                            <h3>Computational Methods</h3>
+                            <p>Programming, data analysis, and machine learning</p>
+                        </div>
+                        <div class="module-status">
+                            <span class="status-badge" id="status-3">Not Started</span>
+                        </div>
+                    </div>
+                    
+                    <div class="module-content">
+                        <div class="module-topics">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>R programming fundamentals</li>
+                                <li>Data visualization techniques</li>
+                                <li>Statistical analysis methods</li>
+                                <li>Machine learning applications</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="module-labs">
+                            <h4>Labs & Exercises:</h4>
+                            <div class="lab-links">
+                                <a href="labs/lab_10.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Lab 10: Data Analysis</span>
+                                    <span class="lab-status" id="lab-10-status">Not Started</span>
+                                </a>
+                                <a href="labs/advanced-modeling.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Advanced Modeling</span>
+                                    <span class="lab-status" id="advanced-status">Not Started</span>
+                                </a>
+                                <a href="labs/monty-fitting.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Model Fitting</span>
+                                    <span class="lab-status" id="fitting-status">Not Started</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary" onclick="startModule('computational-methods')">
+                                Start Module
+                            </button>
+                            <button class="btn btn-outline" onclick="viewModuleDetails('computational-methods')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4: Data Analysis & Visualization -->
+                <div class="module-card" data-module="data-analysis">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="module-info">
+                            <h3>Data Analysis & Visualization</h3>
+                            <p>Data cleaning, analysis, and effective communication</p>
+                        </div>
+                        <div class="module-status">
+                            <span class="status-badge" id="status-4">Not Started</span>
+                        </div>
+                    </div>
+                    
+                    <div class="module-content">
+                        <div class="module-topics">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Data cleaning and preprocessing</li>
+                                <li>Exploratory data analysis</li>
+                                <li>Statistical inference</li>
+                                <li>Effective data communication</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="module-labs">
+                            <h4>Labs & Exercises:</h4>
+                            <div class="lab-links">
+                                <a href="labs/odin-intro.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Interactive SIR Explorer</span>
+                                    <span class="lab-status" id="sir-status">Not Started</span>
+                                </a>
+                                <a href="labs/git-basics.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Git & Collaboration</span>
+                                    <span class="lab-status" id="git-status">Not Started</span>
+                                </a>
+                                <a href="labs/github-collaboration.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>GitHub Workflow</span>
+                                    <span class="lab-status" id="github-status">Not Started</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary" onclick="startModule('data-analysis')">
+                                Start Module
+                            </button>
+                            <button class="btn btn-outline" onclick="viewModuleDetails('data-analysis')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5: Collaborative Research -->
+                <div class="module-card" data-module="collaborative-research">
+                    <div class="module-header">
+                        <div class="module-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="module-info">
+                            <h3>Collaborative Research</h3>
+                            <p>Group projects and scientific communication</p>
+                        </div>
+                        <div class="module-status">
+                            <span class="status-badge" id="status-5">Not Started</span>
+                        </div>
+                    </div>
+                    
+                    <div class="module-content">
+                        <div class="module-topics">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Group project development</li>
+                                <li>Peer learning strategies</li>
+                                <li>Scientific communication</li>
+                                <li>Policy-relevant research</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="module-labs">
+                            <h4>Labs & Exercises:</h4>
+                            <div class="lab-links">
+                                <a href="labs/r-git-workflow.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>R & Git Integration</span>
+                                    <span class="lab-status" id="r-git-status">Not Started</span>
+                                </a>
+                                <a href="labs/collaboration.html" class="lab-link">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Collaboration Tools</span>
+                                    <span class="lab-status" id="collab-status">Not Started</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary" onclick="startModule('collaborative-research')">
+                                Start Module
+                            </button>
+                            <button class="btn btn-outline" onclick="viewModuleDetails('collaborative-research')">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access -->
+    <section class="quick-access">
+        <div class="container">
+            <h2>Quick Access</h2>
+            <div class="quick-links">
+                <a href="index.html#schedule" class="quick-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Course Schedule</span>
+                </a>
+                <a href="index.html#resources" class="quick-link">
+                    <i class="fas fa-download"></i>
+                    <span>Download Materials</span>
+                </a>
+                <a href="index.html#students" class="quick-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Student Portal</span>
+                </a>
+                <a href="index.html#contact" class="quick-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Get Help</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo-img">
+                    <p>Global Workshop on Advanced Computing</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#schedule">Schedule</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="index.html#students">Students</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 G-WAC Summer School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript Files -->
+    <script src="js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/summer-school.js"></script>
+    <script src="js/course-materials.js"></script>
+</body>
+</html>

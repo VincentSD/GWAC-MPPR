@@ -3,734 +3,754 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="G-WAC Short Course: Git, GitHub & Infectious Disease Modeling with odin & monty">
-    <meta name="keywords" content="G-WAC, Git, GitHub, R, odin, monty, infectious disease modeling, version control">
-    <meta name="author" content="G-WAC">
-    <meta property="og:title" content="G-WAC Short Course - Git, GitHub & Infectious Disease Modeling">
-    <meta property="og:description" content="Learn version control and infectious disease modeling in this interactive short course">
-    <meta property="og:type" content="website">
-    <title>G-WAC Short Course - Git, GitHub & Infectious Disease Modeling</title>
-    <link rel="icon" type="image/jpeg" href="images/g-wac-favicon.jpg">
+    <title>G-WAC Summer School 2025 - Mathematical Modeling & Public Health Research</title>
+    <meta name="description" content="Join the G-WAC Summer School 2025 for intensive training in mathematical modeling, epidemiological data analysis, and public health research. Interactive workshops, expert-led sessions, and hands-on projects.">
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- PWA CSS removed to prevent memory issues -->
-    <link rel="stylesheet" href="css/error-handler.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- PWA manifest removed to prevent memory issues -->
-    <meta name="theme-color" content="#1a5f7a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="G-WAC Course">
-    <link rel="apple-touch-icon" href="images/g-wac-logo.png">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/summer-school.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/g-wac-favicon.jpg">
 </head>
-<body class="animation-fade-in">
-    <!-- Skip to main content link for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Header with G-WAC Branding -->
+<body>
+    <!-- Header -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo-section">
                 <img src="images/g-wac-logo.jpeg" alt="G-WAC Logo" class="g-wac-logo">
-                <div class="title-section">
-                    <h1 class="main-title">G-WAC Short Course</h1>
-                    <p class="header-subtitle">Git, GitHub & Infectious Disease Modeling</p>
+                <div class="header-text">
+                    <h1 class="institution-name">G-WAC</h1>
+                    <p class="institution-subtitle">Global Workshop on Advanced Computing</p>
                 </div>
             </div>
-            <div class="course-info">
-                <div class="course-badge">
-                    <span class="badge-icon">⏱️</span>
-                    <span class="badge-text">8 Hours Total</span>
-                </div>
-                <div class="course-badge">
-                    <span class="badge-icon">👥</span>
-                    <span class="badge-text">Interactive</span>
-                </div>
-                <div class="course-badge">
-                    <span class="badge-icon">💻</span>
-                    <span class="badge-text">Hands-on</span>
-                </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#schedule" class="nav-link">Schedule</a></li>
+                    <li><a href="#courses" class="nav-link">Courses</a></li>
+                    <li><a href="#students" class="nav-link">Students</a></li>
+                    <li><a href="#resources" class="nav-link">Resources</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Navigation -->
-    <nav class="main-nav" aria-label="Main navigation">
-        <div class="nav-container">
-            <ul class="nav-list">
-                <li><a href="#course-overview" class="nav-link">Overview</a></li>
-                <li><a href="#part1-section" class="nav-link">Part 1: Git & GitHub</a></li>
-                <li><a href="#part2-section" class="nav-link">Part 2: Modeling</a></li>
-                <li><a href="#collaboration" class="nav-link">Collaborate</a></li>
-                <li><a href="#submission-portal" class="nav-link">Submissions</a></li>
-                <li><a href="#resources" class="nav-link">Resources</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Course Overview Section -->
-        <section id="course-overview" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">Course Overview</h2>
-                
-                <div class="overview-grid">
-                    <div class="overview-card">
-                        <div class="card-icon">📚</div>
-                        <h3>Course Structure</h3>
-                        <p>Two focused parts designed for maximum learning in minimal time</p>
-                        <ul>
-                            <li><strong>Part 1:</strong> Git & GitHub Fundamentals (4 hours)</li>
-                            <li><strong>Part 2:</strong> Infectious Disease Modeling (4 hours)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="card-icon">🎯</div>
-                        <h3>Learning Objectives</h3>
-                        <p>By the end of this course, you will be able to:</p>
-                        <ul>
-                            <li>Use Git for version control</li>
-                            <li>Collaborate on GitHub</li>
-                            <li>Build models with odin & monty</li>
-                            <li>Create reproducible research</li>
-                        </ul>
-                    </div>
-                    
-                                            <div class="overview-card">
-                            <div class="card-icon">🚀</div>
-                            <h3>Interactive Features</h3>
-                            <p>Learn by doing with our interactive platform:</p>
-                            <ul>
-                                <li>Run code directly in notes</li>
-                                <li>Real-time collaboration</li>
-                                <li>Instant feedback</li>
-                                <li>Progress tracking</li>
-                                <li>Submission portal</li>
-                            </ul>
-                        </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Part 1: Git & GitHub Section -->
-        <section id="part1-section" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">Part 1: Git & GitHub Fundamentals</h2>
-                <div class="part-header">
-                    <div class="part-info">
-                        <span class="part-badge">Part 1</span>
-                        <span class="duration">4 Hours</span>
-                    </div>
-                    <p class="part-description">
-                        Master version control with Git and collaborative development on GitHub. 
-                        Learn best practices for reproducible scientific computing.
-                    </p>
-                </div>
-
-                <div class="learning-modules">
-                    <div class="module-card">
-                        <h3>Module 1: Introduction to Version Control</h3>
-                        <ul>
-                            <li>Why version control matters in research</li>
-                            <li>Git basics: commits, branches, history</li>
-                            <li>Setting up your Git environment</li>
-                        </ul>
-                        <a href="labs/git-basics.html" class="module-link">Start Learning →</a>
-                    </div>
-                    
-                    <div class="module-card">
-                        <h3>Module 2: GitHub Collaboration</h3>
-                        <ul>
-                            <li>Creating and managing repositories</li>
-                            <li>Pull requests and code review</li>
-                            <li>Team collaboration workflows</li>
-                        </ul>
-                        <a href="labs/github-collaboration.html" class="module-link">Start Learning →</a>
-                    </div>
-                    
-                    <div class="module-card">
-                        <h3>Module 3: R with Git & GitHub</h3>
-                        <ul>
-                            <li>Managing R projects with Git</li>
-                            <li>R Markdown and reproducibility</li>
-                            <li>Best practices for scientific computing</li>
-                        </ul>
-                        <a href="labs/r-git-workflow.html" class="module-link">Start Learning →</a>
-                    </div>
-                </div>
-
-                <div class="interactive-demo">
-                    <h3>Try Git Commands Live</h3>
-                    <div class="code-playground">
-                        <div class="terminal">
-                            <div class="terminal-header">
-                                <span class="terminal-title">Git Terminal</span>
-                                <div class="terminal-buttons">
-                                    <span class="btn btn-close"></span>
-                                    <span class="btn btn-minimize"></span>
-                                    <span class="btn btn-maximize"></span>
-                                </div>
-                            </div>
-                            <div class="terminal-body">
-                                <div class="command-line">
-                                    <span class="prompt">$</span>
-                                    <input type="text" class="command-input" placeholder="Try: git init" id="git-command">
-                                </div>
-                                <div class="command-output" id="git-output">
-                                    <p>Welcome to the interactive Git terminal! Try some commands:</p>
-                                    <ul>
-                                        <li><code>git init</code> - Initialize a new repository</li>
-                                        <li><code>git status</code> - Check repository status</li>
-                                        <li><code>git add .</code> - Stage all changes</li>
-                                        <li><code>git commit -m "message"</code> - Commit changes</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Part 2: Infectious Disease Modeling Section -->
-        <section id="part2-section" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">Part 2: Infectious Disease Modeling with odin & monty</h2>
-                <div class="part-header">
-                    <div class="part-info">
-                        <span class="part-badge">Part 2</span>
-                        <span class="duration">4 Hours</span>
-                    </div>
-                    <p class="part-description">
-                        Build and simulate infectious disease models using the powerful odin and monty packages. 
-                        Based on the latest workshop materials from Imperial College London.
-                    </p>
-                </div>
-
-                <div class="learning-modules">
-                    <div class="module-card">
-                        <h3>Module 4: Introduction to odin</h3>
-                        <ul>
-                            <li>Writing odin code for model specification</li>
-                            <li>Understanding the odin language</li>
-                            <li>Building your first epidemiological model</li>
-                        </ul>
-                        <a href="labs/odin-intro.html" class="module-link">Start Learning →</a>
-                    </div>
-                    
-                    <div class="module-card">
-                        <h3>Module 5: Model Fitting with monty</h3>
-                        <ul>
-                            <li>Fitting odin models to data</li>
-                            <li>Parameter estimation techniques</li>
-                            <li>Model validation and diagnostics</li>
-                        </ul>
-                        <a href="labs/monty-fitting.html" class="module-link">Start Learning →</a>
-                    </div>
-                    
-                    <div class="module-card">
-                        <h3>Module 6: Advanced Applications</h3>
-                        <ul>
-                            <li>Complex model structures</li>
-                            <li>Uncertainty quantification</li>
-                            <li>Real-world case studies</li>
-                        </ul>
-                        <a href="labs/advanced-modeling.html" class="module-link">Start Learning →</a>
-                    </div>
-                </div>
-
-                                <div class="interactive-demo">
-                    <h3>Run odin Models Live</h3>
-                    
-                    <div class="interactive-model">
-                        <h4>Interactive odin SIR Model</h4>
-                        <p>Use the interactive model below to explore how different parameters affect the epidemic dynamics using odin:</p>
-                        
-                        <div class="parameter-controls">
-                            <div class="parameter-group">
-                                <label for="beta-param">Transmission Rate (β):</label>
-                                <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
-                                <span id="beta-value">0.3</span>
-                            </div>
-                            
-                            <div class="parameter-group">
-                                <label for="gamma-param">Recovery Rate (γ):</label>
-                                <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
-                                <span id="gamma-value">0.1</span>
-                            </div>
-                            
-                            <div class="parameter-group">
-                                <label for="population-param">Total Population (N):</label>
-                                <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
-                                <span id="population-value">1000</span>
-                            </div>
-                            
-                            <div class="parameter-group">
-                                <label for="initial-infected-param">Initial Infected:</label>
-                                <input type="range" id="initial-infected-param" min="1" max="100" value="1" step="1">
-                                <span id="initial-infected-value">1</span>
-                            </div>
-                        </div>
-                        
-                        <div class="model-controls">
-                            <button id="run-model-main" class="run-btn">▶️ Run Simulation</button>
-                            <button id="reset-model-main" class="reset-btn">🔄 Reset Parameters</button>
-                        </div>
-                        
-                        <div class="model-output">
-                            <div class="output-tabs">
-                                <button class="tab-btn active" data-tab="plot-main">📊 Epidemic Curve</button>
-                                <button class="tab-btn" data-tab="table-main">📋 Results Table</button>
-                                <button class="tab-btn" data-tab="metrics-main">📈 Key Metrics</button>
-                                <button class="tab-btn" data-tab="code-main">💻 Model Code</button>
-                            </div>
-                            
-                            <div class="tab-content active" id="plot-main-tab">
-                                <div class="plot-container">
-                                    <canvas id="sir-plot-main" width="800" height="500"></canvas>
-                                </div>
-                            </div>
-                            
-                            <div class="tab-content" id="table-main-tab">
-                                <div class="table-container">
-                                    <table id="results-table-main">
-                                        <thead>
-                                            <tr>
-                                                <th>Time (days)</th>
-                                                <th>Susceptible</th>
-                                                <th>Infected</th>
-                                                <th>Recovered</th>
-                                                <th>Incidence</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="table-body-main">
-                                            <!-- Results will be populated here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            
-                            <div class="tab-content" id="metrics-main-tab">
-                                <div class="metrics-container">
-                                    <div class="metric">
-                                        <h4>Basic Reproduction Number (R₀)</h4>
-                                        <p id="r0-value-main">3.0</p>
-                                    </div>
-                                    <div class="metric">
-                                        <h4>Peak Infections</h4>
-                                        <p id="peak-infections-main">-</p>
-                                    </div>
-                                    <div class="metric">
-                                        <h4>Peak Day</h4>
-                                        <p id="peak-day-main">-</p>
-                                    </div>
-                                    <div class="metric">
-                                        <h4>Final Epidemic Size</h4>
-                                        <p id="final-size-main">-</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="tab-content" id="code-main-tab">
-                                <div class="code-container">
-                                    <h4>odin SIR Model Implementation</h4>
-                                    <div class="code-block">
-                                        <pre><code class="language-r"># SIR Model using odin
-library(odin)
-
-# Define the SIR model
-sir_model <- odin::odin({
-    ## Core equations for transitions between compartments:
-    deriv(S) <- -beta * S * I / N
-    deriv(I) <- beta * S * I / N - gamma * I
-    deriv(R) <- gamma * I
-    
-    ## Total population size (sum of all compartments)
-    N <- S + I + R
-    
-    ## Initial conditions
-    initial(S) <- S0
-    initial(I) <- I0
-    initial(R) <- R0
-    
-    ## User defined parameters
-    beta <- user(0.3)    # Transmission rate
-    gamma <- user(0.1)   # Recovery rate
-    S0 <- user(999)      # Initial susceptible
-    I0 <- user(1)        # Initial infected
-    R0 <- user(0)        # Initial recovered
-})
-
-# Create model instance
-model <- sir_model(beta = 0.3, gamma = 0.1, S0 = 999, I0 = 1, R0 = 0)
-
-# Run the model
-t <- seq(0, 100, by = 0.1)
-result <- model$run(t)
-
-# Extract results
-S <- result[, "S"]
-I <- result[, "I"]
-R <- result[, "R"]
-time <- result[, "t"]
-
-# Plot results
-plot(time, S, type = "l", col = "green", lwd = 2, 
-     xlab = "Time (days)", ylab = "Population",
-     main = "SIR Model Results")
-lines(time, I, col = "red", lwd = 2)
-lines(time, R, col = "blue", lwd = 2)
-legend("topright", legend = c("Susceptible", "Infected", "Recovered"),
-       col = c("green", "red", "blue"), lwd = 2)</code></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Real-time Collaboration Section -->
-        <section id="collaboration" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">Real-time Collaboration</h2>
-                <p class="section-description">
-                    Work together with your classmates in real-time. Share code, discuss solutions, 
-                    and learn from each other as you progress through the course.
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="highlight">G-WAC Summer School 2025</span>
+                    <br>Mathematical Modeling & Public Health Research
+                </h1>
+                <p class="hero-subtitle">
+                    Join us for an intensive 2-week program featuring cutting-edge workshops, 
+                    hands-on modeling projects, and expert-led sessions in epidemiological data analysis.
                 </p>
-
-                <div class="collaboration-features">
-                    <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <h3>Live Collaboration</h3>
-                        <p>See what your classmates are working on in real-time</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Weeks</span>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">💬</div>
-                        <h3>Group Discussions</h3>
-                        <p>Chat and discuss problems as you solve them</p>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Expert Sessions</span>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>Progress Tracking</h3>
-                        <p>Monitor your progress and compare with peers</p>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Core Modules</span>
                     </div>
                 </div>
-
-                <div class="collaboration-demo">
-                    <h3>Join the Collaboration</h3>
-                    <div class="collab-interface">
-                        <div class="collab-header">
-                            <span class="collab-title">Active Collaborators</span>
-                            <span class="collab-count">3 online</span>
-                        </div>
-                        <div class="collab-body">
-                            <div class="collaborator-list">
-                                <div class="collaborator">
-                                    <span class="collab-avatar">👤</span>
-                                    <span class="collab-name">Student 1</span>
-                                    <span class="collab-status">Working on Git Module 2</span>
-                                </div>
-                                <div class="collaborator">
-                                    <span class="collab-avatar">👤</span>
-                                    <span class="collab-name">Student 2</span>
-                                    <span class="collab-status">Completed Part 1</span>
-                                </div>
-                                <div class="collaborator">
-                                    <span class="collab-avatar">👤</span>
-                                    <span class="collab-name">Student 3</span>
-                                    <span class="collab-status">Working on SIR Model</span>
-                                </div>
-                            </div>
-                            <div class="chat-section">
-                                <div class="chat-messages" id="chat-messages">
-                                    <div class="message">
-                                        <span class="message-author">Student 1:</span>
-                                        <span class="message-text">Anyone having trouble with git merge conflicts?</span>
-                                    </div>
-                                    <div class="message">
-                                        <span class="message-author">Student 2:</span>
-                                        <span class="message-text">I can help! What's the issue?</span>
-                                    </div>
-                                </div>
-                                <div class="chat-input">
-                                    <input type="text" placeholder="Type your message..." id="chat-input">
-                                    <button onclick="sendMessage()">Send</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="hero-actions">
+                    <a href="#schedule" class="btn btn-primary">View Schedule</a>
+                    <a href="#courses" class="btn btn-secondary">Explore Courses</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-graphic">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Data Analysis</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-microscope"></i>
+                        <span>Research</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-users"></i>
+                        <span>Collaboration</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Enhanced Submission Portal Section -->
-        <section id="submission-portal" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">🎯 Submission Portal</h2>
-                <p class="section-description">Track your collaborative assignments and see what others have submitted</p>
+    <!-- Schedule Section -->
+    <section id="schedule" class="schedule-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Program Schedule</h2>
+                <p class="section-subtitle">Two weeks of intensive learning and hands-on experience</p>
+            </div>
+            
+            <div class="schedule-timeline">
+                <div class="timeline-nav">
+                    <button class="timeline-nav-btn active" data-week="1">Week 1</button>
+                    <button class="timeline-nav-btn" data-week="2">Week 2</button>
+                </div>
                 
-                <div class="submission-portal-container">
-                    <!-- Assignment Overview -->
-                    <div class="assignment-overview">
-                        <h3>📋 Current Assignment: Git Collaboration Practice</h3>
-                        <p>Create a pull request to submit your solution for the collaborative Git workflow exercise.</p>
-                        <div class="assignment-details">
-                            <div class="detail-item">
-                                <span class="detail-label">📅 Due Date:</span>
-                                <span class="detail-value">December 31, 2024</span>
+                <div class="timeline-content">
+                    <!-- Week 1 -->
+                    <div class="week-content active" id="week-1">
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Monday, July 14</h3>
+                                <span class="day-theme">Foundation & Introduction</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">👥 Participants:</span>
-                                <span class="detail-value">12 students</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">✅ Submissions:</span>
-                                <span class="detail-value">8 completed</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Submissions Table -->
-                    <div class="submissions-table-container">
-                        <h3>📊 Recent Submissions</h3>
-                        <div class="submissions-table">
-                            <div class="table-header">
-                                <div class="header-cell">👤 Student</div>
-                                <div class="header-cell">📁 File</div>
-                                <div class="header-cell">⏰ Submitted</div>
-                                <div class="header-cell">📝 Status</div>
-                                <div class="header-cell">🔗 Actions</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell student-info">
-                                    <div class="student-avatar">👤</div>
-                                    <div class="student-details">
-                                        <div class="student-name">Alice Johnson</div>
-                                        <div class="student-username">@alice-j</div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Welcome & Course Overview</h4>
+                                    <p>Introduction to mathematical modeling in public health</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Sarah Johnson</span>
+                                        <span class="room">Main Hall</span>
                                     </div>
                                 </div>
-                                <div class="table-cell">git-collaboration-solution.md</div>
-                                <div class="table-cell">2 hours ago</div>
-                                <div class="table-cell"><span class="status-badge approved">✅ Approved</span></div>
-                                <div class="table-cell">
-                                    <button class="action-btn view-btn">👁️ View</button>
-                                </div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell student-info">
-                                    <div class="student-avatar">👤</div>
-                                    <div class="student-details">
-                                        <div class="student-name">Bob Smith</div>
-                                        <div class="student-username">@bob-smith</div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Basic Epidemiological Concepts</h4>
+                                    <p>Understanding disease transmission and population dynamics</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Prof. Michael Chen</span>
+                                        <span class="room">Lab A</span>
                                     </div>
                                 </div>
-                                <div class="table-cell">git-workflow-exercise.R</div>
-                                <div class="table-cell">4 hours ago</div>
-                                <div class="table-cell"><span class="status-badge pending">⏳ Pending</span></div>
-                                <div class="table-cell">
-                                    <button class="action-btn review-btn">🔍 Review</button>
-                                </div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell student-info">
-                                    <div class="student-avatar">👤</div>
-                                    <div class="student-details">
-                                        <div class="student-name">Charlie Brown</div>
-                                        <div class="student-username">@charlie-b</div>
-                                    </div>
-                                </div>
-                                <div class="table-cell">collaboration-demo.md</div>
-                                <div class="table-cell">6 hours ago</div>
-                                <div class="table-cell"><span class="status-badge approved">✅ Approved</span></div>
-                                <div class="table-cell">
-                                    <button class="action-btn view-btn">👁️ View</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Participants List -->
-                    <div class="participants-section">
-                        <h3>👥 Course Participants</h3>
-                        <div class="participants-grid">
-                            <div class="participant-card">
-                                <div class="participant-avatar">👤</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">Alice Johnson</div>
-                                    <div class="participant-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 90%"></div>
-                                        </div>
-                                        <span>90% Complete</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="participant-card">
-                                <div class="participant-avatar">👤</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">Bob Smith</div>
-                                    <div class="participant-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 75%"></div>
-                                        </div>
-                                        <span>75% Complete</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="participant-card">
-                                <div class="participant-avatar">👤</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">Charlie Brown</div>
-                                    <div class="participant-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 85%"></div>
-                                        </div>
-                                        <span>85% Complete</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="participant-card">
-                                <div class="participant-avatar">👤</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">Diana Prince</div>
-                                    <div class="participant-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 60%"></div>
-                                        </div>
-                                        <span>60% Complete</span>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Hands-on Workshop: R Basics</h4>
+                                    <p>Introduction to R programming for data analysis</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Emily Rodriguez</span>
+                                        <span class="room">Computer Lab</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Tuesday, July 15</h3>
+                                <span class="day-theme">Mathematical Foundations</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Differential Equations in Epidemiology</h4>
+                                    <p>SIR models and compartmental modeling</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Prof. David Kim</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Parameter Estimation</h4>
+                                    <p>Methods for fitting models to data</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Lisa Wang</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Interactive Modeling Session</h4>
+                                    <p>Build and simulate SIR models</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. James Wilson</span>
+                                        <span class="room">Computer Lab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Wednesday, July 16</h3>
+                                <span class="day-theme">Advanced Modeling</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Stochastic Models</h4>
+                                    <p>Incorporating randomness in disease modeling</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Prof. Robert Taylor</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Network Models</h4>
+                                    <p>Social network analysis in epidemiology</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Amanda Foster</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Group Project Work</h4>
+                                    <p>Begin collaborative modeling projects</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Instructors</span>
+                                        <span class="room">Project Rooms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Thursday, July 17</h3>
+                                <span class="day-theme">Data Analysis</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Data Visualization</h4>
+                                    <p>Creating effective plots and charts</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Maria Garcia</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Statistical Inference</h4>
+                                    <p>Hypothesis testing and confidence intervals</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Prof. Thomas Lee</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Case Study Analysis</h4>
+                                    <p>Real-world epidemiological data</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Jennifer Brown</span>
+                                        <span class="room">Computer Lab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Friday, July 18</h3>
+                                <span class="day-theme">Integration & Review</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Week 1 Review</h4>
+                                    <p>Consolidating key concepts and methods</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Course Directors</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Project Planning</h4>
+                                    <p>Finalizing group project objectives</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Project Mentors</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Social Event & Networking</h4>
+                                    <p>Building connections with peers and faculty</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Participants</span>
+                                        <span class="room">Campus Center</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Submission Instructions -->
-                    <div class="submission-instructions">
-                        <h3>📝 How to Submit</h3>
-                        <div class="instructions-steps">
-                            <div class="instruction-step">
-                                <div class="step-number">1</div>
-                                <div class="step-content">
-                                    <h4>Fork the Repository</h4>
-                                    <p>Click the fork button on the course repository to create your own copy</p>
+                    
+                    <!-- Week 2 -->
+                    <div class="week-content" id="week-2">
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Monday, July 21</h3>
+                                <span class="day-theme">Advanced Topics</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Machine Learning in Epidemiology</h4>
+                                    <p>AI and ML approaches to disease modeling</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Alex Thompson</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Geographic Information Systems</h4>
+                                    <p>Spatial analysis of disease spread</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Rachel Green</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Project Development</h4>
+                                    <p>Intensive work on group projects</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Project Mentors</span>
+                                        <span class="room">Project Rooms</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="instruction-step">
-                                <div class="step-number">2</div>
-                                <div class="step-content">
-                                    <h4>Create Your Solution</h4>
-                                    <p>Add your solution files to your forked repository</p>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Tuesday, July 22</h3>
+                                <span class="day-theme">Policy & Communication</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Modeling for Policy Decisions</h4>
+                                    <p>Translating research into actionable insights</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Patricia Martinez</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Science Communication</h4>
+                                    <p>Effectively presenting complex findings</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Dr. Kevin O'Connor</span>
+                                        <span class="room">Lab A</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Project Refinement</h4>
+                                    <p>Polishing presentations and analyses</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Project Mentors</span>
+                                        <span class="room">Project Rooms</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="instruction-step">
-                                <div class="step-number">3</div>
-                                <div class="step-content">
-                                    <h4>Submit Pull Request</h4>
-                                    <p>Create a pull request to submit your work for review</p>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Wednesday, July 23</h3>
+                                <span class="day-theme">Project Work</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 12:00</div>
+                                    <h4>Intensive Project Development</h4>
+                                    <p>Full morning dedicated to group projects</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Project Mentors</span>
+                                        <span class="room">Project Rooms</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Presentation Preparation</h4>
+                                    <p>Finalizing slides and rehearsing</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Groups</span>
+                                        <span class="room">Project Rooms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Thursday, July 24</h3>
+                                <span class="day-theme">Presentations & Feedback</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 12:00</div>
+                                    <h4>Group Project Presentations</h4>
+                                    <p>All groups present their findings</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Participants</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Feedback & Discussion</h4>
+                                    <p>Constructive feedback and Q&A sessions</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Participants</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="day-schedule">
+                            <div class="day-header">
+                                <h3>Friday, July 25</h3>
+                                <span class="day-theme">Closing & Celebration</span>
+                            </div>
+                            <div class="schedule-grid">
+                                <div class="session-card morning">
+                                    <div class="session-time">09:00 - 10:30</div>
+                                    <h4>Course Reflection</h4>
+                                    <p>What we learned and next steps</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">Course Directors</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card morning">
+                                    <div class="session-time">11:00 - 12:30</div>
+                                    <h4>Certificate Ceremony</h4>
+                                    <p>Celebrating achievements and completion</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Faculty</span>
+                                        <span class="room">Main Hall</span>
+                                    </div>
+                                </div>
+                                <div class="session-card afternoon">
+                                    <div class="session-time">14:00 - 17:00</div>
+                                    <h4>Graduation Celebration</h4>
+                                    <p>Networking, refreshments, and farewells</p>
+                                    <div class="session-meta">
+                                        <span class="instructor">All Participants</span>
+                                        <span class="room">Campus Center</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Resources Section -->
-        <section id="resources" class="content-section">
-            <div class="section-container">
-                <h2 class="section-title">Course Resources</h2>
+    <!-- Course Overview Section -->
+    <section id="courses" class="course-overview-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Course Overview</h2>
+                <p class="section-subtitle">Comprehensive curriculum covering essential topics in mathematical modeling and public health</p>
+            </div>
+            
+            <div class="overview-content">
+                <div class="overview-text">
+                    <h3>What You'll Learn</h3>
+                    <p>Our intensive 2-week program covers five core areas that will transform your understanding of mathematical modeling in public health:</p>
+                    
+                    <div class="learning-areas">
+                        <div class="learning-area">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Mathematical Foundations</h4>
+                                <p>Master differential equations, parameter estimation, and model validation techniques essential for epidemiological modeling.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-area">
+                            <i class="fas fa-microscope"></i>
+                            <div>
+                                <h4>Epidemiological Modeling</h4>
+                                <p>Explore advanced techniques including SIR models, stochastic processes, and network-based approaches to disease dynamics.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-area">
+                            <i class="fas fa-laptop-code"></i>
+                            <div>
+                                <h4>Computational Methods</h4>
+                                <p>Develop programming skills in R, data visualization, statistical analysis, and machine learning applications.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-area">
+                            <i class="fas fa-database"></i>
+                            <div>
+                                <h4>Data Analysis & Visualization</h4>
+                                <p>Learn data cleaning, exploratory analysis, statistical inference, and effective communication of results.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-area">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Collaborative Research</h4>
+                                <p>Engage in group projects, peer learning, scientific communication, and policy-relevant research applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="resources-grid">
-                    <div class="resource-category">
-                        <h3>📚 Required Software</h3>
-                        <ul>
-                            <li><a href="https://git-scm.com/download" target="_blank" rel="noopener">Git</a></li>
-                            <li><a href="https://cran.r-project.org/" target="_blank" rel="noopener">R (4.4.x recommended)</a></li>
-                            <li><a href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener">RStudio</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="resource-category">
-                        <h3>🔧 R Packages</h3>
-                        <ul>
-                            <li><code>odin2</code> - Model specification</li>
-                            <li><code>monty</code> - Model fitting</li>
-                            <li><code>dust2</code> - Stochastic simulation</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="resource-category">
-                        <h3>📖 Additional Reading</h3>
-                        <ul>
-                            <li><a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener">Odin-Monty Workshop Materials</a></li>
-                            <li><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener">Pro Git Book</a></li>
-                            <li><a href="https://r4ds.had.co.nz/" target="_blank" rel="noopener">R for Data Science</a></li>
-                        </ul>
-                    </div>
+                <div class="overview-actions">
+                    <a href="courses.html" class="btn btn-primary">
+                        <i class="fas fa-book-open"></i>
+                        Explore Full Course Materials
+                    </a>
+                    <a href="#schedule" class="btn btn-secondary">
+                        <i class="fas fa-calendar-alt"></i>
+                        View Program Schedule
+                    </a>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="installation-guide">
-                    <h3>Quick Installation Guide</h3>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span>Install required R packages</span>
-                            <button class="copy-btn" onclick="copyCode('install-code')">Copy</button>
+    <!-- Students Section -->
+    <section id="students" class="students-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Student Portal</h2>
+                <p class="section-subtitle">Access your course materials, track progress, and collaborate with peers</p>
+            </div>
+            
+            <div class="student-dashboard">
+                <div class="dashboard-header">
+                    <h3>Welcome to G-WAC Summer School 2025</h3>
+                    <p>You are one of <strong id="total-students">0</strong> selected participants</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-book-open"></i>
+                            <h4>Course Materials</h4>
                         </div>
-                        <pre><code id="install-code"># Install from R-universe
-install.packages(
-  c("monty", "dust2", "odin2"),
-  repos = c("https://mrc-ide.r-universe.dev", "https://cloud.r-project.org")
-)
-
-# Verify installation
-library(odin2)
-library(monty)
-library(dust2)</code></pre>
+                        <div class="card-content">
+                            <p>Access all lectures, exercises, and supplementary materials</p>
+                            <a href="#courses" class="btn btn-outline">Browse Materials</a>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-tasks"></i>
+                            <h4>Progress Tracking</h4>
+                        </div>
+                        <div class="card-content">
+                            <p>Monitor your completion of modules and assignments</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text">0% Complete</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i>
+                            <h4>Collaboration</h4>
+                        </div>
+                        <div class="card-content">
+                            <p>Connect with fellow students and form study groups</p>
+                            <a href="#" class="btn btn-outline">View Participants</a>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h4>Schedule</h4>
+                        </div>
+                        <div class="card-content">
+                            <p>Keep track of sessions, deadlines, and events</p>
+                            <a href="#schedule" class="btn btn-outline">View Schedule</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="resources-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resources & Materials</h2>
+                <p class="section-subtitle">Comprehensive collection of learning resources, tools, and references</p>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-category">
+                    <h3><i class="fas fa-download"></i> Downloads</h3>
+                    <ul class="resource-list">
+                        <li><a href="#" class="resource-link"><i class="fas fa-file-pdf"></i> Course Syllabus</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-file-excel"></i> Student List</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-file-word"></i> Program Outline</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-file-pdf"></i> Reading Materials</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-link"></i> External Links</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://www.r-project.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> R Project</a></li>
+                        <li><a href="https://cran.r-project.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> CRAN Repository</a></li>
+                        <li><a href="https://www.ici3d.org/" class="resource-link" target="_blank"><i class="fas fa-external-link-alt"></i> ICI3D Program</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-external-link-alt"></i> Additional Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-tools"></i> Tools & Software</h3>
+                    <ul class="resource-list">
+                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> R Installation Guide</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Required Packages</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Sample Datasets</a></li>
+                        <li><a href="#" class="resource-link"><i class="fas fa-download"></i> Code Templates</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact & Support</h2>
+                <p class="section-subtitle">Get in touch with our team for questions, technical support, or general inquiries</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>summerschool@g-wac.org</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>University Campus, Research Building</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-branding">
-                    <img src="images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo">
-                    <div class="footer-text">
-                        <p class="footer-title">G-WAC Short Course</p>
-                        <p class="footer-subtitle">Git, GitHub & Infectious Disease Modeling</p>
-                    </div>
+                <div class="footer-logo">
+                    <img src="images/g-wac-logo.png" alt="G-WAC Logo" class="footer-logo-img">
+                    <p>Global Workshop on Advanced Computing</p>
                 </div>
                 <div class="footer-links">
-                    <p class="footer-license">
-                        Course materials based on the <a href="https://mrc-ide.github.io/odin-monty-workshop-2025/" target="_blank" rel="noopener" class="footer-link">Odin-Monty Workshop</a>
-                    </p>
-                    <p class="footer-acknowledgment">
-                        Special thanks to Imperial College London MRC-IDE team
-                    </p>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#schedule">Schedule</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#students">Students</a></li>
+                    </ul>
                 </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 G-WAC Summer School. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/theme-toggle.js"></script>
-    <!-- PWA script removed to prevent memory issues -->
-    <script src="js/error-handler.js"></script>
-    <script src="js/collaboration.js"></script>
-    <script src="js/code-execution.js"></script>
-    <script src="js/odin-model.js"></script>
+    <script src="js/summer-school.js"></script>
 </body>
 </html>
