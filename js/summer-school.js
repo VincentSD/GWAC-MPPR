@@ -20,6 +20,7 @@ class SummerSchoolManager {
         this.setupAnimations();
         this.setupBackToTop();
         this.setupNavigation();
+        this.setupScheduleAccordion();
     }
 
     /**
@@ -403,6 +404,39 @@ class SummerSchoolManager {
                     }
                 });
             });
+        }
+    }
+    
+    /**
+     * Setup schedule accordion functionality
+     */
+    setupScheduleAccordion() {
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const isActive = header.classList.contains('active');
+                
+                // Close all other accordions
+                accordionHeaders.forEach(h => {
+                    h.classList.remove('active');
+                    h.nextElementSibling.classList.remove('active');
+                });
+                
+                // Toggle current accordion
+                if (!isActive) {
+                    header.classList.add('active');
+                    content.classList.add('active');
+                }
+            });
+        });
+        
+        // Open first day by default
+        const firstHeader = document.querySelector('.accordion-header');
+        if (firstHeader) {
+            firstHeader.classList.add('active');
+            firstHeader.nextElementSibling.classList.add('active');
         }
     }
 
