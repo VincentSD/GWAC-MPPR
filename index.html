@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/summer-school.css">
+    <link rel="stylesheet" href="css/file-manager.css">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -35,6 +36,7 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#schedule" class="nav-link">Schedule</a></li>
                 <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#course-materials" class="nav-link">Materials</a></li>
                 <li><a href="#students" class="nav-link">Students</a></li>
                 <li><a href="#resources" class="nav-link">Resources</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -272,8 +274,8 @@
                                             </div>
                                         </div>
                                         <div class="session-links">
-                                            <a href="courses.html#gwac-intro" class="session-link">
-                                                <i class="fas fa-book"></i> Course Materials
+                                            <a href="#about-gwac" class="session-link">
+                                                <i class="fas fa-book"></i> About G-WAC
                                             </a>
                                             <a href="https://g-wac.org/" class="session-link" target="_blank">
                                                 <i class="fas fa-info-circle"></i> G-WAC Website
@@ -298,11 +300,14 @@
                                             </div>
                                         </div>
                                         <div class="session-links">
-                                            <a href="labs/r-basics.html" class="session-link">
+                                            <a href="#course-materials" class="session-link">
                                                 <i class="fas fa-book"></i> Course Materials
                                             </a>
-                                            <a href="labs/r-basics.html" class="session-link">
-                                                <i class="fas fa-laptop-code"></i> Lab Exercises
+                                            <a href="https://github.com/jamesmbaazam/mppr/tree/main/tutorials/R" class="session-link" target="_blank">
+                                                <i class="fas fa-laptop-code"></i> R Tutorials (GitHub)
+                                            </a>
+                                            <a href="https://drive.google.com/drive/folders/1MYPl2YaE5aALSVrOV8EdJre2V85gTjpd" class="session-link" target="_blank">
+                                                <i class="fas fa-presentation"></i> Presentations (Drive)
                                             </a>
                                         </div>
                                     </div>
@@ -1265,7 +1270,7 @@
     </section>
 
     <!-- About G-WAC Section -->
-    <section class="about-gwac-section">
+    <section id="about-gwac" class="about-gwac-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">About G-WAC</h2>
@@ -1466,6 +1471,120 @@
         </div>
     </section>
 
+    <!-- Course Materials Section -->
+    <section id="course-materials" class="file-management-section">
+        <div class="container">
+            <div class="file-management-header">
+                <h2>Course Materials & Resources</h2>
+                <p>Access all course materials, presentations, and resources in one centralized location. Facilitators can upload materials, and students can easily find and download what they need.</p>
+            </div>
+            
+            <div class="file-controls">
+                <div class="file-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="file-search" placeholder="Search for materials, presentations, or resources...">
+                </div>
+                
+                <div class="file-filters">
+                    <select class="category-filter" id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="R Programming">R Programming</option>
+                        <option value="Disease Modeling">Disease Modeling</option>
+                        <option value="Presentations">Presentations</option>
+                        <option value="Exercises">Exercises</option>
+                        <option value="Data">Data & Datasets</option>
+                        <option value="Documentation">Documentation</option>
+                    </select>
+                    
+                    <button id="file-upload-btn" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload Materials
+                    </button>
+                </div>
+            </div>
+            
+            <div class="upload-section" id="drop-zone">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="upload-text">
+                    <h3>Drag & Drop Files Here</h3>
+                    <p>Or click the upload button above to add new course materials, presentations, or resources</p>
+                </div>
+            </div>
+            
+            <div id="files-container" class="files-container">
+                <!-- Files will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" class="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Course Material</h3>
+                <button class="modal-close" onclick="fileManager.hideUploadModal()">&times;</button>
+            </div>
+            
+            <form id="upload-form" class="upload-form">
+                <div class="form-group">
+                    <label for="file-input">File</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="file-input" name="file" class="file-input" required>
+                        <label for="file-input" class="file-input-label">
+                            <i class="fas fa-file-upload"></i> Choose a file or drag it here
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" placeholder="Enter a descriptive title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" placeholder="Brief description of the material"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="R Programming">R Programming</option>
+                        <option value="Disease Modeling">Disease Modeling</option>
+                        <option value="Presentations">Presentations</option>
+                        <option value="Exercises">Exercises</option>
+                        <option value="Data">Data & Datasets</option>
+                        <option value="Documentation">Documentation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="session">Related Session (Optional)</label>
+                    <select id="session" name="session">
+                        <option value="">Select a session</option>
+                        <option value="Introduction to G-WAC">Introduction to G-WAC</option>
+                        <option value="Crash Course in R Programming">Crash Course in R Programming</option>
+                        <option value="Introduction to Version Control using Git and GitHub">Introduction to Version Control using Git and GitHub</option>
+                        <option value="Basics of Infectious Disease Modeling">Basics of Infectious Disease Modeling</option>
+                        <option value="Model Simulation in R with odin & monty">Model Simulation in R with odin & monty</option>
+                        <option value="Extending the SIR Model">Extending the SIR Model</option>
+                        <option value="Basics of Model Calibration/Fitting/Validation Techniques">Basics of Model Calibration/Fitting/Validation Techniques</option>
+                        <option value="Overview of Scenario Modeling">Overview of Scenario Modeling</option>
+                        <option value="Incorporating Health Economics into Epidemic Models">Incorporating Health Economics into Epidemic Models</option>
+                        <option value="Group Projects">Group Projects</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="fileManager.hideUploadModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload Material</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Resources Section -->
     <section id="resources" class="resources-section">
         <div class="container">
@@ -1622,6 +1741,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#schedule">Schedule</a></li>
                         <li><a href="#courses">Courses</a></li>
+                        <li><a href="#course-materials">Materials</a></li>
                         <li><a href="#students">Students</a></li>
                     </ul>
                 </div>
@@ -1650,5 +1770,6 @@
     <script src="js/script.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/summer-school.js"></script>
+    <script src="js/file-manager.js"></script>
 </body>
 </html>
