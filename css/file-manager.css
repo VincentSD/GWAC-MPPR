@@ -86,6 +86,59 @@
     text-decoration: underline;
 }
 
+.token-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.token-info p {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.token-info i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.token-steps {
+    margin-top: 20px;
+    text-align: left;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.token-steps h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.token-steps ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.token-steps li {
+    margin: 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.token-steps a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.token-steps a:hover {
+    text-decoration: underline;
+}
+
 .storage-info {
     margin-top: 20px;
     padding: 15px;

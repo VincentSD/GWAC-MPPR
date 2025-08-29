@@ -1479,19 +1479,35 @@
                 <p>Access all course materials, presentations, and resources in one centralized location. Facilitators can upload materials, and students can easily find and download what they need.</p>
                 <div class="storage-info">
                     <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Files are now stored directly in your GitHub repository! This ensures permanent storage, version control, and easy collaboration.</p>
+                    <p><i class="fas fa-users"></i> <strong>Access:</strong> Students can download/view files without tokens. Only facilitators need tokens to upload new materials.</p>
                 </div>
             </div>
             
             <div class="github-auth-section">
                 <div class="auth-info">
                     <i class="fab fa-github"></i>
-                    <span>Connect to GitHub to upload and manage files directly in your repository</span>
+                    <span><strong>Facilitators Only:</strong> Connect to GitHub to upload and manage files directly in your repository</span>
+                </div>
+                <div class="token-info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Students don't need tokens</strong> - they can download and view files without authentication</p>
+                    <p><i class="fas fa-key"></i> <strong>Only teachers/facilitators need tokens</strong> to upload new materials</p>
                 </div>
                 <div class="token-input">
                     <input type="password" id="github-token" placeholder="Enter GitHub Personal Access Token" class="github-token-input">
                     <a href="https://github.com/settings/tokens" target="_blank" class="token-help">
                         <i class="fas fa-question-circle"></i> Get Token
                     </a>
+                </div>
+                <div class="token-steps">
+                    <h4>How to Get Your Token:</h4>
+                    <ol>
+                        <li>Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings > Tokens</a></li>
+                        <li>Click "Generate new token (classic)"</li>
+                        <li>Name it "G-WAC File Manager"</li>
+                        <li>Select <strong>repo</strong> scope (Full control of repositories)</li>
+                        <li>Click "Generate token" and copy it</li>
+                        <li>Paste it above and start uploading!</li>
+                    </ol>
                 </div>
             </div>
             

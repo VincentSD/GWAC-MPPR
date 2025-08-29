@@ -132,25 +132,37 @@ class GitFileManager {
 
     async uploadFileToGitHub(file, title, description, category, session) {
         try {
+            console.log('Starting GitHub upload process...');
+            console.log('File:', file.name, 'Size:', file.size, 'Type:', file.type);
+            console.log('Repository:', `${this.repoOwner}/${this.repoName}`);
+            console.log('Branch:', this.branch);
+            console.log('Token length:', this.githubToken ? this.githubToken.length : 0);
+            
             // Read file content
             const content = await this.readFileAsBase64(file);
+            console.log('File content read, length:', content.length);
             
             // Create file path in repository
             const timestamp = new Date().toISOString().split('T')[0];
             const fileName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
             const filePath = `course-materials/${category}/${fileName}`;
+            console.log('File path:', filePath);
             
             // Create commit message
             const commitMessage = `Add course material: ${title}\n\nCategory: ${category}\nSession: ${session || 'General'}\nDescription: ${description || 'No description'}`;
             
-            // Get current tree SHA (we'll need to implement this)
+            // Get current tree SHA
+            console.log('Getting current tree SHA...');
             const treeSHA = await this.getCurrentTreeSHA();
+            console.log('Tree SHA:', treeSHA);
             
             // Create blob
+            console.log('Creating blob...');
             const blobResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/blobs`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -159,17 +171,24 @@ class GitFileManager {
                 })
             });
 
+            console.log('Blob response status:', blobResponse.status, blobResponse.statusText);
+            
             if (!blobResponse.ok) {
-                throw new Error(`Failed to create blob: ${blobResponse.statusText}`);
+                const errorText = await blobResponse.text();
+                console.error('Blob creation failed:', errorText);
+                throw new Error(`Failed to create blob: ${blobResponse.status} ${blobResponse.statusText}. ${errorText}`);
             }
 
             const blob = await blobResponse.json();
+            console.log('Blob created successfully:', blob.sha);
             
             // Create tree
+            console.log('Creating tree...');
             const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -183,17 +202,24 @@ class GitFileManager {
                 })
             });
 
+            console.log('Tree response status:', treeResponse.status, treeResponse.statusText);
+            
             if (!treeResponse.ok) {
-                throw new Error(`Failed to create tree: ${treeResponse.statusText}`);
+                const errorText = await treeResponse.text();
+                console.error('Tree creation failed:', errorText);
+                throw new Error(`Failed to create tree: ${treeResponse.status} ${treeResponse.statusText}. ${errorText}`);
             }
 
             const tree = await treeResponse.json();
+            console.log('Tree created successfully:', tree.sha);
             
             // Create commit
+            console.log('Creating commit...');
             const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -203,17 +229,24 @@ class GitFileManager {
                 })
             });
 
+            console.log('Commit response status:', commitResponse.status, commitResponse.statusText);
+            
             if (!commitResponse.ok) {
-                throw new Error(`Failed to create commit: ${commitResponse.statusText}`);
+                const errorText = await commitResponse.text();
+                console.error('Commit creation failed:', errorText);
+                throw new Error(`Failed to create commit: ${commitResponse.status} ${commitResponse.statusText}. ${errorText}`);
             }
 
             const commit = await commitResponse.json();
+            console.log('Commit created successfully:', commit.sha);
             
             // Update branch reference
+            console.log('Updating branch reference...');
             const refResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -221,10 +254,16 @@ class GitFileManager {
                 })
             });
 
+            console.log('Ref response status:', refResponse.status, refResponse.statusText);
+            
             if (!refResponse.ok) {
-                throw new Error(`Failed to update branch: ${refResponse.statusText}`);
+                const errorText = await refResponse.text();
+                console.error('Branch update failed:', errorText);
+                throw new Error(`Failed to update branch: ${refResponse.status} ${refResponse.statusText}. ${errorText}`);
             }
 
+            console.log('Branch updated successfully!');
+            
             // Create file metadata
             const fileInfo = {
                 id: Date.now().toString(),
