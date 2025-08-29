@@ -526,25 +526,25 @@
 
 .card-1 {
     top: 15px;
-    right: 15px;
+    right: -60px;
     animation-delay: 0s;
 }
 
 .card-2 {
-    top: 80px;
-    left: 15px;
+    top: 30px;
+    left: -60px;
     animation-delay: 2s;
 }
 
 .card-3 {
     bottom: 15px;
-    right: 15px;
+    right: -60px;
     animation-delay: 4s;
 }
 
 .card-4 {
-    bottom: 80px;
-    left: 15px;
+    bottom: 180px;
+    left: -50px;
     animation-delay: 6s;
 }
 
@@ -2331,10 +2331,10 @@
         font-size: 0.75rem;
     }
     
-    .card-1 { top: 12px; right: 12px; }
-    .card-2 { top: 85px; left: 12px; }
-    .card-3 { bottom: 12px; right: 12px; }
-    .card-4 { bottom: 85px; left: 12px; }
+    .card-1 { top: 12px; right: -40px; }
+    .card-2 { top: 25px; left: -40px; }
+    .card-3 { bottom: 12px; right: -40px; }
+    .card-4 { bottom: 120px; left: -35px; }
     
     /* Adjust R terminal for mobile */
     .r-terminal {
@@ -2442,10 +2442,10 @@
         border-radius: 10px;
     }
     
-    .card-1 { top: 5px; right: 5px; }
-    .card-2 { top: 70px; left: 5px; }
-    .card-3 { bottom: 5px; right: 5px; }
-    .card-4 { bottom: 70px; left: 5px; }
+    .card-1 { top: 5px; right: -30px; }
+    .card-2 { top: 20px; left: -30px; }
+    .card-3 { bottom: 5px; right: -30px; }
+    .card-4 { bottom: 80px; left: -25px; }
     
     .r-terminal {
         font-size: 0.55rem;
@@ -2519,6 +2519,11 @@
         padding: 12px;
         font-size: 0.75rem;
     }
+    
+    .card-1 { top: 10px; right: -50px; }
+    .card-2 { top: 20px; left: -50px; }
+    .card-3 { bottom: 10px; right: -50px; }
+    .card-4 { bottom: 100px; left: -45px; }
     
     .hero-container {
         gap: 25px;

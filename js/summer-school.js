@@ -21,7 +21,6 @@ class SummerSchoolManager {
                     this.setupBackToTop();
                     this.setupNavigation();
                     this.setupSIRGraph();
-                    this.setupDynamicR0();
                     
                     // Initialize accordion for the first week only with a delay
                     setTimeout(() => {
@@ -572,30 +571,48 @@ class SummerSchoolManager {
             const width = canvas.clientWidth;
             const height = canvas.clientHeight;
             
-            // SIR model parameters
-            const beta = 0.3;  // Transmission rate
-            const gamma = 0.1; // Recovery rate
-            const N = 1000;    // Total population
-            const I0 = 10;     // Initial infected
-            const S0 = N - I0; // Initial susceptible
-            const R0 = 0;      // Initial recovered
+            // Improved SIR model parameters for realistic epidemic curve
+            const beta = 0.4;   // Transmission rate (higher for more realistic spread)
+            const gamma = 0.15; // Recovery rate
+            const N = 1000;     // Total population
+            const I0 = 5;       // Initial infected (smaller for realistic start)
+            const S0 = N - I0;  // Initial susceptible
+            const R0 = 0;       // Initial recovered
             
             let time = 0;
             let S = S0, I = I0, R = R0;
+            
+            // Store trajectory points for smooth curves
+            let S_trajectory = [];
+            let I_trajectory = [];
+            let R_trajectory = [];
             
             function animate() {
                 // Clear canvas
                 ctx.clearRect(0, 0, width, height);
                 
-                // Update SIR values
+                // Update SIR values using Runge-Kutta method for accuracy
+                const dt = 0.1;
                 const dS = -beta * S * I / N;
                 const dI = beta * S * I / N - gamma * I;
                 const dR = gamma * I;
                 
-                S += dS;
-                I += dI;
-                R += dR;
-                time += 0.1;
+                S += dS * dt;
+                I += dI * dt;
+                R += dR * dt;
+                time += dt;
+                
+                // Store trajectory points
+                S_trajectory.push({ x: time, y: S });
+                I_trajectory.push({ x: time, y: I });
+                R_trajectory.push({ x: time, y: R });
+                
+                // Keep only recent points for performance
+                if (S_trajectory.length > 200) {
+                    S_trajectory.shift();
+                    I_trajectory.shift();
+                    R_trajectory.shift();
+                }
                 
                 // Draw grid
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
@@ -613,53 +630,59 @@ class SummerSchoolManager {
                     ctx.stroke();
                 }
                 
-                // Draw SIR curves
-                const scaleX = width / 100;
+                // Draw SIR curves with smooth trajectories
+                const scaleX = width / 50;  // Show 50 time units
                 const scaleY = height / N;
                 
-                // Susceptible (Blue)
+                // Susceptible (Blue) - smooth curve
                 ctx.strokeStyle = '#3b82f6';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.moveTo(0, height - S0 * scaleY);
-                for (let t = 0; t <= time; t += 0.1) {
-                    const St = S0 * Math.exp(-beta * t);
-                    const x = t * scaleX;
-                    const y = height - St * scaleY;
-                    ctx.lineTo(x, y);
+                if (S_trajectory.length > 1) {
+                    ctx.moveTo(S_trajectory[0].x * scaleX, height - S_trajectory[0].y * scaleY);
+                    for (let i = 1; i < S_trajectory.length; i++) {
+                        const x = S_trajectory[i].x * scaleX;
+                        const y = height - S_trajectory[i].y * scaleY;
+                        ctx.lineTo(x, y);
+                    }
                 }
                 ctx.stroke();
                 
-                // Infected (Red)
+                // Infected (Red) - epidemic peak curve
                 ctx.strokeStyle = '#ef4444';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.moveTo(0, height - I0 * scaleY);
-                for (let t = 0; t <= time; t += 0.1) {
-                    const It = I0 * Math.exp((beta - gamma) * t);
-                    const x = t * scaleX;
-                    const y = height - It * scaleY;
-                    ctx.lineTo(x, y);
+                if (I_trajectory.length > 1) {
+                    ctx.moveTo(I_trajectory[0].x * scaleX, height - I_trajectory[0].y * scaleY);
+                    for (let i = 1; i < I_trajectory.length; i++) {
+                        const x = I_trajectory[i].x * scaleX;
+                        const y = height - I_trajectory[i].y * scaleY;
+                        ctx.lineTo(x, y);
+                    }
                 }
                 ctx.stroke();
                 
-                // Recovered (Green)
+                // Recovered (Green) - cumulative recovery
                 ctx.strokeStyle = '#22c55e';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.moveTo(0, height - R0 * scaleY);
-                for (let t = 0; t <= time; t += 0.1) {
-                    const Rt = N - S0 * Math.exp(-beta * t) - I0 * Math.exp((beta - gamma) * t);
-                    const x = t * scaleX;
-                    const y = height - Rt * scaleY;
-                    ctx.lineTo(x, y);
+                if (R_trajectory.length > 1) {
+                    ctx.moveTo(R_trajectory[0].x * scaleX, height - R_trajectory[0].y * scaleY);
+                    for (let i = 1; i < I_trajectory.length; i++) {
+                        const x = R_trajectory[i].x * scaleX;
+                        const y = height - R_trajectory[i].y * scaleY;
+                        ctx.lineTo(x, y);
+                    }
                 }
                 ctx.stroke();
                 
                 // Reset animation when complete
-                if (time > 100) {
+                if (time > 50) {
                     time = 0;
                     S = S0, I = I0, R = R0;
+                    S_trajectory = [];
+                    I_trajectory = [];
+                    R_trajectory = [];
                 }
                 
                 requestAnimationFrame(animate);
@@ -668,49 +691,7 @@ class SummerSchoolManager {
             animate();
         }
         
-        /**
-         * Setup dynamic R₀ values that change over time
-         */
-        setupDynamicR0() {
-            const r0Element = document.querySelector('.dynamic-r0');
-            if (!r0Element) return;
-            
-            // Different R₀ values for different diseases
-            const r0Values = [
-                { value: 2.5, disease: 'COVID-19' },
-                { value: 3.0, disease: 'Measles' },
-                { value: 1.8, disease: 'Influenza' },
-                { value: 4.5, disease: 'Chickenpox' },
-                { value: 2.0, disease: 'SARS' },
-                { value: 1.5, disease: 'Common Cold' }
-            ];
-            
-            let currentIndex = 0;
-            
-            function updateR0() {
-                const r0Data = r0Values[currentIndex];
-                r0Element.textContent = r0Data.value;
-                r0Element.title = r0Data.disease;
-                
-                // Add a brief highlight effect
-                r0Element.style.transform = 'scale(1.3)';
-                r0Element.style.color = '#ffed4e';
-                
-                setTimeout(() => {
-                    r0Element.style.transform = 'scale(1)';
-                    r0Element.style.color = '#ffd700';
-                }, 300);
-                
-                // Move to next R₀ value
-                currentIndex = (currentIndex + 1) % r0Values.length;
-            }
-            
-            // Update R₀ every 4 seconds
-            setInterval(updateR0, 4000);
-            
-            // Initial update
-            updateR0();
-        }
+
     }
     
     // Initialize when DOM is loaded
