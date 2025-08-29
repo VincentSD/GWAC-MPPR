@@ -10,91 +10,24 @@ class SummerSchoolManager {
         this.init();
     }
 
-                    init() {
-                    this.setupScheduleNavigation();
-                    this.loadStudentCount();
-                    this.setupSmoothScrolling();
-                    this.setupMobileMenu();
-                    this.setupContactForm();
-                    this.setupProgressTracking();
-                    this.setupAnimations();
-                    this.setupBackToTop();
-                    this.setupNavigation();
-                    this.setupSIRGraph();
-                    
-                    // Initialize accordion for the first week only with a delay
-                    setTimeout(() => {
-                        this.setupScheduleAccordion();
-                    }, 100);
-                }
-
-    /**
-     * Setup schedule week navigation
-     */
-    setupScheduleNavigation() {
-        const navButtons = document.querySelectorAll('.timeline-nav-btn');
-        const weekContents = document.querySelectorAll('.week-content');
+                        init() {
+        this.loadStudentCount();
+        this.setupSmoothScrolling();
+        this.setupMobileMenu();
+        this.setupContactForm();
+        this.setupProgressTracking();
+        this.setupAnimations();
+        this.setupBackToTop();
+        this.setupNavigation();
+        this.setupSIRGraph();
         
-        console.log('Found', navButtons.length, 'navigation buttons');
-        navButtons.forEach((button, index) => {
-            console.log('Button', index, 'data-week:', button.dataset.week, 'text:', button.textContent.trim());
-            
-            button.addEventListener('click', () => {
-                const targetWeek = button.dataset.week;
-                console.log('Button clicked for week:', targetWeek);
-                this.switchWeek(targetWeek);
-            });
-        });
+        // Initialize accordion for all schedule parts
+        setTimeout(() => {
+            this.setupScheduleAccordion();
+        }, 100);
     }
 
-    /**
-     * Switch between week 1 and week 2
-     */
-    switchWeek(weekNumber) {
-        // Update navigation buttons
-        document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        const targetButton = document.querySelector(`[data-week="${weekNumber}"]`);
-        if (targetButton) {
-            targetButton.classList.add('active');
-        }
 
-        // Update week content
-        document.querySelectorAll('.week-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        
-        const targetWeek = document.getElementById(`week-${weekNumber}`);
-        if (targetWeek) {
-            targetWeek.classList.add('active');
-        }
-
-        this.currentWeek = parseInt(weekNumber);
-        
-        // Add smooth transition effect
-        const activeContent = document.getElementById(`week-${weekNumber}`);
-        if (activeContent) {
-            // Force a reflow to ensure the initial state is applied
-            activeContent.offsetHeight;
-            
-            activeContent.style.opacity = '0';
-            activeContent.style.transform = 'translateY(20px)';
-            
-            // Use requestAnimationFrame for smoother transitions
-            requestAnimationFrame(() => {
-                activeContent.style.transition = 'all 0.5s ease';
-                activeContent.style.opacity = '1';
-                activeContent.style.transform = 'translateY(0)';
-                
-                // Ensure transition completes
-                setTimeout(() => {
-                    // Reinitialize accordion for the newly active week
-                    this.setupScheduleAccordion();
-                }, 550); // Wait for transition to complete
-            });
-        }
-    }
 
     /**
      * Load student count from Excel data (placeholder for now)
@@ -439,13 +372,15 @@ class SummerSchoolManager {
      * Setup schedule accordion functionality
      */
     setupScheduleAccordion() {
-        // Set up accordion for the currently active week
-        const activeWeek = document.querySelector('.week-content.active');
-        if (!activeWeek) {
+        // Set up accordion for all schedule parts (no more tabs)
+        const scheduleContainer = document.querySelector('.schedule-container');
+        if (!scheduleContainer) {
+            console.log('Schedule container not found');
             return;
         }
         
-        const accordionHeaders = activeWeek.querySelectorAll('.accordion-header');
+        const accordionHeaders = scheduleContainer.querySelectorAll('.accordion-header');
+        console.log(`Found ${accordionHeaders.length} accordion headers`);
         
         // Remove existing event listeners to prevent duplicates
         accordionHeaders.forEach(header => {
@@ -454,14 +389,14 @@ class SummerSchoolManager {
         });
         
         // Get fresh references after cloning
-        const freshHeaders = activeWeek.querySelectorAll('.accordion-header');
+        const freshHeaders = scheduleContainer.querySelectorAll('.accordion-header');
         
         freshHeaders.forEach((header, index) => {
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
                 
-                // Close all other accordions in this week
+                // Close all other accordions
                 freshHeaders.forEach(h => {
                     h.classList.remove('active');
                     const hContent = h.nextElementSibling;
@@ -480,7 +415,7 @@ class SummerSchoolManager {
             });
         });
         
-        // Open first day by default for this week
+        // Open first day by default
         const firstHeader = freshHeaders[0];
         if (firstHeader) {
             firstHeader.classList.add('active');
@@ -490,8 +425,7 @@ class SummerSchoolManager {
             }
         }
         
-        // Debug: Log the number of accordions found
-        console.log(`Setup ${freshHeaders.length} accordions for ${activeWeek.id}`);
+        console.log(`Setup ${freshHeaders.length} accordions successfully`);
     }
 
     /**
