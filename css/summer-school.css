@@ -500,16 +500,16 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-    padding: 15px;
+    padding: 18px;
     text-align: center;
     animation: float 6s ease-in-out infinite;
-    width: 90px;
-    height: 60px;
+    width: 110px;
+    height: 75px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
 .floating-card i {
@@ -525,26 +525,26 @@
 }
 
 .card-1 {
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     animation-delay: 0s;
 }
 
 .card-2 {
-    top: 100px;
-    left: 10px;
+    top: 80px;
+    left: 15px;
     animation-delay: 2s;
 }
 
 .card-3 {
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 15px;
     animation-delay: 4s;
 }
 
 .card-4 {
-    bottom: 100px;
-    left: 10px;
+    bottom: 80px;
+    left: 15px;
     animation-delay: 6s;
 }
 
@@ -2325,16 +2325,16 @@
     
     /* Adjust floating cards for mobile */
     .floating-card {
-        width: 100px;
-        height: 70px;
-        padding: 15px;
-        font-size: 0.8rem;
+        width: 90px;
+        height: 65px;
+        padding: 12px;
+        font-size: 0.75rem;
     }
     
-    .card-1 { top: 10px; right: 10px; }
-    .card-2 { top: 100px; left: 10px; }
-    .card-3 { bottom: 10px; right: 10px; }
-    .card-4 { bottom: 100px; left: 10px; }
+    .card-1 { top: 12px; right: 12px; }
+    .card-2 { top: 85px; left: 12px; }
+    .card-3 { bottom: 12px; right: 12px; }
+    .card-4 { bottom: 85px; left: 12px; }
     
     /* Adjust R terminal for mobile */
     .r-terminal {
@@ -2435,17 +2435,17 @@
     }
     
     .floating-card {
-        width: 65px;
-        height: 45px;
-        padding: 6px;
-        font-size: 0.6rem;
+        width: 75px;
+        height: 55px;
+        padding: 8px;
+        font-size: 0.65rem;
         border-radius: 10px;
     }
     
-    .card-1 { top: 3px; right: 3px; }
-    .card-2 { top: 60px; left: 3px; }
-    .card-3 { bottom: 3px; right: 3px; }
-    .card-4 { bottom: 60px; left: 3px; }
+    .card-1 { top: 5px; right: 5px; }
+    .card-2 { top: 70px; left: 5px; }
+    .card-3 { bottom: 5px; right: 5px; }
+    .card-4 { bottom: 70px; left: 5px; }
     
     .r-terminal {
         font-size: 0.55rem;
@@ -2514,10 +2514,10 @@
     }
     
     .floating-card {
-        width: 80px;
-        height: 55px;
-        padding: 10px;
-        font-size: 0.7rem;
+        width: 95px;
+        height: 65px;
+        padding: 12px;
+        font-size: 0.75rem;
     }
     
     .hero-container {
