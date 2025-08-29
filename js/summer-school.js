@@ -20,7 +20,11 @@ class SummerSchoolManager {
         this.setupAnimations();
         this.setupBackToTop();
         this.setupNavigation();
-        this.setupScheduleAccordion();
+        
+        // Initialize accordion for the first week only with a delay
+        setTimeout(() => {
+            this.setupScheduleAccordion();
+        }, 100);
     }
 
     /**
@@ -416,19 +420,32 @@ class SummerSchoolManager {
      * Setup schedule accordion functionality
      */
     setupScheduleAccordion() {
-        const accordionHeaders = document.querySelectorAll('.accordion-header');
-        console.log('Setting up accordion with', accordionHeaders.length, 'headers');
+        // Only set up accordion for the currently active week
+        const activeWeek = document.querySelector('.week-content.active');
+        if (!activeWeek) return;
         
-        accordionHeaders.forEach((header, index) => {
-            console.log('Setting up accordion header', index, header.textContent);
+        const accordionHeaders = activeWeek.querySelectorAll('.accordion-header');
+        console.log('Setting up accordion for active week with', accordionHeaders.length, 'headers');
+        
+        // Remove existing event listeners to prevent duplicates
+        accordionHeaders.forEach(header => {
+            const newHeader = header.cloneNode(true);
+            header.parentNode.replaceChild(newHeader, header);
+        });
+        
+        // Get fresh references after cloning
+        const freshHeaders = activeWeek.querySelectorAll('.accordion-header');
+        
+        freshHeaders.forEach((header, index) => {
+            console.log('Setting up accordion header', index, header.textContent.trim());
             
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
-                console.log('Accordion clicked:', header.textContent, 'isActive:', isActive);
+                console.log('Accordion clicked:', header.textContent.trim(), 'isActive:', isActive);
                 
-                // Close all other accordions
-                accordionHeaders.forEach(h => {
+                // Close all other accordions in this week
+                freshHeaders.forEach(h => {
                     h.classList.remove('active');
                     h.nextElementSibling.classList.remove('active');
                 });
@@ -437,17 +454,17 @@ class SummerSchoolManager {
                 if (!isActive) {
                     header.classList.add('active');
                     content.classList.add('active');
-                    console.log('Opened accordion:', header.textContent);
+                    console.log('Opened accordion:', header.textContent.trim());
                 }
             });
         });
         
-        // Open first day by default
-        const firstHeader = document.querySelector('.accordion-header');
+        // Open first day by default for this week
+        const firstHeader = freshHeaders[0];
         if (firstHeader) {
             firstHeader.classList.add('active');
             firstHeader.nextElementSibling.classList.add('active');
-            console.log('Opened first accordion by default');
+            console.log('Opened first accordion by default for week', this.currentWeek);
         }
     }
 
