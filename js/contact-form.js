@@ -216,4 +216,50 @@ ${name}`;
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.contactFormHandler = new ContactFormHandler();
+    
+    // Newsletter functionality
+    const newsletterBtn = document.querySelector('.newsletter-btn');
+    const newsletterInput = document.querySelector('.newsletter-input');
+    
+    if (newsletterBtn && newsletterInput) {
+        newsletterBtn.addEventListener('click', () => {
+            const email = newsletterInput.value.trim();
+            if (email && isValidEmail(email)) {
+                // Show success message
+                showNewsletterMessage('Thank you! You\'ll be notified about future courses and events.', 'success');
+                newsletterInput.value = '';
+            } else {
+                showNewsletterMessage('Please enter a valid email address.', 'error');
+            }
+        });
+        
+        newsletterInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                newsletterBtn.click();
+            }
+        });
+    }
+    
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function showNewsletterMessage(message, type) {
+        const existingMessage = document.querySelector('.newsletter-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `newsletter-message ${type}`;
+        messageDiv.textContent = message;
+        
+        const newsletterSection = document.querySelector('.footer-newsletter');
+        newsletterSection.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 5000);
+    }
 });
