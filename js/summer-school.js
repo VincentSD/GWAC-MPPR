@@ -42,6 +42,8 @@ class SummerSchoolManager {
      * Switch between week 1 and week 2
      */
     switchWeek(weekNumber) {
+        console.log('Switching to week:', weekNumber);
+        
         // Update navigation buttons
         document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -65,6 +67,9 @@ class SummerSchoolManager {
             activeContent.style.transition = 'all 0.5s ease';
             activeContent.style.opacity = '1';
             activeContent.style.transform = 'translateY(0)';
+            
+            // Reinitialize accordion for the newly active week
+            this.setupScheduleAccordion();
         }, 50);
     }
 
@@ -412,11 +417,15 @@ class SummerSchoolManager {
      */
     setupScheduleAccordion() {
         const accordionHeaders = document.querySelectorAll('.accordion-header');
+        console.log('Setting up accordion with', accordionHeaders.length, 'headers');
         
-        accordionHeaders.forEach(header => {
+        accordionHeaders.forEach((header, index) => {
+            console.log('Setting up accordion header', index, header.textContent);
+            
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
+                console.log('Accordion clicked:', header.textContent, 'isActive:', isActive);
                 
                 // Close all other accordions
                 accordionHeaders.forEach(h => {
@@ -428,6 +437,7 @@ class SummerSchoolManager {
                 if (!isActive) {
                     header.classList.add('active');
                     content.classList.add('active');
+                    console.log('Opened accordion:', header.textContent);
                 }
             });
         });
@@ -437,6 +447,7 @@ class SummerSchoolManager {
         if (firstHeader) {
             firstHeader.classList.add('active');
             firstHeader.nextElementSibling.classList.add('active');
+            console.log('Opened first accordion by default');
         }
     }
 

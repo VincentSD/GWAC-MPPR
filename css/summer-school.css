@@ -750,6 +750,11 @@
     display: block;
 }
 
+/* Ensure Part II is visible when tab is active */
+#week-2.active {
+    display: block;
+}
+
 .day-schedule {
     margin-bottom: 40px;
     padding: 30px;
