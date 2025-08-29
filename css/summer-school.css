@@ -227,15 +227,18 @@ body {
 
 .day-info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
     margin-bottom: 15px;
+    flex: 1;
 }
 
 .day-date {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    align-items: flex-start;
 }
 
 .day-name {
@@ -255,6 +258,7 @@ body {
     font-weight: 500;
     color: var(--text-secondary);
     transition: color 0.3s ease;
+    text-align: left;
 }
 
 .day-summary {
@@ -1749,14 +1753,17 @@ body {
 
 .day-info {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
 }
 
 .day-date {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 200px;
 }
 
 .day-name {
@@ -1770,9 +1777,12 @@ body {
 }
 
 .day-theme {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    color: #64748b;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+    flex: 1;
+    text-align: left;
 }
 
 .day-summary {
@@ -3622,6 +3632,148 @@ body {
     }
 }
 
+/* Responsive Design for Schedule */
+@media (max-width: 768px) {
+    .schedule-container {
+        margin: 0 10px;
+        border-radius: 15px;
+    }
+    
+    .part-header {
+        padding: 20px;
+    }
+    
+    .part-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .part-header p {
+        font-size: 1rem;
+    }
+    
+    .part-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .accordion-header {
+        padding: 20px;
+    }
+    
+    .day-info {
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+    
+    .day-name {
+        font-size: 1.2rem;
+    }
+    
+    .date {
+        font-size: 0.9rem;
+    }
+    
+    .day-theme {
+        font-size: 1rem;
+    }
+    
+    .day-summary {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .session-count {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .accordion-content .schedule-grid {
+        padding: 16px;
+    }
+    
+    .session-card {
+        margin-bottom: 16px;
+    }
+    
+    .session-time {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .session-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .instructor-details {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .session-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .session-link {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-container {
+        margin: 0 5px;
+        border-radius: 10px;
+    }
+    
+    .part-header {
+        padding: 15px;
+    }
+    
+    .part-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .accordion-header {
+        padding: 15px;
+    }
+    
+    .day-name {
+        font-size: 1.1rem;
+    }
+    
+    .date {
+        font-size: 0.85rem;
+    }
+    
+    .day-theme {
+        font-size: 0.95rem;
+    }
+    
+    .accordion-content .schedule-grid {
+        padding: 12px;
+    }
+    
+    .session-card {
+        margin-bottom: 12px;
+    }
+    
+    .session-time {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .session-card h4 {
+        font-size: 1rem;
+    }
+    
+    .instructor-details .role,
+    .instructor-details .name {
+        font-size: 0.9rem;
+    }
+}
+
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
@@ -3671,6 +3823,10 @@ body {
         font-size: 2rem;
     }
     
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
     .timeline-content {
         padding: 20px;
     }
@@ -3681,5 +3837,42 @@ body {
     
     .course-card {
         padding: 30px 20px;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-link {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
+    .logo-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .g-wac-logo {
+        height: 40px;
+        width: auto;
+    }
+    
+    .main-title {
+        font-size: 1.5rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1rem;
     }
 }
