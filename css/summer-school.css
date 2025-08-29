@@ -54,29 +54,71 @@ body {
     background-color: var(--bg-secondary);
 }
 
-.schedule-timeline {
+.schedule-container {
     background-color: var(--bg-primary);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px var(--shadow-light);
+    overflow: hidden;
     border: 1px solid var(--border-color);
 }
 
-.timeline-nav {
-    background-color: var(--bg-tertiary);
+.schedule-part {
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--border-color);
 }
 
-.timeline-nav-btn {
-    background-color: var(--bg-primary);
+.schedule-part:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.part-header {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    padding: 30px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.part-header h3 {
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    margin: 0 0 16px 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.timeline-nav-btn:hover {
-    background-color: var(--accent-color);
-    color: white;
+.part-header h3 i {
+    color: var(--accent-color);
+    font-size: 1.5rem;
 }
 
-.timeline-nav-btn.active {
-    background-color: var(--accent-color);
-    color: white;
+.part-header p {
+    color: var(--text-secondary);
+    margin: 0 0 20px 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.part-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.part-stats span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.part-stats i {
+    color: var(--accent-color);
 }
 
 /* Accordion theming */
@@ -1534,28 +1576,8 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.timeline-content {
+.schedule-container {
     padding: 40px;
-}
-
-.week-content {
-    display: none;
-}
-
-.week-content.active {
-    display: block;
-}
-
-/* Ensure Part II is visible when tab is active */
-#week-2.active {
-    display: block !important;
-}
-
-/* Debug: Make sure week content is visible */
-.week-content.active {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
 }
 
 
