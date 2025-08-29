@@ -248,61 +248,61 @@ result_df <- as.data.frame(result)</code></pre>
                     </div>
                 </section>
 
-                <section class="content-section">
-                    <h2>Interactive SIR Model Explorer</h2>
+                <div class="interactive-demo">
+                    <h3>Run odin Models Live</h3>
                     
                     <div class="interactive-model">
-                        <h3>Experiment with Parameters</h3>
-                        <p>Use the interactive model below to explore how different parameters affect the epidemic dynamics:</p>
+                        <h4>Interactive odin SIR Model</h4>
+                        <p>Use the interactive model below to explore how different parameters affect the epidemic dynamics using odin:</p>
                         
                         <div class="parameter-controls">
                             <div class="parameter-group">
-                                <label for="population">Total Population (N):</label>
-                                <input type="range" id="population" min="100" max="10000" value="1000" step="100">
+                                <label for="beta-param">Transmission Rate (β):</label>
+                                <input type="range" id="beta-param" min="0.1" max="0.8" value="0.3" step="0.05">
+                                <span id="beta-value">0.3</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="gamma-param">Recovery Rate (γ):</label>
+                                <input type="range" id="gamma-param" min="0.05" max="0.3" value="0.1" step="0.01">
+                                <span id="gamma-value">0.1</span>
+                            </div>
+                            
+                            <div class="parameter-group">
+                                <label for="population-param">Total Population (N):</label>
+                                <input type="range" id="population-param" min="100" max="10000" value="1000" step="100">
                                 <span id="population-value">1000</span>
                             </div>
                             
                             <div class="parameter-group">
-                                <label for="transmission">Transmission Rate (β):</label>
-                                <input type="range" id="transmission" min="0.1" max="0.8" value="0.3" step="0.05">
-                                <span id="transmission-value">0.3</span>
-                            </div>
-                            
-                            <div class="parameter-group">
-                                <label for="recovery">Recovery Rate (γ):</label>
-                                <input type="range" id="recovery" min="0.05" max="0.3" value="0.1" step="0.01">
-                                <span id="recovery-value">0.1</span>
-                            </div>
-                            
-                            <div class="parameter-group">
-                                <label for="initial-infected">Initial Infected:</label>
-                                <input type="range" id="initial-infected" min="1" max="100" value="1" step="1">
+                                <label for="initial-infected-param">Initial Infected:</label>
+                                <input type="range" id="initial-infected-param" min="1" max="100" value="1" step="1">
                                 <span id="initial-infected-value">1</span>
                             </div>
                         </div>
                         
                         <div class="model-controls">
-                            <button id="run-model" class="run-btn">▶️ Run Simulation</button>
-                            <button id="reset-model" class="reset-btn">🔄 Reset Parameters</button>
+                            <button id="run-model-main" class="run-btn">▶️ Run Simulation</button>
+                            <button id="reset-model-main" class="reset-btn">🔄 Reset Parameters</button>
                         </div>
                         
                         <div class="model-output">
                             <div class="output-tabs">
-                                <button class="tab-btn active" data-tab="plot">📊 Epidemic Curve</button>
-                                <button class="tab-btn" data-tab="table">📋 Results Table</button>
-                                <button class="tab-btn" data-tab="metrics">📈 Key Metrics</button>
-                                <button class="tab-btn" data-tab="code">💻 Model Code</button>
+                                <button class="tab-btn active" data-tab="plot-main">📊 Epidemic Curve</button>
+                                <button class="tab-btn" data-tab="table-main">📋 Results Table</button>
+                                <button class="tab-btn" data-tab="metrics-main">📈 Key Metrics</button>
+                                <button class="tab-btn" data-tab="code-main">💻 Model Code</button>
                             </div>
                             
-                            <div class="tab-content active" id="plot-tab">
+                            <div class="tab-content active" id="plot-main-tab">
                                 <div class="plot-container">
-                                    <canvas id="sir-plot" width="800" height="400"></canvas>
+                                    <canvas id="sir-plot-main" width="800" height="500"></canvas>
                                 </div>
                             </div>
                             
-                            <div class="tab-content" id="table-tab">
+                            <div class="tab-content" id="table-main-tab">
                                 <div class="table-container">
-                                    <table id="results-table">
+                                    <table id="results-table-main">
                                         <thead>
                                             <tr>
                                                 <th>Time (days)</th>
@@ -312,96 +312,91 @@ result_df <- as.data.frame(result)</code></pre>
                                                 <th>Incidence</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="table-body">
+                                        <tbody id="table-body-main">
                                             <!-- Results will be populated here -->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             
-                            <div class="tab-content" id="metrics-tab">
+                            <div class="tab-content" id="metrics-main-tab">
                                 <div class="metrics-container">
                                     <div class="metric">
                                         <h4>Basic Reproduction Number (R₀)</h4>
-                                        <p id="r0-value">3.0</p>
+                                        <p id="r0-value-main">3.0</p>
                                     </div>
                                     <div class="metric">
                                         <h4>Peak Infections</h4>
-                                        <p id="peak-infections">-</p>
+                                        <p id="peak-infections-main">-</p>
                                     </div>
                                     <div class="metric">
                                         <h4>Peak Day</h4>
-                                        <p id="peak-day">-</p>
+                                        <p id="peak-day-main">-</p>
                                     </div>
                                     <div class="metric">
                                         <h4>Final Epidemic Size</h4>
-                                        <p id="final-size">-</p>
+                                        <p id="final-size-main">-</p>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="tab-content" id="code-tab">
+                            <div class="tab-content" id="code-main-tab">
                                 <div class="code-container">
-                                    <h4>SIR Model Implementation</h4>
+                                    <h4>odin SIR Model Implementation</h4>
                                     <div class="code-block">
-                                        <pre><code class="language-r"># SIR Model Differential Equations
-# dS/dt = -β * S * I / N
-# dI/dt = β * S * I / N - γ * I  
-# dR/dt = γ * I
+                                        <pre><code class="language-r"># SIR Model using odin
+library(odin)
 
-# Parameters
-N <- 1000        # Total population
-β <- 0.3         # Transmission rate
-γ <- 0.1         # Recovery rate
-I0 <- 1          # Initial infected
-
-# Initial conditions
-S0 <- N - I0     # Initial susceptible
-R0 <- 0          # Initial recovered
-
-# Time steps
-time_steps <- 100
-dt <- 0.1
-
-# Arrays to store results
-S <- numeric(time_steps)
-I <- numeric(time_steps)
-R <- numeric(time_steps)
-time <- numeric(time_steps)
-
-# Set initial values
-S[1] <- S0
-I[1] <- I0
-R[1] <- R0
-time[1] <- 0
-
-# Euler integration
-for (i in 2:time_steps) {
-    # Calculate rates
-    infection_rate <- β * S[i-1] * I[i-1] / N
-    recovery_rate <- γ * I[i-1]
+# Define the SIR model
+sir_model <- odin::odin({
+    ## Core equations for transitions between compartments:
+    deriv(S) <- -beta * S * I / N
+    deriv(I) <- beta * S * I / N - gamma * I
+    deriv(R) <- gamma * I
     
-    # Update compartments
-    S[i] <- S[i-1] - infection_rate * dt
-    I[i] <- I[i-1] + infection_rate * dt - recovery_rate * dt
-    R[i] <- R[i-1] + recovery_rate * dt
+    ## Total population size (sum of all compartments)
+    N <- S + I + R
     
-    # Ensure population conservation
-    S[i] <- max(0, S[i])
-    I[i] <- max(0, I[i])
-    R[i] <- max(0, R[i])
+    ## Initial conditions
+    initial(S) <- S0
+    initial(I) <- I0
+    initial(R) <- R0
     
-    # Update time
-    time[i] <- time[i-1] + dt
-}
+    ## User defined parameters
+    beta <- user(0.3)    # Transmission rate
+    gamma <- user(0.1)   # Recovery rate
+    S0 <- user(999)      # Initial susceptible
+    I0 <- user(1)        # Initial infected
+    R0 <- user(0)        # Initial recovered
+})
 
-# Results are now in S, I, R, and time arrays</code></pre>
+# Create model instance
+model <- sir_model(beta = 0.3, gamma = 0.1, S0 = 999, I0 = 1, R0 = 0)
+
+# Run the model
+t <- seq(0, 100, by = 0.1)
+result <- model$run(t)
+
+# Extract results
+S <- result[, "S"]
+I <- result[, "I"]
+R <- result[, "R"]
+time <- result[, "t"]
+
+# Plot results
+plot(time, S, type = "l", col = "green", lwd = 2, 
+     xlab = "Time (days)", ylab = "Population",
+     main = "SIR Model Results")
+lines(time, I, col = "red", lwd = 2)
+lines(time, R, col = "blue", lwd = 2)
+legend("topright", legend = c("Susceptible", "Infected", "Recovered"),
+       col = c("green", "red", "blue"), lwd = 2)</code></pre>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
 
                 <section class="content-section">
                     <h2>Understanding Model Outputs</h2>
@@ -513,5 +508,6 @@ for (i in 2:time_steps) {
     <script src="../js/script.js"></script>
     <script src="../js/collaboration.js"></script>
     <script src="../js/code-execution.js"></script>
+    <script src="../js/odin-model.js"></script>
 </body>
 </html>
