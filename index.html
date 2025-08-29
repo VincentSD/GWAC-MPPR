@@ -1668,13 +1668,14 @@
             </div>
             
             <div class="contact-grid">
+                <!-- Primary Contact Information -->
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
+                    <h3><i class="fas fa-info-circle"></i> Primary Contact</h3>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
-                            <h4>Email</h4>
-                            <p>info@g-wac.org</p>
+                            <h4>General Inquiries</h4>
+                            <p><a href="mailto:info@g-wac.org" class="contact-link">info@g-wac.org</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1687,73 +1688,149 @@
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h4>Location</h4>
-                            <p>KNUST, College of Health Sciences, Ghana</p>
+                            <h4>Main Office</h4>
+                            <p>KNUST, College of Health Sciences<br>Kumasi, Ghana</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <h4>Website</h4>
+                            <p><a href="http://www.g-wac.org/" target="_blank" class="contact-link">www.g-wac.org</a></p>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Contact Form -->
                 <div class="contact-form">
-                    <h3>Course-Specific Enquiries</h3>
-                    <div class="course-coordinators">
-                        <div class="coordinator-item">
-                            <h4>Vincent Findeiß</h4>
-                            <p>Coordinator, G-WAC, Berlin</p>
-                            <a href="mailto:vincent.findeiss@tu-berlin.de">vincent.findeiss@tu-berlin.de</a>
-                        </div>
-                        
-                        <div class="coordinator-item">
-                            <h4>Dr. Daniel Opoku</h4>
-                            <p>Coordinator, G-WAC, Kumasi</p>
-                            <a href="mailto:danielkojopoku@gmail.com">danielkojopoku@gmail.com</a>
-                        </div>
-                        
-                        <div class="coordinator-item">
-                            <h4>Dr. Daniel Boateng</h4>
-                            <p>Coordinator, G-WAC, Kumasi</p>
-                            <a href="mailto:daniel.dboateng@gmail.com">daniel.dboateng@gmail.com</a>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-paper-plane"></i> Send us a Message</h3>
+                    <p class="form-description">Have a question or need support? Send us a message and we'll get back to you promptly.</p>
                     
-                    <h3>Additional Contact Information</h3>
-                    <div class="additional-contacts">
-                        <div class="contact-group">
-                            <h4>Ghana Office</h4>
-                            <p><strong>G-WAC Secretariat</strong><br>
-                            Kwame Nkrumah University of Science and Technology<br>
-                            Private Mail Bag (PMB)<br>
-                            Kumasi Campus, Kumasi, GHANA</p>
-                            <p><strong>Email:</strong> <a href="mailto:info@g-wac.org">info@g-wac.org</a><br>
-                            <strong>Website:</strong> <a href="http://www.g-wac.org/" target="_blank">www.g-wac.org</a></p>
-                        </div>
-                        
-                        <div class="contact-group">
-                            <h4>Germany Office</h4>
-                            <p><strong>Technische Universität Berlin (TU Berlin)</strong><br>
-                            International Projects<br>
-                            Department of International Affairs<br>
-                            Sek. INT IP, Room: H 2022<br>
-                            Strasse des 17. Juni 135, 10623 Berlin, GERMANY</p>
-                            <p><strong>Email:</strong> <a href="mailto:g.wac@international.tu-berlin.de">g.wac@international.tu-berlin.de</a></p>
-                        </div>
-                    </div>
-                    
-                    <h3>Send us a Message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <form id="contact-form" class="contact-form-element">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="Course Information">Course Information</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Registration">Registration</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Please describe your inquiry or question..." rows="5" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                            <div class="form-status" id="form-status"></div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
+                </div>
+            </div>
+            
+            <!-- Office Locations -->
+            <div class="office-locations">
+                <h3><i class="fas fa-building"></i> Office Locations</h3>
+                <div class="location-grid">
+                    <div class="location-card">
+                        <div class="location-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h4>Ghana Office</h4>
+                        </div>
+                        <div class="location-content">
+                            <p><strong>G-WAC Secretariat</strong></p>
+                            <p>Kwame Nkrumah University of Science and Technology</p>
+                            <p>Private Mail Bag (PMB)</p>
+                            <p>Kumasi Campus, Kumasi, GHANA</p>
+                            <div class="location-contact">
+                                <span><i class="fas fa-envelope"></i> info@g-wac.org</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h4>Germany Office</h4>
+                        </div>
+                        <div class="location-content">
+                            <p><strong>Technische Universität Berlin (TU Berlin)</strong></p>
+                            <p>International Projects</p>
+                            <p>Department of International Affairs</p>
+                            <p>Sek. INT IP, Room: H 2022</p>
+                            <p>Strasse des 17. Juni 135, 10623 Berlin, GERMANY</p>
+                            <div class="location-contact">
+                                <span><i class="fas fa-envelope"></i> g.wac@international.tu-berlin.de</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Course Coordinators (Protected) -->
+            <div class="course-coordinators-section">
+                <h3><i class="fas fa-users"></i> Course Coordinators</h3>
+                <p class="coordinator-note">For course-specific inquiries, please contact our coordinators. Email addresses are protected from spam.</p>
+                <div class="coordinator-grid">
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="coordinator-info">
+                            <h4>Vincent Findeiß</h4>
+                            <p class="coordinator-role">Coordinator, G-WAC, Berlin</p>
+                            <div class="coordinator-contact">
+                                <span class="protected-email" data-email="vincent.findeiss@tu-berlin.de">
+                                    <i class="fas fa-envelope"></i> Click to reveal email
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="coordinator-info">
+                            <h4>Dr. Daniel Opoku</h4>
+                            <p class="coordinator-role">Coordinator, G-WAC, Kumasi</p>
+                            <div class="coordinator-contact">
+                                <span class="protected-email" data-email="danielkojopoku@gmail.com">
+                                    <i class="fas fa-envelope"></i> Click to reveal email
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="coordinator-info">
+                            <h4>Dr. Daniel Boateng</h4>
+                            <p class="coordinator-role">Coordinator, G-WAC, Kumasi</p>
+                            <div class="coordinator-contact">
+                                <span class="protected-email" data-email="daniel.dboateng@gmail.com">
+                                    <i class="fas fa-envelope"></i> Click to reveal email
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1803,5 +1880,6 @@
     <script src="js/theme-toggle.js"></script>
     <script src="js/summer-school.js"></script>
     <script src="js/git-file-manager.js"></script>
+    <script src="js/contact-form.js"></script>
 </body>
 </html>
