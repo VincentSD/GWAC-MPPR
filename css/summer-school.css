@@ -479,6 +479,10 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: terminalSlide 12s ease-in-out infinite;
+    transform: translateX(-100%);
+    height: 200px;
+    transition: height 0.5s ease;
 }
 
 .terminal-header {
@@ -500,6 +504,8 @@
     padding: 16px;
     font-family: 'Courier New', monospace;
     font-size: 0.8rem;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .code-line {
@@ -546,6 +552,33 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes terminalSlide {
+    0% { 
+        transform: translateX(-100%); 
+        height: 200px;
+    }
+    25% { 
+        transform: translateX(0); 
+        height: 200px;
+    }
+    30% { 
+        transform: translateX(0); 
+        height: 400px;
+    }
+    70% { 
+        transform: translateX(0); 
+        height: 400px;
+    }
+    75% { 
+        transform: translateX(0); 
+        height: 200px;
+    }
+    100% { 
+        transform: translateX(-100%); 
+        height: 200px;
     }
 }
 
@@ -2434,10 +2467,40 @@
     .r-terminal {
         font-size: 0.7rem;
         max-width: 100%;
+        height: 180px;
     }
     
     .terminal-body {
         padding: 12px;
+        max-height: 100%;
+        overflow-y: auto;
+    }
+    
+    @keyframes terminalSlide {
+        0% { 
+            transform: translateX(-100%); 
+            height: 180px;
+        }
+        25% { 
+            transform: translateX(0); 
+            height: 180px;
+        }
+        30% { 
+            transform: translateX(0); 
+            height: 350px;
+        }
+        70% { 
+            transform: translateX(0); 
+            height: 350px;
+        }
+        75% { 
+            transform: translateX(0); 
+            height: 180px;
+        }
+        100% { 
+            transform: translateX(-100%); 
+            height: 180px;
+        }
     }
     
     /* Adjust data points for mobile */
@@ -2544,11 +2607,40 @@
     .r-terminal {
         font-size: 0.55rem;
         margin-bottom: 12px;
+        height: 160px;
     }
     
     .terminal-body {
         padding: 6px;
-        max-height: 150px;
+        max-height: 100%;
+        overflow-y: auto;
+    }
+    
+    @keyframes terminalSlide {
+        0% { 
+            transform: translateX(-100%); 
+            height: 160px;
+        }
+        25% { 
+            transform: translateX(0); 
+            height: 160px;
+        }
+        30% { 
+            transform: translateX(0); 
+            height: 300px;
+        }
+        70% { 
+            transform: translateX(0); 
+            height: 300px;
+        }
+        75% { 
+            transform: translateX(0); 
+            height: 160px;
+        }
+        100% { 
+            transform: translateX(-100%); 
+            height: 160px;
+        }
     }
     
     .code-line {
