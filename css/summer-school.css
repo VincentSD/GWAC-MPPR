@@ -36,6 +36,365 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Site-wide theme styling */
+.section-header {
+    background-color: var(--bg-secondary);
+}
+
+.section-title {
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+}
+
+/* Schedule section theming */
+.schedule-section {
+    background-color: var(--bg-secondary);
+}
+
+.schedule-timeline {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+.timeline-nav {
+    background-color: var(--bg-tertiary);
+}
+
+.timeline-nav-btn {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.timeline-nav-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.timeline-nav-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Accordion theming */
+.accordion-header {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.accordion-header:hover {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+}
+
+.accordion-header.active {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+    color: white;
+}
+
+.accordion-content {
+    background-color: var(--bg-primary);
+}
+
+/* Session cards theming */
+.session-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.session-card h4 {
+    color: var(--text-primary);
+}
+
+.session-card p {
+    color: var(--text-secondary);
+}
+
+.session-time {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+/* Course section theming */
+.course-overview-section {
+    background-color: var(--bg-primary);
+}
+
+.learning-area {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.learning-area h4 {
+    color: var(--text-primary);
+}
+
+.learning-area p {
+    color: var(--text-secondary);
+}
+
+/* Facilitators section theming */
+.facilitators-section {
+    background-color: var(--bg-primary);
+}
+
+.facilitator-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.facilitator-card:hover {
+    background-color: var(--bg-primary);
+}
+
+.facilitator-info h3 {
+    color: var(--text-primary);
+}
+
+.institution {
+    color: var(--accent-color);
+}
+
+.expertise {
+    color: var(--text-secondary);
+}
+
+/* About G-WAC section theming */
+.about-gwac-section {
+    background-color: var(--bg-secondary);
+}
+
+.about-text h3 {
+    color: var(--text-primary);
+}
+
+.about-text p {
+    color: var(--text-secondary);
+}
+
+.funding-info {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-left: 4px solid var(--accent-color);
+}
+
+.funding-info h4 {
+    color: var(--text-primary);
+}
+
+.funding-info p {
+    color: var(--text-secondary);
+}
+
+/* Contact section theming */
+.contact-section {
+    background-color: var(--bg-secondary);
+}
+
+.contact-info h3,
+.contact-form h3 {
+    color: var(--text-primary);
+}
+
+.contact-group {
+    background-color: var(--bg-tertiary);
+    border-left: 4px solid var(--accent-color);
+}
+
+.contact-group h4 {
+    color: var(--text-primary);
+}
+
+.contact-group p {
+    color: var(--text-secondary);
+}
+
+/* Footer theming */
+.main-footer {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+}
+
+.footer-links a:hover {
+    color: var(--text-primary);
+}
+
+.social-links a {
+    background-color: var(--bg-secondary);
+}
+
+.social-links a:hover {
+    background-color: var(--accent-color);
+}
+
+/* Form elements theming */
+.form-group input,
+.form-group textarea {
+    background-color: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color);
+}
+
+/* Button theming */
+.btn-outline {
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Highlights section theming */
+.highlights-section {
+    background-color: var(--bg-secondary);
+}
+
+.highlight-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+.highlight-card h3 {
+    color: var(--text-primary);
+}
+
+.highlight-card p {
+    color: var(--text-secondary);
+}
+
+/* Quick access section theming */
+.quick-access-section {
+    background-color: var(--bg-primary);
+}
+
+.quick-access-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.quick-access-card:hover {
+    background-color: var(--bg-primary);
+}
+
+.quick-access-card h3 {
+    color: var(--text-primary);
+}
+
+.quick-access-card p {
+    color: var(--text-secondary);
+}
+
+.card-action {
+    color: var(--accent-color);
+}
+
+.quick-access-card:hover .card-action {
+    color: var(--accent-hover);
+}
+
+/* CTA section theming */
+.cta-section {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+}
+
+/* Students section theming */
+.students-section {
+    background-color: var(--bg-secondary);
+}
+
+.student-dashboard {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-header h3 {
+    color: var(--text-primary);
+}
+
+.dashboard-header p {
+    color: var(--text-secondary);
+}
+
+.dashboard-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-card:hover {
+    background-color: var(--bg-primary);
+}
+
+.card-header h4 {
+    color: var(--text-primary);
+}
+
+.card-content p {
+    color: var(--text-secondary);
+}
+
+/* Resources section theming */
+.resources-section {
+    background-color: var(--bg-primary);
+}
+
+.resource-category {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.resource-category h3 {
+    color: var(--text-primary);
+}
+
+.resource-link {
+    color: var(--text-secondary);
+}
+
+.resource-link:hover {
+    color: var(--accent-color);
+}
+
+/* Leadership section theming */
+.leadership-section {
+    background-color: var(--bg-secondary);
+}
+
+.leadership-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+.leadership-card:hover {
+    background-color: var(--bg-secondary);
+}
+
+.leadership-info h3 {
+    color: var(--text-primary);
+}
+
+.position {
+    color: var(--accent-color);
+}
+
+.contact {
+    color: var(--text-secondary);
+}
+
 /* Summer School Specific Styles */
 
 /* Top Navigation */
