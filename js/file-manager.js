@@ -56,6 +56,31 @@ class FileManager {
         if (form) {
             form.addEventListener('submit', (e) => this.handleFileUpload(e));
         }
+        
+        // Handle file input change
+        const fileInput = document.getElementById('file-input');
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                const files = e.target.files;
+                const fileLabel = document.querySelector('.file-input-label');
+                
+                if (files.length > 0 && fileLabel) {
+                    if (files.length === 1) {
+                        fileLabel.innerHTML = `<i class="fas fa-file"></i> ${files[0].name}`;
+                    } else {
+                        fileLabel.innerHTML = `<i class="fas fa-files-o"></i> ${files.length} files selected`;
+                    }
+                    
+                    // Auto-fill title if it's empty
+                    const titleInput = document.getElementById('title');
+                    if (titleInput && !titleInput.value && files.length === 1) {
+                        const fileName = files[0].name;
+                        const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "");
+                        titleInput.value = nameWithoutExt.replace(/[_-]/g, ' ');
+                    }
+                }
+            });
+        }
     }
 
     async handleFileUpload(event) {
@@ -306,36 +331,93 @@ class FileManager {
     setupDragAndDrop() {
         const dropZone = document.getElementById('drop-zone');
         if (dropZone) {
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+            
+            // Visual feedback for drag over
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('drag-over');
+                console.log('Drag over detected');
             });
             
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('drag-over');
+            // Remove visual feedback when leaving
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                // Only remove class if we're actually leaving the drop zone
+                if (!dropZone.contains(e.relatedTarget)) {
+                    dropZone.classList.remove('drag-over');
+                    console.log('Drag leave detected');
+                }
             });
             
+            // Handle file drop
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('drag-over');
                 
                 const files = e.dataTransfer.files;
+                console.log('Drop detected, files:', files);
+                
                 if (files.length > 0) {
                     this.handleDroppedFiles(files);
+                } else {
+                    console.log('No files in drop event');
                 }
             });
+            
+            // Add click handler to also open upload modal
+            dropZone.addEventListener('click', () => {
+                this.showUploadModal();
+            });
+            
+            console.log('Drag and drop setup complete for:', dropZone);
+        } else {
+            console.error('Drop zone element not found');
         }
     }
 
     handleDroppedFiles(files) {
-        Array.from(files).forEach(file => {
-            // Auto-fill upload form with dropped file
+        if (files.length > 0) {
+            // Show upload modal first
+            this.showUploadModal();
+            
+            // Set the dropped file to the file input
             const fileInput = document.getElementById('file-input');
             if (fileInput) {
-                fileInput.files = new DataTransfer().files;
-                fileInput.dispatchEvent(new Event('change'));
+                // Create a new DataTransfer object and add the dropped files
+                const dataTransfer = new DataTransfer();
+                Array.from(files).forEach(file => {
+                    dataTransfer.items.add(file);
+                });
+                fileInput.files = dataTransfer.files;
+                
+                // Update the file input label to show selected file
+                const fileLabel = document.querySelector('.file-input-label');
+                if (fileLabel) {
+                    if (files.length === 1) {
+                        fileLabel.innerHTML = `<i class="fas fa-file"></i> ${files[0].name}`;
+                    } else {
+                        fileLabel.innerHTML = `<i class="fas fa-files-o"></i> ${files.length} files selected`;
+                    }
+                }
+                
+                // Auto-fill title if it's empty
+                const titleInput = document.getElementById('title');
+                if (titleInput && !titleInput.value && files.length === 1) {
+                    const fileName = files[0].name;
+                    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, ""); // Remove file extension
+                    titleInput.value = nameWithoutExt.replace(/[_-]/g, ' '); // Replace underscores/dashes with spaces
+                }
+                
+                console.log(`Dropped ${files.length} file(s):`, Array.from(files).map(f => f.name));
             }
-        });
+        }
     }
 
     loadExistingFiles() {
