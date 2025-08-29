@@ -451,6 +451,36 @@ class OdinModel {
         }
     }
     
+    clearTable() {
+        try {
+            const tableBody = document.getElementById('table-body-main');
+            if (tableBody) {
+                tableBody.innerHTML = '';
+            }
+            console.log('OdinModel: Table cleared successfully');
+        } catch (error) {
+            console.error('OdinModel: Table clear error:', error);
+        }
+    }
+    
+    clearMetrics() {
+        try {
+            const r0Value = document.getElementById('r0-value-main');
+            const peakInfections = document.getElementById('peak-infections-main');
+            const peakDay = document.getElementById('peak-day-main');
+            const finalSize = document.getElementById('final-size-main');
+            
+            if (r0Value) r0Value.textContent = '3.0';
+            if (peakInfections) peakInfections.textContent = '-';
+            if (peakDay) peakDay.textContent = '-';
+            if (finalSize) finalSize.textContent = '-';
+            
+            console.log('OdinModel: Metrics cleared successfully');
+        } catch (error) {
+            console.error('OdinModel: Metrics clear error:', error);
+        }
+    }
+    
     resetModel() {
         try {
             // Reset parameters to defaults
@@ -488,9 +518,11 @@ class OdinModel {
             this.clearCanvas();
             this.drawInitialMessage();
             
-            // Clear table and metrics
-            this.updateTable();
-            this.updateMetrics();
+            // Clear table content
+            this.clearTable();
+            
+            // Clear metrics content
+            this.clearMetrics();
             
             console.log('OdinModel: Model reset successfully');
         } catch (error) {
