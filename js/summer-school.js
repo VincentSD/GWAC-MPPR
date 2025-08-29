@@ -19,6 +19,7 @@ class SummerSchoolManager {
         this.setupProgressTracking();
         this.setupAnimations();
         this.setupBackToTop();
+        this.setupNavigation();
     }
 
     /**
@@ -360,6 +361,46 @@ class SummerSchoolManager {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
+                });
+            });
+        }
+    }
+
+    /**
+     * Setup navigation scroll effects and active state
+     */
+    setupNavigation() {
+        const navigation = document.querySelector('.top-navigation');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        if (navigation) {
+            // Add scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    navigation.classList.add('scrolled');
+                } else {
+                    navigation.classList.remove('scrolled');
+                }
+            });
+            
+            // Update active navigation based on scroll position
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPos = window.pageYOffset + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
                 });
             });
         }
