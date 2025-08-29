@@ -283,6 +283,167 @@
     background: #f8fafc;
 }
 
+/* Enhanced Session Cards */
+.session-content {
+    margin-top: 16px;
+}
+
+.session-content p {
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+.instructor-details {
+    margin-bottom: 16px;
+}
+
+.main-instructor, .support-instructor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.main-instructor .role {
+    font-weight: 600;
+    color: #059669;
+    font-size: 0.85rem;
+}
+
+.support-instructor .role {
+    font-weight: 600;
+    color: #7c3aed;
+    font-size: 0.85rem;
+}
+
+.main-instructor .name, .support-instructor .name {
+    font-weight: 500;
+    color: #1e293b;
+    font-size: 0.9rem;
+}
+
+.session-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.session-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #f1f5f9;
+    color: #3b82f6;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.session-link:hover {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.project-options {
+    background: #f0f9ff;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid #0ea5e9;
+    margin: 16px 0;
+}
+
+.project-options h5 {
+    margin: 0 0 12px 0;
+    color: #0c4a6e;
+    font-size: 0.95rem;
+}
+
+.project-options ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.project-options li {
+    margin-bottom: 6px;
+    color: #0c4a6e;
+    font-size: 0.9rem;
+}
+
+.special-event {
+    border: 2px solid #3b82f6;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+/* Lunch Break Styling */
+.session-card.lunch {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #f59e0b;
+}
+
+.session-card.lunch h4 {
+    color: #92400e;
+}
+
+.session-card.lunch .session-content p {
+    color: #92400e;
+}
+
+/* Exercise Topics Styling */
+.exercise-topics {
+    background: #f0f9ff;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid #0ea5e9;
+    margin: 16px 0;
+}
+
+.exercise-topics h5 {
+    margin: 0 0 12px 0;
+    color: #0c4a6e;
+    font-size: 0.95rem;
+}
+
+.exercise-topics ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.exercise-topics li {
+    margin-bottom: 6px;
+    color: #0c4a6e;
+    font-size: 0.9rem;
+}
+
+/* Part Completion Badge */
+.part-completion {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+}
+
+.completion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.completion-badge i {
+    font-size: 1.3rem;
+    color: #d1fae5;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -829,6 +990,31 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.funding-info {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 24px;
+    border-radius: 12px;
+    border-left: 4px solid #0ea5e9;
+    margin: 24px 0;
+}
+
+.funding-info h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0c4a6e;
+    margin: 0 0 12px 0;
+}
+
+.funding-info p {
+    color: #0c4a6e;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.funding-info strong {
+    color: #0369a1;
 }
 
 .gwac-highlights {
