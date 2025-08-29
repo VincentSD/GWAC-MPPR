@@ -1,14 +1,14 @@
 /* G-WAC File Management System Styles */
 
 :root {
-    --primary-color: #f59e0b;
-    --primary-dark: #d97706;
+    --primary-color: rgb(255, 215, 0);
+    --primary-dark: rgb(218, 165, 32);
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --border-color: #e2e8f0;
-    --success-color: #f59e0b;
+    --success-color: rgb(255, 215, 0);
     --error-color: #ef4444;
     --warning-color: #f59e0b;
     --info-color: #3b82f6;
@@ -244,9 +244,9 @@
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -255,28 +255,33 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
-    background: var(--primary-color);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-color), rgb(255, 223, 0));
+    color: #333;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
 .btn-success {
-    background: var(--success-color);
-    color: white;
+    background: linear-gradient(135deg, var(--success-color), rgb(255, 223, 0));
+    color: #333;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .btn-success:hover {
-    background: #d97706;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
 .btn-sm {
@@ -307,11 +312,11 @@
 }
 
 .upload-section {
-    border: 3px dashed var(--border-color);
-    border-radius: 15px;
+    border: 3px dashed var(--primary-color);
+    border-radius: 20px;
     padding: 40px;
     text-align: center;
-    background: var(--bg-secondary);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 223, 0, 0.1));
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 30px;
@@ -320,10 +325,10 @@
 }
 
 .upload-section:hover {
-    border-color: var(--primary-color);
-    background: var(--bg-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-dark);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 223, 0, 0.15));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.2);
 }
 
 .upload-section::before {
@@ -400,8 +405,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), rgb(255, 223, 0), var(--primary-color));
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
