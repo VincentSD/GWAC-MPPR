@@ -626,18 +626,30 @@
 
 .notification-success {
     border-left: 4px solid var(--success-color);
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .notification-error {
     border-left: 4px solid var(--error-color);
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .notification-warning {
     border-left: 4px solid var(--warning-color);
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .notification-info {
     border-left: 4px solid var(--info-color);
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 @keyframes slideInRight {
