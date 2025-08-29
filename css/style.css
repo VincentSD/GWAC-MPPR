@@ -560,16 +560,16 @@ main {
     gap: var(--spacing-2);
 }
 
-.btn {
+.terminal-btn {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.btn-close { background: #f56565; }
-.btn-minimize { background: #ed8936; }
-.btn-maximize { background: #48bb78; }
+.terminal-btn.btn-close { background: #f56565; }
+.terminal-btn.btn-minimize { background: #ed8936; }
+.terminal-btn.btn-maximize { background: #48bb78; }
 
 .terminal-body {
     padding: var(--spacing-4);
