@@ -121,6 +121,300 @@ body {
     color: var(--accent-color);
 }
 
+/* Weekend Break Styling */
+.weekend-break {
+    margin: 40px 0;
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-radius: 20px;
+    border: 2px dashed var(--accent-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.weekend-break::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.1) 20px
+    );
+    animation: move 20s linear infinite;
+}
+
+@keyframes move {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.break-header {
+    position: relative;
+    z-index: 1;
+}
+
+.break-header h3 {
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.break-header h3 i {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.break-header p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Enhanced Day Accordion Styling */
+.day-accordion {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.day-accordion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px var(--shadow-medium);
+}
+
+.accordion-header {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.accordion-header:hover {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-color) 100%);
+    border-left-color: var(--accent-color);
+}
+
+.accordion-header.active {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+    color: white;
+}
+
+.accordion-header.active .day-theme {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.day-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.day-date {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.day-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: inherit;
+}
+
+.date {
+    font-size: 1rem;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.day-theme {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.day-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.session-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.accordion-header i.fa-chevron-down {
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.accordion-header.active i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Session Card Enhancements */
+.session-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.session-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--shadow-medium);
+}
+
+.session-card.morning {
+    border-left: 4px solid #4CAF50;
+}
+
+.session-card.afternoon {
+    border-left: 4px solid #FF9800;
+}
+
+.session-card.evening {
+    border-left: 4px solid #9C27B0;
+}
+
+.session-card.lunch {
+    border-left: 4px solid #E91E63;
+}
+
+.session-card.special-event {
+    border-left: 4px solid #F44336;
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, rgba(244, 67, 54, 0.05) 100%);
+}
+
+.session-time {
+    background: var(--bg-tertiary);
+    padding: 12px 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.session-content {
+    padding: 20px;
+}
+
+.session-content h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+}
+
+.session-content p {
+    margin: 0 0 15px 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.instructor-details {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.main-instructor, .support-instructor {
+    margin-bottom: 8px;
+}
+
+.role {
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-right: 8px;
+}
+
+.name {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.exercise-topics {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+}
+
+.exercise-topics h5 {
+    margin: 0 0 10px 0;
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.exercise-topics ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.exercise-topics li {
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.session-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.session-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.session-link:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.session-link i {
+    font-size: 0.8rem;
+}
+
 /* Accordion theming */
 .accordion-header {
     background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
