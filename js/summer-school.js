@@ -544,8 +544,33 @@ class SummerSchoolManager {
             if (!canvas) return;
             
             const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
+            
+            // Make canvas responsive
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                const containerWidth = container.clientWidth;
+                const maxWidth = Math.min(containerWidth - 40, 400); // 40px for padding
+                
+                canvas.style.width = maxWidth + 'px';
+                canvas.style.height = (maxWidth * 0.75) + 'px'; // 4:3 aspect ratio
+                
+                // Set actual canvas dimensions for high DPI displays
+                const scale = window.devicePixelRatio || 1;
+                canvas.width = maxWidth * scale;
+                canvas.height = (maxWidth * 0.75) * scale;
+                
+                // Scale the context to ensure correct drawing
+                ctx.scale(scale, scale);
+            }
+            
+            // Initial resize
+            resizeCanvas();
+            
+            // Resize on window resize
+            window.addEventListener('resize', resizeCanvas);
+            
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
             
             // SIR model parameters
             const beta = 0.3;  // Transmission rate

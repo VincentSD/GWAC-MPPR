@@ -502,7 +502,7 @@
     border-radius: 16px;
     padding: 20px;
     text-align: center;
-    animation: float 12s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite;
     width: 120px;
     height: 80px;
     display: flex;
@@ -548,25 +548,11 @@
 }
 
 @keyframes float {
-    0% { 
-        transform: translateY(0px) rotate(0deg); 
-        left: 20px; top: 20px;
-    }
-    25% { 
-        transform: translateY(-20px) rotate(5deg); 
-        left: calc(100% - 120px); top: 20px;
+    0%, 100% { 
+        transform: translateY(0px); 
     }
     50% { 
-        transform: translateY(0px) rotate(0deg); 
-        left: calc(100% - 120px); top: calc(100% - 120px);
-    }
-    75% { 
-        transform: translateY(-20px) rotate(-5deg); 
-        left: 20px; top: calc(100% - 120px);
-    }
-    100% { 
-        transform: translateY(0px) rotate(0deg); 
-        left: 20px; top: 20px;
+        transform: translateY(-15px); 
     }
 }
 
@@ -2301,14 +2287,106 @@
         grid-template-columns: 1fr;
         text-align: center;
         gap: 40px;
+        padding: 20px;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
     }
     
     .hero-stats {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .hero-visual {
+        height: 400px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* Adjust SIR graph for mobile */
+    .sir-model-graph {
+        padding: 15px;
+    }
+    
+    #sirCanvas {
+        width: 100%;
+        height: 200px;
+        max-width: 350px;
+    }
+    
+    /* Adjust floating cards for mobile */
+    .floating-card {
+        width: 100px;
+        height: 70px;
+        padding: 15px;
+        font-size: 0.8rem;
+    }
+    
+    .card-1 { top: 10px; right: 10px; }
+    .card-2 { top: 100px; left: 10px; }
+    .card-3 { bottom: 10px; right: 10px; }
+    .card-4 { bottom: 100px; left: 10px; }
+    
+    /* Adjust R terminal for mobile */
+    .r-terminal {
+        font-size: 0.7rem;
+        max-width: 100%;
+    }
+    
+    .terminal-body {
+        padding: 12px;
+    }
+    
+    /* Adjust data points for mobile */
+    .data-point {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+    }
+    
+    .data-point:nth-child(1) { top: 15%; left: 5%; }
+    .data-point:nth-child(2) { top: 55%; right: 10%; }
+    .data-point:nth-child(3) { bottom: 15%; left: 15%; }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .hero-visual {
+        height: 350px;
+    }
+    
+    .floating-card {
+        width: 80px;
+        height: 60px;
+        padding: 10px;
+        font-size: 0.7rem;
+    }
+    
+    .r-terminal {
+        font-size: 0.6rem;
+    }
+    
+    .terminal-body {
+        padding: 8px;
     }
     
     .timeline-nav {
