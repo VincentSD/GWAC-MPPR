@@ -47,6 +47,13 @@
     color: #1e293b;
 }
 
+.nav-logo-subtitle {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -697,6 +704,83 @@
     min-width: 180px;
 }
 
+/* About G-WAC Section */
+.about-gwac-section {
+    padding: 100px 0;
+    background: #f8fafc;
+}
+
+.about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-text {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-text h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 20px 0;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 40px 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gwac-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-item i {
+    font-size: 2rem;
+    color: #3b82f6;
+    width: 40px;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.highlight-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+}
+
+.highlight-item p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    text-align: left;
+}
+
 /* Course Overview Section */
 .course-overview-section {
     padding: 100px 0;
@@ -1210,6 +1294,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .nav-logo-subtitle {
+        display: none;
+    }
+    
     .nav-menu {
         display: none;
     }
@@ -1316,6 +1404,19 @@
     
     .schedule-hero h1 {
         font-size: 2rem;
+    }
+    
+    .gwac-highlights {
+        grid-template-columns: 1fr;
+    }
+    
+    .highlight-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .highlight-item i {
+        margin: 0 auto 16px auto;
     }
 }
 
