@@ -151,18 +151,23 @@ class GitFileManager {
             // Create commit message
             const commitMessage = `Add course material: ${title}\n\nCategory: ${category}\nSession: ${session || 'General'}\nDescription: ${description || 'No description'}`;
             
-            // Get current tree SHA
-            console.log('Getting current tree SHA...');
-            const treeSHA = await this.getCurrentTreeSHA();
-            console.log('Tree SHA:', treeSHA);
+            // Get current commit SHA for parent
+            console.log('Getting current commit SHA...');
+            const commitSHA = await this.getCurrentCommitSHA();
+            console.log('Commit SHA:', commitSHA);
             
             // Handle empty repository case
             let parents = [];
-            if (treeSHA) {
-                parents = [treeSHA];
+            if (commitSHA) {
+                parents = [commitSHA];
             } else {
                 console.log('No existing commits found - creating initial commit');
             }
+            
+            // Get current tree SHA for base_tree
+            console.log('Getting current tree SHA...');
+            const treeSHA = await this.getCurrentTreeSHA();
+            console.log('Tree SHA:', treeSHA);
             
             // Create blob
             console.log('Creating blob...');
@@ -305,8 +310,10 @@ class GitFileManager {
         }
     }
 
-    async getCurrentTreeSHA() {
+    async getCurrentCommitSHA() {
         try {
+            console.log('Getting current commit SHA...');
+            
             const response = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
@@ -315,13 +322,68 @@ class GitFileManager {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to get current branch reference');
+                const errorText = await response.text();
+                console.error('Failed to get branch reference:', errorText);
+                // If it's a 404, the repository might be empty
+                if (response.status === 404) {
+                    console.log('Repository appears to be empty or branch not found');
+                    return null;
+                }
+                throw new Error(`Failed to get branch reference: ${response.status} ${response.statusText}`);
             }
 
             const ref = await response.json();
+            console.log('Branch reference:', ref);
             
-            // Get the commit
-            const commitResponse = await fetch(ref.object.url, {
+            if (!ref.object || !ref.object.sha) {
+                throw new Error('Invalid branch reference - no commit SHA found');
+            }
+
+            const commitSHA = ref.object.sha;
+            console.log('Latest commit SHA:', commitSHA);
+            return commitSHA;
+
+        } catch (error) {
+            console.error('Error getting commit SHA:', error);
+            throw error;
+        }
+    }
+
+    async getCurrentTreeSHA() {
+        try {
+            console.log('Getting current tree SHA...');
+            
+            // First, get the latest commit SHA for the branch
+            const refResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!refResponse.ok) {
+                const errorText = await refResponse.text();
+                console.error('Failed to get branch reference:', errorText);
+                // If it's a 404, the repository might be empty
+                if (refResponse.status === 404) {
+                    console.log('Repository appears to be empty or branch not found');
+                    return null;
+                }
+                throw new Error(`Failed to get branch reference: ${refResponse.status} ${refResponse.statusText}`);
+            }
+
+            const ref = await refResponse.json();
+            console.log('Branch reference:', ref);
+            
+            if (!ref.object || !ref.object.sha) {
+                throw new Error('Invalid branch reference - no commit SHA found');
+            }
+
+            const commitSHA = ref.object.sha;
+            console.log('Latest commit SHA:', commitSHA);
+            
+            // Get the commit details to get the tree SHA
+            const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits/${commitSHA}`, {
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
                     'Accept': 'application/vnd.github.v3+json'
@@ -329,11 +391,21 @@ class GitFileManager {
             });
 
             if (!commitResponse.ok) {
-                throw new Error('Failed to get commit');
+                const errorText = await commitResponse.text();
+                console.error('Failed to get commit:', errorText);
+                throw new Error(`Failed to get commit: ${commitResponse.status} ${commitResponse.statusText}`);
             }
 
             const commit = await commitResponse.json();
-            return commit.tree.sha;
+            console.log('Commit details:', commit);
+            
+            if (!commit.tree || !commit.tree.sha) {
+                throw new Error('Invalid commit - no tree SHA found');
+            }
+
+            const treeSHA = commit.tree.sha;
+            console.log('Tree SHA:', treeSHA);
+            return treeSHA;
 
         } catch (error) {
             console.error('Error getting tree SHA:', error);
