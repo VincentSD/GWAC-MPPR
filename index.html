@@ -88,18 +88,96 @@
                 </div>
             </div>
             <div class="hero-visual">
+                <!-- Animated SIR Model Graph -->
+                <div class="sir-model-graph">
+                    <canvas id="sirCanvas" width="400" height="300"></canvas>
+                    <div class="graph-labels">
+                        <span class="label susceptible">Susceptible</span>
+                        <span class="label infected">Infected</span>
+                        <span class="label recovered">Recovered</span>
+                    </div>
+                </div>
+                
+                <!-- Floating Data Points -->
+                <div class="data-points">
+                    <div class="data-point" data-value="0.8">
+                        <span class="point-value">R₀ = 2.5</span>
+                    </div>
+                    <div class="data-point" data-value="0.6">
+                        <span class="point-value">β = 0.3</span>
+                    </div>
+                    <div class="data-point" data-value="0.4">
+                        <span class="point-value">γ = 0.1</span>
+                    </div>
+                </div>
+                
+                <!-- R Code Terminal -->
+                <div class="r-terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-title">R Studio</span>
+                        <div class="terminal-buttons">
+                            <span class="terminal-btn btn-close"></span>
+                            <span class="terminal-btn btn-minimize"></span>
+                            <span class="terminal-btn btn-maximize"></span>
+                        </div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">library(deSolve)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">SIR_model <- function(t, state, params) {</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">  with(as.list(c(state, params)), {</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">    dS <- -beta * S * I</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">    dI <- beta * S * I - gamma * I</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">    dR <- gamma * I</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">    return(list(c(dS, dI, dR)))</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">  })</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Floating Cards -->
                 <div class="hero-graphic">
                     <div class="floating-card card-1">
                         <i class="fas fa-chart-line"></i>
-                        <span>Data Analysis</span>
+                        <span>Epidemiological Modeling</span>
                     </div>
                     <div class="floating-card card-2">
                         <i class="fas fa-microscope"></i>
-                        <span>Research</span>
+                        <span>Disease Research</span>
                     </div>
                     <div class="floating-card card-3">
                         <i class="fas fa-users"></i>
-                        <span>Collaboration</span>
+                        <span>Global Collaboration</span>
+                    </div>
+                    <div class="floating-card card-4">
+                        <i class="fas fa-code"></i>
+                        <span>R Programming</span>
                     </div>
                 </div>
             </div>

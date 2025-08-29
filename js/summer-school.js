@@ -20,6 +20,7 @@ class SummerSchoolManager {
                     this.setupAnimations();
                     this.setupBackToTop();
                     this.setupNavigation();
+                    this.setupSIRGraph();
                     
                     // Initialize accordion for the first week only with a delay
                     setTimeout(() => {
@@ -532,10 +533,117 @@ class SummerSchoolManager {
                 }
             });
         }
+            }
+        
+        /**
+         * Setup animated SIR model graph
+         */
+        setupSIRGraph() {
+            const canvas = document.getElementById('sirCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // SIR model parameters
+            const beta = 0.3;  // Transmission rate
+            const gamma = 0.1; // Recovery rate
+            const N = 1000;    // Total population
+            const I0 = 10;     // Initial infected
+            const S0 = N - I0; // Initial susceptible
+            const R0 = 0;      // Initial recovered
+            
+            let time = 0;
+            let S = S0, I = I0, R = R0;
+            
+            function animate() {
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+                
+                // Update SIR values
+                const dS = -beta * S * I / N;
+                const dI = beta * S * I / N - gamma * I;
+                const dR = gamma * I;
+                
+                S += dS;
+                I += dI;
+                R += dR;
+                time += 0.1;
+                
+                // Draw grid
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 1;
+                for (let i = 0; i < width; i += 40) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i, height);
+                    ctx.stroke();
+                }
+                for (let i = 0; i < height; i += 40) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, i);
+                    ctx.lineTo(i, height);
+                    ctx.stroke();
+                }
+                
+                // Draw SIR curves
+                const scaleX = width / 100;
+                const scaleY = height / N;
+                
+                // Susceptible (Blue)
+                ctx.strokeStyle = '#3b82f6';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(0, height - S0 * scaleY);
+                for (let t = 0; t <= time; t += 0.1) {
+                    const St = S0 * Math.exp(-beta * t);
+                    const x = t * scaleX;
+                    const y = height - St * scaleY;
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                
+                // Infected (Red)
+                ctx.strokeStyle = '#ef4444';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(0, height - I0 * scaleY);
+                for (let t = 0; t <= time; t += 0.1) {
+                    const It = I0 * Math.exp((beta - gamma) * t);
+                    const x = t * scaleX;
+                    const y = height - It * scaleY;
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                
+                // Recovered (Green)
+                ctx.strokeStyle = '#22c55e';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(0, height - R0 * scaleY);
+                for (let t = 0; t <= time; t += 0.1) {
+                    const Rt = N - S0 * Math.exp(-beta * t) - I0 * Math.exp((beta - gamma) * t);
+                    const x = t * scaleX;
+                    const y = height - Rt * scaleY;
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                
+                // Reset animation when complete
+                if (time > 100) {
+                    time = 0;
+                    S = S0, I = I0, R = R0;
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
     }
-}
-
-// Initialize when DOM is loaded
+    
+    // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.summerSchool = new SummerSchoolManager();
     
