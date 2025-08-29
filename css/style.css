@@ -123,6 +123,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg);
     backdrop-filter: blur(10px);
+
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -4083,35 +4084,7 @@ main {
     border-color: #555555;
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: var(--background-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    transition: var(--transition-fast);
-    box-shadow: var(--shadow-md);
-    backdrop-filter: blur(10px);
-}
 
-.theme-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-lg);
-}
-
-.theme-toggle .icon {
-    font-size: 20px;
-    color: var(--text-primary);
-}
 
 /* Enhanced Animations */
 .animate-in {

@@ -28,9 +28,9 @@ class ThemeToggle {
     }
 
     setupEventListeners() {
-        // Theme toggle button click
+        // Theme toggle button click - use fixed positioned button
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.theme-toggle-btn')) {
+            if (e.target.closest('.theme-toggle-fixed')) {
                 this.toggleTheme();
             }
         });
@@ -74,7 +74,7 @@ class ThemeToggle {
         document.documentElement.setAttribute('data-theme', this.currentTheme);
         
         // Update theme toggle button appearance
-        const themeToggle = document.querySelector('.theme-toggle');
+        const themeToggle = document.querySelector('.theme-toggle-fixed');
         if (themeToggle) {
             themeToggle.setAttribute('data-theme', this.currentTheme);
         }
@@ -100,12 +100,12 @@ class ThemeToggle {
     }
 
     animateToggle() {
-        const themeToggle = document.querySelector('.theme-toggle');
+        const themeToggle = document.querySelector('.theme-toggle-fixed');
         if (themeToggle) {
-            themeToggle.classList.add('theme-toggle-animate');
+            themeToggle.style.transform = 'scale(0.8)';
             setTimeout(() => {
-                themeToggle.classList.remove('theme-toggle-animate');
-            }, 300);
+                themeToggle.style.transform = 'scale(1)';
+            }, 150);
         }
     }
 
@@ -124,9 +124,16 @@ class ThemeToggle {
     }
 
     updateThemeIcon() {
-        const icon = document.querySelector('.theme-toggle .icon');
-        if (icon) {
-            icon.textContent = this.currentTheme === 'dark' ? '☀️' : '🌙';
+        const themeToggle = document.querySelector('.theme-toggle-fixed');
+        if (themeToggle) {
+            const icon = themeToggle.querySelector('i');
+            if (icon) {
+                if (this.currentTheme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
         }
     }
 }

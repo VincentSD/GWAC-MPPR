@@ -160,7 +160,30 @@
     gap: 16px;
 }
 
-.theme-toggle,
+.theme-toggle-fixed {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #64748b;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-fixed:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #3b82f6;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 .mobile-menu-toggle {
     background: none;
     border: none;
@@ -172,7 +195,6 @@
     transition: all 0.3s ease;
 }
 
-.theme-toggle:hover,
 .mobile-menu-toggle:hover {
     background: rgba(59, 130, 246, 0.1);
     color: #3b82f6;
