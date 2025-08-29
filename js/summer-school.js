@@ -21,21 +21,6 @@ class SummerSchoolManager {
                     this.setupBackToTop();
                     this.setupNavigation();
                     
-                    // Debug: Check if week-2 exists at all
-                    setTimeout(() => {
-                        const week2 = document.getElementById('week-2');
-                        console.log('=== INIT DEBUG ===');
-                        console.log('week-2 element exists:', !!week2);
-                        if (week2) {
-                            console.log('week-2 HTML:', week2.outerHTML.substring(0, 200) + '...');
-                            console.log('week-2 children count:', week2.children.length);
-                        }
-                        console.log('All week-content elements:', document.querySelectorAll('.week-content').length);
-                        console.log('week-1:', document.getElementById('week-1'));
-                        console.log('week-2:', document.getElementById('week-2'));
-                        console.log('=== END INIT DEBUG ===');
-                    }, 200);
-                    
                     // Initialize accordion for the first week only with a delay
                     setTimeout(() => {
                         this.setupScheduleAccordion();
@@ -65,8 +50,6 @@ class SummerSchoolManager {
      * Switch between week 1 and week 2
      */
     switchWeek(weekNumber) {
-        console.log('switchWeek called with:', weekNumber);
-        
         // Update navigation buttons
         document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -74,30 +57,16 @@ class SummerSchoolManager {
         const targetButton = document.querySelector(`[data-week="${weekNumber}"]`);
         if (targetButton) {
             targetButton.classList.add('active');
-            console.log('Updated button:', targetButton.textContent.trim());
-        } else {
-            console.error('Button not found for week:', weekNumber);
         }
 
         // Update week content
         document.querySelectorAll('.week-content').forEach(content => {
             content.classList.remove('active');
-            console.log('Removed active from:', content.id);
         });
         
         const targetWeek = document.getElementById(`week-${weekNumber}`);
         if (targetWeek) {
             targetWeek.classList.add('active');
-            console.log('Added active to:', targetWeek.id);
-            
-            // Debug: Check if the element is actually in the DOM
-            console.log('Target week element:', targetWeek);
-            console.log('Target week display style:', window.getComputedStyle(targetWeek).display);
-            console.log('Target week visibility:', window.getComputedStyle(targetWeek).visibility);
-            console.log('Target week height:', window.getComputedStyle(targetWeek).height);
-            console.log('Target week has content:', targetWeek.children.length, 'children');
-        } else {
-            console.error('Week content not found for week:', weekNumber);
         }
 
         this.currentWeek = parseInt(weekNumber);
@@ -472,14 +441,10 @@ class SummerSchoolManager {
         // Only set up accordion for the currently active week
         const activeWeek = document.querySelector('.week-content.active');
         if (!activeWeek) {
-            console.error('No active week found for accordion setup');
             return;
         }
         
-        console.log('Setting up accordion for week:', activeWeek.id);
-        
         const accordionHeaders = activeWeek.querySelectorAll('.accordion-header');
-        console.log('Found', accordionHeaders.length, 'accordion headers in', activeWeek.id);
         
         // Remove existing event listeners to prevent duplicates
         accordionHeaders.forEach(header => {
@@ -491,12 +456,9 @@ class SummerSchoolManager {
         const freshHeaders = activeWeek.querySelectorAll('.accordion-header');
         
         freshHeaders.forEach((header, index) => {
-            console.log('Setting up header', index, ':', header.textContent.trim());
-            
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
-                console.log('Accordion clicked:', header.textContent.trim(), 'isActive:', isActive);
                 
                 // Close all other accordions in this week
                 freshHeaders.forEach(h => {
@@ -508,7 +470,6 @@ class SummerSchoolManager {
                 if (!isActive) {
                     header.classList.add('active');
                     content.classList.add('active');
-                    console.log('Opened accordion for:', header.textContent.trim());
                 }
             });
         });
@@ -518,7 +479,6 @@ class SummerSchoolManager {
         if (firstHeader) {
             firstHeader.classList.add('active');
             firstHeader.nextElementSibling.classList.add('active');
-            console.log('Opened first accordion by default for week:', activeWeek.id);
         }
     }
 
