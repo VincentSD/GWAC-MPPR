@@ -524,19 +524,35 @@ class GitFileManager {
         const sampleFiles = [
             {
                 id: '1',
-                name: 'R_Programming_Basics.pdf',
-                title: 'R Programming Basics',
-                description: 'Introduction to R programming fundamentals',
-                category: 'R Programming',
-                session: 'Crash Course in R Programming',
-                size: '2.5 MB',
-                type: 'application/pdf',
-                uploadDate: new Date().toISOString(),
-                uploadedBy: 'James Azam',
+                name: 'covid_19_background_Jean-Claude.pptx',
+                title: 'COVID-19 Background and Context',
+                description: 'Comprehensive overview of COVID-19 epidemiology and modeling approaches',
+                category: 'Disease Modeling',
+                session: 'Model Calibration & Validation',
+                size: '898 KB',
+                type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                uploadDate: '2025-08-29T20:16:00.000Z',
+                uploadedBy: 'Dr. Jean Claude Dejon Agobé',
                 downloadCount: 0,
-                githubPath: 'course-materials/R_Programming/R_Programming_Basics.pdf',
-                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/R_Programming/R_Programming_Basics.pdf',
-                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/R_Programming/R_Programming_Basics.pdf'
+                githubPath: 'course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx',
+                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx',
+                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx'
+            },
+            {
+                id: '2',
+                name: 'MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
+                title: 'Incorporating Health Economics into Models',
+                description: 'Advanced modeling techniques integrating health economics and cost analysis',
+                category: 'Health Economics',
+                session: 'Health Economics in Epidemic Models',
+                size: '2.1 MB',
+                type: 'application/pdf',
+                uploadDate: '2025-08-29T20:16:00.000Z',
+                uploadedBy: 'Prof. Gesine Meyer-Rath',
+                downloadCount: 0,
+                githubPath: 'course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
+                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
+                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf'
             }
         ];
         
