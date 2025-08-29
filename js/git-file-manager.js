@@ -7,8 +7,8 @@ class GitFileManager {
     constructor() {
         this.files = new Map();
         this.categories = new Map();
-        this.repoOwner = 'jamesmbaazam'; // Your GitHub username
-        this.repoName = 'mppr'; // Your repository name
+        this.repoOwner = 'VincentSD'; // Your GitHub username
+        this.repoName = 'GWAC-MPPR'; // Your repository name
         this.branch = 'main'; // Your default branch
         this.githubToken = null; // Will be set by user
         this.init();
@@ -444,8 +444,8 @@ class GitFileManager {
                 uploadedBy: 'James Azam',
                 downloadCount: 0,
                 githubPath: 'course-materials/R_Programming/R_Programming_Basics.pdf',
-                downloadUrl: 'https://raw.githubusercontent.com/jamesmbaazam/mppr/main/course-materials/R_Programming/R_Programming_Basics.pdf',
-                viewUrl: 'https://github.com/jamesmbaazam/mppr/blob/main/course-materials/R_Programming/R_Programming_Basics.pdf'
+                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/R_Programming/R_Programming_Basics.pdf',
+                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/R_Programming/R_Programming_Basics.pdf'
             }
         ];
         
