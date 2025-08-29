@@ -3640,22 +3640,14 @@ body {
 /* Footer About Section */
 .footer-about .footer-logo {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: flex-start;
+    margin-bottom: 25px;
 }
 
 .footer-logo-img {
-    width: 60px;
+    width: 100px;
     height: auto;
     border-radius: 8px;
-}
-
-.footer-about h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin: 0;
 }
 
 .footer-description {
@@ -4320,6 +4312,10 @@ body {
     
     .footer-about .footer-logo {
         justify-content: center;
+    }
+    
+    .footer-logo-img {
+        width: 120px;
     }
     
     .footer-bottom-content {
