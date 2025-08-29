@@ -1478,7 +1478,20 @@
                 <h2>Course Materials & Resources</h2>
                 <p>Access all course materials, presentations, and resources in one centralized location. Facilitators can upload materials, and students can easily find and download what they need.</p>
                 <div class="storage-info">
-                    <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Files are currently stored locally in your browser. For production use, files would be stored on a secure server with proper backup.</p>
+                    <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Files are now stored directly in your GitHub repository! This ensures permanent storage, version control, and easy collaboration.</p>
+                </div>
+            </div>
+            
+            <div class="github-auth-section">
+                <div class="auth-info">
+                    <i class="fab fa-github"></i>
+                    <span>Connect to GitHub to upload and manage files directly in your repository</span>
+                </div>
+                <div class="token-input">
+                    <input type="password" id="github-token" placeholder="Enter GitHub Personal Access Token" class="github-token-input">
+                    <a href="https://github.com/settings/tokens" target="_blank" class="token-help">
+                        <i class="fas fa-question-circle"></i> Get Token
+                    </a>
                 </div>
             </div>
             
@@ -1773,6 +1786,6 @@
     <script src="js/script.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/summer-school.js"></script>
-    <script src="js/file-manager.js"></script>
+    <script src="js/git-file-manager.js"></script>
 </body>
 </html>

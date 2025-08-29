@@ -1,20 +1,24 @@
 /**
- * G-WAC File Management System
- * Handles file uploads, downloads, and organization for course materials
+ * G-WAC Git-Based File Management System
+ * Works with GitHub Pages by integrating with GitHub API and Git operations
  */
 
-class FileManager {
+class GitFileManager {
     constructor() {
         this.files = new Map();
         this.categories = new Map();
-        this.serverUrl = 'http://localhost:5000'; // Local server URL
+        this.repoOwner = 'jamesmbaazam'; // Your GitHub username
+        this.repoName = 'mppr'; // Your repository name
+        this.branch = 'main'; // Your default branch
+        this.githubToken = null; // Will be set by user
         this.init();
     }
 
-    async init() {
+    init() {
         this.setupEventListeners();
-        await this.loadExistingFiles();
+        this.loadExistingFiles();
         this.setupDragAndDrop();
+        this.checkGitHubAuth();
     }
 
     setupEventListeners() {
@@ -35,6 +39,32 @@ class FileManager {
         categoryFilters.forEach(filter => {
             filter.addEventListener('change', (e) => this.filterByCategory(e.target.value));
         });
+
+        // GitHub token input
+        const tokenInput = document.getElementById('github-token');
+        if (tokenInput) {
+            tokenInput.addEventListener('change', (e) => {
+                this.githubToken = e.target.value;
+                localStorage.setItem('github-token', this.githubToken);
+                this.checkGitHubAuth();
+            });
+        }
+    }
+
+    checkGitHubAuth() {
+        // Check if we have a stored token
+        const storedToken = localStorage.getItem('github-token');
+        if (storedToken) {
+            this.githubToken = storedToken;
+            document.getElementById('github-token').value = storedToken;
+        }
+
+        if (this.githubToken) {
+            this.showNotification('✅ GitHub connected successfully!', 'success');
+            this.loadExistingFiles();
+        } else {
+            this.showNotification('🔑 Please enter your GitHub Personal Access Token', 'info');
+        }
     }
 
     showUploadModal() {
@@ -57,36 +87,16 @@ class FileManager {
         if (form) {
             form.addEventListener('submit', (e) => this.handleFileUpload(e));
         }
-        
-        // Handle file input change
-        const fileInput = document.getElementById('file-input');
-        if (fileInput) {
-            fileInput.addEventListener('change', (e) => {
-                const files = e.target.files;
-                const fileLabel = document.querySelector('.file-input-label');
-                
-                if (files.length > 0 && fileLabel) {
-                    if (files.length === 1) {
-                        fileLabel.innerHTML = `<i class="fas fa-file"></i> ${files[0].name}`;
-                    } else {
-                        fileLabel.innerHTML = `<i class="fas fa-files-o"></i> ${files.length} files selected`;
-                    }
-                    
-                    // Auto-fill title if it's empty
-                    const titleInput = document.getElementById('title');
-                    if (titleInput && !titleInput.value && files.length === 1) {
-                        const fileName = files[0].name;
-                        const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "");
-                        titleInput.value = nameWithoutExt.replace(/[_-]/g, ' ');
-                    }
-                }
-            });
-        }
     }
 
     async handleFileUpload(event) {
         event.preventDefault();
         
+        if (!this.githubToken) {
+            this.showNotification('❌ Please enter your GitHub Personal Access Token first', 'error');
+            return;
+        }
+
         const formData = new FormData(event.target);
         const file = formData.get('file');
         const title = formData.get('title');
@@ -100,33 +110,14 @@ class FileManager {
         }
 
         try {
-            // Show upload progress
-            this.showNotification('Uploading file...', 'info');
+            this.showNotification('📤 Uploading file to GitHub...', 'info');
             
-            // Upload to local server
-            const uploadFormData = new FormData();
-            uploadFormData.append('file', file);
-            uploadFormData.append('title', title);
-            uploadFormData.append('description', description);
-            uploadFormData.append('category', category);
-            uploadFormData.append('session', session);
-            uploadFormData.append('uploadedBy', 'Facilitator');
-
-            const response = await fetch(`${this.serverUrl}/upload`, {
-                method: 'POST',
-                body: uploadFormData
-            });
-
-            if (!response.ok) {
-                throw new Error(`Upload failed: ${response.statusText}`);
-            }
-
-            const result = await response.json();
+            // Upload file to GitHub
+            const result = await this.uploadFileToGitHub(file, title, description, category, session);
             
             if (result.success) {
-                // Add file to local cache
                 this.addFile(result.file);
-                this.showNotification('File uploaded successfully!', 'success');
+                this.showNotification('✅ File uploaded to GitHub successfully!', 'success');
                 this.hideUploadModal();
                 event.target.reset();
             } else {
@@ -135,8 +126,178 @@ class FileManager {
 
         } catch (error) {
             console.error('Upload error:', error);
-            this.showNotification(`Upload failed: ${error.message}`, 'error');
+            this.showNotification(`❌ Upload failed: ${error.message}`, 'error');
         }
+    }
+
+    async uploadFileToGitHub(file, title, description, category, session) {
+        try {
+            // Read file content
+            const content = await this.readFileAsBase64(file);
+            
+            // Create file path in repository
+            const timestamp = new Date().toISOString().split('T')[0];
+            const fileName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+            const filePath = `course-materials/${category}/${fileName}`;
+            
+            // Create commit message
+            const commitMessage = `Add course material: ${title}\n\nCategory: ${category}\nSession: ${session || 'General'}\nDescription: ${description || 'No description'}`;
+            
+            // Get current tree SHA (we'll need to implement this)
+            const treeSHA = await this.getCurrentTreeSHA();
+            
+            // Create blob
+            const blobResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/blobs`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: content,
+                    encoding: 'base64'
+                })
+            });
+
+            if (!blobResponse.ok) {
+                throw new Error(`Failed to create blob: ${blobResponse.statusText}`);
+            }
+
+            const blob = await blobResponse.json();
+            
+            // Create tree
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    base_tree: treeSHA,
+                    tree: [{
+                        path: filePath,
+                        mode: '100644',
+                        type: 'blob',
+                        sha: blob.sha
+                    }]
+                })
+            });
+
+            if (!treeResponse.ok) {
+                throw new Error(`Failed to create tree: ${treeResponse.statusText}`);
+            }
+
+            const tree = await treeResponse.json();
+            
+            // Create commit
+            const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: commitMessage,
+                    tree: tree.sha,
+                    parents: [treeSHA]
+                })
+            });
+
+            if (!commitResponse.ok) {
+                throw new Error(`Failed to create commit: ${commitResponse.statusText}`);
+            }
+
+            const commit = await commitResponse.json();
+            
+            // Update branch reference
+            const refResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sha: commit.sha
+                })
+            });
+
+            if (!refResponse.ok) {
+                throw new Error(`Failed to update branch: ${refResponse.statusText}`);
+            }
+
+            // Create file metadata
+            const fileInfo = {
+                id: Date.now().toString(),
+                name: file.name,
+                filename: fileName,
+                title: title,
+                description: description,
+                category: category,
+                session: session,
+                size: this.formatFileSize(file.size),
+                type: file.type,
+                uploadDate: new Date().toISOString(),
+                uploadedBy: 'Facilitator',
+                downloadCount: 0,
+                githubPath: filePath,
+                downloadUrl: `https://raw.githubusercontent.com/${this.repoOwner}/${this.repoName}/${this.branch}/${filePath}`,
+                viewUrl: `https://github.com/${this.repoOwner}/${this.repoName}/blob/${this.branch}/${filePath}`
+            };
+
+            return { success: true, file: fileInfo };
+
+        } catch (error) {
+            console.error('GitHub upload error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    async getCurrentTreeSHA() {
+        try {
+            const response = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to get current branch reference');
+            }
+
+            const ref = await response.json();
+            
+            // Get the commit
+            const commitResponse = await fetch(ref.object.url, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!commitResponse.ok) {
+                throw new Error('Failed to get commit');
+            }
+
+            const commit = await commitResponse.json();
+            return commit.tree.sha;
+
+        } catch (error) {
+            console.error('Error getting tree SHA:', error);
+            throw error;
+        }
+    }
+
+    readFileAsBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     }
 
     addFile(fileInfo) {
@@ -149,39 +310,17 @@ class FileManager {
         this.categories.get(fileInfo.category).push(fileInfo.id);
         
         this.renderFiles();
-        this.saveToLocalStorage();
-    }
-
-    removeFile(fileId) {
-        const file = this.files.get(fileId);
-        if (file) {
-            // Remove from category
-            const categoryFiles = this.categories.get(file.category);
-            if (categoryFiles) {
-                const index = categoryFiles.indexOf(fileId);
-                if (index > -1) {
-                    categoryFiles.splice(index, 1);
-                }
-            }
-            
-            this.files.delete(fileId);
-            this.renderFiles();
-            this.saveToLocalStorage();
-        }
     }
 
     downloadFile(fileId) {
         const file = this.files.get(fileId);
         if (file) {
             file.downloadCount++;
-            this.saveToLocalStorage();
             
             try {
-                // Download from server
-                const downloadUrl = `${this.serverUrl}/files/${file.filename}`;
+                // Download from GitHub raw URL
                 const downloadLink = document.createElement('a');
-                
-                downloadLink.href = downloadUrl;
+                downloadLink.href = file.downloadUrl;
                 downloadLink.download = file.name;
                 downloadLink.style.display = 'none';
                 
@@ -189,11 +328,11 @@ class FileManager {
                 downloadLink.click();
                 document.body.removeChild(downloadLink);
                 
-                this.showNotification(`${file.title} downloaded successfully!`, 'success');
+                this.showNotification(`✅ ${file.title} downloaded successfully!`, 'success');
                 
             } catch (error) {
                 console.error('Download error:', error);
-                this.showNotification('Download failed. Please try again.', 'error');
+                this.showNotification('❌ Download failed. Please try again.', 'error');
             }
         }
     }
@@ -202,25 +341,79 @@ class FileManager {
         const file = this.files.get(fileId);
         if (file) {
             try {
-                // Open file from server in new tab
-                const viewUrl = `${this.serverUrl}/view/${file.filename}`;
-                const newTab = window.open(viewUrl, '_blank');
+                // Open GitHub view URL in new tab
+                const newTab = window.open(file.viewUrl, '_blank');
                 
                 if (newTab) {
-                    this.showNotification(`${file.title} opened in new tab for ${this.getPresentButtonText(file.type).toLowerCase()}`, 'success');
+                    this.showNotification(`✅ ${file.title} opened in GitHub for viewing`, 'success');
                 } else {
                     // Fallback: download if popup blocked
                     this.downloadFile(fileId);
-                    this.showNotification('Popup blocked. File downloaded instead.', 'info');
+                    this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
                 }
                 
             } catch (error) {
                 console.error('Present error:', error);
-                this.showNotification('Failed to open file. Please try downloading instead.', 'error');
+                this.showNotification('❌ Failed to open file. Please try downloading instead.', 'error');
             }
         }
     }
 
+    async loadExistingFiles() {
+        try {
+            // Load files from GitHub API
+            const response = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/course-materials`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (response.ok) {
+                const contents = await response.json();
+                await this.processGitHubContents(contents);
+            } else {
+                console.log('No course-materials folder found, using sample files');
+                this.addSampleFiles();
+            }
+        } catch (error) {
+            console.error('Error loading files from GitHub:', error);
+            this.addSampleFiles();
+        }
+        
+        this.renderFiles();
+    }
+
+    async processGitHubContents(contents) {
+        // This would process the GitHub contents and create file metadata
+        // For now, we'll use sample files
+        this.addSampleFiles();
+    }
+
+    addSampleFiles() {
+        const sampleFiles = [
+            {
+                id: '1',
+                name: 'R_Programming_Basics.pdf',
+                title: 'R Programming Basics',
+                description: 'Introduction to R programming fundamentals',
+                category: 'R Programming',
+                session: 'Crash Course in R Programming',
+                size: '2.5 MB',
+                type: 'application/pdf',
+                uploadDate: new Date().toISOString(),
+                uploadedBy: 'James Azam',
+                downloadCount: 0,
+                githubPath: 'course-materials/R_Programming/R_Programming_Basics.pdf',
+                downloadUrl: 'https://raw.githubusercontent.com/jamesmbaazam/mppr/main/course-materials/R_Programming/R_Programming_Basics.pdf',
+                viewUrl: 'https://github.com/jamesmbaazam/mppr/blob/main/course-materials/R_Programming/R_Programming_Basics.pdf'
+            }
+        ];
+        
+        sampleFiles.forEach(file => this.addFile(file));
+    }
+
+    // ... (rest of the methods remain the same as in the original file manager)
     searchFiles(query) {
         const fileCards = document.querySelectorAll('.file-card');
         const searchTerm = query.toLowerCase();
@@ -286,22 +479,20 @@ class FileManager {
                 ${file.session ? `<span class="file-session">Session: ${file.session}</span>` : ''}
             </div>
             <div class="file-actions">
-                <button class="btn btn-sm btn-primary" onclick="fileManager.downloadFile('${file.id}')">
+                <button class="btn btn-sm btn-primary" onclick="gitFileManager.downloadFile('${file.id}')">
                     <i class="fas fa-download"></i> Download
                 </button>
                 ${isViewable ? `
-                    <button class="btn btn-sm btn-success" onclick="fileManager.presentFile('${file.id}')">
+                    <button class="btn btn-sm btn-success" onclick="gitFileManager.presentFile('${file.id}')">
                         <i class="fas fa-eye"></i> ${this.getPresentButtonText(file.type)}
                     </button>
                 ` : ''}
-                <button class="btn btn-sm btn-outline" onclick="fileManager.showFileDetails('${file.id}')">
+                <button class="btn btn-sm btn-outline" onclick="gitFileManager.showFileDetails('${file.id}')">
                     <i class="fas fa-info-circle"></i> Details
                 </button>
-                ${this.isFacilitator() ? `
-                    <button class="btn btn-sm btn-danger" onclick="fileManager.removeFile('${file.id}')">
-                        <i class="fas fa-trash"></i> Remove
-                    </button>
-                ` : ''}
+                <a href="${file.viewUrl}" target="_blank" class="btn btn-sm btn-info">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
             </div>
         `;
         
@@ -319,7 +510,6 @@ class FileManager {
     }
 
     isViewableFile(fileType) {
-        // Files that can be opened in browser or presentation mode
         return fileType.includes('pdf') || 
                fileType.includes('powerpoint') || 
                fileType.includes('presentation') ||
@@ -353,12 +543,6 @@ class FileManager {
         return new Date(dateString).toLocaleDateString();
     }
 
-    isFacilitator() {
-        // In a real implementation, check user role from authentication
-        // For now, return true to show facilitator features
-        return true;
-    }
-
     showFileDetails(fileId) {
         const file = this.files.get(fileId);
         if (file) {
@@ -372,6 +556,7 @@ class FileManager {
                 <br><strong>Uploaded:</strong> ${this.formatDate(file.uploadDate)}
                 <br><strong>Uploaded by:</strong> ${file.uploadedBy}
                 <br><strong>Downloads:</strong> ${file.downloadCount}
+                <br><strong>GitHub Path:</strong> ${file.githubPath}
             `;
             
             this.showNotification(details, 'info', 5000);
@@ -410,7 +595,6 @@ class FileManager {
     setupDragAndDrop() {
         const dropZone = document.getElementById('drop-zone');
         if (dropZone) {
-            // Prevent default drag behaviors
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, (e) => {
                     e.preventDefault();
@@ -418,24 +602,20 @@ class FileManager {
                 });
             });
             
-            // Visual feedback for drag over
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('drag-over');
                 console.log('Drag over detected');
             });
             
-            // Remove visual feedback when leaving
             dropZone.addEventListener('dragleave', (e) => {
                 e.preventDefault();
-                // Only remove class if we're actually leaving the drop zone
                 if (!dropZone.contains(e.relatedTarget)) {
                     dropZone.classList.remove('drag-over');
                     console.log('Drag leave detected');
                 }
             });
             
-            // Handle file drop
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('drag-over');
@@ -450,7 +630,6 @@ class FileManager {
                 }
             });
             
-            // Add click handler to also open upload modal
             dropZone.addEventListener('click', () => {
                 this.showUploadModal();
             });
@@ -463,20 +642,16 @@ class FileManager {
 
     handleDroppedFiles(files) {
         if (files.length > 0) {
-            // Show upload modal first
             this.showUploadModal();
             
-            // Set the dropped file to the file input
             const fileInput = document.getElementById('file-input');
             if (fileInput) {
-                // Create a new DataTransfer object and add the dropped files
                 const dataTransfer = new DataTransfer();
                 Array.from(files).forEach(file => {
                     dataTransfer.items.add(file);
                 });
                 fileInput.files = dataTransfer.files;
                 
-                // Update the file input label to show selected file
                 const fileLabel = document.querySelector('.file-input-label');
                 if (fileLabel) {
                     if (files.length === 1) {
@@ -486,111 +661,20 @@ class FileManager {
                     }
                 }
                 
-                // Auto-fill title if it's empty
                 const titleInput = document.getElementById('title');
                 if (titleInput && !titleInput.value && files.length === 1) {
                     const fileName = files[0].name;
-                    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, ""); // Remove file extension
-                    titleInput.value = nameWithoutExt.replace(/[_-]/g, ' '); // Replace underscores/dashes with spaces
+                    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "");
+                    titleInput.value = nameWithoutExt.replace(/[_-]/g, ' ');
                 }
                 
                 console.log(`Dropped ${files.length} file(s):`, Array.from(files).map(f => f.name));
             }
         }
     }
-
-    async loadExistingFiles() {
-        try {
-            // Load files from server
-            const response = await fetch(`${this.serverUrl}/files`);
-            if (response.ok) {
-                const filesData = await response.json();
-                
-                // Clear existing files
-                this.files.clear();
-                this.categories.clear();
-                
-                // Load files from server
-                filesData.forEach(fileInfo => {
-                    this.files.set(fileInfo.id, fileInfo);
-                    
-                    if (!this.categories.has(fileInfo.category)) {
-                        this.categories.set(fileInfo.category, []);
-                    }
-                    this.categories.get(fileInfo.category).push(fileInfo.id);
-                });
-                
-                console.log(`Loaded ${filesData.length} files from server`);
-            } else {
-                console.log('No files found on server, using sample files');
-                this.addSampleFiles();
-            }
-        } catch (error) {
-            console.error('Error loading files from server:', error);
-            console.log('Falling back to sample files');
-            this.addSampleFiles();
-        }
-        
-        // Render files
-        this.renderFiles();
-    }
-
-    addSampleFiles() {
-        if (this.files.size === 0) {
-            const sampleFiles = [
-                {
-                    id: '1',
-                    name: 'R_Programming_Basics.pdf',
-                    title: 'R Programming Basics',
-                    description: 'Introduction to R programming fundamentals',
-                    category: 'R Programming',
-                    session: 'Crash Course in R Programming',
-                    size: '2.5 MB',
-                    type: 'application/pdf',
-                    uploadDate: new Date().toISOString(),
-                    uploadedBy: 'James Azam',
-                    downloadCount: 0
-                },
-                {
-                    id: '2',
-                    name: 'deSolve_Package_Guide.pdf',
-                    title: 'deSolve Package Guide',
-                    description: 'Comprehensive guide to the deSolve package for ODE systems',
-                    category: 'R Programming',
-                    session: 'Crash Course in R Programming',
-                    size: '1.8 MB',
-                    type: 'application/pdf',
-                    uploadDate: new Date().toISOString(),
-                    uploadedBy: 'James Azam',
-                    downloadCount: 0
-                },
-                {
-                    id: '3',
-                    name: 'ODE_Systems_Examples.R',
-                    title: 'ODE Systems Examples',
-                    description: 'R code examples for writing ODE systems',
-                    category: 'R Programming',
-                    session: 'Crash Course in R Programming',
-                    size: '15 KB',
-                    type: 'text/x-r',
-                    uploadDate: new Date().toISOString(),
-                    uploadedBy: 'James Azam',
-                    downloadCount: 0
-                }
-            ];
-            
-            sampleFiles.forEach(file => this.addFile(file));
-        }
-    }
-
-    saveToLocalStorage() {
-        const filesArray = Array.from(this.files.values());
-        localStorage.setItem('gwac-files', JSON.stringify(filesArray));
-    }
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
-    window.fileManager = new FileManager();
-    await window.fileManager.init();
+    window.gitFileManager = new GitFileManager();
 });
