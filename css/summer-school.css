@@ -1104,9 +1104,14 @@ body {
         grid-template-columns: 1fr;
     }
     
+    .facilitators-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .office-locations h3,
     .course-coordinators-section h3,
-    .leadership-section h3 {
+    .leadership-section h3,
+    .facilitators-section h3 {
         font-size: 1.5rem;
     }
 }
@@ -2842,38 +2847,60 @@ body {
 }
 
 .facilitator-card {
-    background: #f8fafc;
+    background: var(--bg-primary);
     padding: 30px;
     border-radius: 16px;
-    border: 1px solid #e2e8f0;
+    border: 2px solid transparent;
     transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .facilitator-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    background: white;
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(26, 95, 122, 0.15);
+}
+
+.facilitator-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.facilitator-avatar i {
+    font-size: 2rem;
+    color: white;
 }
 
 .facilitator-info h3 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #1e293b;
-    margin: 0 0 12px 0;
+    color: var(--text-primary);
+    margin: 0 0 15px 0;
 }
 
 .institution {
     font-weight: 500;
-    color: #3b82f6;
-    margin: 0 0 12px 0;
+    color: var(--text-secondary);
+    margin: 0 0 10px 0;
     font-size: 0.95rem;
 }
 
 .expertise {
-    color: #64748b;
+    color: var(--text-secondary);
     line-height: 1.6;
-    margin: 0;
+    margin: 0 0 20px 0;
     font-size: 0.9rem;
+}
+
+.facilitator-contact {
+    margin-top: 15px;
 }
 
 /* About G-WAC Section */
