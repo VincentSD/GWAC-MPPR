@@ -21,6 +21,7 @@ class SummerSchoolManager {
                     this.setupBackToTop();
                     this.setupNavigation();
                     this.setupSIRGraph();
+                    this.setupDynamicR0();
                     
                     // Initialize accordion for the first week only with a delay
                     setTimeout(() => {
@@ -640,6 +641,50 @@ class SummerSchoolManager {
             }
             
             animate();
+        }
+        
+        /**
+         * Setup dynamic R₀ values that change over time
+         */
+        setupDynamicR0() {
+            const r0Element = document.querySelector('.dynamic-r0');
+            if (!r0Element) return;
+            
+            // Different R₀ values for different diseases
+            const r0Values = [
+                { value: 2.5, disease: 'COVID-19' },
+                { value: 3.0, disease: 'Measles' },
+                { value: 1.8, disease: 'Influenza' },
+                { value: 4.5, disease: 'Chickenpox' },
+                { value: 2.0, disease: 'SARS' },
+                { value: 1.5, disease: 'Common Cold' }
+            ];
+            
+            let currentIndex = 0;
+            
+            function updateR0() {
+                const r0Data = r0Values[currentIndex];
+                r0Element.textContent = r0Data.value;
+                r0Element.title = r0Data.disease;
+                
+                // Add a brief highlight effect
+                r0Element.style.transform = 'scale(1.3)';
+                r0Element.style.color = '#ffed4e';
+                
+                setTimeout(() => {
+                    r0Element.style.transform = 'scale(1)';
+                    r0Element.style.color = '#ffd700';
+                }, 300);
+                
+                // Move to next R₀ value
+                currentIndex = (currentIndex + 1) % r0Values.length;
+            }
+            
+            // Update R₀ every 4 seconds
+            setInterval(updateR0, 4000);
+            
+            // Initial update
+            updateR0();
         }
     }
     

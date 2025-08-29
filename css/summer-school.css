@@ -384,6 +384,24 @@
     }
 }
 
+/* Dynamic R₀ Animation */
+.dynamic-r0 {
+    color: #ffd700;
+    animation: r0Pulse 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes r0Pulse {
+    0%, 100% { 
+        transform: scale(1);
+        color: #ffd700;
+    }
+    50% { 
+        transform: scale(1.2);
+        color: #ffed4e;
+    }
+}
+
 /* R Terminal */
 .r-terminal {
     background: #1a202c;
@@ -438,6 +456,27 @@
 .code-line:nth-child(7) { animation-delay: 3.5s; }
 .code-line:nth-child(8) { animation-delay: 4s; }
 .code-line:nth-child(9) { animation-delay: 4.5s; }
+.code-line:nth-child(10) { animation-delay: 5s; }
+.code-line:nth-child(11) { animation-delay: 5.5s; }
+.code-line:nth-child(12) { animation-delay: 6s; }
+.code-line:nth-child(13) { animation-delay: 6.5s; }
+.code-line:nth-child(14) { animation-delay: 7s; }
+.code-line:nth-child(15) { animation-delay: 7.5s; }
+.code-line:nth-child(16) { animation-delay: 8s; }
+.code-line:nth-child(17) { animation-delay: 8.5s; }
+.code-line:nth-child(18) { animation-delay: 9s; }
+.code-line:nth-child(19) { animation-delay: 9.5s; }
+.code-line:nth-child(20) { animation-delay: 10s; }
+.code-line:nth-child(21) { animation-delay: 10.5s; }
+.code-line:nth-child(22) { animation-delay: 11s; }
+.code-line:nth-child(23) { animation-delay: 11.5s; }
+.code-line:nth-child(24) { animation-delay: 12s; }
+.code-line:nth-child(25) { animation-delay: 12.5s; }
+.code-line:nth-child(26) { animation-delay: 13s; }
+.code-line:nth-child(27) { animation-delay: 13.5s; }
+.code-line:nth-child(28) { animation-delay: 14s; }
+.code-line:nth-child(29) { animation-delay: 14.5s; }
+.code-line:nth-child(30) { animation-delay: 15s; }
 
 @keyframes codeAppear {
     to {
@@ -463,7 +502,13 @@
     border-radius: 16px;
     padding: 20px;
     text-align: center;
-    animation: float 6s ease-in-out infinite;
+    animation: float 12s ease-in-out infinite;
+    width: 120px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .floating-card i {
@@ -479,32 +524,50 @@
 }
 
 .card-1 {
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    right: 20px;
     animation-delay: 0s;
 }
 
 .card-2 {
     top: 120px;
-    right: 40px;
+    left: 20px;
     animation-delay: 2s;
 }
 
 .card-3 {
-    bottom: 40px;
-    left: 60px;
+    bottom: 10px;
+    right: 60px;
     animation-delay: 4s;
 }
 
 .card-4 {
-    top: 50%;
-    right: 20px;
+    bottom: 120px;
+    left: 60px;
     animation-delay: 6s;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+    0% { 
+        transform: translateY(0px) rotate(0deg); 
+        left: 20px; top: 20px;
+    }
+    25% { 
+        transform: translateY(-20px) rotate(5deg); 
+        left: calc(100% - 120px); top: 20px;
+    }
+    50% { 
+        transform: translateY(0px) rotate(0deg); 
+        left: calc(100% - 120px); top: calc(100% - 120px);
+    }
+    75% { 
+        transform: translateY(-20px) rotate(-5deg); 
+        left: 20px; top: calc(100% - 120px);
+    }
+    100% { 
+        transform: translateY(0px) rotate(0deg); 
+        left: 20px; top: 20px;
+    }
 }
 
 /* Schedule Section */

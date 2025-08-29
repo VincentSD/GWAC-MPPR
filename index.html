@@ -101,7 +101,7 @@
                 <!-- Floating Data Points -->
                 <div class="data-points">
                     <div class="data-point" data-value="0.8">
-                        <span class="point-value">R₀ = 2.5</span>
+                        <span class="point-value">R₀ = <span class="dynamic-r0">2.5</span></span>
                     </div>
                     <div class="data-point" data-value="0.6">
                         <span class="point-value">β = 0.3</span>
@@ -125,6 +125,18 @@
                         <div class="code-line">
                             <span class="prompt">></span>
                             <span class="code">library(deSolve)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">library(odin)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">library(monty)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code"># SIR Model with deSolve</span>
                         </div>
                         <div class="code-line">
                             <span class="prompt">></span>
@@ -157,6 +169,30 @@
                         <div class="code-line">
                             <span class="prompt">></span>
                             <span class="code">}</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code"># Now with odin</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">sir_odin <- odin::odin({</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">  deriv(S) <- -beta * S * I / N</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">  deriv(I) <- beta * S * I / N - gamma * I</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">  deriv(R) <- gamma * I</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="prompt">></span>
+                            <span class="code">})</span>
                         </div>
                     </div>
                 </div>
