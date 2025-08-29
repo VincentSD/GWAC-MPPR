@@ -498,7 +498,6 @@
     border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 200px;
 }
 
 .timeline-nav-btn:hover {
@@ -1106,7 +1105,7 @@
 }
 
 .cta-actions .btn {
-    min-width: 180px;
+    /* Removed min-width constraint for natural button sizing */
 }
 
 /* Course Facilitators Section */
@@ -1391,7 +1390,7 @@
 }
 
 .overview-actions .btn {
-    min-width: 200px;
+    /* Removed min-width constraint for natural button sizing */
 }
 
 .network-launch-highlight {
