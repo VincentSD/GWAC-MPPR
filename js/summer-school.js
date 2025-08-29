@@ -25,6 +25,11 @@ class SummerSchoolManager {
         setTimeout(() => {
             this.setupScheduleAccordion();
         }, 100);
+        
+        // Update session counts dynamically
+        setTimeout(() => {
+            this.updateSessionCounts();
+        }, 200);
     }
 
 
@@ -638,6 +643,67 @@ class SummerSchoolManager {
             }
             
             animate();
+        }
+        
+        /**
+         * Update session counts dynamically by counting actual session cards
+         * Excludes lunch breaks and dinner socials from the count
+         */
+        updateSessionCounts() {
+            try {
+                const dayAccordions = document.querySelectorAll('.day-accordion');
+                console.log(`Found ${dayAccordions.length} day accordions total`);
+                
+                dayAccordions.forEach((accordion, index) => {
+                    console.log(`Processing accordion ${index + 1}: ${accordion.querySelector('.day-name')?.textContent}`);
+                    const sessionCountElement = accordion.querySelector('.session-count');
+                    if (!sessionCountElement) return;
+                    
+                    const dayName = accordion.querySelector('.day-name')?.textContent;
+                    
+                    // Debug: Log all session cards first
+                    const scheduleGrid = accordion.querySelector('.schedule-grid');
+                    if (!scheduleGrid) {
+                        console.log(`${dayName}: No schedule-grid found`);
+                        return;
+                    }
+                    
+                    const allSessionCards = scheduleGrid.querySelectorAll('.session-card');
+                    console.log(`${dayName}: Found ${allSessionCards.length} total session cards in schedule-grid`);
+                    
+                    // Log each card with its classes
+                    allSessionCards.forEach((card, index) => {
+                        const classes = Array.from(card.classList).join(', ');
+                        const title = card.querySelector('h4')?.textContent || 'No title';
+                        console.log(`  ${index + 1}. ${title} - Classes: ${classes}`);
+                    });
+                    
+                    // Count only actual learning sessions (exclude lunch, dinner, breaks)
+                    let actualSessionCount = 0;
+                    allSessionCards.forEach(card => {
+                        const hasLunchClass = card.classList.contains('lunch');
+                        const hasDinnerClass = card.classList.contains('dinner');
+                        const hasSpecialEventClass = card.classList.contains('special-event');
+                        
+                        if (!hasLunchClass && !hasDinnerClass && !hasSpecialEventClass) {
+                            actualSessionCount++;
+                        }
+                    });
+                    
+                    // Update the display
+                    if (actualSessionCount === 1) {
+                        sessionCountElement.textContent = '1 Session';
+                    } else {
+                        sessionCountElement.textContent = `${actualSessionCount} Sessions`;
+                    }
+                    
+                    console.log(`${dayName}: Final count - ${actualSessionCount} sessions (excluding lunch/dinner/breaks)`);
+                });
+                
+                console.log('Session counts updated successfully');
+            } catch (error) {
+                console.error('Error updating session counts:', error);
+            }
         }
         
 
