@@ -33,10 +33,14 @@ class SummerSchoolManager {
     setupScheduleNavigation() {
         const navButtons = document.querySelectorAll('.timeline-nav-btn');
         const weekContents = document.querySelectorAll('.week-content');
-
-        navButtons.forEach(button => {
+        
+        console.log('Found', navButtons.length, 'navigation buttons');
+        navButtons.forEach((button, index) => {
+            console.log('Button', index, 'data-week:', button.dataset.week, 'text:', button.textContent.trim());
+            
             button.addEventListener('click', () => {
                 const targetWeek = button.dataset.week;
+                console.log('Button clicked for week:', targetWeek);
                 this.switchWeek(targetWeek);
             });
         });
@@ -46,33 +50,51 @@ class SummerSchoolManager {
      * Switch between week 1 and week 2
      */
     switchWeek(weekNumber) {
+        console.log('switchWeek called with:', weekNumber);
+        
         // Update navigation buttons
         document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
             btn.classList.remove('active');
         });
-        document.querySelector(`[data-week="${weekNumber}"]`).classList.add('active');
+        const targetButton = document.querySelector(`[data-week="${weekNumber}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+            console.log('Updated button:', targetButton.textContent.trim());
+        } else {
+            console.error('Button not found for week:', weekNumber);
+        }
 
         // Update week content
         document.querySelectorAll('.week-content').forEach(content => {
             content.classList.remove('active');
+            console.log('Removed active from:', content.id);
         });
-        document.getElementById(`week-${weekNumber}`).classList.add('active');
+        
+        const targetWeek = document.getElementById(`week-${weekNumber}`);
+        if (targetWeek) {
+            targetWeek.classList.add('active');
+            console.log('Added active to:', targetWeek.id);
+        } else {
+            console.error('Week content not found for week:', weekNumber);
+        }
 
         this.currentWeek = parseInt(weekNumber);
         
         // Add smooth transition effect
         const activeContent = document.getElementById(`week-${weekNumber}`);
-        activeContent.style.opacity = '0';
-        activeContent.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            activeContent.style.transition = 'all 0.5s ease';
-            activeContent.style.opacity = '1';
-            activeContent.style.transform = 'translateY(0)';
+        if (activeContent) {
+            activeContent.style.opacity = '0';
+            activeContent.style.transform = 'translateY(20px)';
             
-            // Reinitialize accordion for the newly active week
-            this.setupScheduleAccordion();
-        }, 50);
+            setTimeout(() => {
+                activeContent.style.transition = 'all 0.5s ease';
+                activeContent.style.opacity = '1';
+                activeContent.style.transform = 'translateY(0)';
+                
+                // Reinitialize accordion for the newly active week
+                this.setupScheduleAccordion();
+            }, 50);
+        }
     }
 
     /**
