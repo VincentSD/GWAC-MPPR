@@ -747,12 +747,17 @@
 }
 
 .week-content.active {
-    display: block;
+    display: block !important;
 }
 
 /* Ensure Part II is visible when tab is active */
 #week-2.active {
-    display: block;
+    display: block !important;
+}
+
+/* Debug: Force Part II to be visible */
+#week-2 {
+    border: 3px solid red !important;
 }
 
 
