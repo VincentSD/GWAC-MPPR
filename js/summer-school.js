@@ -46,8 +46,6 @@ class SummerSchoolManager {
      * Switch between week 1 and week 2
      */
     switchWeek(weekNumber) {
-        console.log('Switching to week:', weekNumber);
-        
         // Update navigation buttons
         document.querySelectorAll('.timeline-nav-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -425,7 +423,6 @@ class SummerSchoolManager {
         if (!activeWeek) return;
         
         const accordionHeaders = activeWeek.querySelectorAll('.accordion-header');
-        console.log('Setting up accordion for active week with', accordionHeaders.length, 'headers');
         
         // Remove existing event listeners to prevent duplicates
         accordionHeaders.forEach(header => {
@@ -437,12 +434,9 @@ class SummerSchoolManager {
         const freshHeaders = activeWeek.querySelectorAll('.accordion-header');
         
         freshHeaders.forEach((header, index) => {
-            console.log('Setting up accordion header', index, header.textContent.trim());
-            
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
-                console.log('Accordion clicked:', header.textContent.trim(), 'isActive:', isActive);
                 
                 // Close all other accordions in this week
                 freshHeaders.forEach(h => {
@@ -454,7 +448,6 @@ class SummerSchoolManager {
                 if (!isActive) {
                     header.classList.add('active');
                     content.classList.add('active');
-                    console.log('Opened accordion:', header.textContent.trim());
                 }
             });
         });
@@ -464,7 +457,6 @@ class SummerSchoolManager {
         if (firstHeader) {
             firstHeader.classList.add('active');
             firstHeader.nextElementSibling.classList.add('active');
-            console.log('Opened first accordion by default for week', this.currentWeek);
         }
     }
 
