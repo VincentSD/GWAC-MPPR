@@ -156,6 +156,14 @@ class GitFileManager {
             const treeSHA = await this.getCurrentTreeSHA();
             console.log('Tree SHA:', treeSHA);
             
+            // Handle empty repository case
+            let parents = [];
+            if (treeSHA) {
+                parents = [treeSHA];
+            } else {
+                console.log('No existing commits found - creating initial commit');
+            }
+            
             // Create blob
             console.log('Creating blob...');
             const blobResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/blobs`, {
@@ -215,6 +223,12 @@ class GitFileManager {
             
             // Create commit
             console.log('Creating commit...');
+            console.log('Commit data:', {
+                message: commitMessage,
+                tree: tree.sha,
+                parents: parents
+            });
+            
             const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
                 method: 'POST',
                 headers: {
@@ -225,7 +239,7 @@ class GitFileManager {
                 body: JSON.stringify({
                     message: commitMessage,
                     tree: tree.sha,
-                    parents: [treeSHA]
+                    parents: parents
                 })
             });
 
@@ -323,6 +337,11 @@ class GitFileManager {
 
         } catch (error) {
             console.error('Error getting tree SHA:', error);
+            // If it's a 404, the repository might be empty
+            if (error.message.includes('404') || error.message.includes('Not Found')) {
+                console.log('Repository appears to be empty or branch not found');
+                return null;
+            }
             throw error;
         }
     }
