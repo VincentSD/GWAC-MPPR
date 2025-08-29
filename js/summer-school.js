@@ -10,22 +10,37 @@ class SummerSchoolManager {
         this.init();
     }
 
-    init() {
-        this.setupScheduleNavigation();
-        this.loadStudentCount();
-        this.setupSmoothScrolling();
-        this.setupMobileMenu();
-        this.setupContactForm();
-        this.setupProgressTracking();
-        this.setupAnimations();
-        this.setupBackToTop();
-        this.setupNavigation();
-        
-        // Initialize accordion for the first week only with a delay
-        setTimeout(() => {
-            this.setupScheduleAccordion();
-        }, 100);
-    }
+                    init() {
+                    this.setupScheduleNavigation();
+                    this.loadStudentCount();
+                    this.setupSmoothScrolling();
+                    this.setupMobileMenu();
+                    this.setupContactForm();
+                    this.setupProgressTracking();
+                    this.setupAnimations();
+                    this.setupBackToTop();
+                    this.setupNavigation();
+                    
+                    // Debug: Check if week-2 exists at all
+                    setTimeout(() => {
+                        const week2 = document.getElementById('week-2');
+                        console.log('=== INIT DEBUG ===');
+                        console.log('week-2 element exists:', !!week2);
+                        if (week2) {
+                            console.log('week-2 HTML:', week2.outerHTML.substring(0, 200) + '...');
+                            console.log('week-2 children count:', week2.children.length);
+                        }
+                        console.log('All week-content elements:', document.querySelectorAll('.week-content').length);
+                        console.log('week-1:', document.getElementById('week-1'));
+                        console.log('week-2:', document.getElementById('week-2'));
+                        console.log('=== END INIT DEBUG ===');
+                    }, 200);
+                    
+                    // Initialize accordion for the first week only with a delay
+                    setTimeout(() => {
+                        this.setupScheduleAccordion();
+                    }, 100);
+                }
 
     /**
      * Setup schedule week navigation
@@ -74,6 +89,13 @@ class SummerSchoolManager {
         if (targetWeek) {
             targetWeek.classList.add('active');
             console.log('Added active to:', targetWeek.id);
+            
+            // Debug: Check if the element is actually in the DOM
+            console.log('Target week element:', targetWeek);
+            console.log('Target week display style:', window.getComputedStyle(targetWeek).display);
+            console.log('Target week visibility:', window.getComputedStyle(targetWeek).visibility);
+            console.log('Target week height:', window.getComputedStyle(targetWeek).height);
+            console.log('Target week has content:', targetWeek.children.length, 'children');
         } else {
             console.error('Week content not found for week:', weekNumber);
         }
