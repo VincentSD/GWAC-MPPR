@@ -23,6 +23,27 @@
     margin: 0 auto;
 }
 
+.storage-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.storage-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--info-color);
+}
+
+.storage-info i {
+    margin-right: 8px;
+}
+
 .file-controls {
     display: flex;
     justify-content: space-between;
@@ -272,6 +293,16 @@
 
 .btn-sm:hover {
     transform: translateY(-1px);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
 }
 
 /* Upload Modal */

@@ -163,13 +163,96 @@ class FileManager {
             file.downloadCount++;
             this.saveToLocalStorage();
             
-            // In a real implementation, this would trigger actual file download
-            this.showNotification(`Downloading ${file.title}...`, 'info');
-            
-            // Simulate download
-            setTimeout(() => {
+            try {
+                // Create a download link for the file
+                const downloadLink = document.createElement('a');
+                
+                // For demo purposes, create a blob with sample content
+                // In production, this would be the actual file from server
+                let content = '';
+                let mimeType = 'text/plain';
+                
+                switch (file.type) {
+                    case 'application/pdf':
+                        content = `%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n2 0 obj\n<<\n/Type /Pages\n/Kids [3 0 R]\n/Count 1\n>>\nendobj\n3 0 obj\n<<\n/Type /Page\n/Parent 2 0 R\n/MediaBox [0 0 612 792]\n/Contents 4 0 R\n>>\nendobj\n4 0 obj\n<<\n/Length 44\n>>\nstream\nBT\n/F1 12 Tf\n72 720 Td\n(${file.title}) Tj\nET\nendstream\nendobj\nxref\n0 5\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000111 00000 n \n0000000204 00000 n \ntrailer\n<<\n/Size 5\n/Root 1 0 R\n>>\nstartxref\n297\n%%EOF`;
+                        mimeType = 'application/pdf';
+                        break;
+                    case 'text/x-r':
+                        content = `# ${file.title}\n\n# ${file.description}\n\n# Example R code\nlibrary(deSolve)\n\n# Your R code here\nprint("Hello from R!")`;
+                        mimeType = 'text/x-r';
+                        break;
+                    default:
+                        content = `${file.title}\n\n${file.description}\n\nThis is a sample file for demonstration purposes.\n\nFile Type: ${file.type}\nSize: ${file.size}\nUploaded: ${this.formatDate(file.uploadDate)}`;
+                }
+                
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                
+                downloadLink.href = url;
+                downloadLink.download = file.name;
+                downloadLink.style.display = 'none';
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Clean up the URL
+                URL.revokeObjectURL(url);
+                
                 this.showNotification(`${file.title} downloaded successfully!`, 'success');
-            }, 1000);
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                this.showNotification('Download failed. Please try again.', 'error');
+            }
+        }
+    }
+
+    presentFile(fileId) {
+        const file = this.files.get(fileId);
+        if (file) {
+            try {
+                // Create a blob with sample content for demo
+                // In production, this would be the actual file from server
+                let content = '';
+                let mimeType = 'text/plain';
+                
+                switch (file.type) {
+                    case 'application/pdf':
+                        content = `%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n2 0 obj\n<<\n/Type /Pages\n/Kids [3 0 R]\n/Count 1\n>>\nendobj\n3 0 obj\n<<\n/Type /Page\n/Parent 2 0 R\n/MediaBox [0 0 612 792]\n/Contents 4 0 R\n>>\nendobj\n4 0 obj\n<<\n/Length 44\n>>\nstream\nBT\n/F1 12 Tf\n72 720 Td\n(${file.title}) Tj\nET\nendstream\nendobj\nxref\n0 5\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000111 00000 n \n0000000204 00000 n \ntrailer\n<<\n/Size 5\n/Root 1 0 R\n>>\nstartxref\n297\n%%EOF`;
+                        mimeType = 'application/pdf';
+                        break;
+                    case 'text/x-r':
+                        content = `# ${file.title}\n\n# ${file.description}\n\n# Example R code\nlibrary(deSolve)\n\n# Your R code here\nprint("Hello from R!")`;
+                        mimeType = 'text/x-r';
+                        break;
+                    default:
+                        content = `${file.title}\n\n${file.description}\n\nThis is a sample file for demonstration purposes.\n\nFile Type: ${file.type}\nSize: ${file.size}\nUploaded: ${this.formatDate(file.uploadDate)}`;
+                }
+                
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                
+                // Open in new tab for presentation/viewing
+                const newTab = window.open(url, '_blank');
+                
+                if (newTab) {
+                    this.showNotification(`${file.title} opened in new tab for ${this.getPresentButtonText(file.type).toLowerCase()}`, 'success');
+                } else {
+                    // Fallback: download if popup blocked
+                    this.downloadFile(fileId);
+                    this.showNotification('Popup blocked. File downloaded instead.', 'info');
+                }
+                
+                // Clean up the URL after a delay
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Present error:', error);
+                this.showNotification('Failed to open file. Please try downloading instead.', 'error');
+            }
         }
     }
 
@@ -220,6 +303,9 @@ class FileManager {
         card.dataset.category = file.category;
         card.dataset.session = file.session;
         
+        // Check if file is viewable/presentable
+        const isViewable = this.isViewableFile(file.type);
+        
         card.innerHTML = `
             <div class="file-icon">
                 <i class="fas ${this.getFileIcon(file.type)}"></i>
@@ -238,6 +324,11 @@ class FileManager {
                 <button class="btn btn-sm btn-primary" onclick="fileManager.downloadFile('${file.id}')">
                     <i class="fas fa-download"></i> Download
                 </button>
+                ${isViewable ? `
+                    <button class="btn btn-sm btn-success" onclick="fileManager.presentFile('${file.id}')">
+                        <i class="fas fa-eye"></i> ${this.getPresentButtonText(file.type)}
+                    </button>
+                ` : ''}
                 <button class="btn btn-sm btn-outline" onclick="fileManager.showFileDetails('${file.id}')">
                     <i class="fas fa-info-circle"></i> Details
                 </button>
@@ -260,6 +351,29 @@ class FileManager {
         if (fileType.includes('image')) return 'fa-file-image';
         if (fileType.includes('code') || fileType.includes('text')) return 'fa-file-code';
         return 'fa-file';
+    }
+
+    isViewableFile(fileType) {
+        // Files that can be opened in browser or presentation mode
+        return fileType.includes('pdf') || 
+               fileType.includes('powerpoint') || 
+               fileType.includes('presentation') ||
+               fileType.includes('image') ||
+               fileType.includes('text') ||
+               fileType.includes('code');
+    }
+
+    getPresentButtonText(fileType) {
+        if (fileType.includes('powerpoint') || fileType.includes('presentation')) {
+            return 'Present';
+        } else if (fileType.includes('pdf')) {
+            return 'View';
+        } else if (fileType.includes('image')) {
+            return 'View';
+        } else if (fileType.includes('text') || fileType.includes('code')) {
+            return 'View';
+        }
+        return 'Open';
     }
 
     formatFileSize(bytes) {
