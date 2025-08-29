@@ -1464,12 +1464,13 @@ body {
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: white;
+    transition: max-height 0.5s ease;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
 }
 
 .accordion-content.active {
-    max-height: 2000px;
+    max-height: 5000px; /* Increased for longer content */
 }
 
 .accordion-content .schedule-grid {
@@ -1547,7 +1548,14 @@ body {
 
 /* Ensure Part II is visible when tab is active */
 #week-2.active {
-    display: block;
+    display: block !important;
+}
+
+/* Debug: Make sure week content is visible */
+.week-content.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 

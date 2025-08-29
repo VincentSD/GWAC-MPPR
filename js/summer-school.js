@@ -439,7 +439,7 @@ class SummerSchoolManager {
      * Setup schedule accordion functionality
      */
     setupScheduleAccordion() {
-        // Only set up accordion for the currently active week
+        // Set up accordion for the currently active week
         const activeWeek = document.querySelector('.week-content.active');
         if (!activeWeek) {
             return;
@@ -464,13 +464,18 @@ class SummerSchoolManager {
                 // Close all other accordions in this week
                 freshHeaders.forEach(h => {
                     h.classList.remove('active');
-                    h.nextElementSibling.classList.remove('active');
+                    const hContent = h.nextElementSibling;
+                    if (hContent && hContent.classList.contains('accordion-content')) {
+                        hContent.classList.remove('active');
+                    }
                 });
                 
                 // Toggle current accordion
                 if (!isActive) {
                     header.classList.add('active');
-                    content.classList.add('active');
+                    if (content && content.classList.contains('accordion-content')) {
+                        content.classList.add('active');
+                    }
                 }
             });
         });
@@ -479,8 +484,14 @@ class SummerSchoolManager {
         const firstHeader = freshHeaders[0];
         if (firstHeader) {
             firstHeader.classList.add('active');
-            firstHeader.nextElementSibling.classList.add('active');
+            const firstContent = firstHeader.nextElementSibling;
+            if (firstContent && firstContent.classList.contains('accordion-content')) {
+                firstContent.classList.add('active');
+            }
         }
+        
+        // Debug: Log the number of accordions found
+        console.log(`Setup ${freshHeaders.length} accordions for ${activeWeek.id}`);
     }
 
     /**
