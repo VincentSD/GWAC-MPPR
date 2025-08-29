@@ -1447,9 +1447,11 @@ body {
 }
 
 .theme-toggle-fixed {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    bottom: auto !important;
     background: rgba(var(--bg-primary), 0.9);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -4342,6 +4344,14 @@ body {
     .newsletter-btn {
         width: 100%;
         max-width: 300px;
+    }
+    
+    /* Ensure theme toggle stays in correct position on mobile */
+    .theme-toggle-fixed {
+        top: 20px !important;
+        right: 20px !important;
+        left: auto !important;
+        bottom: auto !important;
     }
     
     .courses-grid {
