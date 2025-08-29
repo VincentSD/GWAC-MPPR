@@ -917,6 +917,74 @@
     min-width: 200px;
 }
 
+.network-launch-highlight {
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border-radius: 16px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.network-launch-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+}
+
+.highlight-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.highlight-content i {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 8px;
+}
+
+.highlight-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: white;
+}
+
+.highlight-content p {
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.launch-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.launch-details span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.launch-details i {
+    font-size: 1rem;
+    margin: 0;
+}
+
 /* Courses Section (for courses.html page) */
 .courses-section {
     padding: 100px 0;
@@ -1455,6 +1523,23 @@
     .overview-actions .btn {
         width: 100%;
         max-width: 300px;
+    }
+    
+    .network-launch-highlight {
+        padding: 20px;
+    }
+    
+    .highlight-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .highlight-content i {
+        margin: 0 auto 16px auto;
+    }
+    
+    .launch-details {
+        justify-content: center;
     }
     
     .course-hero h1 {
