@@ -681,8 +681,7 @@ class SummerSchoolManager {
                 
                 // Parameters
                 ctx.fillStyle = 'rgba(255, 215, 0, 0.9)';
-                ctx.fillText('β = 0.3, γ = 0.1', eqX, eqY + 60);
-                ctx.fillText('R₀ = 3.0', eqX, eqY + 75);
+                ctx.fillText('β = 0.3, γ = 0.1, R₀ = 3.0', eqX, eqY + 60);
                 
                 // Reset animation when complete
                 if (time > 100) {
