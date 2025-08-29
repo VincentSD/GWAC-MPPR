@@ -442,9 +442,15 @@ class SummerSchoolManager {
     setupScheduleAccordion() {
         // Only set up accordion for the currently active week
         const activeWeek = document.querySelector('.week-content.active');
-        if (!activeWeek) return;
+        if (!activeWeek) {
+            console.error('No active week found for accordion setup');
+            return;
+        }
+        
+        console.log('Setting up accordion for week:', activeWeek.id);
         
         const accordionHeaders = activeWeek.querySelectorAll('.accordion-header');
+        console.log('Found', accordionHeaders.length, 'accordion headers in', activeWeek.id);
         
         // Remove existing event listeners to prevent duplicates
         accordionHeaders.forEach(header => {
@@ -456,9 +462,12 @@ class SummerSchoolManager {
         const freshHeaders = activeWeek.querySelectorAll('.accordion-header');
         
         freshHeaders.forEach((header, index) => {
+            console.log('Setting up header', index, ':', header.textContent.trim());
+            
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
                 const isActive = header.classList.contains('active');
+                console.log('Accordion clicked:', header.textContent.trim(), 'isActive:', isActive);
                 
                 // Close all other accordions in this week
                 freshHeaders.forEach(h => {
@@ -470,6 +479,7 @@ class SummerSchoolManager {
                 if (!isActive) {
                     header.classList.add('active');
                     content.classList.add('active');
+                    console.log('Opened accordion for:', header.textContent.trim());
                 }
             });
         });
@@ -479,6 +489,7 @@ class SummerSchoolManager {
         if (firstHeader) {
             firstHeader.classList.add('active');
             firstHeader.nextElementSibling.classList.add('active');
+            console.log('Opened first accordion by default for week:', activeWeek.id);
         }
     }
 
