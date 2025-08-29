@@ -105,17 +105,24 @@ class SummerSchoolManager {
         // Add smooth transition effect
         const activeContent = document.getElementById(`week-${weekNumber}`);
         if (activeContent) {
+            // Force a reflow to ensure the initial state is applied
+            activeContent.offsetHeight;
+            
             activeContent.style.opacity = '0';
             activeContent.style.transform = 'translateY(20px)';
             
-            setTimeout(() => {
+            // Use requestAnimationFrame for smoother transitions
+            requestAnimationFrame(() => {
                 activeContent.style.transition = 'all 0.5s ease';
                 activeContent.style.opacity = '1';
                 activeContent.style.transform = 'translateY(0)';
                 
-                // Reinitialize accordion for the newly active week
-                this.setupScheduleAccordion();
-            }, 50);
+                // Ensure transition completes
+                setTimeout(() => {
+                    // Reinitialize accordion for the newly active week
+                    this.setupScheduleAccordion();
+                }, 550); // Wait for transition to complete
+            });
         }
     }
 
