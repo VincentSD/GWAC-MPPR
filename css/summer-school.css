@@ -755,6 +755,17 @@
     display: block;
 }
 
+/* Temporary debugging - make Part II visible */
+#week-2 {
+    display: block !important;
+}
+
+/* Temporary debugging - make all accordion content visible */
+.accordion-content {
+    max-height: 2000px !important;
+    overflow: visible !important;
+}
+
 .day-schedule {
     margin-bottom: 40px;
     padding: 30px;
