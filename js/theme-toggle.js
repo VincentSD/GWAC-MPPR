@@ -12,19 +12,9 @@ class ThemeToggle {
     }
 
     createThemeToggle() {
-        // Create theme toggle button in the top-left corner
-        const themeToggle = document.createElement('button');
-        themeToggle.className = 'theme-toggle';
-        themeToggle.setAttribute('aria-label', 'Toggle dark mode');
-        themeToggle.innerHTML = '<span class="icon">🌙</span>';
-        
-        // Add to body for fixed positioning
-        document.body.appendChild(themeToggle);
-        
-        // Set up click event for this specific toggle
-        themeToggle.addEventListener('click', () => {
-            this.toggleTheme();
-        });
+        // Theme toggle button already exists in HTML (theme-toggle-fixed)
+        // No need to create a duplicate
+        // Just ensure the existing button is properly configured
     }
 
     setupEventListeners() {
