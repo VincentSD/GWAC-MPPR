@@ -444,6 +444,16 @@ class GitFileManager {
     }
 
     addFile(fileInfo) {
+        // Check if file already exists to prevent duplicates
+        const existingFile = Array.from(this.files.values()).find(f => 
+            f.path === fileInfo.path || f.sha === fileInfo.sha
+        );
+        
+        if (existingFile) {
+            console.log('File already exists, skipping duplicate:', fileInfo.path);
+            return;
+        }
+        
         this.files.set(fileInfo.id, fileInfo);
         
         // Add to category
@@ -486,16 +496,34 @@ class GitFileManager {
             try {
                 // For PDFs, open directly in new tab using raw GitHub URL
                 if (file.type.includes('pdf')) {
-                    const pdfUrl = file.downloadUrl; // This is the raw GitHub URL
-                    const newTab = window.open(pdfUrl, '_blank');
-                    
-                    if (newTab) {
-                        this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
-                    } else {
-                        // Fallback: download if popup blocked
-                        this.downloadFile(fileId);
-                        this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
-                    }
+                    // Create a blob URL to open PDF without downloading
+                    fetch(file.downloadUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            const blobUrl = URL.createObjectURL(blob);
+                            const newTab = window.open(blobUrl, '_blank');
+                            
+                            if (newTab) {
+                                this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
+                                // Clean up blob URL after a delay
+                                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+                            } else {
+                                // Fallback: download if popup blocked
+                                this.downloadFile(fileId);
+                                this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching PDF:', error);
+                            // Fallback to direct URL if blob creation fails
+                            const newTab = window.open(file.downloadUrl, '_blank');
+                            if (newTab) {
+                                this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
+                            } else {
+                                this.downloadFile(fileId);
+                                this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+                            }
+                        });
                 } else {
                     // For other viewable files, open GitHub view URL in new tab
                     const newTab = window.open(file.viewUrl, '_blank');
@@ -568,6 +596,10 @@ class GitFileManager {
 
         try {
             this.showNotification('🔄 Fetching files from repository...', 'info');
+            
+            // Clear existing files to prevent duplicates
+            this.files.clear();
+            this.categories.clear();
             
             // Get the current tree SHA
             const treeSha = await this.getCurrentTreeSHA();
