@@ -747,6 +747,132 @@ class GitFileManager {
         return div.innerHTML;
     }
 
+    async deleteFile(fileId) {
+        const file = this.files.get(fileId);
+        if (!file) return;
+
+        // Check if user has GitHub token
+        if (!this.githubToken) {
+            this.showNotification('❌ You need to connect GitHub to delete files', 'error');
+            return;
+        }
+
+        // Confirm deletion
+        const confirmDelete = confirm(`Are you sure you want to delete "${file.title}"?\n\nThis action cannot be undone and will remove the file from the repository.`);
+        if (!confirmDelete) return;
+
+        try {
+            this.showNotification('🔄 Deleting file from GitHub...', 'info');
+
+            // Delete file from GitHub
+            await this.deleteFileFromGitHub(file);
+
+            // Remove from local collection
+            this.files.delete(fileId);
+
+            // Remove from categories
+            if (this.categories.has(file.category)) {
+                const categoryFiles = this.categories.get(file.category);
+                const index = categoryFiles.indexOf(fileId);
+                if (index > -1) {
+                    categoryFiles.splice(index, 1);
+                }
+            }
+
+            // Update display
+            this.renderFiles();
+
+            this.showNotification('✅ File deleted successfully from GitHub!', 'success');
+
+        } catch (error) {
+            console.error('Error deleting file:', error);
+            this.showNotification('❌ Failed to delete file: ' + error.message, 'error');
+        }
+    }
+
+    async deleteFileFromGitHub(file) {
+        try {
+            // Get current commit SHA
+            const commitSHA = await this.getCurrentCommitSHA();
+            if (!commitSHA) {
+                throw new Error('Could not get current commit SHA');
+            }
+
+            // Get current tree SHA
+            const treeSHA = await this.getCurrentTreeSHA();
+            if (!treeSHA) {
+                throw new Error('Could not get current tree SHA');
+            }
+
+            // Create new tree without the file
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    base_tree: treeSHA,
+                    tree: [] // Empty tree to remove the file
+                })
+            });
+
+            if (!treeResponse.ok) {
+                const errorText = await treeResponse.text();
+                throw new Error(`Failed to create tree: ${treeResponse.status} ${treeResponse.statusText}. ${errorText}`);
+            }
+
+            const treeData = await treeResponse.json();
+
+            // Create commit for deletion
+            const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `Delete file: ${file.name}\n\nRemoved: ${file.title}\nCategory: ${file.category}\nSession: ${file.session || 'General'}`,
+                    tree: treeData.sha,
+                    parents: [commitSHA]
+                })
+            });
+
+            if (!commitResponse.ok) {
+                const errorText = await commitResponse.text();
+                throw new Error(`Failed to create commit: ${commitResponse.status} ${commitResponse.statusText}. ${errorText}`);
+            }
+
+            const commitData = await commitResponse.json();
+
+            // Update branch reference
+            const refResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sha: commitData.sha
+                })
+            });
+
+            if (!refResponse.ok) {
+                const errorText = await refResponse.text();
+                throw new Error(`Failed to update branch: ${refResponse.status} ${refResponse.statusText}. ${errorText}`);
+            }
+
+            console.log('File deleted successfully from GitHub');
+
+        } catch (error) {
+            console.error('Error deleting file from GitHub:', error);
+            throw error;
+        }
+    }
+
     async loadExistingFiles() {
         try {
             // Load files from GitHub API
@@ -1108,6 +1234,9 @@ class GitFileManager {
                         <i class="fas fa-eye"></i>
                     </button>
                 ` : ''}
+                <button class="action-btn delete-btn" onclick="gitFileManager.deleteFile('${file.id}')" title="Delete file">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         `;
         

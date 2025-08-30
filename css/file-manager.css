@@ -1085,6 +1085,16 @@
     background: linear-gradient(135deg, var(--button-color), var(--button-dark));
 }
 
+.delete-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
 /* Form styling */
 .form-group.full-width {
     grid-column: 1 / -1;
