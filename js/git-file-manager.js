@@ -113,8 +113,9 @@ class GitFileManager {
         const description = formData.get('description');
         const category = formData.get('category');
         const session = formData.get('session');
+        const facilitator = formData.get('facilitator');
 
-        if (!file || !title || !category) {
+        if (!file || !title || !category || !facilitator) {
             this.showNotification('Please fill in all required fields', 'error');
             return;
         }
@@ -622,7 +623,7 @@ class GitFileManager {
                 size: this.formatFileSize(file.size || 0),
                 type: fileType,
                 uploadDate: new Date().toISOString(), // We'll use current date as fallback
-                uploadedBy: 'Course Facilitator', // Default value
+                uploadedBy: 'Course Facilitator', // Default value - will be updated when uploaded
                 downloadCount: 0,
                 githubPath: file.path,
                 downloadUrl: `https://raw.githubusercontent.com/${this.repoOwner}/${this.repoName}/main/${file.path}`,
@@ -750,25 +751,34 @@ class GitFileManager {
         const isViewable = this.isViewableFile(file.type);
         
         card.innerHTML = `
-            <div class="file-icon">
-                <i class="fas ${this.getFileIcon(file.type)}"></i>
+            <div class="file-header">
+                <div class="file-icon">
+                    <i class="fas ${this.getFileIcon(file.type)}"></i>
+                </div>
+                <div class="file-title-section">
+                    <div class="file-title-container">
+                        <h4 class="file-title" id="title-${file.id}">${file.title}</h4>
+                        <button class="edit-title-btn" onclick="gitFileManager.editTitle('${file.id}')" title="Edit title">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <div class="file-description-container">
+                        <p class="file-description" id="desc-${file.id}">${file.description || 'No description'}</p>
+                        <button class="edit-description-btn" onclick="gitFileManager.editDescription('${file.id}')" title="Edit description">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="file-info">
-                <h4 class="file-title">${file.title}</h4>
-                <div class="file-description-container">
-                    <p class="file-description" id="desc-${file.id}">${file.description || 'No description'}</p>
-                    <button class="edit-description-btn" onclick="gitFileManager.editDescription('${file.id}')" title="Edit description">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                </div>
-                <div class="file-meta">
-                    <span class="file-category"><i class="fas fa-tag"></i> ${file.category}</span>
-                    <span class="file-size"><i class="fas fa-weight-hanging"></i> ${file.size}</span>
-                    <span class="file-date"><i class="fas fa-calendar"></i> ${this.formatDate(file.uploadDate)}</span>
-                </div>
+            
+            <div class="file-meta-grid">
+                <span class="file-category"><i class="fas fa-tag"></i> ${file.category}</span>
+                <span class="file-size"><i class="fas fa-weight-hanging"></i> ${file.size}</span>
+                <span class="file-date"><i class="fas fa-calendar"></i> ${this.formatDate(file.uploadDate)}</span>
                 ${file.uploadedBy ? `<span class="file-author"><i class="fas fa-user"></i> ${file.uploadedBy}</span>` : ''}
-                ${file.session ? `<span class="file-session"><i class="fas fa-clock"></i> Session: ${file.session}</span>` : ''}
+                ${file.session ? `<span class="file-session"><i class="fas fa-clock"></i> Category: ${file.session}</span>` : ''}
             </div>
+            
             <div class="file-actions">
                 <button class="btn btn-sm btn-primary" onclick="gitFileManager.downloadFile('${file.id}')">
                     <i class="fas fa-download"></i> Download
@@ -985,6 +995,30 @@ class GitFileManager {
             this.saveFilesToStorage();
             
             this.showNotification('✅ Description updated successfully!', 'success');
+        }
+    }
+
+    editTitle(fileId) {
+        const file = this.files.get(fileId);
+        if (!file) return;
+
+        const currentTitle = file.title || 'No title';
+        const newTitle = prompt('Edit file title:', currentTitle);
+        
+        if (newTitle !== null && newTitle !== currentTitle && newTitle.trim() !== '') {
+            // Update the file object
+            file.title = newTitle.trim();
+            
+            // Update the display
+            const titleElement = document.getElementById(`title-${fileId}`);
+            if (titleElement) {
+                titleElement.textContent = newTitle.trim();
+            }
+            
+            // Save to localStorage for persistence
+            this.saveFilesToStorage();
+            
+            this.showNotification('✅ Title updated successfully!', 'success');
         }
     }
 
