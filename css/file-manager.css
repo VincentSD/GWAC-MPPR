@@ -1079,9 +1079,7 @@
     background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
 }
 
-.github-btn {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
-}
+/* GitHub button removed - no longer needed */
 
 .edit-btn {
     background: linear-gradient(135deg, var(--button-color), var(--button-dark));

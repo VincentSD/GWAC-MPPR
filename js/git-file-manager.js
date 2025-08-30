@@ -494,47 +494,25 @@ class GitFileManager {
         const file = this.files.get(fileId);
         if (file) {
             try {
-                // For PDFs, open directly in new tab using raw GitHub URL
+                // For PDFs, open directly in new tab using blob URL
                 if (file.type.includes('pdf')) {
-                    // Create a blob URL to open PDF without downloading
-                    fetch(file.downloadUrl)
-                        .then(response => response.blob())
-                        .then(blob => {
-                            const blobUrl = URL.createObjectURL(blob);
-                            const newTab = window.open(blobUrl, '_blank');
-                            
-                            if (newTab) {
-                                this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
-                                // Clean up blob URL after a delay
-                                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-                            } else {
-                                // Fallback: download if popup blocked
-                                this.downloadFile(fileId);
-                                this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching PDF:', error);
-                            // Fallback to direct URL if blob creation fails
-                            const newTab = window.open(file.downloadUrl, '_blank');
-                            if (newTab) {
-                                this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
-                            } else {
-                                this.downloadFile(fileId);
-                                this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
-                            }
-                        });
-                } else {
-                    // For other viewable files, open GitHub view URL in new tab
-                    const newTab = window.open(file.viewUrl, '_blank');
-                    
-                    if (newTab) {
-                        this.showNotification(`✅ ${file.title} opened in GitHub for viewing`, 'success');
-                    } else {
-                        // Fallback: download if popup blocked
-                        this.downloadFile(fileId);
-                        this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
-                    }
+                    this.openFileInBrowser(file, 'pdf');
+                }
+                // For images, open directly in new tab
+                else if (file.type.includes('image')) {
+                    this.openFileInBrowser(file, 'image');
+                }
+                // For text-based files, fetch and display content
+                else if (file.type.includes('text') || file.type.includes('markdown') || file.type.includes('code')) {
+                    this.openFileInBrowser(file, 'text');
+                }
+                // For CSV files, open in new tab
+                else if (file.type.includes('csv')) {
+                    this.openFileInBrowser(file, 'csv');
+                }
+                // For other files, try to open in browser if possible
+                else {
+                    this.openFileInBrowser(file, 'default');
                 }
                 
             } catch (error) {
@@ -542,6 +520,231 @@ class GitFileManager {
                 this.showNotification('❌ Failed to open file. Please try downloading instead.', 'error');
             }
         }
+    }
+
+    async openFileInBrowser(file, fileType) {
+        try {
+            // Fetch file content
+            const response = await fetch(file.downloadUrl);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch file: ${response.statusText}`);
+            }
+
+            let content, mimeType, fileName;
+
+            if (fileType === 'pdf') {
+                // For PDFs, create blob URL
+                const blob = await response.blob();
+                content = URL.createObjectURL(blob);
+                mimeType = 'application/pdf';
+                fileName = file.name;
+            } else if (fileType === 'image') {
+                // For images, create blob URL
+                const blob = await response.blob();
+                content = URL.createObjectURL(blob);
+                mimeType = blob.type;
+                fileName = file.name;
+            } else if (fileType === 'text' || fileType === 'markdown' || fileType === 'code') {
+                // For text files, create formatted HTML page
+                const text = await response.text();
+                content = this.createTextFileViewer(text, file.name, file.type);
+                mimeType = 'text/html';
+                fileName = `${file.name}.html`;
+            } else if (fileType === 'csv') {
+                // For CSV files, create formatted HTML table
+                const csvText = await response.text();
+                content = this.createCSVViewer(csvText, file.name);
+                mimeType = 'text/html';
+                fileName = `${file.name}.html`;
+            } else {
+                // For other files, try to open directly
+                const blob = await response.blob();
+                content = URL.createObjectURL(blob);
+                mimeType = blob.type;
+                fileName = file.name;
+            }
+
+            // Open in new tab
+            const newTab = window.open(content, '_blank');
+            
+            if (newTab) {
+                this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
+                
+                // Clean up blob URLs after a delay
+                if (fileType === 'pdf' || fileType === 'image' || fileType === 'default') {
+                    setTimeout(() => {
+                        if (content.startsWith('blob:')) {
+                            URL.revokeObjectURL(content);
+                        }
+                    }, 1000);
+                }
+            } else {
+                // Fallback: download if popup blocked
+                this.downloadFile(file.id);
+                this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+            }
+
+        } catch (error) {
+            console.error('Error opening file in browser:', error);
+            // Fallback to download
+            this.downloadFile(file.id);
+            this.showNotification('❌ Failed to open file. Downloaded instead.', 'error');
+        }
+    }
+
+    createTextFileViewer(content, fileName, fileType) {
+        const html = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${fileName}</title>
+                <style>
+                    body { 
+                        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
+                        margin: 20px; 
+                        background: #f5f5f5; 
+                        line-height: 1.6;
+                    }
+                    .container { 
+                        max-width: 1200px; 
+                        margin: 0 auto; 
+                        background: white; 
+                        padding: 20px; 
+                        border-radius: 8px; 
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+                    .header { 
+                        border-bottom: 2px solid #007acc; 
+                        padding-bottom: 10px; 
+                        margin-bottom: 20px; 
+                        color: #333;
+                    }
+                    .content { 
+                        background: #f8f9fa; 
+                        padding: 20px; 
+                        border-radius: 4px; 
+                        border-left: 4px solid #007acc;
+                        white-space: pre-wrap; 
+                        font-size: 14px;
+                        overflow-x: auto;
+                    }
+                    .file-info { 
+                        color: #666; 
+                        font-size: 12px; 
+                        margin-bottom: 15px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>${fileName}</h1>
+                        <div class="file-info">
+                            File Type: ${fileType} | 
+                            Size: ${(content.length / 1024).toFixed(2)} KB
+                        </div>
+                    </div>
+                    <div class="content">${this.escapeHtml(content)}</div>
+                </div>
+            </body>
+            </html>
+        `;
+        
+        return `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
+    }
+
+    createCSVViewer(csvContent, fileName) {
+        try {
+            const rows = csvContent.split('\n').map(row => 
+                row.split(',').map(cell => cell.trim().replace(/"/g, ''))
+            );
+            
+            const html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${fileName}</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 20px; 
+                            background: #f5f5f5;
+                        }
+                        .container { 
+                            max-width: 1200px; 
+                            margin: 0 auto; 
+                            background: white; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        }
+                        .header { 
+                            border-bottom: 2px solid #28a745; 
+                            padding-bottom: 10px; 
+                            margin-bottom: 20px; 
+                            color: #333;
+                        }
+                        table { 
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin-top: 20px;
+                        }
+                        th, td { 
+                            border: 1px solid #ddd; 
+                            padding: 12px; 
+                            text-align: left;
+                        }
+                        th { 
+                            background-color: #28a745; 
+                            color: white; 
+                            font-weight: bold;
+                        }
+                        tr:nth-child(even) { background-color: #f2f2f2; }
+                        tr:hover { background-color: #e9ecef; }
+                        .file-info { 
+                            color: #666; 
+                            font-size: 12px; 
+                            margin-bottom: 15px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>${fileName}</h1>
+                            <div class="file-info">
+                                File Type: CSV | 
+                                Rows: ${rows.length} | 
+                                Columns: ${rows[0] ? rows[0].length : 0}
+                            </div>
+                        </div>
+                        <table>
+                            ${rows.map((row, index) => 
+                                `<tr>${row.map(cell => 
+                                    index === 0 ? `<th>${this.escapeHtml(cell)}</th>` : `<td>${this.escapeHtml(cell)}</td>`
+                                ).join('')}</tr>`
+                            ).join('')}
+                        </table>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            return `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
+        } catch (error) {
+            console.error('Error creating CSV viewer:', error);
+            return this.createTextFileViewer(csvContent, fileName, 'text/csv');
+        }
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     async loadExistingFiles() {
@@ -905,9 +1108,6 @@ class GitFileManager {
                         <i class="fas fa-eye"></i>
                     </button>
                 ` : ''}
-                <a href="${file.viewUrl}" target="_blank" class="action-btn github-btn" title="View on GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
             </div>
         `;
         
@@ -930,7 +1130,13 @@ class GitFileManager {
                fileType.includes('presentation') ||
                fileType.includes('image') ||
                fileType.includes('text') ||
-               fileType.includes('code');
+               fileType.includes('code') ||
+               fileType.includes('markdown') ||
+               fileType.includes('csv') ||
+               fileType.includes('excel') ||
+               fileType.includes('spreadsheet') ||
+               fileType.includes('word') ||
+               fileType.includes('document');
     }
 
     getPresentButtonText(fileType) {
