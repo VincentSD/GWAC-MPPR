@@ -782,6 +782,9 @@ class GitFileManager {
             // Update display
             this.renderFiles();
 
+            // Close the edit modal since file no longer exists
+            this.closeEditModal(fileId);
+
             this.showNotification('✅ File deleted successfully from GitHub!', 'success');
 
         } catch (error) {
