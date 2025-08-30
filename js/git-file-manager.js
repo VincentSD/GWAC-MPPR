@@ -1234,9 +1234,6 @@ class GitFileManager {
                         <i class="fas fa-eye"></i>
                     </button>
                 ` : ''}
-                <button class="action-btn delete-btn" onclick="gitFileManager.deleteFile('${file.id}')" title="Delete file">
-                    <i class="fas fa-trash"></i>
-                </button>
             </div>
         `;
         
@@ -1542,6 +1539,9 @@ class GitFileManager {
                         <div class="form-actions">
                             <button type="button" class="btn btn-secondary" onclick="gitFileManager.closeEditModal('${fileId}')">Cancel</button>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" class="btn btn-danger" onclick="gitFileManager.deleteFile('${fileId}')" style="margin-left: auto;">
+                                <i class="fas fa-trash"></i> Delete File
+                            </button>
                         </div>
                     </form>
                 </div>

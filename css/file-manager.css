@@ -1085,15 +1085,7 @@
     background: linear-gradient(135deg, var(--button-color), var(--button-dark));
 }
 
-.delete-btn {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-}
+/* Delete button moved to edit modal for security */
 
 /* Form styling */
 .form-group.full-width {
@@ -1185,6 +1177,18 @@
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.3s ease;
+}
+
+.edit-card-content .btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+}
+
+.edit-card-content .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
 }
 
 .edit-card-content .file-help {
