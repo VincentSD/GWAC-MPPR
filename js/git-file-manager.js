@@ -774,8 +774,20 @@ class GitFileManager {
             this.files.clear();
             this.categories.clear();
             
+            // Small delay to ensure GitHub has processed the deletion
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
             // Refresh files from repository to ensure consistency
             await this.fetchFilesFromRepository();
+            
+            // Verify deletion by checking if file still exists
+            const fileStillExists = Array.from(this.files.values()).some(f => f.path === file.path);
+            if (fileStillExists) {
+                console.warn('File still appears to exist after deletion attempt');
+                this.showNotification('⚠️ File deletion may not have completed. Please refresh the page.', 'warning');
+            } else {
+                console.log('File deletion verified successfully');
+            }
 
             // Close the edit modal since file no longer exists
             this.closeEditModal(fileId);
@@ -884,6 +896,10 @@ class GitFileManager {
             }
 
             console.log('File deleted successfully from GitHub');
+            console.log('Deleted file path:', file.path);
+            console.log('New tree SHA:', newTreeData.sha);
+            console.log('New commit SHA:', commitData.sha);
+            console.log('Branch updated to:', commitData.sha);
 
         } catch (error) {
             console.error('Error deleting file from GitHub:', error);
