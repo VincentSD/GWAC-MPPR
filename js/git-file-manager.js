@@ -16,10 +16,9 @@ class GitFileManager {
 
     init() {
         this.setupEventListeners();
-        this.loadFilesFromStorage(); // Load saved files first
-        this.loadExistingFiles();
         this.setupDragAndDrop();
         this.checkGitHubAuth();
+        // Files will be loaded automatically when GitHub token is provided
     }
 
     setupEventListeners() {
@@ -59,6 +58,9 @@ class GitFileManager {
     }
 
     async checkGitHubAuth() {
+        // Clear any old fake data from storage
+        localStorage.removeItem('gwac-files');
+        
         // Check if we have a stored token
         const storedToken = localStorage.getItem('github-token');
         if (storedToken) {
@@ -579,6 +581,7 @@ class GitFileManager {
             );
 
             console.log(`Found ${courseMaterialFiles.length} course material files:`, courseMaterialFiles);
+            console.log('All tree items for debugging:', treeData.tree.filter(item => item.path.includes('course-materials')));
 
             // Process each file
             for (const file of courseMaterialFiles) {
@@ -990,21 +993,14 @@ class GitFileManager {
         localStorage.setItem('gwac-files', JSON.stringify(filesArray));
     }
 
-    loadFilesFromStorage() {
-        const stored = localStorage.getItem('gwac-files');
-        if (stored) {
-            try {
-                const filesArray = JSON.parse(stored);
-                filesArray.forEach(file => this.addFile(file));
-            } catch (e) {
-                console.error('Error loading files from storage:', e);
-            }
-        }
-    }
+    // Removed loadFilesFromStorage to prevent loading fake data
 
     async refreshFiles() {
         // Clear current files
         this.files.clear();
+        
+        // Clear any stored fake data
+        localStorage.removeItem('gwac-files');
         
         // Show loading state
         this.showNotification('🔄 Refreshing files from repository...', 'info');
