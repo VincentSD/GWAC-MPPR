@@ -124,7 +124,7 @@ class GitFileManager {
             this.showNotification('📤 Uploading file to GitHub...', 'info');
             
             // Upload file to GitHub
-            const result = await this.uploadFileToGitHub(file, title, description, category, session);
+            const result = await this.uploadFileToGitHub(file, title, description, category, session, facilitator);
             
             if (result.success) {
                 this.addFile(result.file);
@@ -141,7 +141,7 @@ class GitFileManager {
         }
     }
 
-    async uploadFileToGitHub(file, title, description, category, session) {
+    async uploadFileToGitHub(file, title, description, category, session, facilitator) {
         try {
             console.log('Starting GitHub upload process...');
             console.log('File:', file.name, 'Size:', file.size, 'Type:', file.type);
@@ -160,7 +160,7 @@ class GitFileManager {
             console.log('File path:', filePath);
             
             // Create commit message
-            const commitMessage = `Add course material: ${title}\n\nCategory: ${category}\nSession: ${session || 'General'}\nDescription: ${description || 'No description'}`;
+            const commitMessage = `Add course material: ${title}\n\nCategory: ${category}\nSession: ${session || 'General'}\nFacilitator: ${facilitator}\nDescription: ${description || 'No description'}`;
             
             // Get current commit SHA for parent
             console.log('Getting current commit SHA...');
@@ -303,12 +303,14 @@ class GitFileManager {
                 description: description,
                 category: category,
                 session: session,
+                facilitator: facilitator, // Include facilitator from form
                 size: this.formatFileSize(file.size),
                 type: file.type,
                 uploadDate: new Date().toISOString(),
                 uploadedBy: 'Facilitator',
                 downloadCount: 0,
                 githubPath: filePath,
+                path: filePath, // Add path for editing
                 downloadUrl: `https://raw.githubusercontent.com/${this.repoOwner}/${this.repoName}/${this.branch}/${filePath}`,
                 viewUrl: `https://github.com/${this.repoOwner}/${this.repoName}/blob/${this.branch}/${filePath}`
             };
@@ -620,12 +622,14 @@ class GitFileManager {
                 description: this.generateDefaultDescription(title, category),
                 category: category,
                 session: this.getSessionFromCategory(category),
+                facilitator: this.extractFacilitatorFromFilename(filename), // Extract from filename
                 size: this.formatFileSize(file.size || 0),
                 type: fileType,
                 uploadDate: new Date().toISOString(), // We'll use current date as fallback
                 uploadedBy: 'Course Facilitator', // Default value - will be updated when uploaded
                 downloadCount: 0,
                 githubPath: file.path,
+                path: file.path, // Add path for editing
                 downloadUrl: `https://raw.githubusercontent.com/${this.repoOwner}/${this.repoName}/main/${file.path}`,
                 viewUrl: `https://github.com/${this.repoOwner}/${this.repoName}/blob/main/${file.path}`,
                 sha: file.sha
@@ -697,6 +701,61 @@ class GitFileManager {
         };
         
         return sessionMap[category] || 'General Session';
+    }
+
+    extractFacilitatorFromFilename(filename) {
+        // Try to extract facilitator name from filename
+        // Common patterns: "filename_FacilitatorName.ext" or "filename - FacilitatorName.ext"
+        const patterns = [
+            /[-_]([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\./g,  // Matches "Name" in "filename_Name.ext"
+            /[-_]([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*\./g, // Matches "Name" in "filename_Name .ext"
+        ];
+        
+        for (const pattern of patterns) {
+            const match = filename.match(pattern);
+            if (match && match[1]) {
+                const name = match[1].trim();
+                // Check if it matches known facilitators
+                const knownFacilitators = [
+                    'Vincent', 'Donkoh', 'Jean-Claude', 'Dejon', 'Agobé', 'Gesine', 'Meyer-Rath',
+                    'Opanin', 'Agyei', 'Adu', 'Charlène', 'Naomie', 'Tedto', 'Mfangnia'
+                ];
+                
+                if (knownFacilitators.some(f => name.includes(f))) {
+                    return this.mapFacilitatorName(name);
+                }
+            }
+        }
+        
+        return 'Dr. Vincent Donkoh'; // Default facilitator
+    }
+
+    mapFacilitatorName(name) {
+        // Map partial names to full facilitator names
+        const facilitatorMap = {
+            'Vincent': 'Dr. Vincent Donkoh',
+            'Donkoh': 'Dr. Vincent Donkoh',
+            'Jean-Claude': 'Dr. Jean Claude Dejon Agobé',
+            'Dejon': 'Dr. Jean Claude Dejon Agobé',
+            'Agobé': 'Dr. Jean Claude Dejon Agobé',
+            'Gesine': 'Prof. Gesine Meyer-Rath',
+            'Meyer-Rath': 'Prof. Gesine Meyer-Rath',
+            'Opanin': 'Dr. Opanin Agyei Adu',
+            'Agyei': 'Dr. Opanin Agyei Adu',
+            'Adu': 'Dr. Opanin Agyei Adu',
+            'Charlène': 'Charlène Naomie Tedto Mfangnia',
+            'Naomie': 'Charlène Naomie Tedto Mfangnia',
+            'Tedto': 'Charlène Naomie Tedto Mfangnia',
+            'Mfangnia': 'Charlène Naomie Tedto Mfangnia'
+        };
+        
+        for (const [partial, full] of Object.entries(facilitatorMap)) {
+            if (name.includes(partial)) {
+                return full;
+            }
+        }
+        
+        return name; // Return as-is if no mapping found
     }
 
     // ... (rest of the methods remain the same as in the original file manager)
@@ -776,6 +835,12 @@ class GitFileManager {
                         <i class="fas fa-calendar"></i>
                         <span>${this.formatDate(file.uploadDate)}</span>
                     </div>
+                    ${file.facilitator ? `
+                        <div class="meta-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>${file.facilitator}</span>
+                        </div>
+                    ` : ''}
                     ${file.uploadedBy ? `
                         <div class="meta-item">
                             <i class="fas fa-user"></i>
@@ -1029,6 +1094,12 @@ class GitFileManager {
         const file = this.files.get(fileId);
         if (!file) return;
 
+        // Check if user has GitHub token (can edit)
+        if (!this.githubToken) {
+            this.showNotification('❌ You need to connect GitHub to edit files', 'error');
+            return;
+        }
+
         // Create a comprehensive edit form
         const editForm = `
             <div class="edit-card-modal">
@@ -1070,6 +1141,23 @@ class GitFileManager {
                                 <option value="Group Projects" ${file.session === 'Group Projects' ? 'selected' : ''}>Group Projects</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Facilitator:</label>
+                            <select id="edit-facilitator-${fileId}">
+                                <option value="">Select a facilitator</option>
+                                <option value="Dr. Vincent Donkoh" ${file.facilitator === 'Dr. Vincent Donkoh' ? 'selected' : ''}>Dr. Vincent Donkoh</option>
+                                <option value="Dr. Jean Claude Dejon Agobé" ${file.facilitator === 'Dr. Jean Claude Dejon Agobé' ? 'selected' : ''}>Dr. Jean Claude Dejon Agobé</option>
+                                <option value="Prof. Gesine Meyer-Rath" ${file.facilitator === 'Prof. Gesine Meyer-Rath' ? 'selected' : ''}>Prof. Gesine Meyer-Rath</option>
+                                <option value="Dr. Opanin Agyei Adu" ${file.facilitator === 'Dr. Opanin Agyei Adu' ? 'selected' : ''}>Dr. Opanin Agyei Adu</option>
+                                <option value="Charlène Naomie Tedto Mfangnia" ${file.facilitator === 'Charlène Naomie Tedto Mfangnia' ? 'selected' : ''}>Charlène Naomie Tedto Mfangnia</option>
+                                <option value="Other" ${file.facilitator === 'Other' ? 'selected' : ''}>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Replace File (Optional):</label>
+                            <input type="file" id="edit-file-${fileId}" accept=".pdf,.docx,.doc,.txt,.md,.r,.rdata,.csv,.xlsx,.xls">
+                            <small class="file-help">Leave empty to keep current file. New file will create a new version.</small>
+                        </div>
                         <div class="form-actions">
                             <button type="button" class="btn btn-secondary" onclick="gitFileManager.closeEditModal('${fileId}')">Cancel</button>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -1097,32 +1185,73 @@ class GitFileManager {
         }, 10);
     }
 
-    saveCardEdits(fileId) {
+    async saveCardEdits(fileId) {
         const file = this.files.get(fileId);
         if (!file) return;
+
+        // Check if user has GitHub token
+        if (!this.githubToken) {
+            this.showNotification('❌ You need to connect GitHub to save changes', 'error');
+            return;
+        }
 
         // Get form values
         const newTitle = document.getElementById(`edit-title-${fileId}`).value.trim();
         const newDescription = document.getElementById(`edit-desc-${fileId}`).value.trim();
         const newCategory = document.getElementById(`edit-category-${fileId}`).value;
         const newSession = document.getElementById(`edit-session-${fileId}`).value;
+        const newFacilitator = document.getElementById(`edit-facilitator-${fileId}`).value;
+        const newFileInput = document.getElementById(`edit-file-${fileId}`);
 
-        // Update file object
-        file.title = newTitle;
-        file.description = newDescription;
-        file.category = newCategory;
-        file.session = newSession;
+        // Validate required fields
+        if (!newTitle || !newCategory || !newFacilitator) {
+            this.showNotification('❌ Title, Category, and Facilitator are required', 'error');
+            return;
+        }
 
-        // Update display
-        this.renderFiles();
+        try {
+            this.showNotification('🔄 Saving changes to GitHub...', 'info');
 
-        // Save to storage
-        this.saveFilesToStorage();
+            // Handle file replacement if a new file is selected
+            if (newFileInput.files.length > 0) {
+                const newFile = newFileInput.files[0];
+                await this.replaceFileInGitHub(fileId, newFile, {
+                    title: newTitle,
+                    description: newDescription,
+                    category: newCategory,
+                    session: newSession,
+                    facilitator: newFacilitator
+                });
+            } else {
+                // Update metadata only (no file replacement)
+                await this.updateFileMetadataInGitHub(fileId, {
+                    title: newTitle,
+                    description: newDescription,
+                    category: newCategory,
+                    session: newSession,
+                    facilitator: newFacilitator
+                });
+            }
 
-        // Close modal
-        this.closeEditModal(fileId);
+            // Update local file object
+            file.title = newTitle;
+            file.description = newDescription;
+            file.category = newCategory;
+            file.session = newSession;
+            file.facilitator = newFacilitator;
 
-        this.showNotification('✅ File updated successfully!', 'success');
+            // Update display
+            this.renderFiles();
+
+            // Close modal
+            this.closeEditModal(fileId);
+
+            this.showNotification('✅ File updated successfully on GitHub!', 'success');
+
+        } catch (error) {
+            console.error('Error saving card edits:', error);
+            this.showNotification('❌ Failed to save changes: ' + error.message, 'error');
+        }
     }
 
     closeEditModal(fileId) {
@@ -1133,6 +1262,213 @@ class GitFileManager {
                 modal.parentElement.remove();
             }, 300);
         }
+    }
+
+    async updateFileMetadataInGitHub(fileId, metadata) {
+        const file = this.files.get(fileId);
+        if (!file) throw new Error('File not found');
+
+        try {
+            // Create a metadata file to track changes
+            const metadataContent = JSON.stringify({
+                title: metadata.title,
+                description: metadata.description,
+                category: metadata.category,
+                session: metadata.session,
+                facilitator: metadata.facilitator,
+                lastUpdated: new Date().toISOString(),
+                originalFile: file.path
+            }, null, 2);
+
+            // Create metadata file path
+            const metadataPath = `course-materials/${file.category}/${file.name.replace(/\.[^/.]+$/, '')}_metadata.json`;
+
+            // Create blob for metadata
+            const metadataBlob = await this.createBlob(metadataContent, 'application/json');
+
+            // Get current tree SHA
+            const treeSha = await this.getCurrentTreeSHA();
+
+            // Create new tree with metadata
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    base_tree: treeSha,
+                    tree: [{
+                        path: metadataPath,
+                        mode: '100644',
+                        type: 'blob',
+                        sha: metadataBlob.sha
+                    }]
+                })
+            });
+
+            if (!treeResponse.ok) {
+                throw new Error(`Failed to create tree: ${treeResponse.statusText}`);
+            }
+
+            const treeData = await treeResponse.json();
+
+            // Create commit
+            const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `Update metadata for ${file.name}: ${metadata.title}`,
+                    tree: treeData.sha,
+                    parents: [await this.getCurrentCommitSHA()]
+                })
+            });
+
+            if (!commitResponse.ok) {
+                throw new Error(`Failed to create commit: ${commitResponse.statusText}`);
+            }
+
+            const commitData = await commitResponse.json();
+
+            // Update branch reference
+            await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sha: commitData.sha
+                })
+            });
+
+        } catch (error) {
+            console.error('Error updating metadata:', error);
+            throw error;
+        }
+    }
+
+    async replaceFileInGitHub(fileId, newFile, metadata) {
+        const file = this.files.get(fileId);
+        if (!file) throw new Error('File not found');
+
+        try {
+            // Create new file path with version
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const fileExtension = newFile.name.split('.').pop();
+            const baseName = newFile.name.replace(/\.[^/.]+$/, '');
+            const newFilePath = `course-materials/${metadata.category}/${baseName}_v${timestamp}.${fileExtension}`;
+
+            // Create blob for new file
+            const fileContent = await this.readFileAsBase64(newFile);
+            const blob = await this.createBlob(fileContent, newFile.type);
+
+            // Create metadata file
+            const metadataContent = JSON.stringify({
+                title: metadata.title,
+                description: metadata.description,
+                category: metadata.category,
+                session: metadata.session,
+                facilitator: metadata.facilitator,
+                lastUpdated: new Date().toISOString(),
+                originalFile: file.path,
+                newFile: newFilePath,
+                version: timestamp
+            }, null, 2);
+
+            const metadataPath = `course-materials/${metadata.category}/${baseName}_metadata.json`;
+            const metadataBlob = await this.createBlob(metadataContent, 'application/json');
+
+            // Get current tree SHA
+            const treeSha = await this.getCurrentTreeSHA();
+
+            // Create new tree with both files
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    base_tree: treeSha,
+                    tree: [
+                        {
+                            path: newFilePath,
+                            mode: '100644',
+                            type: 'blob',
+                            sha: blob.sha
+                        },
+                        {
+                            path: metadataPath,
+                            mode: '100644',
+                            type: 'blob',
+                            sha: metadataBlob.sha
+                        }
+                    ]
+                })
+            });
+
+            if (!treeResponse.ok) {
+                throw new Error(`Failed to create tree: ${treeResponse.statusText}`);
+            }
+
+            const treeData = await treeResponse.json();
+
+            // Create commit
+            const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `Replace file ${file.name} with new version: ${metadata.title}`,
+                    tree: treeData.sha,
+                    parents: [await this.getCurrentCommitSHA()]
+                })
+            });
+
+            if (!commitResponse.ok) {
+                throw new Error(`Failed to create commit: ${commitResponse.statusText}`);
+            }
+
+            const commitData = await commitResponse.json();
+
+            // Update branch reference
+            await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/refs/heads/${this.branch}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sha: commitData.sha
+                })
+            });
+
+            // Update local file object with new path
+            file.path = newFilePath;
+            file.name = newFile.name;
+
+        } catch (error) {
+            console.error('Error replacing file:', error);
+            throw error;
+        }
+    }
+
+    async readFileAsBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     }
 
     saveFilesToStorage() {

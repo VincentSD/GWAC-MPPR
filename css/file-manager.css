@@ -1179,6 +1179,26 @@
     transition: all 0.3s ease;
 }
 
+.edit-card-content .file-help {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    display: block;
+    font-style: italic;
+}
+
+.edit-card-content input[type="file"] {
+    padding: 0.6rem;
+    border: 2px dashed var(--border-color);
+    background: var(--bg-secondary);
+    cursor: pointer;
+}
+
+.edit-card-content input[type="file"]:hover {
+    border-color: var(--accent-color);
+    background: var(--bg-primary);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .file-card {
