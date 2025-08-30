@@ -804,8 +804,30 @@ class GitFileManager {
                 throw new Error('Could not get current tree SHA');
             }
 
-            // Create new tree without the file
-            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
+            // Get the current tree to see all files
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees/${treeSHA}?recursive=1`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!treeResponse.ok) {
+                const errorText = await treeResponse.text();
+                throw new Error(`Failed to get current tree: ${treeResponse.status} ${treeResponse.statusText}. ${errorText}`);
+            }
+
+            const currentTree = await treeResponse.json();
+            
+            // Filter out the file to be deleted
+            const newTreeItems = currentTree.tree.filter(item => 
+                item.path !== file.path && 
+                item.type === 'blob' && 
+                item.path.startsWith('course-materials/')
+            );
+
+            // Create new tree without the deleted file
+            const newTreeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `token ${this.githubToken}`,
@@ -814,16 +836,16 @@ class GitFileManager {
                 },
                 body: JSON.stringify({
                     base_tree: treeSHA,
-                    tree: [] // Empty tree to remove the file
+                    tree: newTreeItems
                 })
             });
 
-            if (!treeResponse.ok) {
-                const errorText = await treeResponse.text();
-                throw new Error(`Failed to create tree: ${treeResponse.status} ${treeResponse.statusText}. ${errorText}`);
+            if (!newTreeResponse.ok) {
+                const errorText = await newTreeResponse.text();
+                throw new Error(`Failed to create new tree: ${newTreeResponse.status} ${newTreeResponse.statusText}. ${errorText}`);
             }
 
-            const treeData = await treeResponse.json();
+            const newTreeData = await newTreeResponse.json();
 
             // Create commit for deletion
             const commitResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/commits`, {
@@ -835,7 +857,7 @@ class GitFileManager {
                 },
                 body: JSON.stringify({
                     message: `Delete file: ${file.name}\n\nRemoved: ${file.title}\nCategory: ${file.category}\nSession: ${file.session || 'General'}`,
-                    tree: treeData.sha,
+                    tree: newTreeData.sha,
                     parents: [commitSHA]
                 })
             });
