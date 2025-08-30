@@ -16,6 +16,7 @@ class GitFileManager {
 
     init() {
         this.setupEventListeners();
+        this.loadFilesFromStorage(); // Load saved files first
         this.loadExistingFiles();
         this.setupDragAndDrop();
         this.checkGitHubAuth();
@@ -553,6 +554,22 @@ class GitFileManager {
                 githubPath: 'course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
                 downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
                 viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf'
+            },
+            {
+                id: '3',
+                name: 'Your_Third_File.pdf', // Replace with actual filename
+                title: 'Your Third File Title', // Replace with actual title
+                description: 'Description of your third uploaded file', // Replace with actual description
+                category: 'Additional Materials', // Replace with actual category
+                session: 'General Session', // Replace with actual session
+                size: '1.5 MB', // Replace with actual size
+                type: 'application/pdf', // Replace with actual type
+                uploadDate: '2025-08-29T20:16:00.000Z', // Replace with actual date
+                uploadedBy: 'Your Name', // Replace with actual name
+                downloadCount: 0,
+                githubPath: 'course-materials/Your_Third_File.pdf', // Replace with actual path
+                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Your_Third_File.pdf', // Replace with actual URL
+                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Your_Third_File.pdf' // Replace with actual URL
             }
         ];
         
@@ -603,7 +620,7 @@ class GitFileManager {
 
     createFileCard(file) {
         const card = document.createElement('div');
-        card.className = 'file-card';
+        card.className = 'file-card enhanced';
         card.dataset.category = file.category;
         card.dataset.session = file.session;
         
@@ -616,13 +633,19 @@ class GitFileManager {
             </div>
             <div class="file-info">
                 <h4 class="file-title">${file.title}</h4>
-                <p class="file-description">${file.description || 'No description'}</p>
-                <div class="file-meta">
-                    <span class="file-category">${file.category}</span>
-                    <span class="file-size">${file.size}</span>
-                    <span class="file-date">${this.formatDate(file.uploadDate)}</span>
+                <div class="file-description-container">
+                    <p class="file-description" id="desc-${file.id}">${file.description || 'No description'}</p>
+                    <button class="edit-description-btn" onclick="gitFileManager.editDescription('${file.id}')" title="Edit description">
+                        <i class="fas fa-edit"></i>
+                    </button>
                 </div>
-                ${file.session ? `<span class="file-session">Session: ${file.session}</span>` : ''}
+                <div class="file-meta">
+                    <span class="file-category"><i class="fas fa-tag"></i> ${file.category}</span>
+                    <span class="file-size"><i class="fas fa-weight-hanging"></i> ${file.size}</span>
+                    <span class="file-date"><i class="fas fa-calendar"></i> ${this.formatDate(file.uploadDate)}</span>
+                </div>
+                ${file.uploadedBy ? `<span class="file-author"><i class="fas fa-user"></i> ${file.uploadedBy}</span>` : ''}
+                ${file.session ? `<span class="file-session"><i class="fas fa-clock"></i> Session: ${file.session}</span>` : ''}
             </div>
             <div class="file-actions">
                 <button class="btn btn-sm btn-primary" onclick="gitFileManager.downloadFile('${file.id}')">
@@ -815,6 +838,47 @@ class GitFileManager {
                 }
                 
                 console.log(`Dropped ${files.length} file(s):`, Array.from(files).map(f => f.name));
+            }
+        }
+    }
+
+    editDescription(fileId) {
+        const file = this.files.get(fileId);
+        if (!file) return;
+
+        const currentDesc = file.description || 'No description';
+        const newDesc = prompt('Edit file description:', currentDesc);
+        
+        if (newDesc !== null && newDesc !== currentDesc) {
+            // Update the file object
+            file.description = newDesc;
+            
+            // Update the display
+            const descElement = document.getElementById(`desc-${fileId}`);
+            if (descElement) {
+                descElement.textContent = newDesc;
+            }
+            
+            // Save to localStorage for persistence
+            this.saveFilesToStorage();
+            
+            this.showNotification('✅ Description updated successfully!', 'success');
+        }
+    }
+
+    saveFilesToStorage() {
+        const filesArray = Array.from(this.files.values());
+        localStorage.setItem('gwac-files', JSON.stringify(filesArray));
+    }
+
+    loadFilesFromStorage() {
+        const stored = localStorage.getItem('gwac-files');
+        if (stored) {
+            try {
+                const filesArray = JSON.parse(stored);
+                filesArray.forEach(file => this.addFile(file));
+            } catch (e) {
+                console.error('Error loading files from storage:', e);
             }
         }
     }
