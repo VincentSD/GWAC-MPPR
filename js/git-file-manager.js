@@ -767,20 +767,15 @@ class GitFileManager {
             // Delete file from GitHub
             await this.deleteFileFromGitHub(file);
 
-            // Remove from local collection
-            this.files.delete(fileId);
+            // Note: Local state will be cleared and refreshed from GitHub
+            // to ensure consistency with repository state
 
-            // Remove from categories
-            if (this.categories.has(file.category)) {
-                const categoryFiles = this.categories.get(file.category);
-                const index = categoryFiles.indexOf(fileId);
-                if (index > -1) {
-                    categoryFiles.splice(index, 1);
-                }
-            }
-
-            // Update display
-            this.renderFiles();
+            // Clear local state and refresh from GitHub to ensure sync
+            this.files.clear();
+            this.categories.clear();
+            
+            // Refresh files from repository to ensure consistency
+            await this.fetchFilesFromRepository();
 
             // Close the edit modal since file no longer exists
             this.closeEditModal(fileId);
@@ -822,11 +817,9 @@ class GitFileManager {
 
             const currentTree = await treeResponse.json();
             
-            // Filter out the file to be deleted
+            // Filter out the file to be deleted, but keep all other files
             const newTreeItems = currentTree.tree.filter(item => 
-                item.path !== file.path && 
-                item.type === 'blob' && 
-                item.path.startsWith('course-materials/')
+                item.path !== file.path
             );
 
             // Create new tree without the deleted file
