@@ -743,7 +743,7 @@ class GitFileManager {
 
     createFileCard(file) {
         const card = document.createElement('div');
-        card.className = 'file-card enhanced';
+        card.className = 'file-card';
         card.dataset.category = file.category;
         card.dataset.session = file.session;
         
@@ -751,48 +751,51 @@ class GitFileManager {
         const isViewable = this.isViewableFile(file.type);
         
         card.innerHTML = `
-            <div class="file-header">
+            <div class="card-header">
                 <div class="file-icon">
                     <i class="fas ${this.getFileIcon(file.type)}"></i>
                 </div>
-                <div class="file-title-section">
-                    <div class="file-title-container">
-                        <h4 class="file-title" id="title-${file.id}">${file.title}</h4>
-                        <button class="edit-title-btn" onclick="gitFileManager.editTitle('${file.id}')" title="Edit title">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
-                    <div class="file-description-container">
-                        <p class="file-description" id="desc-${file.id}">${file.description || 'No description'}</p>
-                        <button class="edit-description-btn" onclick="gitFileManager.editDescription('${file.id}')" title="Edit description">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
+                <div class="header-right">
+                    <div class="file-badge">${file.category}</div>
+                    <button class="action-btn edit-btn" onclick="gitFileManager.editCard('${file.id}')" title="Edit card">
+                        <i class="fas fa-edit"></i>
+                    </button>
                 </div>
             </div>
             
-            <div class="file-meta-grid">
-                <span class="file-category"><i class="fas fa-tag"></i> ${file.category}</span>
-                <span class="file-size"><i class="fas fa-weight-hanging"></i> ${file.size}</span>
-                <span class="file-date"><i class="fas fa-calendar"></i> ${this.formatDate(file.uploadDate)}</span>
-                ${file.uploadedBy ? `<span class="file-author"><i class="fas fa-user"></i> ${file.uploadedBy}</span>` : ''}
-                ${file.session ? `<span class="file-session"><i class="fas fa-clock"></i> Category: ${file.session}</span>` : ''}
+            <div class="card-body">
+                <h4 class="file-title">${file.title}</h4>
+                <p class="file-description">${file.description || 'No description provided'}</p>
+                
+                <div class="file-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-weight-hanging"></i>
+                        <span>${file.size}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>${this.formatDate(file.uploadDate)}</span>
+                    </div>
+                    ${file.uploadedBy ? `
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span>${file.uploadedBy}</span>
+                        </div>
+                    ` : ''}
+                </div>
             </div>
             
-            <div class="file-actions">
-                <button class="btn btn-sm btn-primary" onclick="gitFileManager.downloadFile('${file.id}')">
-                    <i class="fas fa-download"></i> Download
+            <div class="card-actions">
+                <button class="action-btn download-btn" onclick="gitFileManager.downloadFile('${file.id}')" title="Download">
+                    <i class="fas fa-download"></i>
                 </button>
                 ${isViewable ? `
-                    <button class="btn btn-sm btn-success" onclick="gitFileManager.presentFile('${file.id}')">
-                        <i class="fas fa-eye"></i> ${this.getPresentButtonText(file.type)}
+                    <button class="action-btn view-btn" onclick="gitFileManager.presentFile('${file.id}')" title="${this.getPresentButtonText(file.type)}">
+                        <i class="fas fa-eye"></i>
                     </button>
                 ` : ''}
-                <button class="btn btn-sm btn-outline" onclick="gitFileManager.showFileDetails('${file.id}')">
-                    <i class="fas fa-info-circle"></i> Details
-                </button>
-                <a href="${file.viewUrl}" target="_blank" class="btn btn-sm btn-info">
-                    <i class="fab fa-github"></i> View on GitHub
+                <a href="${file.viewUrl}" target="_blank" class="action-btn github-btn" title="View on GitHub">
+                    <i class="fab fa-github"></i>
                 </a>
             </div>
         `;
@@ -1019,6 +1022,116 @@ class GitFileManager {
             this.saveFilesToStorage();
             
             this.showNotification('✅ Title updated successfully!', 'success');
+        }
+    }
+
+    editCard(fileId) {
+        const file = this.files.get(fileId);
+        if (!file) return;
+
+        // Create a comprehensive edit form
+        const editForm = `
+            <div class="edit-card-modal">
+                <div class="edit-card-content">
+                    <h3>Edit File: ${file.name}</h3>
+                    <form id="edit-form-${fileId}">
+                        <div class="form-group">
+                            <label>Title:</label>
+                            <input type="text" id="edit-title-${fileId}" value="${file.title}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea id="edit-desc-${fileId}" rows="3">${file.description || ''}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select id="edit-category-${fileId}">
+                                <option value="R Programming" ${file.category === 'R Programming' ? 'selected' : ''}>R Programming</option>
+                                <option value="Disease Modeling" ${file.category === 'Disease Modeling' ? 'selected' : ''}>Disease Modeling</option>
+                                <option value="Presentations" ${file.category === 'Presentations' ? 'selected' : ''}>Presentations</option>
+                                <option value="Exercises" ${file.category === 'Exercises' ? 'selected' : ''}>Exercises</option>
+                                <option value="Data" ${file.category === 'Data' ? 'selected' : ''}>Data & Datasets</option>
+                                <option value="Documentation" ${file.category === 'Documentation' ? 'selected' : ''}>Documentation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Session:</label>
+                            <select id="edit-session-${fileId}">
+                                <option value="">Select a session</option>
+                                <option value="Introduction to G-WAC" ${file.session === 'Introduction to G-WAC' ? 'selected' : ''}>Introduction to G-WAC</option>
+                                <option value="Crash Course in R Programming" ${file.session === 'Crash Course in R Programming' ? 'selected' : ''}>Crash Course in R Programming</option>
+                                <option value="Introduction to Version Control using Git and GitHub" ${file.session === 'Introduction to Version Control using Git and GitHub' ? 'selected' : ''}>Introduction to Version Control using Git and GitHub</option>
+                                <option value="Basics of Infectious Disease Modeling" ${file.session === 'Basics of Infectious Disease Modeling' ? 'selected' : ''}>Basics of Infectious Disease Modeling</option>
+                                <option value="Model Simulation in R with odin & monty" ${file.session === 'Model Simulation in R with odin & monty' ? 'selected' : ''}>Model Simulation in R with odin & monty</option>
+                                <option value="Extending the SIR Model" ${file.session === 'Extending the SIR Model' ? 'selected' : ''}>Extending the SIR Model</option>
+                                <option value="Basics of Model Calibration/Fitting/Validation Techniques" ${file.session === 'Basics of Model Calibration/Fitting/Validation Techniques' ? 'selected' : ''}>Basics of Model Calibration/Fitting/Validation Techniques</option>
+                                <option value="Overview of Scenario Modeling" ${file.session === 'Overview of Scenario Modeling' ? 'selected' : ''}>Overview of Scenario Modeling</option>
+                                <option value="Incorporating Health Economics into Epidemic Models" ${file.session === 'Incorporating Health Economics into Epidemic Models' ? 'selected' : ''}>Incorporating Health Economics into Epidemic Models</option>
+                                <option value="Group Projects" ${file.session === 'Group Projects' ? 'selected' : ''}>Group Projects</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="gitFileManager.closeEditModal('${fileId}')">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+
+        // Add modal to page
+        const modalContainer = document.createElement('div');
+        modalContainer.innerHTML = editForm;
+        document.body.appendChild(modalContainer);
+
+        // Setup form submission
+        const form = document.getElementById(`edit-form-${fileId}`);
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.saveCardEdits(fileId);
+        });
+
+        // Show modal
+        setTimeout(() => {
+            modalContainer.querySelector('.edit-card-modal').classList.add('show');
+        }, 10);
+    }
+
+    saveCardEdits(fileId) {
+        const file = this.files.get(fileId);
+        if (!file) return;
+
+        // Get form values
+        const newTitle = document.getElementById(`edit-title-${fileId}`).value.trim();
+        const newDescription = document.getElementById(`edit-desc-${fileId}`).value.trim();
+        const newCategory = document.getElementById(`edit-category-${fileId}`).value;
+        const newSession = document.getElementById(`edit-session-${fileId}`).value;
+
+        // Update file object
+        file.title = newTitle;
+        file.description = newDescription;
+        file.category = newCategory;
+        file.session = newSession;
+
+        // Update display
+        this.renderFiles();
+
+        // Save to storage
+        this.saveFilesToStorage();
+
+        // Close modal
+        this.closeEditModal(fileId);
+
+        this.showNotification('✅ File updated successfully!', 'success');
+    }
+
+    closeEditModal(fileId) {
+        const modal = document.querySelector('.edit-card-modal');
+        if (modal) {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.parentElement.remove();
+            }, 300);
         }
     }
 

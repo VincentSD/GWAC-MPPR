@@ -1666,7 +1666,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Upload Course Material</h3>
-                <button class="modal-close" onclick="fileManager.hideUploadModal()">&times;</button>
+                <button class="modal-close" onclick="gitFileManager.hideUploadModal()">&times;</button>
             </div>
             
             <form id="upload-form" class="upload-form">
@@ -1720,7 +1720,7 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label for="facilitator">Facilitator *</label>
                     <select id="facilitator" name="facilitator" required>
                         <option value="">Select a facilitator</option>
@@ -1734,7 +1734,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="fileManager.hideUploadModal()">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="gitFileManager.hideUploadModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Upload Material</button>
                 </div>
             </form>
