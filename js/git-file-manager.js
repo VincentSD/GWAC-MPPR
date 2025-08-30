@@ -50,9 +50,15 @@ class GitFileManager {
                 this.checkGitHubAuth();
             });
         }
+
+        // Refresh files button
+        const refreshBtn = document.getElementById('refresh-files-btn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => this.refreshFiles());
+        }
     }
 
-    checkGitHubAuth() {
+    async checkGitHubAuth() {
         // Check if we have a stored token
         const storedToken = localStorage.getItem('github-token');
         if (storedToken) {
@@ -62,7 +68,8 @@ class GitFileManager {
 
         if (this.githubToken) {
             this.showNotification('✅ GitHub connected successfully!', 'success');
-            this.loadExistingFiles();
+            // Automatically fetch files from repository when token is provided
+            await this.fetchFilesFromRepository();
         } else {
             this.showNotification('🔑 Please enter your GitHub Personal Access Token', 'info');
         }
@@ -504,76 +511,188 @@ class GitFileManager {
                 const contents = await response.json();
                 await this.processGitHubContents(contents);
             } else {
-                console.log('No course-materials folder found, using sample files');
-                this.addSampleFiles();
+                console.log('No course-materials folder found, fetching from repository tree');
+                await this.fetchFilesFromRepository();
             }
         } catch (error) {
             console.error('Error loading files from GitHub:', error);
-            this.addSampleFiles();
+            await this.fetchFilesFromRepository();
         }
         
         this.renderFiles();
     }
 
     async processGitHubContents(contents) {
-        // This would process the GitHub contents and create file metadata
-        // For now, we'll use sample files
-        this.addSampleFiles();
+        // Process the GitHub contents and create file metadata
+        try {
+            for (const item of contents) {
+                if (item.type === 'file' && item.path.startsWith('course-materials/')) {
+                    await this.processRepositoryFile({
+                        path: item.path,
+                        size: item.size,
+                        sha: item.sha
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Error processing GitHub contents:', error);
+            // Fallback to repository tree fetch
+            await this.fetchFilesFromRepository();
+        }
     }
 
-    addSampleFiles() {
-        const sampleFiles = [
-            {
-                id: '1',
-                name: 'covid_19_background_Jean-Claude.pptx',
-                title: 'COVID-19 Background and Context',
-                description: 'Comprehensive overview of COVID-19 epidemiology and modeling approaches',
-                category: 'Disease Modeling',
-                session: 'Model Calibration & Validation',
-                size: '898 KB',
-                type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                uploadDate: '2025-08-29T20:16:00.000Z',
-                uploadedBy: 'Dr. Jean Claude Dejon Agobé',
-                downloadCount: 0,
-                githubPath: 'course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx',
-                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx',
-                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Disease Modeling/2025-08-29_covid_19_background_Jean-Claude.pptx'
-            },
-            {
-                id: '2',
-                name: 'MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
-                title: 'Incorporating Health Economics into Models',
-                description: 'Advanced modeling techniques integrating health economics and cost analysis',
-                category: 'Health Economics',
-                session: 'Health Economics in Epidemic Models',
-                size: '2.1 MB',
-                type: 'application/pdf',
-                uploadDate: '2025-08-29T20:16:00.000Z',
-                uploadedBy: 'Prof. Gesine Meyer-Rath',
-                downloadCount: 0,
-                githubPath: 'course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
-                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf',
-                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Presentations/2025-08-29_MPPR_Meyer-Rath_Incorporating_health_economics_into_models.pdf'
-            },
-            {
-                id: '3',
-                name: 'Your_Third_File.pdf', // Replace with actual filename
-                title: 'Your Third File Title', // Replace with actual title
-                description: 'Description of your third uploaded file', // Replace with actual description
-                category: 'Additional Materials', // Replace with actual category
-                session: 'General Session', // Replace with actual session
-                size: '1.5 MB', // Replace with actual size
-                type: 'application/pdf', // Replace with actual type
-                uploadDate: '2025-08-29T20:16:00.000Z', // Replace with actual date
-                uploadedBy: 'Your Name', // Replace with actual name
-                downloadCount: 0,
-                githubPath: 'course-materials/Your_Third_File.pdf', // Replace with actual path
-                downloadUrl: 'https://raw.githubusercontent.com/VincentSD/GWAC-MPPR/main/course-materials/Your_Third_File.pdf', // Replace with actual URL
-                viewUrl: 'https://github.com/VincentSD/GWAC-MPPR/blob/main/course-materials/Your_Third_File.pdf' // Replace with actual URL
+    async fetchFilesFromRepository() {
+        if (!this.githubToken) {
+            console.log('No GitHub token available for fetching files');
+            return;
+        }
+
+        try {
+            this.showNotification('🔄 Fetching files from repository...', 'info');
+            
+            // Get the current tree SHA
+            const treeSha = await this.getCurrentTreeSHA();
+            if (!treeSha) {
+                console.error('Could not get tree SHA');
+                return;
             }
-        ];
+
+            // Fetch the tree to get all files
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees/${treeSha}?recursive=1`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!treeResponse.ok) {
+                throw new Error(`Failed to fetch tree: ${treeResponse.status}`);
+            }
+
+            const treeData = await treeResponse.json();
+            
+            // Filter for course-materials directory
+            const courseMaterialFiles = treeData.tree.filter(item => 
+                item.type === 'blob' && 
+                item.path.startsWith('course-materials/') &&
+                !item.path.endsWith('/')
+            );
+
+            console.log(`Found ${courseMaterialFiles.length} course material files:`, courseMaterialFiles);
+
+            // Process each file
+            for (const file of courseMaterialFiles) {
+                await this.processRepositoryFile(file);
+            }
+
+            this.showNotification(`✅ Loaded ${courseMaterialFiles.length} files from repository`, 'success');
+            this.renderFiles();
+
+        } catch (error) {
+            console.error('Error fetching files from repository:', error);
+            this.showNotification('❌ Error fetching files from repository', 'error');
+        }
+    }
+
+    async processRepositoryFile(file) {
+        try {
+            // Extract category from path (e.g., "course-materials/Disease Modeling/file.pdf" -> "Disease Modeling")
+            const pathParts = file.path.split('/');
+            const category = pathParts[1] || 'General';
+            
+            // Generate a readable title from filename
+            const filename = pathParts[pathParts.length - 1];
+            const title = this.generateReadableTitle(filename);
+            
+            // Determine file type and icon
+            const fileType = this.getFileTypeFromPath(filename);
+            const fileIcon = this.getFileIcon(fileType);
+            
+            // Create file object
+            const fileObj = {
+                id: this.generateFileId(file.path),
+                name: filename,
+                title: title,
+                description: this.generateDefaultDescription(title, category),
+                category: category,
+                session: this.getSessionFromCategory(category),
+                size: this.formatFileSize(file.size || 0),
+                type: fileType,
+                uploadDate: new Date().toISOString(), // We'll use current date as fallback
+                uploadedBy: 'Course Facilitator', // Default value
+                downloadCount: 0,
+                githubPath: file.path,
+                downloadUrl: `https://raw.githubusercontent.com/${this.repoOwner}/${this.repoName}/main/${file.path}`,
+                viewUrl: `https://github.com/${this.repoOwner}/${this.repoName}/blob/main/${file.path}`,
+                sha: file.sha
+            };
+
+            this.addFile(fileObj);
+            console.log('Processed file:', fileObj);
+
+        } catch (error) {
+            console.error('Error processing file:', file, error);
+        }
+    }
+
+    generateFileId(path) {
+        // Create a unique ID from the file path
+        return 'file_' + path.replace(/[^a-zA-Z0-9]/g, '_');
+    }
+
+    generateReadableTitle(filename) {
+        // Convert filename to readable title
+        // e.g., "2025-08-29_covid_19_background_Jean-Claude.pptx" -> "COVID-19 Background and Context"
+        let title = filename
+            .replace(/^\d{4}-\d{2}-\d{2}_/, '') // Remove date prefix
+            .replace(/\.[^/.]+$/, '') // Remove file extension
+            .replace(/[_-]/g, ' ') // Replace underscores and hyphens with spaces
+            .replace(/\b\w/g, l => l.toUpperCase()); // Capitalize first letter of each word
         
-        sampleFiles.forEach(file => this.addFile(file));
+        return title;
+    }
+
+    generateDefaultDescription(filename, category) {
+        // Generate a default description based on title and category
+        const descriptions = {
+            'Disease Modeling': `Comprehensive materials for ${filename.toLowerCase()} in disease modeling and epidemiology`,
+            'Presentations': `Presentation materials covering ${filename.toLowerCase()} for the G-WAC course`,
+            'Health Economics': `Health economics integration materials for ${filename.toLowerCase()}`,
+            'General': `Course materials for ${filename.toLowerCase()}`
+        };
+        
+        return descriptions[category] || `Course materials for ${filename.toLowerCase()}`;
+    }
+
+    getFileTypeFromPath(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        const typeMap = {
+            'pdf': 'application/pdf',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'doc': 'application/msword',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'xls': 'application/vnd.ms-excel',
+            'txt': 'text/plain',
+            'md': 'text/markdown',
+            'r': 'text/x-r-source',
+            'rdata': 'application/octet-stream'
+        };
+        
+        return typeMap[ext] || 'application/octet-stream';
+    }
+
+    getSessionFromCategory(category) {
+        const sessionMap = {
+            'Disease Modeling': 'Disease Modeling & Epidemiology',
+            'Presentations': 'General Presentations',
+            'Health Economics': 'Health Economics Integration',
+            'R Programming': 'R Programming & Data Analysis',
+            'Git & GitHub': 'Version Control & Collaboration'
+        };
+        
+        return sessionMap[category] || 'General Session';
     }
 
     // ... (rest of the methods remain the same as in the original file manager)
@@ -881,6 +1000,22 @@ class GitFileManager {
                 console.error('Error loading files from storage:', e);
             }
         }
+    }
+
+    async refreshFiles() {
+        // Clear current files
+        this.files.clear();
+        
+        // Show loading state
+        this.showNotification('🔄 Refreshing files from repository...', 'info');
+        
+        // Fetch fresh files from repository
+        await this.fetchFilesFromRepository();
+        
+        // Update the display
+        this.renderFiles();
+        
+        this.showNotification('✅ Files refreshed successfully!', 'success');
     }
 }
 
