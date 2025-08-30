@@ -1471,6 +1471,36 @@ class GitFileManager {
         });
     }
 
+    async createBlob(content, contentType) {
+        try {
+            // Create blob for content
+            const blobResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/blobs`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: content,
+                    encoding: 'base64'
+                })
+            });
+
+            if (!blobResponse.ok) {
+                const errorText = await blobResponse.text();
+                throw new Error(`Failed to create blob: ${blobResponse.status} ${blobResponse.statusText}. ${errorText}`);
+            }
+
+            const blob = await blobResponse.json();
+            return blob;
+
+        } catch (error) {
+            console.error('Error creating blob:', error);
+            throw error;
+        }
+    }
+
     saveFilesToStorage() {
         const filesArray = Array.from(this.files.values());
         localStorage.setItem('gwac-files', JSON.stringify(filesArray));
