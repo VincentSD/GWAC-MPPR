@@ -484,15 +484,29 @@ class GitFileManager {
         const file = this.files.get(fileId);
         if (file) {
             try {
-                // Open GitHub view URL in new tab
-                const newTab = window.open(file.viewUrl, '_blank');
-                
-                if (newTab) {
-                    this.showNotification(`✅ ${file.title} opened in GitHub for viewing`, 'success');
+                // For PDFs, open directly in new tab using raw GitHub URL
+                if (file.type.includes('pdf')) {
+                    const pdfUrl = file.downloadUrl; // This is the raw GitHub URL
+                    const newTab = window.open(pdfUrl, '_blank');
+                    
+                    if (newTab) {
+                        this.showNotification(`✅ ${file.title} opened in new tab`, 'success');
+                    } else {
+                        // Fallback: download if popup blocked
+                        this.downloadFile(fileId);
+                        this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+                    }
                 } else {
-                    // Fallback: download if popup blocked
-                    this.downloadFile(fileId);
-                    this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+                    // For other viewable files, open GitHub view URL in new tab
+                    const newTab = window.open(file.viewUrl, '_blank');
+                    
+                    if (newTab) {
+                        this.showNotification(`✅ ${file.title} opened in GitHub for viewing`, 'success');
+                    } else {
+                        // Fallback: download if popup blocked
+                        this.downloadFile(fileId);
+                        this.showNotification('ℹ️ Popup blocked. File downloaded instead.', 'info');
+                    }
                 }
                 
             } catch (error) {
@@ -891,7 +905,7 @@ class GitFileManager {
         if (fileType.includes('powerpoint') || fileType.includes('presentation')) {
             return 'Present';
         } else if (fileType.includes('pdf')) {
-            return 'View';
+            return 'View PDF';
         } else if (fileType.includes('image')) {
             return 'View';
         } else if (fileType.includes('text') || fileType.includes('code')) {
