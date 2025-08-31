@@ -4549,6 +4549,80 @@ a.toc-item {
     }
 }
 
+/* Repository Management Tips */
+.management-tips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-5);
+    margin: var(--spacing-6) 0;
+}
+
+.tip-card {
+    background: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: #48bb78;
+}
+
+.tip-card h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.tip-card p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-3);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.tip-card ul {
+    margin: 0;
+    padding-left: var(--spacing-4);
+    flex-grow: 1;
+}
+
+.tip-card li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.tip-card strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Responsive design for management tips */
+@media (max-width: 1024px) {
+    .management-tips {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-4);
+    }
+}
+
+@media (max-width: 768px) {
+    .management-tips {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+}
+
 .step {
     background: var(--background-primary);
     padding: var(--spacing-6);
