@@ -333,6 +333,18 @@ class AdminManager {
         this.facilitatorsManager.importFacilitators();
     }
 
+    toggleFacilitatorsSortOrder() {
+        this.facilitatorsManager.toggleSortOrder();
+    }
+
+    bulkActivateFacilitators() {
+        this.facilitatorsManager.bulkActivateFacilitators();
+    }
+
+    bulkDeactivateFacilitators() {
+        this.facilitatorsManager.bulkDeactivateFacilitators();
+    }
+
     // Course Materials Management
     addNewCategory() {
         this.materialsManager.addNewCategory();

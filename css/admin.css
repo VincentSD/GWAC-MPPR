@@ -1233,6 +1233,126 @@ body {
     font-weight: 500;
 }
 
+/* Facilitators Controls */
+.facilitators-controls {
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.controls-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--admin-text-muted);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-primary);
+    font-size: 0.9rem;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filter-controls select {
+    padding: 0.75rem;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-primary);
+    font-size: 0.9rem;
+    min-width: 150px;
+}
+
+.filter-controls select:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+}
+
+.results-info {
+    color: var(--admin-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        max-width: none;
+    }
+    
+    .filter-controls {
+        justify-content: space-between;
+    }
+    
+    .filter-controls select {
+        min-width: auto;
+        flex: 1;
+    }
+}
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--admin-text-primary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--admin-accent);
+}
+
+.checkbox-label .checkmark {
+    margin-left: 0.25rem;
+}
+
+.checkbox-label small {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: normal;
+    color: var(--admin-text-muted);
+}
+
 /* Responsive Facilitators */
 @media (max-width: 768px) {
     .facilitators-grid {
