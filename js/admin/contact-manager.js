@@ -38,7 +38,6 @@ class ContactManager {
                 this.contactInfo = this.getDefaultContactInfo();
             }
         } catch (error) {
-            console.log('Using default contact info:', error);
             this.contactInfo = this.getDefaultContactInfo();
         }
     }
@@ -53,7 +52,6 @@ class ContactManager {
                 this.officeLocations = this.getDefaultOfficeLocations();
             }
         } catch (error) {
-            console.log('Using default office locations:', error);
             this.officeLocations = this.getDefaultOfficeLocations();
         }
     }
@@ -68,7 +66,6 @@ class ContactManager {
                 this.supportCategories = this.getDefaultSupportCategories();
             }
         } catch (error) {
-            console.log('Using default support categories:', error);
             this.supportCategories = this.getDefaultSupportCategories();
         }
     }

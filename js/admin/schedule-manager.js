@@ -32,7 +32,6 @@ class ScheduleManager {
                 this.schedule = this.getDefaultSchedule();
             }
         } catch (error) {
-            console.log('Using default schedule:', error);
             this.schedule = this.getDefaultSchedule();
         }
     }

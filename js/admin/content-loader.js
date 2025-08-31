@@ -222,14 +222,9 @@ class ContentLoader {
                     const existingFile = await this.getContent(path);
                     if (existingFile) {
                         sha = existingFile.sha;
-                        console.log(`Found existing file SHA: ${sha}`);
                     }
                 } catch (error) {
-                    if (error.message.includes('404')) {
-                        console.log('File does not exist yet, creating new file');
-                    } else {
-                        console.log('Could not get existing file SHA:', error);
-                    }
+                    // Silently handle error
                 }
             }
             
@@ -241,9 +236,6 @@ class ContentLoader {
             
             if (sha) {
                 body.sha = sha;
-                console.log(`Updating existing file with SHA: ${sha}`);
-            } else {
-                console.log('Creating new file');
             }
             
             const response = await fetch(`${this.baseUrl}/repos/${this.repoOwner}/${this.repoName}/contents/${path}`, {
@@ -289,11 +281,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            if (error.message.includes('404')) {
-                console.log('Hero content file not found yet, using default content');
-            } else {
-                console.log('Could not load hero content, using default:', error);
-            }
+            // Silently fall back to default content
         }
         
         return this.defaultContent.hero;
@@ -303,7 +291,7 @@ class ContentLoader {
         try {
             const message = `Update hero section content - ${new Date().toISOString()}`;
             const result = await this.saveContentData('', 'hero.json', data, message);
-            console.log('Hero content saved successfully:', result);
+
             return result;
         } catch (error) {
             console.error('Error saving hero content:', error);
@@ -319,7 +307,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load schedule, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.schedule;
@@ -343,7 +331,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load facilitators, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.facilitators;
@@ -367,7 +355,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load categories, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.categories;
@@ -391,7 +379,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load navigation, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.navigation;
@@ -415,7 +403,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load contact info, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.contact;
@@ -439,7 +427,7 @@ class ContentLoader {
                 return JSON.parse(decodedContent);
             }
         } catch (error) {
-            console.log('Could not load resources, using default:', error);
+            // Silently fall back to default content
         }
         
         return this.defaultContent.resources;

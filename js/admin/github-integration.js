@@ -29,7 +29,7 @@ class GitHubIntegration {
             
             if (response.ok) {
                 const userData = await response.json();
-                console.log('Authenticated as:', userData.login);
+    
                 return true;
             }
             

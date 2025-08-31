@@ -25,7 +25,6 @@ class FacilitatorsManager {
         try {
             // First try to load from localStorage for persistence
             if (this.loadFacilitatorsFromStorage()) {
-                console.log('Loaded facilitators from localStorage');
                 return;
             }
             
@@ -46,7 +45,6 @@ class FacilitatorsManager {
             this.saveFacilitatorsToStorage();
             
         } catch (error) {
-            console.log('Using default facilitators:', error);
             this.facilitators = this.getDefaultFacilitators();
             this.saveFacilitatorsToStorage();
         }
