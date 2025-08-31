@@ -4,8 +4,13 @@
  */
 
 class ContentLoader {
-    constructor(githubIntegration) {
-        this.githubIntegration = githubIntegration;
+    constructor(githubToken) {
+        this.githubToken = githubToken;
+        this.repoOwner = 'VincentSD';
+        this.repoName = 'GWAC-MPPR';
+        this.branch = 'main';
+        this.baseUrl = 'https://api.github.com';
+        this.contentPath = 'content';
         this.defaultContent = this.getDefaultContent();
     }
 
@@ -96,491 +101,437 @@ class ContentLoader {
                     name: "Exercises",
                     description: "Practical exercises and assignments",
                     color: "#8b5cf6"
-                },
-                {
-                    id: "data",
-                    name: "Data & Datasets",
-                    description: "Data files and datasets for exercises",
-                    color: "#ef4444"
                 }
             ],
             navigation: [
                 {
                     id: "home",
-                    text: "Home",
-                    href: "#home",
+                    label: "Home",
+                    url: "#home",
                     order: 1
                 },
                 {
                     id: "schedule",
-                    text: "Schedule",
-                    href: "#schedule",
+                    label: "Program Schedule",
+                    url: "#schedule",
                     order: 2
                 },
                 {
-                    id: "courses",
-                    text: "Courses",
-                    href: "#courses",
+                    id: "facilitators",
+                    label: "Course Facilitators",
+                    url: "#facilitators",
                     order: 3
                 },
                 {
-                    id: "materials",
-                    text: "Materials",
-                    href: "#course-materials",
+                    id: "courses",
+                    label: "Course Materials",
+                    url: "#courses",
                     order: 4
                 },
                 {
-                    id: "students",
-                    text: "Students",
-                    href: "#students",
+                    id: "contact",
+                    label: "Contact",
+                    url: "#contact",
                     order: 5
                 },
                 {
                     id: "resources",
-                    text: "Resources",
-                    href: "#resources",
+                    label: "Resources",
+                    url: "#resources",
                     order: 6
-                },
-                {
-                    id: "contact",
-                    text: "Contact",
-                    href: "#contact",
-                    order: 7
                 }
             ],
             contact: {
                 general: {
                     email: "info@g-wac.org",
-                    phone: "+233 XX XXX XXXX",
-                    address: "KNUST, Kumasi, Ghana"
+                    phone: "+233-20-123-4567",
+                    address: "KNUST Campus, Kumasi, Ghana"
+                },
+                courseSpecific: {
+                    email: "summer-school@g-wac.org",
+                    phone: "+233-20-123-4568"
                 },
                 support: {
                     email: "support@g-wac.org",
-                    responseTime: "24-48 hours"
-                },
-                emergency: {
-                    email: "emergency@g-wac.org",
-                    responseTime: "2-4 hours"
+                    phone: "+233-20-123-4569"
                 }
             },
             resources: [
                 {
-                    id: "gwac-website",
-                    title: "G-WAC Official Website",
-                    description: "Official website of the German-West African Centre",
-                    url: "https://g-wac.org/",
-                    category: "Official",
-                    featured: true
+                    id: "r-studio",
+                    name: "RStudio",
+                    description: "Integrated development environment for R",
+                    url: "https://www.rstudio.com/products/rstudio/download/",
+                    category: "software"
                 },
                 {
-                    id: "r-tutorials",
-                    title: "R Programming Tutorials",
-                    description: "Comprehensive R programming tutorials and examples",
-                    url: "https://github.com/jamesmbaazam/mppr/tree/main/tutorials/R",
-                    category: "Tutorials",
-                    featured: true
+                    id: "r-base",
+                    name: "R Programming Language",
+                    description: "Statistical computing and graphics",
+                    url: "https://cran.r-project.org/",
+                    category: "software"
                 },
                 {
-                    id: "drive-folder",
-                    title: "Course Presentations",
-                    description: "Google Drive folder with course presentations",
-                    url: "https://drive.google.com/drive/folders/1MYPl2YaE5aALSVrOV8EdJre2V85gTjpd",
-                    category: "Presentations",
-                    featured: false
+                    id: "git",
+                    name: "Git",
+                    description: "Version control system",
+                    url: "https://git-scm.com/",
+                    category: "software"
+                },
+                {
+                    id: "github",
+                    name: "GitHub",
+                    description: "Code hosting platform",
+                    url: "https://github.com/",
+                    category: "platform"
                 }
             ]
         };
     }
 
-    /**
-     * Load hero content
-     * @returns {Promise<Object>} - Hero content data
-     */
-    async loadHeroContent() {
+    // GitHub API methods (self-contained)
+    async getContent(path) {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'hero.json');
-            return content || this.defaultContent.hero;
+            const response = await fetch(`${this.baseUrl}/repos/${this.repoOwner}/${this.repoName}/contents/${path}`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            
+            if (response.status === 404) {
+                return null; // File doesn't exist
+            }
+            
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+            
+            return await response.json();
         } catch (error) {
-            console.error('Error loading hero content:', error);
-            return this.defaultContent.hero;
+            console.error('Error getting content:', error);
+            throw error;
         }
     }
 
-    /**
-     * Save hero content
-     * @param {Object} data - Hero content data
-     * @returns {Promise<Object>} - Response data
-     */
+    async putContent(path, content, message, sha = null) {
+        try {
+            // If no SHA provided, try to get the current file's SHA
+            if (!sha) {
+                try {
+                    const existingFile = await this.getContent(path);
+                    if (existingFile) {
+                        sha = existingFile.sha;
+                        console.log(`Found existing file SHA: ${sha}`);
+                    }
+                } catch (error) {
+                    if (error.message.includes('404')) {
+                        console.log('File does not exist yet, creating new file');
+                    } else {
+                        console.log('Could not get existing file SHA:', error);
+                    }
+                }
+            }
+            
+            const body = {
+                message: message,
+                content: btoa(JSON.stringify(content, null, 2)),
+                branch: this.branch
+            };
+            
+            if (sha) {
+                body.sha = sha;
+                console.log(`Updating existing file with SHA: ${sha}`);
+            } else {
+                console.log('Creating new file');
+            }
+            
+            const response = await fetch(`${this.baseUrl}/repos/${this.repoOwner}/${this.repoName}/contents/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`GitHub API error: ${response.status} - ${errorData.message || 'Unknown error'}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error putting content:', error);
+            throw error;
+        }
+    }
+
+    // Methods that ContentLoader needs (previously called on githubIntegration)
+    async getContentFile(subPath, filename) {
+        const path = subPath ? `${subPath}/${filename}` : filename;
+        return await this.getContent(path);
+    }
+
+    async saveContentData(subPath, filename, data, message) {
+        const path = subPath ? `${subPath}/${filename}` : filename;
+        return await this.putContent(path, data, message);
+    }
+
+    // Content loading methods
+    async loadHeroContent() {
+        try {
+            const content = await this.getContentFile('', 'hero.json');
+            if (content) {
+                // Decode content from GitHub API response
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
+        } catch (error) {
+            if (error.message.includes('404')) {
+                console.log('Hero content file not found yet, using default content');
+            } else {
+                console.log('Could not load hero content, using default:', error);
+            }
+        }
+        
+        return this.defaultContent.hero;
+    }
+
     async saveHeroContent(data) {
         try {
             const message = `Update hero section content - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'hero.json', data, message);
+            const result = await this.saveContentData('', 'hero.json', data, message);
+            console.log('Hero content saved successfully:', result);
+            return result;
         } catch (error) {
             console.error('Error saving hero content:', error);
             throw error;
         }
     }
 
-    /**
-     * Load schedule content
-     * @returns {Promise<Object>} - Schedule content data
-     */
     async loadSchedule() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'schedule.json');
-            return content || this.defaultContent.schedule;
+            const content = await this.getContentFile('', 'schedule.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading schedule content:', error);
-            return this.defaultContent.schedule;
+            console.log('Could not load schedule, using default:', error);
         }
+        
+        return this.defaultContent.schedule;
     }
 
-    /**
-     * Save schedule content
-     * @param {Object} data - Schedule content data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveSchedule(data) {
         try {
-            const message = `Update program schedule - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'schedule.json', data, message);
+            const message = `Update schedule content - ${new Date().toISOString()}`;
+            return await this.saveContentData('', 'schedule.json', data, message);
         } catch (error) {
-            console.error('Error saving schedule content:', error);
+            console.error('Error saving schedule:', error);
             throw error;
         }
     }
 
-    /**
-     * Load facilitators content
-     * @returns {Promise<Array>} - Facilitators data
-     */
     async loadFacilitators() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'facilitators.json');
-            return content || this.defaultContent.facilitators;
+            const content = await this.getContentFile('', 'facilitators.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading facilitators content:', error);
-            return this.defaultContent.facilitators;
+            console.log('Could not load facilitators, using default:', error);
         }
+        
+        return this.defaultContent.facilitators;
     }
 
-    /**
-     * Save facilitators content
-     * @param {Array} data - Facilitators data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveFacilitators(data) {
         try {
-            const message = `Update course facilitators - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'facilitators.json', data, message);
+            const message = `Update facilitators content - ${new Date().toISOString()}`;
+            return await this.saveContentData('', 'facilitators.json', data, message);
         } catch (error) {
-            console.error('Error saving facilitators content:', error);
+            console.error('Error saving facilitators:', error);
             throw error;
         }
     }
 
-    /**
-     * Load categories content
-     * @returns {Promise<Array>} - Categories data
-     */
     async loadCategories() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'categories.json');
-            return content || this.defaultContent.categories;
+            const content = await this.getContentFile('', 'categories.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading categories content:', error);
-            return this.defaultContent.categories;
+            console.log('Could not load categories, using default:', error);
         }
+        
+        return this.defaultContent.categories;
     }
 
-    /**
-     * Save categories content
-     * @param {Array} data - Categories data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveCategories(data) {
         try {
-            const message = `Update course material categories - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'categories.json', data, message);
+            const message = `Update categories content - ${new Date().toISOString()}`;
+            return await this.saveContentData('', 'categories.json', data, message);
         } catch (error) {
-            console.error('Error saving categories content:', error);
+            console.error('Error saving categories:', error);
             throw error;
         }
     }
 
-    /**
-     * Load navigation content
-     * @returns {Promise<Array>} - Navigation data
-     */
     async loadNavigation() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'navigation.json');
-            return content || this.defaultContent.navigation;
+            const content = await this.getContentFile('', 'navigation.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading navigation content:', error);
-            return this.defaultContent.navigation;
+            console.log('Could not load navigation, using default:', error);
         }
+        
+        return this.defaultContent.navigation;
     }
 
-    /**
-     * Save navigation content
-     * @param {Array} data - Navigation data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveNavigation(data) {
         try {
-            const message = `Update navigation menu - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'navigation.json', data, message);
+            const message = `Update navigation content - ${new Date().toISOString()}`;
+            return await this.saveContentData('', 'navigation.json', data, message);
         } catch (error) {
-            console.error('Error saving navigation content:', error);
+            console.error('Error saving navigation:', error);
             throw error;
         }
     }
 
-    /**
-     * Load contact content
-     * @returns {Promise<Object>} - Contact data
-     */
     async loadContact() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'contact.json');
-            return content || this.defaultContent.contact;
+            const content = await this.getContentFile('', 'contact.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading contact content:', error);
-            return this.defaultContent.contact;
+            console.log('Could not load contact info, using default:', error);
         }
+        
+        return this.defaultContent.contact;
     }
 
-    /**
-     * Save contact content
-     * @param {Object} data - Contact data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveContact(data) {
         try {
             const message = `Update contact information - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'contact.json', data, message);
+            return await this.saveContentData('', 'contact.json', data, message);
         } catch (error) {
-            console.error('Error saving contact content:', error);
+            console.error('Error saving contact info:', error);
             throw error;
         }
     }
 
-    /**
-     * Load resources content
-     * @returns {Promise<Array>} - Resources data
-     */
     async loadResources() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'resources.json');
-            return content || this.defaultContent.resources;
+            const content = await this.getContentFile('', 'resources.json');
+            if (content) {
+                const decodedContent = atob(content.content);
+                return JSON.parse(decodedContent);
+            }
         } catch (error) {
-            console.error('Error loading resources content:', error);
-            return this.defaultContent.resources;
+            console.log('Could not load resources, using default:', error);
         }
+        
+        return this.defaultContent.resources;
     }
 
-    /**
-     * Save resources content
-     * @param {Array} data - Resources data
-     * @returns {Promise<Object>} - Response data
-     */
     async saveResources(data) {
         try {
-            const message = `Update resources and links - ${new Date().toISOString()}`;
-            return await this.githubIntegration.saveContentData('', 'resources.json', data, message);
+            const message = `Update resources content - ${new Date().toISOString()}`;
+            return await this.saveContentData('', 'resources.json', data, message);
         } catch (error) {
-            console.error('Error saving resources content:', error);
+            console.error('Error saving resources:', error);
             throw error;
         }
     }
 
-    /**
-     * Load all content
-     * @returns {Promise<Object>} - All content data
-     */
-    async loadAllContent() {
+    // Utility methods
+    async contentExists(path) {
         try {
-            const [hero, schedule, facilitators, categories, navigation, contact, resources] = await Promise.all([
-                this.loadHeroContent(),
-                this.loadSchedule(),
-                this.loadFacilitators(),
-                this.loadCategories(),
-                this.loadNavigation(),
-                this.loadContact(),
-                this.loadResources()
-            ]);
-
-            return {
-                hero,
-                schedule,
-                facilitators,
-                categories,
-                navigation,
-                contact,
-                resources
-            };
+            const response = await fetch(`${this.baseUrl}/repos/${this.repoOwner}/${this.repoName}/contents/${path}`, {
+                headers: {
+                    'Authorization': `token ${this.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            return response.ok;
         } catch (error) {
-            console.error('Error loading all content:', error);
-            return this.defaultContent;
-        }
-    }
-
-    /**
-     * Save all content
-     * @param {Object} data - All content data
-     * @returns {Promise<Array>} - Array of response data
-     */
-    async saveAllContent(data) {
-        try {
-            const timestamp = new Date().toISOString();
-            const promises = [];
-
-            if (data.hero) {
-                promises.push(this.saveHeroContent(data.hero));
-            }
-            if (data.schedule) {
-                promises.push(this.saveSchedule(data.schedule));
-            }
-            if (data.facilitators) {
-                promises.push(this.saveFacilitators(data.facilitators));
-            }
-            if (data.categories) {
-                promises.push(this.saveCategories(data.categories));
-            }
-            if (data.navigation) {
-                promises.push(this.saveNavigation(data.navigation));
-            }
-            if (data.contact) {
-                promises.push(this.saveContact(data.contact));
-            }
-            if (data.resources) {
-                promises.push(this.saveResources(data.resources));
-            }
-
-            return await Promise.all(promises);
-        } catch (error) {
-            console.error('Error saving all content:', error);
-            throw error;
-        }
-    }
-
-    /**
-     * Initialize content directory structure
-     * @returns {Promise<boolean>} - True if successful
-     */
-    async initializeContentStructure() {
-        try {
-            // Check if content directory exists
-            const contentExists = await this.githubIntegration.getContent(this.githubIntegration.contentPath);
-            
-            if (!contentExists) {
-                // Create content directory with initial files
-                const initialContent = this.defaultContent;
-                
-                await this.saveAllContent(initialContent);
-                console.log('Content directory structure initialized');
-            }
-            
-            return true;
-        } catch (error) {
-            console.error('Error initializing content structure:', error);
             return false;
         }
     }
 
-    /**
-     * Export content to JSON file
-     * @param {Object} data - Content data to export
-     * @param {string} filename - Export filename
-     */
-    exportContent(data, filename = 'gwac-content-export.json') {
+    async createContentDirectory() {
         try {
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            // Create a placeholder file to establish the directory
+            const message = `Initialize content directory - ${new Date().toISOString()}`;
+            const placeholder = { initialized: true, timestamp: new Date().toISOString() };
+            await this.saveContentData('', '.gitkeep', placeholder, message);
+            return true;
         } catch (error) {
-            console.error('Error exporting content:', error);
+            console.error('Error creating content directory:', error);
+            return false;
+        }
+    }
+
+    async exportAllContent() {
+        try {
+            const content = {
+                hero: await this.loadHeroContent(),
+                schedule: await this.loadSchedule(),
+                facilitators: await this.loadFacilitators(),
+                categories: await this.loadCategories(),
+                navigation: await this.loadNavigation(),
+                contact: await this.loadContact(),
+                resources: await this.loadResources()
+            };
+            
+            return content;
+        } catch (error) {
+            console.error('Error exporting all content:', error);
             throw error;
         }
     }
 
-    /**
-     * Import content from JSON file
-     * @param {File} file - JSON file to import
-     * @returns {Promise<Object>} - Parsed content data
-     */
-    async importContent(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
+    async importContent(contentData) {
+        try {
+            const results = [];
             
-            reader.onload = (e) => {
-                try {
-                    const content = JSON.parse(e.target.result);
-                    resolve(content);
-                } catch (error) {
-                    reject(new Error('Invalid JSON file'));
-                }
-            };
+            if (contentData.hero) {
+                results.push(await this.saveHeroContent(contentData.hero));
+            }
+            if (contentData.schedule) {
+                results.push(await this.saveSchedule(contentData.schedule));
+            }
+            if (contentData.facilitators) {
+                results.push(await this.saveFacilitators(contentData.facilitators));
+            }
+            if (contentData.categories) {
+                results.push(await this.saveCategories(contentData.categories));
+            }
+            if (contentData.navigation) {
+                results.push(await this.saveNavigation(contentData.navigation));
+            }
+            if (contentData.contact) {
+                results.push(await this.saveContact(contentData.contact));
+            }
+            if (contentData.resources) {
+                results.push(await this.saveResources(contentData.resources));
+            }
             
-            reader.onerror = () => {
-                reject(new Error('Error reading file'));
-            };
-            
-            reader.readAsText(file);
-        });
-    }
-
-    /**
-     * Validate content structure
-     * @param {Object} content - Content to validate
-     * @returns {Object} - Validation result
-     */
-    validateContent(content) {
-        const errors = [];
-        const warnings = [];
-        
-        // Check required sections
-        const requiredSections = ['hero', 'schedule', 'facilitators', 'categories', 'navigation', 'contact', 'resources'];
-        
-        requiredSections.forEach(section => {
-            if (!content[section]) {
-                errors.push(`Missing required section: ${section}`);
-            }
-        });
-        
-        // Validate hero section
-        if (content.hero) {
-            if (!content.hero.title) {
-                errors.push('Hero section missing title');
-            }
-            if (!content.hero.stats) {
-                warnings.push('Hero section missing statistics');
-            }
+            return results;
+        } catch (error) {
+            console.error('Error importing content:', error);
+            throw error;
         }
-        
-        // Validate facilitators
-        if (content.facilitators && Array.isArray(content.facilitators)) {
-            content.facilitators.forEach((facilitator, index) => {
-                if (!facilitator.name) {
-                    errors.push(`Facilitator ${index + 1} missing name`);
-                }
-                if (!facilitator.institution) {
-                    warnings.push(`Facilitator ${index + 1} missing institution`);
-                }
-            });
-        }
-        
-        return {
-            isValid: errors.length === 0,
-            errors,
-            warnings
-        };
     }
 }
