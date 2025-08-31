@@ -5266,21 +5266,22 @@ a.toc-item {
 
 .workflow-steps {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-4);
+    flex-direction: column;
+    gap: var(--spacing-5);
     margin: var(--spacing-6) 0;
 }
 
 .workflow-steps .workflow-step {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
     background: var(--background-primary);
-    padding: var(--spacing-4);
+    padding: var(--spacing-5);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-light);
     transition: var(--transition-fast);
+    gap: var(--spacing-5);
+    width: 100%;
 }
 
 .workflow-steps .workflow-step:hover {
@@ -5290,8 +5291,8 @@ a.toc-item {
 }
 
 .workflow-steps .step-number {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background: var(--primary-color);
     color: white;
     border-radius: 50%;
@@ -5299,20 +5300,29 @@ a.toc-item {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+    margin-top: var(--spacing-1);
+}
+
+.workflow-steps .step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .workflow-steps .step-content h5 {
     color: var(--primary-color);
-    margin-bottom: var(--spacing-2);
-    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
 }
 
 .workflow-steps .step-content p {
     color: var(--text-secondary);
-    font-size: var(--font-size-sm);
-    line-height: 1.4;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-3);
 }
 
 .workflow-steps .step-icon {
@@ -6167,13 +6177,23 @@ a.toc-item {
 /* Responsive design for workflow-steps */
 @media (max-width: 768px) {
     .workflow-steps {
-        flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--spacing-4);
     }
     
     .workflow-steps .workflow-step {
-        max-width: 100%;
-        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--spacing-4);
+    }
+    
+    .workflow-steps .step-number {
+        margin-bottom: var(--spacing-3);
+        margin-top: 0;
+    }
+    
+    .workflow-steps .step-content {
+        align-items: center;
     }
     
     .workflow-arrow {
