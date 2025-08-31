@@ -731,9 +731,8 @@ git push origin main</code></pre>
                             
                             <div class="setup-steps">
                                 <ol>
-                                    <li><strong>Fork the Repository:</strong> <code>https://github.com/VincentSD/GWAC-MPPR</code></li>
-                                    <li><strong>Navigate to Exercise Directory:</strong> <code>student-exercises/team-directory/</code></li>
-                                    <li><strong>Clone Your Fork:</strong> Work on your local copy</li>
+                                    <li><strong>Fork the Exercise Repository:</strong> <code>https://github.com/VincentSD/team-collaboration-exercise</code></li>
+                                    <li><strong>Clone Your Fork:</strong> <code>git clone https://github.com/[your-username]/team-collaboration-exercise.git</code></li>
                                     <li><strong>Create Your Branch:</strong> <code>git checkout -b add-[your-name]</code></li>
                                 </ol>
                             </div>
@@ -751,11 +750,10 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">1</div>
                                     <div class="step-content">
-                                        <h5>📁 Fork & Clone</h5>
-                                        <p>Each team member forks the repository and clones their copy locally.</p>
+                                        <h5>🍴 Fork & Clone</h5>
+                                        <p>Fork the exercise repository and clone it to your computer.</p>
                                         <div class="code-block">
-                                            <code>git clone https://github.com/[your-username]/GWAC-MPPR.git<br>
-                                            cd GWAC-MPPR/student-exercises/team-directory</code>
+                                            <code>git clone https://github.com/[your-username]/team-collaboration-exercise.git</code>
                                         </div>
                                     </div>
                                 </div>
@@ -763,11 +761,11 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">2</div>
                                     <div class="step-content">
-                                        <h5>🌿 Create Your Branch</h5>
-                                        <p>Create a branch named after yourself to track your contribution.</p>
-                                        <div class="code-block">
-                                            <code>git checkout -b add-[your-name]<br>
-                                            # Example: git checkout -b add-sarah-chen</code>
+                                        <h5>✏️ Add Your Name</h5>
+                                        <p>Edit README.md and add your name to the team list.</p>
+                                        <div class="task-example">
+                                            <strong>Simple format:</strong><br>
+                                            <code>- **[Your Name]** - [Your Institution/Role]</code>
                                         </div>
                                     </div>
                                 </div>
@@ -775,17 +773,12 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">3</div>
                                     <div class="step-content">
-                                        <h5>✏️ Add Your Info</h5>
-                                        <p>Edit the README.md file to add your details in the Team Members section.</p>
-                                        <div class="task-example">
-                                            <strong>Add this format:</strong><br>
-                                            <code>
-                                            ### [Your Name]<br>
-                                            - **Role:** [Research interest/specialty]<br>
-                                            - **Institution:** [Your university/organization]<br>
-                                            - **Fun Fact:** [Something interesting about you]<br>
-                                            - **Git Status:** Learning collaborative workflows! 🚀
-                                            </code>
+                                        <h5>💾 Save & Submit</h5>
+                                        <p>Commit your changes and create a pull request.</p>
+                                        <div class="code-block">
+                                            <code>git add README.md<br>
+                                            git commit -m "Add my name to team"<br>
+                                            git push</code>
                                         </div>
                                     </div>
                                 </div>
@@ -793,37 +786,10 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">4</div>
                                     <div class="step-content">
-                                        <h5>💾 Commit & Push</h5>
-                                        <p>Commit your changes and push to your fork.</p>
-                                        <div class="code-block">
-                                            <code>git add README.md<br>
-                                            git commit -m "Add [Your Name] to team directory"<br>
-                                            git push origin add-[your-name]</code>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="workflow-step">
-                                    <div class="step-number">5</div>
-                                    <div class="step-content">
-                                        <h5>🔄 Create Pull Request</h5>
-                                        <p>Submit a pull request to the original repository to propose your changes.</p>
+                                        <h5>⚔️ Resolve Conflicts</h5>
+                                        <p>When others also add their names, you'll get conflicts to practice resolving!</p>
                                         <div class="pro-tip">
-                                            <strong>Pro Tip:</strong> Include a descriptive PR title like "Add Sarah Chen to research team directory"
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="workflow-step">
-                                    <div class="step-number">6</div>
-                                    <div class="step-content">
-                                        <h5>⚔️ Handle Conflicts</h5>
-                                        <p>When multiple people edit the same file, conflicts will arise. Learn to resolve them!</p>
-                                        <div class="code-block">
-                                            <code>git pull upstream main<br>
-                                            # Fix conflicts in README.md<br>
-                                            git add README.md<br>
-                                            git commit -m "Resolve merge conflict"</code>
+                                            <strong>Learning Goal:</strong> Experience merge conflicts in a safe, simple environment
                                         </div>
                                     </div>
                                 </div>
