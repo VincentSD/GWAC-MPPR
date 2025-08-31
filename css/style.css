@@ -806,6 +806,32 @@ a.toc-item {
     float: right !important;
 }
 
+/* Force line breaks between TOC items */
+.toc-item::after {
+    content: '' !important;
+    display: block !important;
+    clear: both !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Additional force for line breaks */
+.toc-grid > * {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    clear: both !important;
+    float: none !important;
+}
+
+.toc-grid > a {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    clear: both !important;
+    float: none !important;
+}
+
 .toc-item:hover .toc-time {
     transform: scale(1.05) !important;
     box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3) !important;
@@ -852,7 +878,7 @@ a.toc-item {
 }
 
 .toc-grid a {
-    display: flex !important;
+    display: block !important;
     width: 100% !important;
 }
 
@@ -861,7 +887,7 @@ a.toc-item {
 .toc-grid > div {
     display: block !important;
     width: 100% !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 15px !important;
 }
 
 /* Override any inline display issues */
@@ -869,11 +895,11 @@ a.toc-item {
 .toc-grid .toc-item,
 .toc-grid > a,
 .toc-grid > .toc-item {
-    display: flex !important;
+    display: block !important;
     width: 100% !important;
     float: none !important;
     clear: both !important;
-    margin: 0 !important;
+    margin-bottom: 15px !important;
 }
 
 /* Force grid items to be block-level */
@@ -882,7 +908,7 @@ a.toc-item {
     width: 100% !important;
     float: none !important;
     clear: both !important;
-    margin: 0 !important;
+    margin-bottom: 15px !important;
 }
 
 .toc-item {
