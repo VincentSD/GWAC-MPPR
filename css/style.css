@@ -630,7 +630,7 @@ main {
 .command-output code {
     background: #4a5568;
 
-/* Table of Contents - Complete Rewrite */
+/* Table of Contents - Simple Approach */
 .toc-section {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
     border-radius: 24px !important;
@@ -642,6 +642,31 @@ main {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+}
+
+/* Simple TOC styling */
+.toc-simple {
+    padding: 20px !important;
+}
+
+.toc-simple-item {
+    display: inline-block !important;
+    padding: 8px 15px !important;
+    background: white !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    margin: 5px 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.toc-simple-item:hover {
+    background: #f8fafc !important;
+    border-color: #48bb78 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(72, 187, 120, 0.15) !important;
 }
 
 .toc-section h2 {
