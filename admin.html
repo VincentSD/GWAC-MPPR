@@ -28,6 +28,9 @@
                 <span class="admin-logo-text">G-WAC Admin Panel</span>
             </div>
             <div class="admin-actions">
+                <button class="btn btn-outline" onclick="adminManager.showHelp()">
+                    <i class="fas fa-question-circle"></i> Help
+                </button>
                 <button class="btn btn-secondary" onclick="adminManager.goToMainSite()">
                     <i class="fas fa-external-link-alt"></i> View Main Site
                 </button>
@@ -133,6 +136,36 @@
                     <button class="btn btn-secondary" onclick="adminManager.exportAllContent()">
                         <i class="fas fa-download"></i> Export All Content
                     </button>
+                </div>
+                
+                <div class="quick-actions">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" onclick="adminManager.quickAddFacilitator()">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Add Facilitator</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="adminManager.quickAddSession()">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>Add Session</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="adminManager.quickAddMaterial()">
+                            <i class="fas fa-book-medical"></i>
+                            <span>Add Material</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="adminManager.quickAddResource()">
+                            <i class="fas fa-link"></i>
+                            <span>Add Resource</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="adminManager.quickViewStats()">
+                            <i class="fas fa-chart-line"></i>
+                            <span>View Stats</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="adminManager.quickBackup()">
+                            <i class="fas fa-database"></i>
+                            <span>Backup Data</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="dashboard-analytics">
@@ -390,6 +423,64 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> Admin Panel Help</h3>
+                <button class="modal-close" onclick="adminManager.hideHelp()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h4>
+                    <div class="shortcuts-grid">
+                        <div class="shortcut-item">
+                            <kbd>Ctrl/Cmd + S</kbd>
+                            <span>Save all changes</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl/Cmd + K</kbd>
+                            <span>Go to dashboard</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl/Cmd + F</kbd>
+                            <span>Search in current section</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Esc</kbd>
+                            <span>Close modal/cancel action</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <h4><i class="fas fa-lightbulb"></i> Tips & Tricks</h4>
+                    <ul class="tips-list">
+                        <li>Use the Quick Actions panel for common tasks</li>
+                        <li>All changes are automatically saved to localStorage</li>
+                        <li>Use the search and filter controls in each section</li>
+                        <li>Export your content regularly for backup</li>
+                        <li>Check the analytics dashboard for insights</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4><i class="fas fa-cog"></i> Features</h4>
+                    <ul class="features-list">
+                        <li><strong>Content Management:</strong> Edit hero section, schedule, facilitators, and more</li>
+                        <li><strong>Search & Filter:</strong> Find content quickly with advanced search</li>
+                        <li><strong>Analytics:</strong> View data insights and statistics</li>
+                        <li><strong>Bulk Actions:</strong> Manage multiple items at once</li>
+                        <li><strong>Export/Import:</strong> Backup and restore your content</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="adminManager.hideHelp()">Got it!</button>
             </div>
         </div>
     </div>

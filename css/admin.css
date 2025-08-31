@@ -241,6 +241,80 @@ body {
     justify-content: center;
 }
 
+/* Quick Actions */
+.quick-actions {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+}
+
+.quick-actions h3 {
+    margin: 0 0 1.5rem 0;
+    color: var(--admin-text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quick-actions h3 i {
+    color: var(--admin-accent);
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    background: var(--admin-bg-primary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    color: var(--admin-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--admin-transition);
+    text-decoration: none;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--admin-accent);
+    color: var(--admin-accent);
+    background: var(--admin-bg-tertiary);
+    box-shadow: var(--admin-shadow-lg);
+}
+
+.quick-action-btn i {
+    font-size: 1.5rem;
+    color: var(--admin-accent);
+}
+
+.quick-action-btn span {
+    text-align: center;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-action-btn {
+        padding: 1rem 0.75rem;
+    }
+}
+
 /* Dashboard Analytics */
 .dashboard-analytics {
     margin-top: 2rem;
@@ -1466,6 +1540,68 @@ body {
         min-width: auto;
         flex: 1;
     }
+}
+
+/* Help Modal Styling */
+.help-section {
+    margin-bottom: 2rem;
+}
+
+.help-section h4 {
+    color: var(--admin-accent);
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--admin-bg-secondary);
+    border-radius: var(--admin-radius);
+    border: 1px solid var(--admin-border);
+}
+
+.shortcut-item kbd {
+    background: var(--admin-bg-tertiary);
+    border: 1px solid var(--admin-border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--admin-accent);
+    font-weight: 600;
+}
+
+.tips-list, .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tips-list li, .features-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--admin-border);
+    color: var(--admin-text-secondary);
+}
+
+.tips-list li:last-child, .features-list li:last-child {
+    border-bottom: none;
+}
+
+.features-list li strong {
+    color: var(--admin-text-primary);
 }
 
 /* Checkbox Styling */

@@ -144,7 +144,34 @@ class AdminManager {
                 e.preventDefault();
                 this.switchSection('dashboard');
             }
+            
+            // Ctrl/Cmd + F to search in current section
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                this.focusSearchInCurrentSection();
+            }
+            
+            // Esc to close modals
+            if (e.key === 'Escape') {
+                this.closeAllModals();
+            }
         });
+    }
+
+    focusSearchInCurrentSection() {
+        const activeSection = document.querySelector('.admin-section.active');
+        if (!activeSection) return;
+        
+        const searchInput = activeSection.querySelector('input[type="text"], input[placeholder*="search"], input[placeholder*="Search"]');
+        if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+        }
+    }
+
+    closeAllModals() {
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => modal.classList.remove('active'));
     }
 
     switchSection(sectionName) {
@@ -307,6 +334,68 @@ class AdminManager {
                 </div>
             </div>
         `;
+    }
+
+    // Quick Actions
+    quickAddFacilitator() {
+        this.switchSection('facilitators');
+        setTimeout(() => {
+            this.addNewFacilitator();
+        }, 100);
+    }
+
+    quickAddSession() {
+        this.switchSection('schedule');
+        setTimeout(() => {
+            this.addNewDay();
+        }, 100);
+    }
+
+    quickAddMaterial() {
+        this.switchSection('course-materials');
+        setTimeout(() => {
+            this.addNewCategory();
+        }, 100);
+    }
+
+    quickAddResource() {
+        this.switchSection('resources');
+        setTimeout(() => {
+            this.addNewResource();
+        }, 100);
+    }
+
+    quickViewStats() {
+        // Toggle analytics visibility
+        const analytics = document.querySelector('.dashboard-analytics');
+        if (analytics) {
+            analytics.style.display = analytics.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+
+    async quickBackup() {
+        try {
+            this.notificationSystem.show('info', 'Backup', 'Creating backup of all content...');
+            await this.exportAllContent();
+            this.notificationSystem.show('success', 'Backup Complete', 'All content has been exported successfully!');
+        } catch (error) {
+            this.notificationSystem.show('error', 'Backup Failed', 'Failed to create backup: ' + error.message);
+        }
+    }
+
+    // Help System
+    showHelp() {
+        const helpModal = document.getElementById('help-modal');
+        if (helpModal) {
+            helpModal.classList.add('active');
+        }
+    }
+
+    hideHelp() {
+        const helpModal = document.getElementById('help-modal');
+        if (helpModal) {
+            helpModal.classList.remove('active');
+        }
     }
 
     async loadHeroContent() {
