@@ -1030,6 +1030,7 @@ class GitFileManager {
     async fetchFilesFromRepositoryPublic() {
         try {
             console.log('Fetching files from repository for public access...');
+            console.log('Repository:', this.repoOwner, this.repoName);
             
             // Clear existing files to prevent duplicates
             this.files.clear();
@@ -1043,16 +1044,22 @@ class GitFileManager {
                 }
             });
 
+            console.log('GitHub API response status:', contentsResponse.status);
+            console.log('GitHub API response ok:', contentsResponse.ok);
+
             if (!contentsResponse.ok) {
                 throw new Error(`Failed to fetch repository contents: ${contentsResponse.status}`);
             }
 
             const contents = await contentsResponse.json();
             console.log('Repository contents:', contents);
+            console.log('Contents type:', typeof contents);
+            console.log('Contents length:', Array.isArray(contents) ? contents.length : 'Not an array');
 
             // Process the contents recursively to find all files
             await this.processGitHubContentsPublic(contents);
 
+            console.log('Total files loaded:', this.files.size);
             this.showNotification(`✅ Loaded course materials for public access`, 'success');
             this.renderFiles();
 
@@ -1071,32 +1078,59 @@ class GitFileManager {
     }
 
     async processGitHubContentsPublic(contents) {
-        for (const item of contents) {
-            if (item.type === 'file') {
-                // This is a file in the course-materials directory
-                await this.processRepositoryFile({
-                    path: item.path,
-                    size: item.size,
-                    sha: item.sha,
-                    name: item.name
-                });
-            } else if (item.type === 'dir') {
-                // This is a subdirectory, fetch its contents
+        try {
+            console.log('Processing contents:', contents);
+            console.log('Contents is array:', Array.isArray(contents));
+            
+            if (!Array.isArray(contents)) {
+                console.error('Contents is not an array:', contents);
+                return;
+            }
+            
+            for (const item of contents) {
                 try {
-                    const subContentsResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/${item.path}`, {
-                        headers: {
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
+                    console.log('Processing item:', item);
+                    console.log('Item type:', item.type);
                     
-                    if (subContentsResponse.ok) {
-                        const subContents = await subContentsResponse.json();
-                        await this.processGitHubContentsPublic(subContents);
+                    if (item.type === 'file') {
+                        // This is a file in the course-materials directory
+                        console.log('Processing file:', item.name);
+                        await this.processRepositoryFile({
+                            path: item.path,
+                            size: item.size,
+                            sha: item.sha,
+                            name: item.name
+                        });
+                    } else if (item.type === 'dir') {
+                        // This is a subdirectory, fetch its contents
+                        console.log('Processing directory:', item.path);
+                        try {
+                            const subContentsResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/${item.path}`, {
+                                headers: {
+                                    'Accept': 'application/vnd.github.v3+json'
+                                }
+                            });
+                            
+                            if (subContentsResponse.ok) {
+                                const subContents = await subContentsResponse.json();
+                                console.log('Subdirectory contents:', subContents);
+                                await this.processGitHubContentsPublic(subContents);
+                            } else {
+                                console.error(`Failed to fetch subdirectory ${item.path}: ${subContentsResponse.status}`);
+                            }
+                        } catch (error) {
+                            console.error(`Error fetching subdirectory ${item.path}:`, error);
+                        }
+                    } else {
+                        console.log('Unknown item type:', item.type);
                     }
                 } catch (error) {
-                    console.error(`Error fetching subdirectory ${item.path}:`, error);
+                    console.error('Error processing item:', item, error);
                 }
             }
+        } catch (error) {
+            console.error('Error in processGitHubContentsPublic:', error);
+            throw error;
         }
     }
 
