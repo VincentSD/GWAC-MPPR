@@ -78,8 +78,14 @@ class GitFileManager {
             this.githubToken = storedToken;
             document.getElementById('github-token').value = storedToken;
             this.showNotification('✅ GitHub connected successfully! You can now upload and edit files.', 'success');
+            
+            // Show admin link for authenticated users
+            this.showAdminLink();
         } else {
             this.showNotification('🔑 Students: You can view and download all course materials below. Facilitators: Enter your GitHub token to upload new materials.', 'info');
+            
+            // Hide admin link for unauthenticated users
+            this.hideAdminLink();
         }
 
         // Always load files for everyone to see, regardless of authentication
@@ -2306,6 +2312,21 @@ class GitFileManager {
         this.renderFiles();
         
         this.showNotification('✅ All filters cleared', 'success');
+    }
+
+    // Admin Link Management
+    showAdminLink() {
+        const adminLink = document.getElementById('admin-link');
+        if (adminLink) {
+            adminLink.style.display = 'flex';
+        }
+    }
+
+    hideAdminLink() {
+        const adminLink = document.getElementById('admin-link');
+        if (adminLink) {
+            adminLink.style.display = 'none';
+        }
     }
 }
 

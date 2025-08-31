@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-WAC Admin Panel - Content Management</title>
+    <meta name="description" content="Admin panel for managing G-WAC Summer School content">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/admin.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/g-wac-favicon.jpg">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <div class="admin-logo">
+                <img src="images/g-wac-logo.png" alt="G-WAC Logo" class="admin-logo-img">
+                <span class="admin-logo-text">G-WAC Admin Panel</span>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="adminManager.goToMainSite()">
+                    <i class="fas fa-external-link-alt"></i> View Main Site
+                </button>
+                <button class="btn btn-primary" onclick="adminManager.saveAllChanges()">
+                    <i class="fas fa-save"></i> Save All Changes
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <ul class="admin-nav-menu">
+                <li><a href="#dashboard" class="admin-nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#hero-content" class="admin-nav-link" data-section="hero-content">
+                    <i class="fas fa-home"></i> Hero Section
+                </a></li>
+                <li><a href="#schedule" class="admin-nav-link" data-section="schedule">
+                    <i class="fas fa-calendar-alt"></i> Program Schedule
+                </a></li>
+                <li><a href="#facilitators" class="admin-nav-link" data-section="facilitators">
+                    <i class="fas fa-chalkboard-teacher"></i> Course Facilitators
+                </a></li>
+                <li><a href="#course-materials" class="admin-nav-link" data-section="course-materials">
+                    <i class="fas fa-book"></i> Course Materials
+                </a></li>
+                <li><a href="#navigation" class="admin-nav-link" data-section="navigation">
+                    <i class="fas fa-bars"></i> Navigation Menu
+                </a></li>
+                <li><a href="#contact-info" class="admin-nav-link" data-section="contact-info">
+                    <i class="fas fa-address-book"></i> Contact Information
+                </a></li>
+                <li><a href="#resources" class="admin-nav-link" data-section="resources">
+                    <i class="fas fa-link"></i> Resources & Links
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Admin Content -->
+    <main class="admin-main">
+        <div class="admin-container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+                    <p>Welcome to the G-WAC Content Management System</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Course Facilitators</h3>
+                            <p class="card-number" id="facilitators-count">Loading...</p>
+                            <p class="card-description">Manage instructor information</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Program Sessions</h3>
+                            <p class="card-number" id="sessions-count">Loading...</p>
+                            <p class="card-description">Update schedule and content</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Course Materials</h3>
+                            <p class="card-number" id="materials-count">Loading...</p>
+                            <p class="card-description">Manage learning resources</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Resources</h3>
+                            <p class="card-number" id="resources-count">Loading...</p>
+                            <p class="card-description">Update external links</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-actions">
+                    <button class="btn btn-primary" onclick="adminManager.refreshAllContent()">
+                        <i class="fas fa-sync-alt"></i> Refresh All Content
+                    </button>
+                    <button class="btn btn-secondary" onclick="adminManager.exportAllContent()">
+                        <i class="fas fa-download"></i> Export All Content
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hero Content Section -->
+            <section id="hero-content" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-home"></i> Hero Section Content</h2>
+                    <p>Manage the main landing page content and statistics</p>
+                </div>
+                
+                <div class="content-form">
+                    <div class="form-group">
+                        <label for="hero-title">Main Title</label>
+                        <input type="text" id="hero-title" placeholder="G-WAC Summer School 2025">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero-subtitle">Subtitle</label>
+                        <textarea id="hero-subtitle" rows="3" placeholder="Program description..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero-dates">Program Dates</label>
+                        <input type="text" id="hero-dates" placeholder="September 1-10, 2025">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero-location">Location</label>
+                        <input type="text" id="hero-location" placeholder="KNUST, Kumasi, Ghana">
+                    </div>
+                    
+                    <div class="stats-section">
+                        <h3>Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-input">
+                                <label for="stat-days">Days</label>
+                                <input type="number" id="stat-days" min="1" max="30">
+                            </div>
+                            <div class="stat-input">
+                                <label for="stat-hours">Hours</label>
+                                <input type="number" id="stat-hours" min="1" max="200">
+                            </div>
+                            <div class="stat-input">
+                                <label for="stat-modules">Learning Modules</label>
+                                <input type="number" id="stat-modules" min="1" max="20">
+                            </div>
+                            <div class="stat-input">
+                                <label for="stat-experts">Experts</label>
+                                <input type="number" id="stat-experts" min="1" max="50">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="adminManager.saveHeroContent()">
+                            <i class="fas fa-save"></i> Save Hero Content
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.resetHeroContent()">
+                            <i class="fas fa-undo"></i> Reset to Default
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schedule Section -->
+            <section id="schedule" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Program Schedule</h2>
+                    <p>Manage the 9-day program schedule and session details</p>
+                </div>
+                
+                <div class="schedule-manager">
+                    <div class="schedule-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewDay()">
+                            <i class="fas fa-plus"></i> Add New Day
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.importSchedule()">
+                            <i class="fas fa-upload"></i> Import Schedule
+                        </button>
+                    </div>
+                    
+                    <div class="schedule-days" id="schedule-days">
+                        <!-- Days will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Facilitators Section -->
+            <section id="facilitators" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chalkboard-teacher"></i> Course Facilitators</h2>
+                    <p>Manage instructor information, expertise, and contact details</p>
+                </div>
+                
+                <div class="facilitators-manager">
+                    <div class="facilitators-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewFacilitator()">
+                            <i class="fas fa-plus"></i> Add New Facilitator
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.importFacilitators()">
+                            <i class="fas fa-upload"></i> Import Facilitators
+                        </button>
+                    </div>
+                    
+                    <div class="facilitators-list" id="facilitators-list">
+                        <!-- Facilitators will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Course Materials Section -->
+            <section id="course-materials" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book"></i> Course Materials</h2>
+                    <p>Manage course material categories, descriptions, and metadata</p>
+                </div>
+                
+                <div class="materials-manager">
+                    <div class="materials-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewCategory()">
+                            <i class="fas fa-plus"></i> Add New Category
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.manageFileUploads()">
+                            <i class="fas fa-upload"></i> Manage File Uploads
+                        </button>
+                    </div>
+                    
+                    <div class="categories-list" id="categories-list">
+                        <!-- Categories will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Section -->
+            <section id="navigation" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-bars"></i> Navigation Menu</h2>
+                    <p>Manage the main navigation menu items and links</p>
+                </div>
+                
+                <div class="navigation-manager">
+                    <div class="navigation-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewMenuItem()">
+                            <i class="fas fa-plus"></i> Add Menu Item
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.reorderMenu()">
+                            <i class="fas fa-sort"></i> Reorder Menu
+                        </button>
+                    </div>
+                    
+                    <div class="menu-items" id="menu-items">
+                        <!-- Menu items will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information Section -->
+            <section id="contact-info" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-address-book"></i> Contact Information</h2>
+                    <p>Manage contact details, email addresses, and support information</p>
+                </div>
+                
+                <div class="contact-manager">
+                    <div class="contact-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewContact()">
+                            <i class="fas fa-plus"></i> Add New Contact
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.manageEmailProtection()">
+                            <i class="fas fa-shield-alt"></i> Email Protection
+                        </button>
+                    </div>
+                    
+                    <div class="contact-list" id="contact-list">
+                        <!-- Contact information will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section id="resources" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-link"></i> Resources & Links</h2>
+                    <p>Manage external resources, links, and reference materials</p>
+                </div>
+                
+                <div class="resources-manager">
+                    <div class="resources-actions">
+                        <button class="btn btn-primary" onclick="adminManager.addNewResource()">
+                            <i class="fas fa-plus"></i> Add New Resource
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.importResources()">
+                            <i class="fas fa-upload"></i> Import Resources
+                        </button>
+                    </div>
+                    
+                    <div class="resources-list" id="resources-list">
+                        <!-- Resources will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- GitHub Authentication Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>GitHub Authentication Required</h3>
+                <button class="modal-close" onclick="adminManager.hideAuthModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>You need to authenticate with GitHub to access the admin panel.</p>
+                <div class="auth-form">
+                    <div class="form-group">
+                        <label for="github-token">GitHub Personal Access Token</label>
+                        <input type="password" id="github-token" placeholder="Enter your GitHub token">
+                        <small>This token will be stored locally and used for content management operations.</small>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="adminManager.authenticate()">
+                            <i class="fas fa-key"></i> Authenticate
+                        </button>
+                        <button class="btn btn-secondary" onclick="adminManager.hideAuthModal()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/admin/admin-manager.js"></script>
+    <script src="js/admin/content-loader.js"></script>
+    <script src="js/admin/schedule-manager.js"></script>
+    <script src="js/admin/facilitators-manager.js"></script>
+    <script src="js/admin/materials-manager.js"></script>
+    <script src="js/admin/navigation-manager.js"></script>
+    <script src="js/admin/contact-manager.js"></script>
+    <script src="js/admin/resources-manager.js"></script>
+    <script src="js/admin/github-integration.js"></script>
+    <script src="js/admin/notification-system.js"></script>
+    
+    <script>
+        // Initialize admin system when DOM is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            window.adminManager = new AdminManager();
+            await adminManager.init();
+        });
+    </script>
+</body>
+</html>
