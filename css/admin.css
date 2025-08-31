@@ -325,10 +325,10 @@ body {
 .form-actions {
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
+    justify-content: flex-end;
     padding-top: 1.5rem;
     border-top: 1px solid var(--admin-border);
+    margin-top: 2rem;
 }
 
 /* Buttons */
@@ -1038,4 +1038,231 @@ body {
         margin-top: 1rem;
         justify-content: flex-end;
     }
+}
+
+/* Facilitators Manager - Enhanced Styling */
+.facilitators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.facilitator-card {
+    background: var(--admin-bg-primary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    overflow: hidden;
+    transition: var(--admin-transition);
+    box-shadow: var(--admin-shadow);
+    position: relative;
+}
+
+.facilitator-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--admin-shadow-lg);
+    border-color: var(--admin-accent);
+}
+
+.facilitator-avatar {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--admin-bg-tertiary) 0%, var(--admin-bg-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.facilitator-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--admin-transition);
+}
+
+.facilitator-card:hover .facilitator-avatar img {
+    transform: scale(1.05);
+}
+
+.facilitator-info {
+    padding: 1.5rem;
+}
+
+.facilitator-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--admin-text-primary);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.facilitator-info .title {
+    color: var(--admin-accent);
+    font-weight: 500;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.facilitator-info .institution {
+    color: var(--admin-text-secondary);
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.facilitator-info .expertise {
+    color: var(--admin-text-secondary);
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.facilitator-info .country {
+    color: var(--admin-text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.facilitator-info .country::before {
+    content: '🌍';
+    font-size: 1rem;
+}
+
+.facilitator-actions {
+    padding: 1rem 1.5rem;
+    background: var(--admin-bg-tertiary);
+    border-top: 1px solid var(--admin-border);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.facilitator-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: var(--admin-radius);
+    transition: var(--admin-transition);
+}
+
+.facilitator-actions .btn-outline {
+    border: 1px solid var(--admin-border);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-secondary);
+}
+
+.facilitator-actions .btn-outline:hover {
+    border-color: var(--admin-accent);
+    color: var(--admin-accent);
+    background: var(--admin-bg-secondary);
+}
+
+.facilitator-actions .btn-danger {
+    background: var(--admin-error);
+    color: white;
+    border: 1px solid var(--admin-error);
+}
+
+.facilitator-actions .btn-danger:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Add Facilitator Section */
+.add-facilitator-section {
+    text-align: center;
+    padding: 2rem;
+    background: var(--admin-bg-secondary);
+    border: 2px dashed var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    transition: var(--admin-transition);
+}
+
+.add-facilitator-section:hover {
+    border-color: var(--admin-accent);
+    background: var(--admin-bg-tertiary);
+}
+
+.add-facilitator-section .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Facilitator Status Indicators */
+.facilitator-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.facilitator-status.active {
+    background: var(--admin-success);
+}
+
+.facilitator-status.inactive {
+    background: var(--admin-text-muted);
+}
+
+/* Facilitator Specialties */
+.facilitator-specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.specialty-tag {
+    background: var(--admin-accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Responsive Facilitators */
+@media (max-width: 768px) {
+    .facilitators-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .facilitator-card {
+        margin-bottom: 1rem;
+    }
+    
+    .facilitator-avatar {
+        height: 150px;
+    }
+}
+
+/* Add Facilitator Content */
+.add-facilitator-content {
+    text-align: center;
+}
+
+.add-facilitator-content h3 {
+    color: var(--admin-text-primary);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.add-facilitator-content p {
+    color: var(--admin-text-secondary);
+    margin: 0 0 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }

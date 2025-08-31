@@ -241,7 +241,19 @@ class FacilitatorsManager {
         const card = document.createElement('div');
         card.className = 'facilitator-card';
         
+        // Create status indicator
+        const statusIndicator = document.createElement('div');
+        statusIndicator.className = `facilitator-status ${facilitator.isActive ? 'active' : 'inactive'}`;
+        statusIndicator.title = facilitator.isActive ? 'Active' : 'Inactive';
+        
+        // Create specialties tags
+        const specialtiesHTML = facilitator.specialties ? 
+            facilitator.specialties.map(specialty => 
+                `<span class="specialty-tag">${specialty}</span>`
+            ).join('') : '';
+        
         card.innerHTML = `
+            ${statusIndicator.outerHTML}
             <div class="facilitator-avatar">
                 <img src="${facilitator.avatar}" alt="${facilitator.name}" onerror="this.src='images/facilitators/placeholder.svg';">
             </div>
@@ -251,6 +263,7 @@ class FacilitatorsManager {
                 <p class="institution">${facilitator.institution}</p>
                 <p class="expertise">${facilitator.expertise}</p>
                 <p class="country">${facilitator.country}</p>
+                ${specialtiesHTML ? `<div class="facilitator-specialties">${specialtiesHTML}</div>` : ''}
             </div>
             <div class="facilitator-actions">
                 <button class="btn btn-sm btn-outline" onclick="adminManager.editFacilitator('${facilitator.id}')">
@@ -269,9 +282,14 @@ class FacilitatorsManager {
         const section = document.createElement('div');
         section.className = 'add-facilitator-section';
         section.innerHTML = `
-            <button class="btn btn-primary btn-large" onclick="adminManager.addNewFacilitator()">
-                <i class="fas fa-plus"></i> Add New Facilitator
-            </button>
+            <div class="add-facilitator-content">
+                <i class="fas fa-plus-circle" style="font-size: 3rem; color: var(--admin-accent); margin-bottom: 1rem;"></i>
+                <h3>Add New Facilitator</h3>
+                <p>Click the button below to add a new course facilitator to the program.</p>
+                <button class="btn btn-primary btn-large" onclick="adminManager.addNewFacilitator()">
+                    <i class="fas fa-plus"></i> Add New Facilitator
+                </button>
+            </div>
         `;
         return section;
     }
