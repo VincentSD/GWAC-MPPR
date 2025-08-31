@@ -694,195 +694,230 @@ git push origin main</code></pre>
                     <h2>🤝 Exercise 2: Team Collaboration Challenge</h2>
                     
                     <div class="collaborative-exercise">
-                        <h3>🌍 Project: Global Disease Surveillance System</h3>
-                        <p>Now for the real challenge! Work as a team to build a comprehensive disease modeling toolkit that could support real-world public health decisions. This exercise simulates how epidemiologists collaborate on urgent research projects.</p>
+                        <h3>👥 Project: Research Team Directory</h3>
+                        <p>Master the fundamentals of collaborative Git workflows through a simple but powerful exercise. Learn to handle merge conflicts, coordinate with team members, and practice the essential skills needed for any research collaboration.</p>
                         
                         <div class="collaboration-overview">
-                            <div class="team-roles">
-                                <h4>👥 Team Structure (4 people recommended)</h4>
-                                <div class="roles-grid">
-                                    <div class="role-card">
-                                        <div class="role-icon">🦠</div>
-                                        <h5>Disease Modeler</h5>
-                                        <p>Implement core SIR/SEIR models</p>
+                            <div class="exercise-goals">
+                                <h4>🎯 Learning Objectives</h4>
+                                <div class="goals-grid">
+                                    <div class="goal-card">
+                                        <div class="goal-icon">🔀</div>
+                                        <h5>Branching Workflow</h5>
+                                        <p>Clone, branch, commit, and push changes</p>
                                     </div>
-                                    <div class="role-card">
-                                        <div class="role-icon">📊</div>
-                                        <h5>Data Analyst</h5>
-                                        <p>Handle data processing & fitting</p>
+                                    <div class="goal-card">
+                                        <div class="goal-icon">🤝</div>
+                                        <h5>Pull Requests</h5>
+                                        <p>Create PRs and review team contributions</p>
                                     </div>
-                                    <div class="role-card">
-                                        <div class="role-icon">📈</div>
-                                        <h5>Visualization Expert</h5>
-                                        <p>Create charts & dashboards</p>
+                                    <div class="goal-card">
+                                        <div class="goal-icon">⚔️</div>
+                                        <h5>Conflict Resolution</h5>
+                                        <p>Handle merge conflicts like a pro</p>
                                     </div>
-                                    <div class="role-card">
-                                        <div class="role-icon">📚</div>
-                                        <h5>Documentation Lead</h5>
-                                        <p>Maintain docs & tutorials</p>
+                                    <div class="goal-card">
+                                        <div class="goal-icon">📝</div>
+                                        <h5>Team Coordination</h5>
+                                        <p>Communicate effectively through Git</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="exercise-setup">
-                            <h4>Setup Instructions</h4>
-                            <ol>
-                                <li><strong>Fork the Exercise Repository:</strong> <code>https://github.com/VincentSD/GWAC-MPPR/tree/main/student-exercises/collaborative-modeling</code></li>
-                                <li><strong>Clone Your Fork:</strong> Work on your local copy</li>
-                                <li><strong>Create Feature Branch:</strong> Work on your assigned component</li>
-                                <li><strong>Submit Pull Request:</strong> Contribute back to the exercise project</li>
-                            </ol>
+                            <h4>🚀 Getting Started</h4>
+                            <p>Work with your team to collaboratively build a research team directory. This simple exercise focuses on mastering Git collaboration fundamentals.</p>
+                            
+                            <div class="setup-steps">
+                                <ol>
+                                    <li><strong>Fork the Repository:</strong> <code>https://github.com/VincentSD/GWAC-MPPR</code></li>
+                                    <li><strong>Navigate to Exercise Directory:</strong> <code>student-exercises/team-directory/</code></li>
+                                    <li><strong>Clone Your Fork:</strong> Work on your local copy</li>
+                                    <li><strong>Create Your Branch:</strong> <code>git checkout -b add-[your-name]</code></li>
+                                </ol>
+                            </div>
+                            
                             <div class="exercise-note">
-                                <p><strong>Note:</strong> This exercise uses a dedicated sub-directory within the main G-WAC project, ensuring students can collaborate safely without affecting the main course materials.</p>
+                                <p><strong>🎯 Goal:</strong> Each team member adds their information to the shared README, creating intentional conflicts to practice resolution skills!</p>
                             </div>
                         </div>
                         
-                        <div class="exercise-tasks">
-                            <h4>🎯 Role-Based Tasks</h4>
+                        <div class="exercise-workflow">
+                            <h4>📝 The Challenge: Research Team Directory</h4>
+                            <p>Everyone will edit the same README file to add their information, deliberately creating merge conflicts to practice resolution!</p>
                             
-                            <div class="task-list">
-                                <div class="task">
-                                    <h5>🦠 Disease Modeler Tasks</h5>
-                                    <p>Focus on implementing the mathematical foundation:</p>
-                                    <ul>
-                                        <li>Create <code>models/sir_basic.R</code> with clean, commented SIR implementation</li>
-                                        <li>Implement <code>models/seir_extended.R</code> with exposed compartment</li>
-                                        <li>Add parameter validation and error handling</li>
-                                        <li>Create unit tests for model functions</li>
-                                        <li>Document mathematical equations in LaTeX format</li>
-                                    </ul>
-                                    <div class="task-example">
-                                        <strong>Example deliverable:</strong> Working R functions that can simulate disease outbreaks with realistic parameters.
+                            <div class="workflow-steps">
+                                <div class="workflow-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h5>📁 Fork & Clone</h5>
+                                        <p>Each team member forks the repository and clones their copy locally.</p>
+                                        <div class="code-block">
+                                            <code>git clone https://github.com/[your-username]/GWAC-MPPR.git<br>
+                                            cd GWAC-MPPR/student-exercises/team-directory</code>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="task">
-                                    <h5>📊 Data Analyst Tasks</h5>
-                                    <p>Handle data processing and model calibration:</p>
-                                    <ul>
-                                        <li>Create <code>data_processing/clean_data.R</code> for data ingestion</li>
-                                        <li>Implement <code>fitting/parameter_estimation.R</code></li>
-                                        <li>Add data validation and quality checks</li>
-                                        <li>Create sample datasets for testing</li>
-                                        <li>Document data sources and assumptions</li>
-                                    </ul>
-                                    <div class="task-example">
-                                        <strong>Example deliverable:</strong> Scripts that can fit models to real epidemiological data.
+                                <div class="workflow-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h5>🌿 Create Your Branch</h5>
+                                        <p>Create a branch named after yourself to track your contribution.</p>
+                                        <div class="code-block">
+                                            <code>git checkout -b add-[your-name]<br>
+                                            # Example: git checkout -b add-sarah-chen</code>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="task">
-                                    <h5>📈 Visualization Expert Tasks</h5>
-                                    <p>Create compelling and informative visualizations:</p>
-                                    <ul>
-                                        <li>Build <code>visualization/epidemic_plots.R</code> for outbreak curves</li>
-                                        <li>Create interactive dashboards with parameter controls</li>
-                                        <li>Design publication-ready figures</li>
-                                        <li>Add animated visualizations for presentations</li>
-                                        <li>Document plotting functions and examples</li>
-                                    </ul>
-                                    <div class="task-example">
-                                        <strong>Example deliverable:</strong> Beautiful, interactive charts that tell the story of disease transmission.
+                                <div class="workflow-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h5>✏️ Add Your Info</h5>
+                                        <p>Edit the README.md file to add your details in the Team Members section.</p>
+                                        <div class="task-example">
+                                            <strong>Add this format:</strong><br>
+                                            <code>
+                                            ### [Your Name]<br>
+                                            - **Role:** [Research interest/specialty]<br>
+                                            - **Institution:** [Your university/organization]<br>
+                                            - **Fun Fact:** [Something interesting about you]<br>
+                                            - **Git Status:** Learning collaborative workflows! 🚀
+                                            </code>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="task">
-                                    <h5>📚 Documentation Lead Tasks</h5>
-                                    <p>Make the project accessible and professional:</p>
-                                    <ul>
-                                        <li>Write comprehensive README with installation guide</li>
-                                        <li>Create tutorial notebooks for each model type</li>
-                                        <li>Document API reference for all functions</li>
-                                        <li>Set up continuous integration (optional)</li>
-                                        <li>Create contribution guidelines for future collaborators</li>
-                                    </ul>
-                                    <div class="task-example">
-                                        <strong>Example deliverable:</strong> Documentation so good that new team members can contribute immediately.
+                                <div class="workflow-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h5>💾 Commit & Push</h5>
+                                        <p>Commit your changes and push to your fork.</p>
+                                        <div class="code-block">
+                                            <code>git add README.md<br>
+                                            git commit -m "Add [Your Name] to team directory"<br>
+                                            git push origin add-[your-name]</code>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="workflow-step">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <h5>🔄 Create Pull Request</h5>
+                                        <p>Submit a pull request to the original repository to propose your changes.</p>
+                                        <div class="pro-tip">
+                                            <strong>Pro Tip:</strong> Include a descriptive PR title like "Add Sarah Chen to research team directory"
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="workflow-step">
+                                    <div class="step-number">6</div>
+                                    <div class="step-content">
+                                        <h5>⚔️ Handle Conflicts</h5>
+                                        <p>When multiple people edit the same file, conflicts will arise. Learn to resolve them!</p>
+                                        <div class="code-block">
+                                            <code>git pull upstream main<br>
+                                            # Fix conflicts in README.md<br>
+                                            git add README.md<br>
+                                            git commit -m "Resolve merge conflict"</code>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="collaboration-practice">
-                            <h4>🤝 Advanced Collaboration Workflow</h4>
-                            <p>Master the professional collaboration practices used in top research teams:</p>
+                        <div class="conflict-practice">
+                            <h4>⚔️ Mastering Merge Conflicts</h4>
+                            <p>The beauty of this exercise is that conflicts are <strong>guaranteed</strong>! Here's how to handle them like a pro:</p>
                             
-                            <div class="workflow-phases">
-                                <div class="phase">
-                                    <h5>📋 Phase 1: Planning & Coordination</h5>
-                                    <ul>
-                                        <li>Create GitHub Issues for each major task</li>
-                                        <li>Assign team members to specific issues</li>
-                                        <li>Set up project board to track progress</li>
-                                        <li>Define coding standards and conventions</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="phase">
-                                    <h5>🔄 Phase 2: Development & Review</h5>
-                                    <ul>
-                                        <li>Create feature branches for each task</li>
-                                        <li>Make small, focused commits with clear messages</li>
-                                        <li>Submit pull requests with detailed descriptions</li>
-                                        <li>Conduct thorough code reviews</li>
-                                        <li>Address feedback and resolve conflicts</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="phase">
-                                    <h5>🚀 Phase 3: Integration & Documentation</h5>
-                                    <ul>
-                                        <li>Test integration between components</li>
-                                        <li>Update documentation as features are added</li>
-                                        <li>Create release notes for major milestones</li>
-                                        <li>Conduct final team review and demonstration</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="collaboration-submission">
-                                <h4>📤 Team Submission</h4>
-                                <p>Submit your collaborative masterpiece! Your team's repository should demonstrate professional-level collaboration.</p>
-                                
-                                <div class="team-checklist">
-                                    <h5>✅ Team Delivery Checklist:</h5>
-                                    <div class="checklist-grid">
-                                        <div class="checklist-item">
-                                            <span class="check-icon">🏗️</span>
-                                            <span>All core components implemented</span>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <span class="check-icon">🔄</span>
-                                            <span>At least 5 meaningful pull requests</span>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <span class="check-icon">👥</span>
-                                            <span>All team members contributed</span>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <span class="check-icon">📚</span>
-                                            <span>Professional documentation</span>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <span class="check-icon">🧪</span>
-                                            <span>Working examples and tests</span>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <span class="check-icon">🎯</span>
-                                            <span>Clear project vision achieved</span>
+                            <div class="conflict-scenarios">
+                                <div class="scenario">
+                                    <h5>🚨 Scenario 1: Someone Beat You to It</h5>
+                                    <p>Another team member's PR was merged first. Now your PR shows conflicts.</p>
+                                    <div class="solution">
+                                        <strong>Solution:</strong> Update your branch with the latest changes
+                                        <div class="code-block">
+                                            <code>git fetch upstream<br>
+                                            git merge upstream/main<br>
+                                            # Resolve conflicts in your editor<br>
+                                            git add README.md<br>
+                                            git commit -m "Resolve merge conflicts with main"</code>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="submission-form">
-                                    <input type="url" placeholder="Main repository URL (forked from exercise repo)" class="repo-url-input">
-                                    <button class="submit-btn" onclick="submitExercise2()">Submit Team Project</button>
+                                <div class="scenario">
+                                    <h5>🔄 Scenario 2: Multiple People, Same Section</h5>
+                                    <p>Everyone adds their info to the same part of the README.</p>
+                                    <div class="solution">
+                                        <strong>Solution:</strong> Coordinate placement and resolve systematically
+                                        <div class="pro-tip">
+                                            <strong>Pro Tip:</strong> Look for conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;) and keep all team members' information!
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="submission-note">
-                                    <p><strong>🏆 Evaluation Criteria:</strong> Technical quality, collaboration evidence, documentation excellence, and professional presentation.</p>
+                                <div class="scenario">
+                                    <h5>👥 Scenario 3: Review & Collaborate</h5>
+                                    <p>Practice giving constructive feedback on teammates' PRs.</p>
+                                    <div class="solution">
+                                        <strong>What to Review:</strong>
+                                        <ul>
+                                            <li>Is the information complete and well-formatted?</li>
+                                            <li>Are commit messages clear and descriptive?</li>
+                                            <li>Does the addition fit the overall style?</li>
+                                            <li>Any typos or formatting issues?</li>
+                                        </ul>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-submission">
+                            <h4>📤 Team Submission</h4>
+                            <p>Submit evidence of your collaborative Git mastery! Show that your team can work together like seasoned developers.</p>
+                            
+                            <div class="submission-checklist">
+                                <h5>✅ Collaboration Success Checklist:</h5>
+                                <div class="checklist-grid">
+                                    <div class="checklist-item">
+                                        <span class="check-icon">👥</span>
+                                        <span>All team members added to README</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <span class="check-icon">🔀</span>
+                                        <span>Each person created their own branch</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <span class="check-icon">🔄</span>
+                                        <span>Everyone submitted a pull request</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <span class="check-icon">⚔️</span>
+                                        <span>Merge conflicts were resolved</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <span class="check-icon">💬</span>
+                                        <span>Team reviewed each other's PRs</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <span class="check-icon">✅</span>
+                                        <span>Final README includes everyone</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="submission-form">
+                                <input type="url" placeholder="Link to final team directory README" class="repo-url-input">
+                                <button class="submit-btn" onclick="submitExercise2()">Submit Team Exercise</button>
+                            </div>
+                            
+                            <div class="submission-note">
+                                <p><strong>🎯 Success Criteria:</strong> Evidence of branching, pull requests, conflict resolution, and effective team communication through Git.</p>
                             </div>
                         </div>
                     </div>
