@@ -144,7 +144,34 @@ class AdminManager {
                 e.preventDefault();
                 this.switchSection('dashboard');
             }
+            
+            // Ctrl/Cmd + F to search in current section
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                this.focusSearchInCurrentSection();
+            }
+            
+            // Esc to close modals
+            if (e.key === 'Escape') {
+                this.closeAllModals();
+            }
         });
+    }
+
+    focusSearchInCurrentSection() {
+        const activeSection = document.querySelector('.admin-section.active');
+        if (!activeSection) return;
+        
+        const searchInput = activeSection.querySelector('input[type="text"], input[placeholder*="search"], input[placeholder*="Search"]');
+        if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+        }
+    }
+
+    closeAllModals() {
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => modal.classList.remove('active'));
     }
 
     switchSection(sectionName) {
@@ -192,6 +219,7 @@ class AdminManager {
                     break;
                 case 'facilitators':
                     await this.facilitatorsManager.loadFacilitators();
+                    this.facilitatorsManager.renderFacilitators();
                     break;
                 case 'course-materials':
                     await this.materialsManager.loadCategories();
@@ -215,10 +243,10 @@ class AdminManager {
     async loadDashboardData() {
         try {
             // Load counts for dashboard cards
-            const facilitatorsCount = 8; // Placeholder
-            const sessionsCount = 25; // Placeholder
-            const materialsCount = 15; // Placeholder
-            const resourcesCount = 12; // Placeholder
+            const facilitatorsCount = this.facilitatorsManager ? await this.facilitatorsManager.getCount() : 0;
+            const sessionsCount = this.scheduleManager ? await this.scheduleManager.getCount() : 0;
+            const materialsCount = this.materialsManager ? await this.materialsManager.getCount() : 0;
+            const resourcesCount = this.resourcesManager ? await this.resourcesManager.getCount() : 0;
             
             // Update dashboard cards
             document.getElementById('facilitators-count').textContent = facilitatorsCount;
@@ -226,9 +254,181 @@ class AdminManager {
             document.getElementById('materials-count').textContent = materialsCount;
             document.getElementById('resources-count').textContent = resourcesCount;
             
+            // Load additional analytics
+            await this.loadDashboardAnalytics();
+            
         } catch (error) {
             console.error('Error loading dashboard data:', error);
         }
+    }
+
+    async loadDashboardAnalytics() {
+        try {
+            // Load facilitators by country
+            const facilitatorsByCountry = this.facilitatorsManager ? await this.facilitatorsManager.getFacilitatorsByCountry() : {};
+            
+            // Load schedule statistics
+            const scheduleStats = this.scheduleManager ? await this.scheduleManager.getScheduleStats() : {};
+            
+            // Update analytics sections
+            this.updateAnalyticsCharts(facilitatorsByCountry, scheduleStats);
+            
+        } catch (error) {
+            console.error('Error loading analytics:', error);
+        }
+    }
+
+    updateAnalyticsCharts(facilitatorsByCountry, scheduleStats) {
+        // Update facilitators by country chart
+        const countryChart = document.getElementById('facilitators-country-chart');
+        if (countryChart && facilitatorsByCountry) {
+            this.createCountryChart(countryChart, facilitatorsByCountry);
+        }
+        
+        // Update schedule statistics
+        const scheduleChart = document.getElementById('schedule-stats-chart');
+        if (scheduleChart && scheduleStats) {
+            this.createScheduleChart(scheduleChart, scheduleStats);
+        }
+    }
+
+    createCountryChart(container, data) {
+        const countries = Object.keys(data);
+        const counts = Object.values(data);
+        
+        // Create a simple bar chart using CSS
+        container.innerHTML = `
+            <div class="chart-container">
+                <h4>Facilitators by Country</h4>
+                <div class="chart-bars">
+                    ${countries.map((country, index) => `
+                        <div class="chart-bar">
+                            <div class="bar-label">${country}</div>
+                            <div class="bar" style="height: ${(counts[index] / Math.max(...counts)) * 100}%"></div>
+                            <div class="bar-value">${counts[index]}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    createScheduleChart(container, data) {
+        // Create a simple schedule statistics display
+        container.innerHTML = `
+            <div class="chart-container">
+                <h4>Schedule Overview</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalDays || 0}</div>
+                        <div class="stat-label">Total Days</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalSessions || 0}</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalHours || 0}</div>
+                        <div class="stat-label">Total Hours</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Quick Actions
+    quickAddFacilitator() {
+        this.switchSection('facilitators');
+        setTimeout(() => {
+            this.addNewFacilitator();
+        }, 100);
+    }
+
+    quickAddSession() {
+        this.switchSection('schedule');
+        setTimeout(() => {
+            this.addNewDay();
+        }, 100);
+    }
+
+    quickAddMaterial() {
+        this.switchSection('course-materials');
+        setTimeout(() => {
+            this.addNewCategory();
+        }, 100);
+    }
+
+    quickAddResource() {
+        this.switchSection('resources');
+        setTimeout(() => {
+            this.addNewResource();
+        }, 100);
+    }
+
+    quickViewStats() {
+        // Toggle analytics visibility
+        const analytics = document.querySelector('.dashboard-analytics');
+        if (analytics) {
+            analytics.style.display = analytics.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+
+    async quickBackup() {
+        try {
+            this.notificationSystem.show('info', 'Backup', 'Creating backup of all content...');
+            await this.exportAllContent();
+            this.notificationSystem.show('success', 'Backup Complete', 'All content has been exported successfully!');
+        } catch (error) {
+            this.notificationSystem.show('error', 'Backup Failed', 'Failed to create backup: ' + error.message);
+        }
+    }
+
+    // Help System
+    showHelp() {
+        const helpModal = document.getElementById('help-modal');
+        if (helpModal) {
+            helpModal.classList.add('active');
+        }
+    }
+
+    hideHelp() {
+        const helpModal = document.getElementById('help-modal');
+        if (helpModal) {
+            helpModal.classList.remove('active');
+        }
+    }
+
+    // Status Management
+    updateStatus(text, type = 'ready') {
+        const indicator = document.getElementById('admin-status-indicator');
+        const statusText = document.getElementById('admin-status-text');
+        
+        if (indicator && statusText) {
+            statusText.textContent = text;
+            indicator.className = `status-indicator ${type}`;
+        }
+    }
+
+    updateProgress(percentage) {
+        const progressFill = document.getElementById('admin-progress-fill');
+        if (progressFill) {
+            progressFill.style.width = `${percentage}%`;
+        }
+    }
+
+    showLoadingStatus(text = 'Loading...') {
+        this.updateStatus(text, 'loading');
+        this.updateProgress(0);
+    }
+
+    showReadyStatus(text = 'Ready') {
+        this.updateStatus(text, 'ready');
+        this.updateProgress(100);
+    }
+
+    showErrorStatus(text = 'Error occurred') {
+        this.updateStatus(text, 'error');
+        this.updateProgress(0);
     }
 
     async loadHeroContent() {
@@ -332,6 +532,18 @@ class AdminManager {
         this.facilitatorsManager.importFacilitators();
     }
 
+    toggleFacilitatorsSortOrder() {
+        this.facilitatorsManager.toggleSortOrder();
+    }
+
+    bulkActivateFacilitators() {
+        this.facilitatorsManager.bulkActivateFacilitators();
+    }
+
+    bulkDeactivateFacilitators() {
+        this.facilitatorsManager.bulkDeactivateFacilitators();
+    }
+
     // Course Materials Management
     addNewCategory() {
         this.materialsManager.addNewCategory();
@@ -372,23 +584,36 @@ class AdminManager {
     // Global Operations
     async refreshAllContent() {
         try {
+            this.showLoadingStatus('Refreshing content...');
+            this.updateProgress(10);
+            
             this.notificationSystem.show('info', 'Refreshing Content', 'Loading fresh content from repository...');
             
+            this.updateProgress(30);
+            await this.scheduleManager.loadSchedule();
+            
+            this.updateProgress(50);
+            await this.facilitatorsManager.loadFacilitators();
+            
+            this.updateProgress(70);
             await Promise.all([
-                this.scheduleManager.loadSchedule(),
-                this.facilitatorsManager.loadFacilitators(),
                 this.materialsManager.loadCategories(),
                 this.navigationManager.loadMenuItems(),
                 this.contactManager.loadContactInfo(),
                 this.resourcesManager.loadResources()
             ]);
             
+            this.updateProgress(90);
             await this.loadDashboardData();
+            
+            this.updateProgress(100);
+            this.showReadyStatus('Content refreshed');
             
             this.notificationSystem.show('success', 'Content Refreshed', 'All content has been refreshed successfully');
             
         } catch (error) {
             console.error('Error refreshing content:', error);
+            this.showErrorStatus('Refresh failed');
             this.notificationSystem.show('error', 'Refresh Error', 'Failed to refresh some content');
         }
     }

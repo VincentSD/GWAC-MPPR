@@ -31,7 +31,6 @@ class NavigationManager {
                 this.menuItems = this.getDefaultMenuItems();
             }
         } catch (error) {
-            console.log('Using default navigation:', error);
             this.menuItems = this.getDefaultMenuItems();
         }
     }

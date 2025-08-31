@@ -9,6 +9,9 @@ class FacilitatorsManager {
         this.facilitators = [];
         this.editingFacilitator = null;
         this.currentFilter = 'all';
+        this.searchQuery = '';
+        this.sortBy = 'name';
+        this.sortOrder = 'asc';
     }
 
     async init() {
@@ -23,16 +26,52 @@ class FacilitatorsManager {
 
     async loadFacilitators() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'facilitators.json');
-            if (content) {
-                const decodedContent = atob(content.content);
-                this.facilitators = JSON.parse(decodedContent);
-            } else {
-                this.facilitators = this.getDefaultFacilitators();
+            // First try to load from localStorage for persistence
+            if (this.loadFacilitatorsFromStorage()) {
+                return;
             }
-        } catch (error) {
-            console.log('Using default facilitators:', error);
+            
+            // Fallback to GitHub API
+            if (this.githubIntegration) {
+                const content = await this.githubIntegration.getContentFile('', 'facilitators.json');
+                if (content) {
+                    const decodedContent = atob(content.content);
+                    this.facilitators = JSON.parse(decodedContent);
+                    // Save to localStorage for future use
+                    this.saveFacilitatorsToStorage();
+                    return;
+                }
+            }
+            
+            // Use default facilitators if nothing else works
             this.facilitators = this.getDefaultFacilitators();
+            this.saveFacilitatorsToStorage();
+            
+        } catch (error) {
+            this.facilitators = this.getDefaultFacilitators();
+            this.saveFacilitatorsToStorage();
+        }
+    }
+
+    saveFacilitatorsToStorage() {
+        try {
+            localStorage.setItem('facilitators', JSON.stringify(this.facilitators));
+        } catch (error) {
+            console.error('Error saving facilitators to localStorage:', error);
+        }
+    }
+
+    loadFacilitatorsFromStorage() {
+        try {
+            const stored = localStorage.getItem('facilitators');
+            if (stored) {
+                this.facilitators = JSON.parse(stored);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Error loading facilitators from localStorage:', error);
+            return false;
         }
     }
 
@@ -140,14 +179,14 @@ class FacilitatorsManager {
             },
             {
                 id: "charlene-tedto-mfangnia",
-                name: "Dr. Charlène Tedto Mfangnia",
+                name: "Charlène Tedto Mfangnia",
                 title: "Course Facilitator",
                 institution: "University of Douala",
                 expertise: "Biostatistics and research methods",
                 email: "charlene.tedto@univ-douala.cm",
                 phone: "+237 233 000 000",
                 country: "Cameroon",
-                bio: "Dr. Charlène Tedto Mfangnia is an expert in biostatistics and research methodology with focus on African health research.",
+                bio: "Charlène Tedto Mfangnia is an expert in biostatistics and research methodology with focus on African health research.",
                 specialties: ["Biostatistics", "Research Methods", "Health Research", "Statistical Analysis"],
                 socialLinks: {
                     linkedin: "https://linkedin.com/in/charlene-tedto-mfangnia",
@@ -221,11 +260,18 @@ class FacilitatorsManager {
 
         container.innerHTML = '';
 
+        // Add search and filter controls
+        const controlsSection = this.createFacilitatorsControls();
+        container.appendChild(controlsSection);
+
         // Render facilitators grid
         const facilitatorsGrid = document.createElement('div');
         facilitatorsGrid.className = 'facilitators-grid';
         
-        this.facilitators.forEach(facilitator => {
+        // Get filtered and sorted facilitators
+        const filteredFacilitators = this.getFilteredFacilitators();
+        
+        filteredFacilitators.forEach(facilitator => {
             const facilitatorCard = this.createFacilitatorCard(facilitator);
             facilitatorsGrid.appendChild(facilitatorCard);
         });
@@ -235,13 +281,30 @@ class FacilitatorsManager {
         // Add new facilitator button
         const addSection = this.createAddFacilitatorSection();
         container.appendChild(addSection);
+        
+        // Show results count
+        this.updateResultsCount(filteredFacilitators.length);
     }
 
     createFacilitatorCard(facilitator) {
         const card = document.createElement('div');
         card.className = 'facilitator-card';
         
+        // Create status indicator
+        const statusIndicator = facilitator.isActive ? 
+            '<div class="facilitator-status active"></div>' : 
+            '<div class="facilitator-status inactive"></div>';
+        
+        // Create specialties HTML
+        const specialtiesHTML = facilitator.specialties && facilitator.specialties.length > 0 ? 
+            `<div class="facilitator-specialties">
+                ${facilitator.specialties.map(specialty => 
+                    `<span class="specialty-tag">${specialty}</span>`
+                ).join('')}
+            </div>` : '';
+        
         card.innerHTML = `
+            ${statusIndicator}
             <div class="facilitator-avatar">
                 <img src="${facilitator.avatar}" alt="${facilitator.name}" onerror="this.src='images/facilitators/placeholder.svg';">
             </div>
@@ -250,6 +313,7 @@ class FacilitatorsManager {
                 <p class="title">${facilitator.title}</p>
                 <p class="institution">${facilitator.institution}</p>
                 <p class="expertise">${facilitator.expertise}</p>
+                ${specialtiesHTML}
                 <p class="country">${facilitator.country}</p>
             </div>
             <div class="facilitator-actions">
@@ -265,13 +329,184 @@ class FacilitatorsManager {
         return card;
     }
 
+    createFacilitatorsControls() {
+        const controls = document.createElement('div');
+        controls.className = 'facilitators-controls';
+        controls.innerHTML = `
+            <div class="controls-row">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="facilitators-search" placeholder="Search facilitators..." value="${this.searchQuery}">
+                </div>
+                                    <div class="filter-controls">
+                        <select id="facilitators-filter">
+                            <option value="all" ${this.currentFilter === 'all' ? 'selected' : ''}>All Facilitators</option>
+                            <option value="active" ${this.currentFilter === 'active' ? 'selected' : ''}>Active Only</option>
+                            <option value="inactive" ${this.currentFilter === 'inactive' ? 'selected' : ''}>Inactive Only</option>
+                        </select>
+                        <select id="facilitators-sort">
+                            <option value="name" ${this.sortBy === 'name' ? 'selected' : ''}>Sort by Name</option>
+                            <option value="institution" ${this.sortBy === 'institution' ? 'selected' : ''}>Sort by Institution</option>
+                            <option value="country" ${this.sortBy === 'country' ? 'selected' : ''}>Sort by Country</option>
+                            <option value="order" ${this.sortBy === 'order' ? 'selected' : ''}>Sort by Order</option>
+                        </select>
+                        <button class="btn btn-sm btn-outline" onclick="adminManager.toggleFacilitatorsSortOrder()">
+                            <i class="fas fa-sort-${this.sortOrder === 'asc' ? 'up' : 'down'}"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline" onclick="adminManager.bulkActivateFacilitators()">
+                            <i class="fas fa-check-circle"></i> Bulk Activate
+                        </button>
+                        <button class="btn btn-sm btn-outline" onclick="adminManager.bulkDeactivateFacilitators()">
+                            <i class="fas fa-times-circle"></i> Bulk Deactivate
+                        </button>
+                    </div>
+            </div>
+            <div class="results-info">
+                <span id="facilitators-count">Showing ${this.facilitators.length} facilitators</span>
+            </div>
+        `;
+        
+        // Add event listeners
+        this.setupControlsEventListeners(controls);
+        
+        return controls;
+    }
+
+    setupControlsEventListeners(controls) {
+        const searchInput = controls.querySelector('#facilitators-search');
+        const filterSelect = controls.querySelector('#facilitators-filter');
+        const sortSelect = controls.querySelector('#facilitators-sort');
+        
+        searchInput.addEventListener('input', (e) => {
+            this.searchQuery = e.target.value;
+            this.renderFacilitators();
+        });
+        
+        filterSelect.addEventListener('change', (e) => {
+            this.currentFilter = e.target.value;
+            this.renderFacilitators();
+        });
+        
+        sortSelect.addEventListener('change', (e) => {
+            this.sortBy = e.target.value;
+            this.renderFacilitators();
+        });
+    }
+
+    getFilteredFacilitators() {
+        let filtered = [...this.facilitators];
+        
+        // Apply search filter
+        if (this.searchQuery) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(facilitator => 
+                facilitator.name.toLowerCase().includes(query) ||
+                facilitator.institution.toLowerCase().includes(query) ||
+                facilitator.expertise.toLowerCase().includes(query) ||
+                facilitator.country.toLowerCase().includes(query) ||
+                (facilitator.specialties && facilitator.specialties.some(s => s.toLowerCase().includes(query)))
+            );
+        }
+        
+        // Apply status filter
+        if (this.currentFilter === 'active') {
+            filtered = filtered.filter(f => f.isActive);
+        } else if (this.currentFilter === 'inactive') {
+            filtered = filtered.filter(f => !f.isActive);
+        }
+        
+        // Apply sorting
+        filtered.sort((a, b) => {
+            let aVal = a[this.sortBy];
+            let bVal = b[this.sortBy];
+            
+            if (typeof aVal === 'string') {
+                aVal = aVal.toLowerCase();
+                bVal = bVal.toLowerCase();
+            }
+            
+            if (this.sortOrder === 'asc') {
+                return aVal > bVal ? 1 : -1;
+            } else {
+                return aVal < bVal ? 1 : -1;
+            }
+        });
+        
+        return filtered;
+    }
+
+    toggleSortOrder() {
+        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        this.renderFacilitators();
+    }
+
+    updateResultsCount(count) {
+        const countElement = document.getElementById('facilitators-count');
+        if (countElement) {
+            countElement.textContent = `Showing ${count} of ${this.facilitators.length} facilitators`;
+        }
+    }
+
+    bulkActivateFacilitators() {
+        const selectedFacilitators = this.getSelectedFacilitators();
+        if (selectedFacilitators.length === 0) {
+            this.showNotification('Please select facilitators to activate', 'warning');
+            return;
+        }
+        
+        if (confirm(`Are you sure you want to activate ${selectedFacilitators.length} facilitators?`)) {
+            selectedFacilitators.forEach(facilitator => {
+                facilitator.isActive = true;
+            });
+            this.saveFacilitatorsToStorage();
+            this.renderFacilitators();
+            this.showNotification(`${selectedFacilitators.length} facilitators activated successfully`, 'success');
+        }
+    }
+
+    bulkDeactivateFacilitators() {
+        const selectedFacilitators = this.getSelectedFacilitators();
+        if (selectedFacilitators.length === 0) {
+            this.showNotification('Please select facilitators to deactivate', 'warning');
+            return;
+        }
+        
+        if (confirm(`Are you sure you want to deactivate ${selectedFacilitators.length} facilitators?`)) {
+            selectedFacilitators.forEach(facilitator => {
+                facilitator.isActive = false;
+            });
+            this.saveFacilitatorsToStorage();
+            this.renderFacilitators();
+            this.showNotification(`${selectedFacilitators.length} facilitators deactivated successfully`, 'success');
+        }
+    }
+
+    getSelectedFacilitators() {
+        // For now, return all facilitators - in a real implementation, you'd have checkboxes
+        return this.facilitators;
+    }
+
+    async getFacilitatorsByCountry() {
+        const countryCounts = {};
+        this.facilitators.forEach(facilitator => {
+            const country = facilitator.country || 'Unknown';
+            countryCounts[country] = (countryCounts[country] || 0) + 1;
+        });
+        return countryCounts;
+    }
+
     createAddFacilitatorSection() {
         const section = document.createElement('div');
         section.className = 'add-facilitator-section';
         section.innerHTML = `
-            <button class="btn btn-primary btn-large" onclick="adminManager.addNewFacilitator()">
-                <i class="fas fa-plus"></i> Add New Facilitator
-            </button>
+            <div class="add-facilitator-content">
+                <i class="fas fa-user-plus" style="font-size: 2rem; color: var(--admin-accent); margin-bottom: 1rem;"></i>
+                <h3>Add New Facilitator</h3>
+                <p>Click the button below to add a new course facilitator to the system.</p>
+                <button class="btn btn-primary btn-large" onclick="adminManager.addNewFacilitator()">
+                    <i class="fas fa-plus"></i> Add New Facilitator
+                </button>
+            </div>
         `;
         return section;
     }
@@ -299,6 +534,8 @@ class FacilitatorsManager {
         };
         
         this.facilitators.push(newFacilitator);
+        // Save to localStorage for persistence
+        this.saveFacilitatorsToStorage();
         this.renderFacilitators();
         this.editFacilitator(newFacilitator.id);
         this.showNotification('New facilitator added successfully', 'success');
@@ -359,6 +596,31 @@ class FacilitatorsManager {
                         <input type="text" id="edit-facilitator-avatar" value="${facilitator.avatar}">
                         <small>Leave empty to use default placeholder</small>
                     </div>
+                    <div class="form-group">
+                        <label>Specialties</label>
+                        <input type="text" id="edit-specialties" value="${facilitator.specialties ? facilitator.specialties.join(', ') : ''}" placeholder="Enter specialties separated by commas">
+                        <small>Separate multiple specialties with commas</small>
+                    </div>
+                    <div class="form-group">
+                        <label>LinkedIn URL</label>
+                        <input type="url" id="edit-linkedin" value="${facilitator.socialLinks?.linkedin || ''}" placeholder="https://linkedin.com/in/username">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter URL</label>
+                        <input type="url" id="edit-twitter" value="${facilitator.socialLinks?.twitter || ''}" placeholder="https://twitter.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub URL</label>
+                        <input type="url" id="edit-github" value="${facilitator.socialLinks?.github || ''}" placeholder="https://github.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="edit-isActive" ${facilitator.isActive ? 'checked' : ''}>
+                            <span class="checkmark"></span>
+                            Active Facilitator
+                        </label>
+                        <small>Inactive facilitators won't appear on the main site</small>
+                    </div>
                 </div>
                 <div class="modal-actions">
                     <button class="btn btn-primary" onclick="adminManager.saveFacilitatorEdit()">Save Changes</button>
@@ -386,6 +648,14 @@ class FacilitatorsManager {
         const country = document.getElementById('edit-facilitator-country').value;
         const bio = document.getElementById('edit-facilitator-bio').value;
         const avatar = document.getElementById('edit-facilitator-avatar').value || 'images/facilitators/placeholder.svg';
+        // Parse specialties from comma-separated input
+        const specialties = document.getElementById('edit-specialties').value.split(',').map(s => s.trim()).filter(s => s);
+        // Get social links
+        const linkedin = document.getElementById('edit-linkedin').value.trim();
+        const twitter = document.getElementById('edit-twitter').value.trim();
+        const github = document.getElementById('edit-github').value.trim();
+        // Get active status
+        const isActive = document.getElementById('edit-isActive').checked;
         
         this.facilitators[facilitatorIndex] = {
             ...facilitator,
@@ -397,9 +667,14 @@ class FacilitatorsManager {
             phone,
             country,
             bio,
-            avatar
+            avatar,
+            specialties,
+            socialLinks: { linkedin, twitter, github },
+            isActive
         };
         
+        // Save to localStorage for persistence
+        this.saveFacilitatorsToStorage();
         this.renderFacilitators();
         this.closeModal();
         this.showNotification('Facilitator updated successfully', 'success');
@@ -411,6 +686,8 @@ class FacilitatorsManager {
         
         if (confirm(`Are you sure you want to delete the facilitator "${facilitator.name}"?`)) {
             this.facilitators = this.facilitators.filter(f => f.id !== facilitatorId);
+            // Save to localStorage for persistence
+            this.saveFacilitatorsToStorage();
             this.renderFacilitators();
             this.showNotification('Facilitator deleted successfully', 'success');
         }
@@ -453,6 +730,7 @@ class FacilitatorsManager {
                     const text = await file.text();
                     const importedFacilitators = JSON.parse(text);
                     this.facilitators = importedFacilitators;
+                    this.saveFacilitatorsToStorage();
                     this.renderFacilitators();
                     this.showNotification('Facilitators imported successfully', 'success');
                 } catch (error) {
@@ -461,6 +739,47 @@ class FacilitatorsManager {
             }
         };
         input.click();
+    }
+
+    async exportToGitHub() {
+        try {
+            if (!this.githubIntegration) {
+                this.showNotification('GitHub integration not available', 'error');
+                return;
+            }
+
+            this.showNotification('Exporting to GitHub...', 'info');
+            
+            // Convert facilitators to JSON
+            const content = JSON.stringify(this.facilitators, null, 2);
+            const encodedContent = btoa(content);
+            
+            // Save to GitHub
+            await this.githubIntegration.putContent(
+                'facilitators.json',
+                encodedContent,
+                'Update facilitators data',
+                'Update facilitators from admin panel'
+            );
+            
+            this.showNotification('Successfully exported to GitHub!', 'success');
+            
+        } catch (error) {
+            console.error('Error exporting to GitHub:', error);
+            this.showNotification('Failed to export to GitHub: ' + error.message, 'error');
+        }
+    }
+
+    exportFacilitatorsToFile() {
+        const dataStr = JSON.stringify(this.facilitators, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'facilitators.json';
+        link.click();
+        URL.revokeObjectURL(url);
+        this.showNotification('Facilitators exported to file successfully!', 'success');
     }
 }
 

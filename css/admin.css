@@ -83,6 +83,65 @@ body {
 .admin-actions {
     display: flex;
     gap: 1rem;
+    align-items: center;
+}
+
+/* Admin Status */
+.admin-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--admin-text-secondary);
+}
+
+.status-indicator i {
+    font-size: 0.6rem;
+    color: var(--admin-success);
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.loading i {
+    color: var(--admin-accent);
+    animation: spin 1s linear infinite;
+}
+
+.status-indicator.error i {
+    color: var(--admin-error);
+    animation: none;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--admin-bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--admin-accent) 0%, var(--admin-accent-hover) 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Admin Navigation */
@@ -241,6 +300,222 @@ body {
     justify-content: center;
 }
 
+/* Quick Actions */
+.quick-actions {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+}
+
+.quick-actions h3 {
+    margin: 0 0 1.5rem 0;
+    color: var(--admin-text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quick-actions h3 i {
+    color: var(--admin-accent);
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    background: var(--admin-bg-primary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    color: var(--admin-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--admin-transition);
+    text-decoration: none;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--admin-accent);
+    color: var(--admin-accent);
+    background: var(--admin-bg-tertiary);
+    box-shadow: var(--admin-shadow-lg);
+}
+
+.quick-action-btn i {
+    font-size: 1.5rem;
+    color: var(--admin-accent);
+}
+
+.quick-action-btn span {
+    text-align: center;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-action-btn {
+        padding: 1rem 0.75rem;
+    }
+}
+
+/* Dashboard Analytics */
+.dashboard-analytics {
+    margin-top: 2rem;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.analytics-card {
+    background: var(--admin-bg-primary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--admin-shadow);
+}
+
+.analytics-header {
+    background: var(--admin-bg-secondary);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.analytics-header h3 {
+    margin: 0;
+    color: var(--admin-text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.analytics-header i {
+    color: var(--admin-accent);
+    margin-right: 0.5rem;
+}
+
+.analytics-content {
+    padding: 1.5rem;
+}
+
+.chart-section {
+    min-height: 200px;
+}
+
+/* Chart Styling */
+.chart-container h4 {
+    margin: 0 0 1rem 0;
+    color: var(--admin-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.chart-bars {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    height: 150px;
+    padding: 1rem 0;
+}
+
+.chart-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 60px;
+}
+
+.bar {
+    background: linear-gradient(135deg, var(--admin-accent) 0%, var(--admin-accent-hover) 100%);
+    width: 100%;
+    min-height: 20px;
+    border-radius: 4px 4px 0 0;
+    transition: var(--admin-transition);
+}
+
+.bar:hover {
+    transform: scaleY(1.05);
+}
+
+.bar-label {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--admin-text-secondary);
+    text-align: center;
+    font-weight: 500;
+}
+
+.bar-value {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--admin-accent);
+    font-weight: 600;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--admin-bg-secondary);
+    border-radius: var(--admin-radius);
+    border: 1px solid var(--admin-border);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--admin-accent);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--admin-text-secondary);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-bars {
+        gap: 0.5rem;
+    }
+    
+    .chart-bar {
+        min-width: 40px;
+    }
+}
+
 /* Content Forms */
 .content-form {
     background: var(--admin-bg-primary);
@@ -325,10 +600,10 @@ body {
 .form-actions {
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
+    justify-content: flex-end;
     padding-top: 1.5rem;
     border-top: 1px solid var(--admin-border);
+    margin-top: 2rem;
 }
 
 /* Buttons */
@@ -1038,4 +1313,413 @@ body {
         margin-top: 1rem;
         justify-content: flex-end;
     }
+}
+
+/* Facilitators Manager - Enhanced Styling */
+.facilitators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.facilitator-card {
+    background: var(--admin-bg-primary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    overflow: hidden;
+    transition: var(--admin-transition);
+    box-shadow: var(--admin-shadow);
+    position: relative;
+}
+
+.facilitator-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--admin-shadow-lg);
+    border-color: var(--admin-accent);
+}
+
+.facilitator-avatar {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--admin-bg-tertiary) 0%, var(--admin-bg-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.facilitator-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--admin-transition);
+}
+
+.facilitator-card:hover .facilitator-avatar img {
+    transform: scale(1.05);
+}
+
+.facilitator-info {
+    padding: 1.5rem;
+}
+
+.facilitator-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--admin-text-primary);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.facilitator-info .title {
+    color: var(--admin-accent);
+    font-weight: 500;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.facilitator-info .institution {
+    color: var(--admin-text-secondary);
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.facilitator-info .expertise {
+    color: var(--admin-text-secondary);
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.facilitator-info .country {
+    color: var(--admin-text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.facilitator-info .country::before {
+    content: '🌍';
+    font-size: 1rem;
+}
+
+.facilitator-actions {
+    padding: 1rem 1.5rem;
+    background: var(--admin-bg-tertiary);
+    border-top: 1px solid var(--admin-border);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.facilitator-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: var(--admin-radius);
+    transition: var(--admin-transition);
+}
+
+.facilitator-actions .btn-outline {
+    border: 1px solid var(--admin-border);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-secondary);
+}
+
+.facilitator-actions .btn-outline:hover {
+    border-color: var(--admin-accent);
+    color: var(--admin-accent);
+    background: var(--admin-bg-secondary);
+}
+
+.facilitator-actions .btn-danger {
+    background: var(--admin-error);
+    color: white;
+    border: 1px solid var(--admin-error);
+}
+
+.facilitator-actions .btn-danger:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Add Facilitator Section */
+.add-facilitator-section {
+    text-align: center;
+    padding: 2rem;
+    background: var(--admin-bg-secondary);
+    border: 2px dashed var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    transition: var(--admin-transition);
+}
+
+.add-facilitator-section:hover {
+    border-color: var(--admin-accent);
+    background: var(--admin-bg-tertiary);
+}
+
+.add-facilitator-section .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Facilitator Status Indicators */
+.facilitator-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.facilitator-status.active {
+    background: var(--admin-success);
+}
+
+.facilitator-status.inactive {
+    background: var(--admin-text-muted);
+}
+
+/* Facilitator Specialties */
+.facilitator-specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.specialty-tag {
+    background: var(--admin-accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Facilitators Controls */
+.facilitators-controls {
+    background: var(--admin-bg-secondary);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.controls-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--admin-text-muted);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-primary);
+    font-size: 0.9rem;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filter-controls select {
+    padding: 0.75rem;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    background: var(--admin-bg-primary);
+    color: var(--admin-text-primary);
+    font-size: 0.9rem;
+    min-width: 150px;
+}
+
+.filter-controls select:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+}
+
+.results-info {
+    color: var(--admin-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        max-width: none;
+    }
+    
+    .filter-controls {
+        justify-content: space-between;
+    }
+    
+    .filter-controls select {
+        min-width: auto;
+        flex: 1;
+    }
+}
+
+/* Help Modal Styling */
+.help-section {
+    margin-bottom: 2rem;
+}
+
+.help-section h4 {
+    color: var(--admin-accent);
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--admin-bg-secondary);
+    border-radius: var(--admin-radius);
+    border: 1px solid var(--admin-border);
+}
+
+.shortcut-item kbd {
+    background: var(--admin-bg-tertiary);
+    border: 1px solid var(--admin-border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--admin-accent);
+    font-weight: 600;
+}
+
+.tips-list, .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tips-list li, .features-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--admin-border);
+    color: var(--admin-text-secondary);
+}
+
+.tips-list li:last-child, .features-list li:last-child {
+    border-bottom: none;
+}
+
+.features-list li strong {
+    color: var(--admin-text-primary);
+}
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--admin-text-primary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--admin-accent);
+}
+
+.checkbox-label .checkmark {
+    margin-left: 0.25rem;
+}
+
+.checkbox-label small {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: normal;
+    color: var(--admin-text-muted);
+}
+
+/* Responsive Facilitators */
+@media (max-width: 768px) {
+    .facilitators-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .facilitator-card {
+        margin-bottom: 1rem;
+    }
+    
+    .facilitator-avatar {
+        height: 150px;
+    }
+}
+
+/* Add Facilitator Content */
+.add-facilitator-content {
+    text-align: center;
+}
+
+.add-facilitator-content h3 {
+    color: var(--admin-text-primary);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.add-facilitator-content p {
+    color: var(--admin-text-secondary);
+    margin: 0 0 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }

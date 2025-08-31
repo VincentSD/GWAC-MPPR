@@ -35,7 +35,6 @@ class ResourcesManager {
                 this.resources = this.getDefaultResources();
             }
         } catch (error) {
-            console.log('Using default resources:', error);
             this.resources = this.getDefaultResources();
         }
     }
@@ -50,7 +49,6 @@ class ResourcesManager {
                 this.categories = this.getDefaultCategories();
             }
         } catch (error) {
-            console.log('Using default resource categories:', error);
             this.categories = this.getDefaultCategories();
         }
     }
