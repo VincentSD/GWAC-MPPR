@@ -192,6 +192,7 @@ class AdminManager {
                     break;
                 case 'facilitators':
                     await this.facilitatorsManager.loadFacilitators();
+                    this.facilitatorsManager.renderFacilitators();
                     break;
                 case 'course-materials':
                     await this.materialsManager.loadCategories();
@@ -215,10 +216,10 @@ class AdminManager {
     async loadDashboardData() {
         try {
             // Load counts for dashboard cards
-            const facilitatorsCount = 8; // Placeholder
-            const sessionsCount = 25; // Placeholder
-            const materialsCount = 15; // Placeholder
-            const resourcesCount = 12; // Placeholder
+            const facilitatorsCount = this.facilitatorsManager ? await this.facilitatorsManager.getCount() : 0;
+            const sessionsCount = this.scheduleManager ? await this.scheduleManager.getCount() : 0;
+            const materialsCount = this.materialsManager ? await this.materialsManager.getCount() : 0;
+            const resourcesCount = this.resourcesManager ? await this.resourcesManager.getCount() : 0;
             
             // Update dashboard cards
             document.getElementById('facilitators-count').textContent = facilitatorsCount;
