@@ -290,6 +290,60 @@ git remote set-url origin https://github.com/newusername/repo.git</code></pre>
                 </section>
 
                 <section class="content-section">
+                    <h2>Git Platform Alternatives</h2>
+                    
+                    <div class="platform-alternatives">
+                        <h3>Beyond GitHub: Other Git Platforms</h3>
+                        <p>While GitHub is the most popular platform, there are other excellent alternatives for hosting Git repositories and collaborating on code.</p>
+                        
+                        <div class="alternatives-grid">
+                            <div class="alternative-card">
+                                <div class="alternative-icon">🦊</div>
+                                <h4>GitLab</h4>
+                                <p>Feature-rich platform with built-in CI/CD, issue tracking, and project management tools. Great for teams that want everything in one place.</p>
+                                <div class="alternative-features">
+                                    <span class="feature-tag">CI/CD</span>
+                                    <span class="feature-tag">Issue Tracking</span>
+                                    <span class="feature-tag">Project Management</span>
+                                </div>
+                            </div>
+                            
+                            <div class="alternative-card">
+                                <div class="alternative-icon">🪣</div>
+                                <h4>Bitbucket</h4>
+                                <p>Atlassian's Git platform, tightly integrated with Jira and Confluence. Excellent for teams already using Atlassian tools.</p>
+                                <div class="alternative-features">
+                                    <span class="feature-tag">Jira Integration</span>
+                                    <span class="feature-tag">Confluence</span>
+                                    <span class="feature-tag">Team Management</span>
+                                </div>
+                            </div>
+                            
+                            <div class="alternative-card">
+                                <div class="alternative-icon">🏢</div>
+                                <h4>GitHub Enterprise</h4>
+                                <p>Self-hosted version of GitHub for organizations with strict security requirements or who need to keep code behind corporate firewalls.</p>
+                                <div class="alternative-features">
+                                    <span class="feature-tag">Self-hosted</span>
+                                    <span class="feature-tag">Enterprise Security</span>
+                                    <span class="feature-tag">Custom Policies</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="platform-choice-tips">
+                            <h4>How to Choose the Right Platform</h4>
+                            <ul>
+                                <li><strong>GitHub:</strong> Best for open source, large community, learning resources</li>
+                                <li><strong>GitLab:</strong> Best for DevOps teams, comprehensive tooling, self-hosting</li>
+                                <li><strong>Bitbucket:</strong> Best for teams using Atlassian ecosystem</li>
+                                <li><strong>GitHub Enterprise:</strong> Best for large organizations with security requirements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
                     <h2>Collaboration Through Pull Requests</h2>
                     
                     <div class="pull-request-intro">
@@ -562,6 +616,192 @@ git push origin add-sir-model
                                 <li>Provide constructive feedback</li>
                                 <li>Merge approved changes</li>
                             </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Interactive Practice: Repository Setup Challenge</h2>
+                    
+                    <div class="interactive-practice">
+                        <h3>Test Your Repository Skills</h3>
+                        <p>Practice what you've learned by completing this repository setup challenge. This will help you master the basics before moving to collaboration.</p>
+                        
+                        <div class="practice-challenge">
+                            <div class="challenge-header">
+                                <h3>🏗️ Challenge: Create a Research Project Repository</h3>
+                                <p>Set up a complete repository structure for a hypothetical infectious disease modeling project. This tests your basic repository setup skills.</p>
+                            </div>
+                            
+                            <div class="challenge-steps">
+                                <div class="challenge-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Repository Setup</h4>
+                                        <p>Create a new repository called "my-disease-modeling-project" with:</p>
+                                        <ul>
+                                            <li>Descriptive README with project overview</li>
+                                            <li>Appropriate .gitignore for R projects</li>
+                                            <li>MIT license for open collaboration</li>
+                                            <li>Initial project structure (data/, scripts/, results/, docs/)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="challenge-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Local Development Workflow</h4>
+                                        <p>Clone the repository and set up your local environment:</p>
+                                        <div class="code-block">
+                                            <div class="code-header">
+                                                <span>Terminal Commands</span>
+                                                <button class="copy-btn" onclick="copyCode('challenge-setup')">Copy</button>
+                                            </div>
+                                            <pre><code id="challenge-setup"># Clone your repository
+git clone https://github.com/yourusername/my-disease-modeling-project.git
+
+# Navigate to project directory
+cd my-disease-modeling-project
+
+# Create initial project structure
+mkdir data scripts results docs
+
+# Add and commit the structure
+git add .
+git commit -m "Initial project structure setup"
+
+# Push to GitHub
+git push origin main</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="challenge-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>Documentation Setup</h4>
+                                        <p>Create essential documentation:</p>
+                                        <ul>
+                                            <li>Update README with installation instructions</li>
+                                            <li>Add a basic project description</li>
+                                            <li>Create a simple project roadmap</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-submission">
+                                <h4>📤 Submit Your Individual Work</h4>
+                                <p>Share your repository URL to show you've mastered basic repository setup!</p>
+                                <div class="submission-form">
+                                    <input type="url" placeholder="Your repository URL" class="repo-url-input">
+                                    <button class="submit-btn">Submit Repository</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Troubleshooting Common Issues</h2>
+                    
+                    <div class="troubleshooting-section">
+                        <p>Even experienced developers encounter issues when working with Git and GitHub. Here are solutions to common problems you might face.</p>
+                        
+                        <div class="troubleshooting-grid">
+                            <div class="trouble-card">
+                                <div class="trouble-icon">🔐</div>
+                                <h3>Authentication Issues</h3>
+                                <div class="trouble-description">
+                                    <p>Problems with SSH keys, personal access tokens, or two-factor authentication.</p>
+                                </div>
+                                <div class="solution">
+                                    <h4>Solutions:</h4>
+                                    <ul>
+                                        <li>Verify SSH key is added to GitHub account</li>
+                                        <li>Check personal access token permissions</li>
+                                        <li>Use GitHub CLI for easier authentication</li>
+                                        <li>Ensure 2FA is properly configured</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="trouble-card">
+                                <div class="trouble-icon">⚡</div>
+                                <h3>Merge Conflicts</h3>
+                                <div class="trouble-description">
+                                    <p>Conflicting changes when trying to merge branches or pull updates.</p>
+                                </div>
+                                <div class="solution">
+                                    <h4>Solutions:</h4>
+                                    <ul>
+                                        <li>Pull latest changes before starting work</li>
+                                        <li>Use <code>git status</code> to identify conflicts</li>
+                                        <li>Resolve conflicts manually in your editor</li>
+                                        <li>Consider using <code>git rebase</code> for cleaner history</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="trouble-card">
+                                <div class="trouble-icon">📁</div>
+                                <h3>Large File Issues</h3>
+                                <div class="trouble-description">
+                                    <p>GitHub rejects files larger than 100MB, causing push failures.</p>
+                                </div>
+                                <div class="solution">
+                                    <h4>Solutions:</h4>
+                                    <ul>
+                                        <li>Use Git LFS for large files</li>
+                                        <li>Add large files to .gitignore</li>
+                                        <li>Store data files externally (Zenodo, Figshare)</li>
+                                        <li>Use <code>git rm --cached</code> to remove tracked large files</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="trouble-card">
+                                <div class="trouble-icon">🌐</div>
+                                <h3>Network Problems</h3>
+                                <div class="trouble-description">
+                                    <p>Slow connections, timeouts, or failed pushes due to network issues.</p>
+                                </div>
+                                <div class="solution">
+                                    <h4>Solutions:</h4>
+                                    <ul>
+                                        <li>Check your internet connection</li>
+                                        <li>Use SSH instead of HTTPS if possible</li>
+                                        <li>Increase Git buffer size: <code>git config --global http.postBuffer 524288000</code></li>
+                                        <li>Try pushing during off-peak hours</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="troubleshooting-tips">
+                            <h3>Pro Tips for Smooth Collaboration</h3>
+                            <div class="tips-grid">
+                                <div class="tip-item">
+                                    <h4>🔄 Regular Updates</h4>
+                                    <p>Pull from the main branch daily to avoid major conflicts and stay in sync with your team.</p>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <h4>📝 Clear Communication</h4>
+                                    <p>Always communicate with your team about what you're working on and when you plan to push changes.</p>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <h4>🧪 Test Before Push</h4>
+                                    <p>Test your changes locally before pushing to ensure you don't break the build for others.</p>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <h4>📚 Documentation</h4>
+                                    <p>Keep your README and documentation updated as you add new features or change existing ones.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

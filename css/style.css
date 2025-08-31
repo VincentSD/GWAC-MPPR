@@ -6802,12 +6802,6 @@ a.toc-item {
     animation: bounce 1s infinite;
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
-
 /* Print Styles */
 @media print {
     .main-nav,
@@ -7471,4 +7465,550 @@ a.toc-item {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-10px); }
     60% { transform: translateY(-5px); }
+}
+
+/* GitHub Collaboration Module - New Sections Styling */
+
+/* Platform Alternatives Section */
+.platform-alternatives {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-6);
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: var(--radius-xl);
+    border: 1px solid #e2e8f0;
+}
+
+.platform-alternatives h3 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.8rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.platform-alternatives h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+    border-radius: 2px;
+}
+
+.platform-alternatives > p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-6);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alternatives-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-6);
+}
+
+.alternative-card {
+    background: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.alternative-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #4299e1);
+    transition: all 0.3s ease;
+}
+
+.alternative-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: #48bb78;
+}
+
+.alternative-card:hover::before {
+    height: 6px;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.alternative-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-4);
+    display: block;
+}
+
+.alternative-card h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.alternative-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-4);
+    font-size: 0.95rem;
+}
+
+.alternative-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    justify-content: center;
+}
+
+.feature-tag {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.platform-choice-tips {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid #bae6fd;
+}
+
+.platform-choice-tips h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.platform-choice-tips ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.platform-choice-tips li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+/* Interactive Practice Section */
+.interactive-practice {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-6);
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #e2e8f0;
+}
+
+.interactive-practice h3 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.interactive-practice > p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-6);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.practice-challenge {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    border: 2px solid #e2e8f0;
+}
+
+.challenge-header {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.challenge-header h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+}
+
+.challenge-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.challenge-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-6);
+}
+
+.challenge-step {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.challenge-step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: #48bb78;
+}
+
+.challenge-step .step-number {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--spacing-4) auto var(--spacing-4);
+    font-weight: 700;
+    font-size: 1.3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.challenge-step .step-content {
+    padding: var(--spacing-5);
+    text-align: center;
+}
+
+.challenge-step .step-content h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+}
+
+.challenge-step .step-content p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-4);
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.challenge-step .step-content ul {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-4);
+    line-height: 1.6;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.challenge-step .step-content li {
+    margin-bottom: var(--spacing-2);
+    padding-left: var(--spacing-2);
+}
+
+.challenge-submission {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.challenge-submission h4 {
+    font-size: 1.4rem;
+    margin-bottom: var(--spacing-4);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+}
+
+.challenge-submission p {
+    margin-bottom: var(--spacing-5);
+    opacity: 0.95;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.submission-form {
+    display: flex;
+    gap: var(--spacing-4);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.repo-url-input {
+    padding: var(--spacing-4);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    min-width: 350px;
+    outline: none;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.repo-url-input:focus {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.submit-btn {
+    background: white;
+    color: #48bb78;
+    border: none;
+    padding: var(--spacing-4) var(--spacing-5);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md);
+}
+
+.submit-btn:hover {
+    background: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Troubleshooting Section */
+.troubleshooting-section {
+    margin: var(--spacing-6) 0;
+}
+
+.troubleshooting-section > p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-6);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.troubleshooting-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+}
+
+.trouble-card {
+    background: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.trouble-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f56565, #e53e3e);
+    transition: all 0.3s ease;
+}
+
+.trouble-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: #f56565;
+}
+
+.trouble-card:hover::before {
+    height: 6px;
+}
+
+.trouble-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-3);
+    display: block;
+    text-align: center;
+}
+
+.trouble-card h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.trouble-description p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-3);
+    line-height: 1.5;
+}
+
+.solution h4 {
+    color: #48bb78;
+    margin-bottom: var(--spacing-3);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.solution ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.solution li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+.troubleshooting-tips {
+    margin-top: var(--spacing-6);
+}
+
+.troubleshooting-tips h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-5);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-5);
+    margin-top: var(--spacing-5);
+}
+
+.tip-item {
+    background: white;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.tip-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #48bb78;
+}
+
+.tip-item h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.tip-item p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive Design for New Sections */
+@media (max-width: 768px) {
+    .alternatives-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .troubleshooting-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .challenge-steps {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-3);
+    }
+    
+    .submission-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-3);
+    }
+    
+    .repo-url-input {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .practice-challenge,
+    .collaborative-exercise {
+        padding: var(--spacing-4);
+    }
+    
+    .challenge-header h3,
+    .collaborative-exercise h3 {
+        font-size: 1.5rem;
+    }
 }
