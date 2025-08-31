@@ -14,6 +14,7 @@ class GitBasicsModule {
         this.setupGitTerminal();
         this.setupInteractiveElements();
         this.setupProgressTracking();
+        this.setupStatusHistoryTerminal();
         console.log('Git Basics Module: Initialization complete');
     }
 
@@ -70,6 +71,18 @@ class GitBasicsModule {
         
         // Setup image zoom modal
         this.setupImageModal();
+    }
+
+    setupStatusHistoryTerminal() {
+        const input = document.getElementById('status-history-input');
+        if (input) {
+            // Handle Enter key
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.executeStatusHistoryCommand();
+                }
+            });
+        }
     }
 
     setupConceptInteractions() {
@@ -446,6 +459,106 @@ class GitBasicsModule {
         
         // Setup click handlers for comparison images
         this.setupComparisonImageClicks();
+    }
+
+    executeStatusHistoryCommand() {
+        const input = document.getElementById('status-history-input');
+        const output = document.getElementById('status-history-output');
+        
+        if (!input || !output) return;
+        
+        const command = input.value.trim().toLowerCase();
+        
+        if (!command) return;
+        
+        // Add command to output
+        const commandLine = document.createElement('div');
+        commandLine.className = 'command-executed';
+        commandLine.innerHTML = `<span class="prompt">$</span> <span class="command">${input.value}</span>`;
+        output.appendChild(commandLine);
+        
+        // Process command and show output
+        let response = '';
+        
+        if (command === 'git status') {
+            response = `On branch main
+nothing to commit, working tree clean
+
+Your repository is clean! All changes have been committed.`;
+        } else if (command === 'git status --short') {
+            response = `No output - working tree is clean`;
+        } else if (command === 'git log') {
+            response = `commit abc1234 (HEAD -> main)
+Author: Student <student@example.com>
+Date:   Mon Mar 25 10:30:00 2025 +0000
+
+    Add data analysis script
+
+commit def5678
+Author: Student <student@example.com>
+Date:   Mon Mar 25 09:15:00 2025 +0000
+
+    Initial commit: Add README file
+
+commit ghi9012
+Author: Student <student@example.com>
+Date:   Mon Mar 25 08:00:00 2025 +0000
+
+    Create project structure`;
+        } else if (command === 'git log --oneline') {
+            response = `abc1234 (HEAD -> main) Add data analysis script
+def5678 Initial commit: Add README file
+ghi9012 Create project structure`;
+        } else if (command === 'git log --graph') {
+            response = `* abc1234 (HEAD -> main) Add data analysis script
+* def5678 Initial commit: README file
+* ghi9012 Create project structure`;
+        } else if (command === 'git log --stat') {
+            response = `commit abc1234 (HEAD -> main)
+Author: Student <student@example.com>
+Date:   Mon Mar 25 10:30:00 2025 +0000
+
+    Add data analysis script
+
+ analysis.R | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+commit def5678
+Author: Student <student@example.com>
+Date:   Mon Mar 25 09:15:00 2025 +0000
+
+    Initial commit: Add README file
+
+ README.md | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)`;
+        } else {
+            response = `Command not recognized. Try these commands:
+• git status
+• git status --short  
+• git log
+• git log --oneline
+• git log --graph
+• git log --stat`;
+        }
+        
+        // Add response to output
+        const responseLine = document.createElement('div');
+        responseLine.className = 'command-response';
+        responseLine.innerHTML = response.replace(/\n/g, '<br>');
+        responseLine.style.color = '#e2e8f0';
+        responseLine.style.marginBottom = '15px';
+        output.appendChild(responseLine);
+        
+        // Clear input
+        input.value = '';
+        
+        // Scroll to bottom
+        output.scrollTop = output.scrollHeight;
+        
+        // Add some spacing
+        const spacer = document.createElement('div');
+        spacer.style.height = '10px';
+        output.appendChild(spacer);
     }
     
     setupComparisonImageClicks() {

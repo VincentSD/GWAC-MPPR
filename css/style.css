@@ -627,6 +627,71 @@ main {
 
 .command-output code {
     background: #4a5568;
+
+/* Git Status Practice Section */
+.git-status-practice {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 20px;
+    border: 1px solid #bae6fd;
+}
+
+.git-status-practice h3 {
+    color: #0c4a6e;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.git-status-practice p {
+    color: #0c4a6e;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.practice-tips {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+    border: 2px solid #e0f2fe;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.practice-tips h4 {
+    color: #0c4a6e;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.practice-tips ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.practice-tips li {
+    color: #0c4a6e;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.practice-tips strong {
+    color: #0369a1;
+}
+
+.practice-tips code {
+    background: #f1f5f9;
+    color: #dc2626;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
     color: #48bb78;
     padding: var(--spacing-1) var(--spacing-2);
     border-radius: var(--radius-sm);
@@ -2499,6 +2564,19 @@ main {
     
     .concept-icon {
         font-size: 3rem;
+    }
+    
+    .git-status-practice {
+        padding: 20px;
+        margin: 30px 0;
+    }
+    
+    .practice-terminal {
+        margin: 20px 0;
+    }
+    
+    .practice-tips {
+        padding: 20px;
     }
     
     .learning-objectives {

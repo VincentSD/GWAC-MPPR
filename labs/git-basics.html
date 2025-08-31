@@ -783,6 +783,54 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
                             <p>Each commit shows a unique identifier (hash), author, date, and commit message.</p>
                         </div>
                     </div>
+                    
+                    <div class="git-status-practice">
+                        <h3>🖥️ Practice: Git Status and History Commands</h3>
+                        <p>Try these commands in the interactive terminal below to see how Git status and history work:</p>
+                        
+                        <div class="practice-terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">Git Practice Terminal</span>
+                                <div class="terminal-controls">
+                                    <span class="control-dot"></span>
+                                    <span class="control-dot"></span>
+                                    <span class="control-dot"></span>
+                                </div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-output" id="status-history-output">
+                                    <div class="welcome-message">
+                                        Welcome to Git Practice Terminal! 🚀<br>
+                                        Try these commands to explore Git status and history:<br><br>
+                                        <strong>Status Commands:</strong><br>
+                                        • <code>git status</code> - Check repository status<br>
+                                        • <code>git status --short</code> - Compact status view<br><br>
+                                        <strong>History Commands:</strong><br>
+                                        • <code>git log</code> - View full commit history<br>
+                                        • <code>git log --oneline</code> - Compact history view<br>
+                                        • <code>git log --graph</code> - Visual branch history<br>
+                                        • <code>git log --stat</code> - History with file changes<br><br>
+                                        Type any command and press Enter to see the output!
+                                    </div>
+                                </div>
+                                <div class="terminal-input-line">
+                                    <span class="prompt">$</span>
+                                    <input type="text" id="status-history-input" class="command-input" placeholder="Enter git command..." autocomplete="off">
+                                    <button class="run-command-btn" onclick="gitBasicsModule.executeStatusHistoryCommand()">Run</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-tips">
+                            <h4>💡 Practice Tips:</h4>
+                            <ul>
+                                <li><strong>Start with <code>git status</code></strong> to see your current repository state</li>
+                                <li><strong>Use <code>git log --oneline</code></strong> for a quick overview of commits</li>
+                                <li><strong>Try <code>git log --graph</code></strong> to visualize branch structure</li>
+                                <li><strong>Experiment with different flags</strong> to see various output formats</li>
+                            </ul>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="content-section">
