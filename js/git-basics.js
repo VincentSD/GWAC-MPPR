@@ -67,6 +67,9 @@ class GitBasicsModule {
 
         // Setup interactive concept explanations
         this.setupConceptInteractions();
+        
+        // Setup image zoom modal
+        this.setupImageModal();
     }
 
     setupConceptInteractions() {
@@ -409,6 +412,93 @@ class GitBasicsModule {
         setTimeout(() => {
             card.style.transform = 'scale(1)';
         }, 200);
+    }
+    
+    setupImageModal() {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const closeBtn = document.querySelector('.close-modal');
+        
+        if (!modal || !modalImg || !modalCaption || !closeBtn) {
+            console.log('Image modal elements not found');
+            return;
+        }
+        
+        // Close modal when clicking the close button
+        closeBtn.addEventListener('click', () => {
+            this.closeImageModal();
+        });
+        
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeImageModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeImageModal();
+            }
+        });
+        
+        // Setup click handlers for comparison images
+        this.setupComparisonImageClicks();
+    }
+    
+    setupComparisonImageClicks() {
+        // Find all comparison images and placeholders
+        const comparisonImages = document.querySelectorAll('.comparison-image img, .image-placeholder');
+        
+        comparisonImages.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                this.openImageModal(img, index);
+            });
+        });
+    }
+    
+    openImageModal(img, index) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        if (!modal || !modalImg || !modalCaption) return;
+        
+        // Get image source and caption
+        let imageSrc = '';
+        let caption = '';
+        
+        if (img.tagName === 'IMG') {
+            imageSrc = img.src;
+            caption = img.getAttribute('data-caption') || 'Git Concept Image';
+        } else {
+            // Handle placeholder divs
+            const placeholderText = img.querySelector('.placeholder-text')?.textContent || 'Git Concept';
+            const placeholderDesc = img.querySelector('.placeholder-description')?.textContent || '';
+            caption = `${placeholderText}: ${placeholderDesc}`;
+            
+            // For placeholders, we'll show a larger version of the icon
+            const icon = img.querySelector('.placeholder-icon')?.textContent || '📸';
+            imageSrc = `data:text/html,<div style="font-size: 200px; text-align: center; padding: 100px; background: white; border-radius: 20px;">${icon}</div>`;
+        }
+        
+        // Set modal content
+        modalImg.src = imageSrc;
+        modalCaption.textContent = caption;
+        
+        // Show modal
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+    
+    closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
     }
 
     copyCodeToClipboard(codeId) {
