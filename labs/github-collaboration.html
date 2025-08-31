@@ -731,14 +731,15 @@ git push origin main</code></pre>
                             
                             <div class="setup-steps">
                                 <ol>
-                                    <li><strong>Fork the Exercise Repository:</strong> <code>https://github.com/VincentSD/team-collaboration-exercise</code></li>
-                                    <li><strong>Clone Your Fork:</strong> <code>git clone https://github.com/[your-username]/team-collaboration-exercise.git</code></li>
+                                    <li><strong>Clone the Exercise Repository:</strong> <code>git clone https://github.com/VincentSD/team-collaboration-exercise.git</code></li>
                                     <li><strong>Create Your Branch:</strong> <code>git checkout -b add-[your-name]</code></li>
+                                    <li><strong>Add Your Name:</strong> Edit the README.md file</li>
+                                    <li><strong>Push Your Branch:</strong> <code>git push origin add-[your-name]</code></li>
                                 </ol>
                             </div>
                             
                             <div class="exercise-note">
-                                <p><strong>🎯 Goal:</strong> Each team member adds their information to the shared README, creating intentional conflicts to practice resolution skills!</p>
+                                <p><strong>🎯 Goal:</strong> Everyone works on the same repository, creating real collaboration scenarios and guaranteed merge conflicts!</p>
                             </div>
                         </div>
                         
@@ -750,10 +751,11 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">1</div>
                                     <div class="step-content">
-                                        <h5>🍴 Fork & Clone</h5>
-                                        <p>Fork the exercise repository and clone it to your computer.</p>
+                                        <h5>📥 Clone Repository</h5>
+                                        <p>Everyone clones the same repository to work on together.</p>
                                         <div class="code-block">
-                                            <code>git clone https://github.com/[your-username]/team-collaboration-exercise.git</code>
+                                            <code>git clone https://github.com/VincentSD/team-collaboration-exercise.git<br>
+                                            cd team-collaboration-exercise</code>
                                         </div>
                                     </div>
                                 </div>
@@ -761,11 +763,10 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">2</div>
                                     <div class="step-content">
-                                        <h5>✏️ Add Your Name</h5>
-                                        <p>Edit README.md and add your name to the team list.</p>
-                                        <div class="task-example">
-                                            <strong>Simple format:</strong><br>
-                                            <code>- **[Your Name]** - [Your Institution/Role]</code>
+                                        <h5>🌿 Create Your Branch</h5>
+                                        <p>Create a branch with your name to track your work.</p>
+                                        <div class="code-block">
+                                            <code>git checkout -b add-[your-name]</code>
                                         </div>
                                     </div>
                                 </div>
@@ -773,12 +774,11 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">3</div>
                                     <div class="step-content">
-                                        <h5>💾 Save & Submit</h5>
-                                        <p>Commit your changes and create a pull request.</p>
-                                        <div class="code-block">
-                                            <code>git add README.md<br>
-                                            git commit -m "Add my name to team"<br>
-                                            git push</code>
+                                        <h5>✏️ Add Your Name</h5>
+                                        <p>Edit README.md and add your name to the team list.</p>
+                                        <div class="task-example">
+                                            <strong>Simple format:</strong><br>
+                                            <code>- **[Your Name]** - [Your Role/Institution]</code>
                                         </div>
                                     </div>
                                 </div>
@@ -786,10 +786,23 @@ git push origin main</code></pre>
                                 <div class="workflow-step">
                                     <div class="step-number">4</div>
                                     <div class="step-content">
-                                        <h5>⚔️ Resolve Conflicts</h5>
-                                        <p>When others also add their names, you'll get conflicts to practice resolving!</p>
+                                        <h5>🚀 Push & Create PR</h5>
+                                        <p>Save your work and submit a pull request.</p>
+                                        <div class="code-block">
+                                            <code>git add README.md<br>
+                                            git commit -m "Add [Your Name] to team"<br>
+                                            git push origin add-[your-name]</code>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="workflow-step">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <h5>⚔️ Handle Conflicts</h5>
+                                        <p>When multiple people work on the same file, conflicts happen!</p>
                                         <div class="pro-tip">
-                                            <strong>Learning Goal:</strong> Experience merge conflicts in a safe, simple environment
+                                            <strong>Real Collaboration:</strong> Learn to coordinate and resolve conflicts together
                                         </div>
                                     </div>
                                 </div>
@@ -802,41 +815,41 @@ git push origin main</code></pre>
                             
                             <div class="conflict-scenarios">
                                 <div class="scenario">
-                                    <h5>🚨 Scenario 1: Someone Beat You to It</h5>
-                                    <p>Another team member's PR was merged first. Now your PR shows conflicts.</p>
+                                    <h5>🚨 Scenario 1: Someone Got There First</h5>
+                                    <p>Another teammate's PR was merged while you were working. Now you have conflicts!</p>
                                     <div class="solution">
-                                        <strong>Solution:</strong> Update your branch with the latest changes
+                                        <strong>Solution:</strong> Sync with the latest changes
                                         <div class="code-block">
-                                            <code>git fetch upstream<br>
-                                            git merge upstream/main<br>
-                                            # Resolve conflicts in your editor<br>
+                                            <code>git fetch origin<br>
+                                            git merge origin/main<br>
+                                            # Fix conflicts in README.md<br>
                                             git add README.md<br>
-                                            git commit -m "Resolve merge conflicts with main"</code>
+                                            git commit -m "Resolve conflicts"</code>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="scenario">
-                                    <h5>🔄 Scenario 2: Multiple People, Same Section</h5>
-                                    <p>Everyone adds their info to the same part of the README.</p>
+                                    <h5>🔄 Scenario 2: Multiple People, Same Place</h5>
+                                    <p>Everyone adds their name to the same spot in the README.</p>
                                     <div class="solution">
-                                        <strong>Solution:</strong> Coordinate placement and resolve systematically
+                                        <strong>Solution:</strong> Keep everyone's contribution!
                                         <div class="pro-tip">
-                                            <strong>Pro Tip:</strong> Look for conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;) and keep all team members' information!
+                                            <strong>Key Skill:</strong> Look for &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers and keep all names
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="scenario">
-                                    <h5>👥 Scenario 3: Review & Collaborate</h5>
-                                    <p>Practice giving constructive feedback on teammates' PRs.</p>
+                                    <h5>👥 Scenario 3: Real-time Coordination</h5>
+                                    <p>Communicate with teammates about who's working on what.</p>
                                     <div class="solution">
-                                        <strong>What to Review:</strong>
+                                        <strong>Team Communication:</strong>
                                         <ul>
-                                            <li>Is the information complete and well-formatted?</li>
-                                            <li>Are commit messages clear and descriptive?</li>
-                                            <li>Does the addition fit the overall style?</li>
-                                            <li>Any typos or formatting issues?</li>
+                                            <li>Check existing PRs before starting</li>
+                                            <li>Comment on PRs to coordinate</li>
+                                            <li>Help teammates resolve conflicts</li>
+                                            <li>Celebrate successful merges together!</li>
                                         </ul>
                                     </div>
                                 </div>
