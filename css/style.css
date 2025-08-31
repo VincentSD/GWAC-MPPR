@@ -7872,20 +7872,16 @@ a.toc-item {
 
 .challenge-steps {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-5);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
     margin-bottom: var(--spacing-6);
 }
 
-/* Step 2 spans full width for better code display */
-.challenge-steps .challenge-step:nth-child(2) {
-    grid-column: 1 / -1;
-    order: 3;
-}
-
-/* Step 3 moves to first row, second column */
+/* Reset any previous ordering - all steps now take full width */
+.challenge-steps .challenge-step:nth-child(2),
 .challenge-steps .challenge-step:nth-child(3) {
-    order: 2;
+    order: initial;
+    grid-column: initial;
 }
 
 .challenge-step {
@@ -7955,8 +7951,41 @@ a.toc-item {
 }
 
 .challenge-step .step-content {
-    padding: var(--spacing-5);
+    padding: var(--spacing-6);
     text-align: center;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spacing-6);
+    align-items: start;
+}
+
+/* Step number positioned to the left */
+.challenge-step .step-number {
+    margin: 0;
+    grid-row: 1 / -1;
+    align-self: start;
+    margin-top: var(--spacing-2);
+}
+
+/* Content takes remaining space */
+.challenge-step .step-content-text {
+    text-align: left;
+}
+
+.challenge-step .step-content h4,
+.challenge-step .step-content p,
+.challenge-step .step-content ul,
+.challenge-step .step-content .pro-tip,
+.challenge-step .step-content .documentation-example,
+.challenge-step .step-content .code-block {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.challenge-step .step-content h4 {
+    justify-content: flex-start;
+    margin-bottom: var(--spacing-4);
 }
 
 .challenge-step .step-content h4 {
@@ -8185,7 +8214,7 @@ a.toc-item {
 
 .tips-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-5);
     margin-top: var(--spacing-5);
 }
@@ -9379,14 +9408,7 @@ pre code {
     }
     
     .challenge-steps {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-3);
-    }
-    
-    /* Reset order on mobile for natural flow */
-    .challenge-steps .challenge-step:nth-child(2),
-    .challenge-steps .challenge-step:nth-child(3) {
-        order: initial;
+        gap: var(--spacing-4);
     }
     
     .submission-form {
@@ -9432,10 +9454,28 @@ pre code {
     
     .challenge-step .step-content {
         padding: var(--spacing-4);
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+        text-align: center;
+    }
+    
+    .challenge-step .step-number {
+        margin: 0 auto var(--spacing-4);
+        grid-row: initial;
+    }
+    
+    .challenge-step .step-content h4,
+    .challenge-step .step-content p,
+    .challenge-step .step-content ul,
+    .challenge-step .step-content .pro-tip,
+    .challenge-step .step-content .documentation-example,
+    .challenge-step .step-content .code-block {
+        text-align: center;
     }
     
     .challenge-step .step-content h4 {
         font-size: 1.3rem;
+        justify-content: center;
     }
     
     .task-list {
@@ -9677,6 +9717,14 @@ pre code {
 .form-group textarea {
     resize: vertical;
     min-height: 80px;
+}
+
+/* Tablet Responsive Design */
+@media (max-width: 992px) and (min-width: 769px) {
+    .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-4);
+    }
 }
 
 /* Responsive Design for Submissions */
