@@ -1281,14 +1281,14 @@ class GitFileManager {
             }
         }
         
-        return 'Dr. Vincent Donkoh'; // Default facilitator
+        return 'Vincent Donkoh'; // Default facilitator
     }
 
     mapFacilitatorName(name) {
         // Map partial names to full facilitator names
         const facilitatorMap = {
-            'Vincent': 'Dr. Vincent Donkoh',
-            'Donkoh': 'Dr. Vincent Donkoh',
+            'Vincent': 'Vincent Donkoh',
+            'Donkoh': 'Vincent Donkoh',
             'Jean-Claude': 'Dr. Jean Claude Dejon Agobé',
             'Dejon': 'Dr. Jean Claude Dejon Agobé',
             'Agobé': 'Dr. Jean Claude Dejon Agobé',
@@ -1702,11 +1702,36 @@ class GitFileManager {
                             <label>Facilitator:</label>
                             <select id="edit-facilitator-${fileId}">
                                 <option value="">Select a facilitator</option>
-                                <option value="Dr. Vincent Donkoh" ${file.facilitator === 'Dr. Vincent Donkoh' ? 'selected' : ''}>Dr. Vincent Donkoh</option>
-                                <option value="Dr. Jean Claude Dejon Agobé" ${file.facilitator === 'Dr. Jean Claude Dejon Agobé' ? 'selected' : ''}>Dr. Jean Claude Dejon Agobé</option>
-                                <option value="Prof. Gesine Meyer-Rath" ${file.facilitator === 'Prof. Gesine Meyer-Rath' ? 'selected' : ''}>Prof. Gesine Meyer-Rath</option>
-                                <option value="Dr. Opanin Agyei Adu" ${file.facilitator === 'Dr. Opanin Agyei Adu' ? 'selected' : ''}>Dr. Opanin Agyei Adu</option>
-                                <option value="Charlène Naomie Tedto Mfangnia" ${file.facilitator === 'Charlène Naomie Tedto Mfangnia' ? 'selected' : ''}>Charlène Naomie Tedto Mfangnia</option>
+                                
+                                <!-- Course Facilitators -->
+                                <optgroup label="Course Facilitators">
+                                    <option value="Dr. James Azam" ${file.facilitator === 'Dr. James Azam' ? 'selected' : ''}>Dr. James Azam</option>
+                                    <option value="Dr. Andrzej Jarynowski" ${file.facilitator === 'Dr. Andrzej Jarynowski' ? 'selected' : ''}>Dr. Andrzej Jarynowski</option>
+                                    <option value="Vincent Donkoh" ${file.facilitator === 'Vincent Donkoh' ? 'selected' : ''}>Vincent Donkoh</option>
+                                    <option value="Dr. Jean Claude Dejon Agobé" ${file.facilitator === 'Dr. Jean Claude Dejon Agobé' ? 'selected' : ''}>Dr. Jean Claude Dejon Agobé</option>
+                                    <option value="Prof. Gesine Meyer-Rath" ${file.facilitator === 'Prof. Gesine Meyer-Rath' ? 'selected' : ''}>Prof. Gesine Meyer-Rath</option>
+                                    <option value="Charlène Naomie Tedto Mfangnia" ${file.facilitator === 'Charlène Naomie Tedto Mfangnia' ? 'selected' : ''}>Charlène Naomie Tedto Mfangnia</option>
+                                    <option value="Dr. Daniel Boateng" ${file.facilitator === 'Dr. Daniel Boateng' ? 'selected' : ''}>Dr. Daniel Boateng</option>
+                                    <option value="Dr. Daniel Opoku" ${file.facilitator === 'Dr. Daniel Opoku' ? 'selected' : ''}>Dr. Daniel Opoku</option>
+                                    <option value="Vincent Findeiss" ${file.facilitator === 'Vincent Findeiss' ? 'selected' : ''}>Vincent Findeiss</option>
+                                </optgroup>
+                                
+                                <!-- Course Coordinators -->
+                                <optgroup label="Course Coordinators">
+                                    <option value="Vincent Findeiss" ${file.facilitator === 'Vincent Findeiss' ? 'selected' : ''}>Vincent Findeiss</option>
+                                    <option value="Dr. Daniel Opoku" ${file.facilitator === 'Dr. Daniel Opoku' ? 'selected' : ''}>Dr. Daniel Opoku</option>
+                                    <option value="Dr. Daniel Boateng" ${file.facilitator === 'Dr. Daniel Boateng' ? 'selected' : ''}>Dr. Daniel Boateng</option>
+                                </optgroup>
+                                
+                                <!-- G-WAC Leadership -->
+                                <optgroup label="G-WAC Leadership">
+                                    <option value="Prof. Wilm Quentin" ${file.facilitator === 'Prof. Wilm Quentin' ? 'selected' : ''}>Prof. Wilm Quentin</option>
+                                    <option value="Dr. John Amuasi" ${file.facilitator === 'Dr. John Amuasi' ? 'selected' : ''}>Dr. John Amuasi</option>
+                                    <option value="Prof. Walter Bruchhausen" ${file.facilitator === 'Prof. Walter Bruchhausen' ? 'selected' : ''}>Prof. Walter Bruchhausen</option>
+                                    <option value="Patricia Matey-Akuffo" ${file.facilitator === 'Patricia Matey-Akuffo' ? 'selected' : ''}>Patricia Matey-Akuffo</option>
+                                </optgroup>
+                                
+                                <!-- Other -->
                                 <option value="Other" ${file.facilitator === 'Other' ? 'selected' : ''}>Other</option>
                             </select>
                         </div>
