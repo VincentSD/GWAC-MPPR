@@ -8119,6 +8119,20 @@ a.toc-item {
     line-height: 1.5;
 }
 
+.exercise-note {
+    background: rgba(255, 255, 255, 0.15);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.exercise-note p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
 /* Responsive Design for New Sections */
 @media (max-width: 768px) {
     .alternatives-grid {
@@ -8169,5 +8183,262 @@ a.toc-item {
     .exercise-setup,
     .collaboration-practice {
         padding: var(--spacing-3);
+    }
+}
+
+/* Submissions Tracker Styling */
+.submissions-container {
+    margin: var(--spacing-6) 0;
+}
+
+.submission-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+}
+
+.stat-card {
+    background: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: #48bb78;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #48bb78;
+    margin-bottom: var(--spacing-2);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.submissions-list {
+    display: grid;
+    gap: var(--spacing-4);
+}
+
+.submission-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.submission-card.status-approved {
+    border-left: 4px solid #48bb78;
+}
+
+.submission-card.status-rejected {
+    border-left: 4px solid #f56565;
+}
+
+.submission-card.status-pending {
+    border-left: 4px solid #ed8936;
+}
+
+.submission-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.submission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-4);
+}
+
+.student-info h4 {
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-1) 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.timestamp {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-badge.status-approved {
+    background: rgba(72, 187, 120, 0.1);
+    color: #48bb78;
+}
+
+.status-badge.status-rejected {
+    background: rgba(245, 101, 101, 0.1);
+    color: #f56565;
+}
+
+.status-badge.status-pending {
+    background: rgba(237, 137, 54, 0.1);
+    color: #ed8936;
+}
+
+.submission-content {
+    margin-bottom: var(--spacing-4);
+}
+
+.submission-url {
+    margin-bottom: var(--spacing-3);
+}
+
+.submission-url a {
+    color: #4299e1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.submission-url a:hover {
+    text-decoration: underline;
+}
+
+.submission-notes,
+.review-notes {
+    background: #f7fafc;
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-3);
+    border-left: 3px solid #e2e8f0;
+}
+
+.submission-actions {
+    display: flex;
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-danger {
+    background: #f56565;
+    color: white;
+}
+
+.btn-secondary {
+    background: #718096;
+    color: white;
+}
+
+.no-submissions {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: var(--spacing-6);
+    background: #f7fafc;
+    border-radius: var(--radius-lg);
+    border: 2px dashed #e2e8f0;
+}
+
+/* Test Submission Form */
+.test-submission-form {
+    background: white;
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid #e2e8f0;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-4);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-2);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-3);
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #48bb78;
+    box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Responsive Design for Submissions */
+@media (max-width: 768px) {
+    .submission-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-3);
+    }
+    
+    .submission-header {
+        flex-direction: column;
+        gap: var(--spacing-3);
+    }
+    
+    .submission-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .test-submission-form {
+        padding: var(--spacing-4);
     }
 }
