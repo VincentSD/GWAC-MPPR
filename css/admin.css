@@ -83,6 +83,65 @@ body {
 .admin-actions {
     display: flex;
     gap: 1rem;
+    align-items: center;
+}
+
+/* Admin Status */
+.admin-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--admin-text-secondary);
+}
+
+.status-indicator i {
+    font-size: 0.6rem;
+    color: var(--admin-success);
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.loading i {
+    color: var(--admin-accent);
+    animation: spin 1s linear infinite;
+}
+
+.status-indicator.error i {
+    color: var(--admin-error);
+    animation: none;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--admin-bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--admin-accent) 0%, var(--admin-accent-hover) 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* Admin Navigation */

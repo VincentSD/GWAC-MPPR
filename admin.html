@@ -28,6 +28,15 @@
                 <span class="admin-logo-text">G-WAC Admin Panel</span>
             </div>
             <div class="admin-actions">
+                <div class="admin-status">
+                    <div class="status-indicator" id="admin-status-indicator">
+                        <i class="fas fa-circle"></i>
+                        <span id="admin-status-text">Ready</span>
+                    </div>
+                    <div class="progress-bar" id="admin-progress-bar">
+                        <div class="progress-fill" id="admin-progress-fill"></div>
+                    </div>
+                </div>
                 <button class="btn btn-outline" onclick="adminManager.showHelp()">
                     <i class="fas fa-question-circle"></i> Help
                 </button>

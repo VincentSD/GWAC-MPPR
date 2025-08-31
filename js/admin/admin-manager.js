@@ -398,6 +398,39 @@ class AdminManager {
         }
     }
 
+    // Status Management
+    updateStatus(text, type = 'ready') {
+        const indicator = document.getElementById('admin-status-indicator');
+        const statusText = document.getElementById('admin-status-text');
+        
+        if (indicator && statusText) {
+            statusText.textContent = text;
+            indicator.className = `status-indicator ${type}`;
+        }
+    }
+
+    updateProgress(percentage) {
+        const progressFill = document.getElementById('admin-progress-fill');
+        if (progressFill) {
+            progressFill.style.width = `${percentage}%`;
+        }
+    }
+
+    showLoadingStatus(text = 'Loading...') {
+        this.updateStatus(text, 'loading');
+        this.updateProgress(0);
+    }
+
+    showReadyStatus(text = 'Ready') {
+        this.updateStatus(text, 'ready');
+        this.updateProgress(100);
+    }
+
+    showErrorStatus(text = 'Error occurred') {
+        this.updateStatus(text, 'error');
+        this.updateProgress(0);
+    }
+
     async loadHeroContent() {
         try {
             const heroData = await this.contentLoader.loadHeroContent();
@@ -551,23 +584,36 @@ class AdminManager {
     // Global Operations
     async refreshAllContent() {
         try {
+            this.showLoadingStatus('Refreshing content...');
+            this.updateProgress(10);
+            
             this.notificationSystem.show('info', 'Refreshing Content', 'Loading fresh content from repository...');
             
+            this.updateProgress(30);
+            await this.scheduleManager.loadSchedule();
+            
+            this.updateProgress(50);
+            await this.facilitatorsManager.loadFacilitators();
+            
+            this.updateProgress(70);
             await Promise.all([
-                this.scheduleManager.loadSchedule(),
-                this.facilitatorsManager.loadFacilitators(),
                 this.materialsManager.loadCategories(),
                 this.navigationManager.loadMenuItems(),
                 this.contactManager.loadContactInfo(),
                 this.resourcesManager.loadResources()
             ]);
             
+            this.updateProgress(90);
             await this.loadDashboardData();
+            
+            this.updateProgress(100);
+            this.showReadyStatus('Content refreshed');
             
             this.notificationSystem.show('success', 'Content Refreshed', 'All content has been refreshed successfully');
             
         } catch (error) {
             console.error('Error refreshing content:', error);
+            this.showErrorStatus('Refresh failed');
             this.notificationSystem.show('error', 'Refresh Error', 'Failed to refresh some content');
         }
     }
