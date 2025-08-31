@@ -4526,6 +4526,29 @@ a.toc-item {
     gap: var(--spacing-6);
 }
 
+/* Repository Creation Steps */
+.creation-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+}
+
+.creation-steps .step:nth-child(1),
+.creation-steps .step:nth-child(2) {
+    grid-column: span 1;
+}
+
+/* Make first two steps display in 2 columns on larger screens */
+@media (min-width: 768px) {
+    .creation-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .creation-steps .step:nth-child(3) {
+        grid-column: 1 / -1; /* Step 3 spans full width */
+    }
+}
+
 .step {
     background: var(--background-primary);
     padding: var(--spacing-6);
