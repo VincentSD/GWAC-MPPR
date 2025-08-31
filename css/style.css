@@ -985,6 +985,141 @@ main {
     box-shadow: 0 10px 25px rgba(72, 187, 120, 0.1);
 }
 
+/* Enhanced Key Git Concepts */
+.key-concepts {
+    margin: 50px 0;
+    padding: 40px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+}
+
+.key-concepts h3 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.key-concepts h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+    border-radius: 2px;
+}
+
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.concept-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #4299e1);
+    transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.concept-card:hover::before {
+    height: 6px;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.concept-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.concept-content h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+}
+
+.concept-content h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: #48bb78;
+    border-radius: 1px;
+}
+
+.concept-content p {
+    color: #4a5568;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.concept-tip {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(66, 153, 225, 0.1));
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.concept-tip:hover {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.15), rgba(66, 153, 225, 0.15));
+    transform: translateY(-2px);
+}
+
+.tip-icon {
+    font-size: 1.2rem;
+    color: #48bb78;
+}
+
+.tip-text {
+    color: #22543d;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.4;
+}
+
 /* Enhanced Workflow Steps */
 .workflow-step {
     transition: all 0.3s ease;
@@ -2351,6 +2486,19 @@ main {
     .git-features {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+    
+    .concept-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .concept-card {
+        padding: 25px;
+    }
+    
+    .concept-icon {
+        font-size: 3rem;
     }
     
     .learning-objectives {
