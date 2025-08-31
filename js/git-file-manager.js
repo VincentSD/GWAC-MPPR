@@ -11,6 +11,12 @@ class GitFileManager {
         this.repoName = 'GWAC-MPPR'; // Your repository name
         this.branch = 'main'; // Your default branch
         this.githubToken = null; // Will be set by user
+        
+        // Pagination properties
+        this.filesPerPage = 6;
+        this.currentPage = 1;
+        this.totalPages = 1;
+        
         this.init();
     }
 
@@ -1314,44 +1320,90 @@ class GitFileManager {
 
     // ... (rest of the methods remain the same as in the original file manager)
     searchFiles(query) {
-        const fileCards = document.querySelectorAll('.file-card');
-        const searchTerm = query.toLowerCase();
+        // Reset to first page when searching
+        this.currentPage = 1;
         
-        fileCards.forEach(card => {
-            const title = card.querySelector('.file-title').textContent.toLowerCase();
-            const description = card.querySelector('.file-description').textContent.toLowerCase();
-            const category = card.querySelector('.file-category').textContent.toLowerCase();
+        // Filter files based on search query
+        const searchTerm = query.toLowerCase();
+        const filteredFiles = Array.from(this.files.values()).filter(file => {
+            const title = file.title.toLowerCase();
+            const description = (file.description || '').toLowerCase();
+            const category = file.category.toLowerCase();
+            const facilitator = (file.facilitator || '').toLowerCase();
             
-            if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            return title.includes(searchTerm) || 
+                   description.includes(searchTerm) || 
+                   category.includes(searchTerm) ||
+                   facilitator.includes(searchTerm);
         });
+        
+        // Create a temporary filtered files map
+        const tempFiles = new Map();
+        filteredFiles.forEach(file => tempFiles.set(file.id, file));
+        
+        // Store original files and replace with filtered ones
+        this.originalFiles = this.files;
+        this.files = tempFiles;
+        
+        // Re-render with pagination
+        this.renderFiles();
+        
+        // Restore original files
+        this.files = this.originalFiles;
+        delete this.originalFiles;
     }
 
     filterByCategory(category) {
-        const fileCards = document.querySelectorAll('.file-card');
+        // Reset to first page when filtering
+        this.currentPage = 1;
         
-        fileCards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+        if (category === 'all') {
+            // Show all files
+            this.renderFiles();
+            return;
+        }
+        
+        // Filter files by category
+        const filteredFiles = Array.from(this.files.values()).filter(file => 
+            file.category === category
+        );
+        
+        // Create a temporary filtered files map
+        const tempFiles = new Map();
+        filteredFiles.forEach(file => tempFiles.set(file.id, file));
+        
+        // Store original files and replace with filtered ones
+        this.originalFiles = this.files;
+        this.files = tempFiles;
+        
+        // Re-render with pagination
+        this.renderFiles();
+        
+        // Restore original files
+        this.files = this.originalFiles;
+        delete this.originalFiles;
     }
 
     renderFiles() {
         const container = document.getElementById('files-container');
         if (!container) return;
 
+        // Calculate pagination
+        this.calculatePagination();
+        
+        // Get files for current page
+        const currentPageFiles = this.getCurrentPageFiles();
+        
         container.innerHTML = '';
         
-        this.files.forEach(file => {
+        // Render only files for current page
+        currentPageFiles.forEach(file => {
             const fileCard = this.createFileCard(file);
             container.appendChild(fileCard);
         });
+        
+        // Render pagination controls
+        this.renderPaginationControls();
     }
 
     createFileCard(file) {
@@ -2110,6 +2162,92 @@ class GitFileManager {
         this.renderFiles();
         
         this.showNotification('✅ Course materials refreshed successfully!', 'success');
+    }
+
+    // Pagination methods
+    calculatePagination() {
+        const totalFiles = this.files.size;
+        this.totalPages = Math.ceil(totalFiles / this.filesPerPage);
+        this.currentPage = Math.min(this.currentPage, this.totalPages);
+        if (this.currentPage < 1) this.currentPage = 1;
+    }
+
+    getCurrentPageFiles() {
+        const filesArray = Array.from(this.files.values());
+        const startIndex = (this.currentPage - 1) * this.filesPerPage;
+        const endIndex = startIndex + this.filesPerPage;
+        return filesArray.slice(startIndex, endIndex);
+    }
+
+    goToPage(pageNumber) {
+        if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+            this.currentPage = pageNumber;
+            this.renderFiles();
+        }
+    }
+
+    goToNextPage() {
+        if (this.currentPage < this.totalPages) {
+            this.goToPage(this.currentPage + 1);
+        }
+    }
+
+    goToPreviousPage() {
+        if (this.currentPage > 1) {
+            this.goToPage(this.currentPage - 1);
+        }
+    }
+
+    renderPaginationControls() {
+        const paginationContainer = document.getElementById('pagination-controls');
+        if (!paginationContainer) return;
+
+        if (this.totalPages <= 1) {
+            paginationContainer.innerHTML = '';
+            return;
+        }
+
+        const paginationHTML = `
+            <div class="pagination-info">
+                <span>Page ${this.currentPage} of ${this.totalPages}</span>
+                <span>(${this.files.size} total files)</span>
+            </div>
+            <div class="pagination-buttons">
+                <button class="btn btn-secondary" onclick="gitFileManager.goToPreviousPage()" ${this.currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers">
+                    ${this.generatePageNumbers()}
+                </div>
+                <button class="btn btn-secondary" onclick="gitFileManager.goToNextPage()" ${this.currentPage === this.totalPages ? 'disabled' : ''}>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+
+        paginationContainer.innerHTML = paginationHTML;
+    }
+
+    generatePageNumbers() {
+        let pageNumbers = '';
+        const maxVisiblePages = 5;
+        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers += `
+                <button class="btn ${i === this.currentPage ? 'btn-primary' : 'btn-outline'}" 
+                        onclick="gitFileManager.goToPage(${i})">
+                    ${i}
+                </button>
+            `;
+        }
+
+        return pageNumbers;
     }
 }
 

@@ -1226,3 +1226,93 @@
         justify-content: center;
     }
 }
+
+/* Pagination Controls Styling */
+.pagination-controls {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.pagination-info {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.pagination-info span {
+    margin: 0 0.5rem;
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.pagination-buttons .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    min-width: 80px;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.page-numbers .btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.page-numbers .btn-outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.page-numbers .btn-outline:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: var(--bg-primary);
+}
+
+.page-numbers .btn-primary {
+    background: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    color: white;
+}
+
+.page-numbers .btn-primary:hover {
+    background: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .pagination-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .page-numbers {
+        order: -1;
+        justify-content: center;
+    }
+    
+    .pagination-info {
+        font-size: 0.8rem;
+    }
+}
