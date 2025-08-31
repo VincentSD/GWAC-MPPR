@@ -7804,36 +7804,70 @@ a.toc-item {
 }
 
 .practice-challenge {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-6);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
     border: 2px solid #e2e8f0;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.practice-challenge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #48bb78, #4299e1, #9f7aea);
 }
 
 .challenge-header {
     text-align: center;
-    margin-bottom: var(--spacing-6);
-    padding-bottom: var(--spacing-4);
-    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: var(--spacing-8);
+    padding: var(--spacing-6);
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border-radius: var(--radius-lg);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    pointer-events: none;
 }
 
 .challenge-header h3 {
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-3);
-    font-size: 1.8rem;
+    color: white;
+    margin-bottom: var(--spacing-4);
+    font-size: 2rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--spacing-3);
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .challenge-header p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
 }
 
 .challenge-steps {
@@ -7861,27 +7895,63 @@ a.toc-item {
     overflow: hidden;
     transition: all 0.3s ease;
     position: relative;
+    box-shadow: var(--shadow-md);
+}
+
+.challenge-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 }
 
 .challenge-step:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-xl);
     border-color: #48bb78;
+}
+
+.challenge-step:hover::before {
+    opacity: 1;
 }
 
 .challenge-step .step-number {
     background: linear-gradient(135deg, #48bb78, #38a169);
     color: white;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: var(--spacing-4) auto var(--spacing-4);
+    margin: var(--spacing-5) auto var(--spacing-4);
     font-weight: 700;
-    font-size: 1.3rem;
-    box-shadow: var(--shadow-md);
+    font-size: 1.4rem;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.challenge-step .step-number::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 2px solid rgba(72, 187, 120, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.challenge-step:hover .step-number::before {
+    opacity: 1;
 }
 
 .challenge-step .step-content {
@@ -7892,34 +7962,43 @@ a.toc-item {
 .challenge-step .step-content h4 {
     color: var(--text-primary);
     margin-bottom: var(--spacing-4);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--spacing-2);
+    text-align: center;
 }
 
 .challenge-step .step-content p {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-4);
-    line-height: 1.6;
+    line-height: 1.7;
     font-size: 1.05rem;
 }
 
 .challenge-step .step-content ul {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-4);
-    line-height: 1.6;
+    line-height: 1.7;
     text-align: left;
-    max-width: 500px;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    padding-left: var(--spacing-4);
 }
 
 .challenge-step .step-content li {
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
     padding-left: var(--spacing-2);
+    position: relative;
+    font-size: 1rem;
+}
+
+.challenge-step .step-content li::marker {
+    color: #48bb78;
+    font-weight: bold;
 }
 
 .challenge-submission {
@@ -9328,12 +9407,35 @@ pre code {
     
     .practice-challenge,
     .collaborative-exercise {
+        padding: var(--spacing-5);
+    }
+    
+    .challenge-header {
         padding: var(--spacing-4);
+        margin-bottom: var(--spacing-6);
     }
     
     .challenge-header h3,
     .collaborative-exercise h3 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+    }
+    
+    .challenge-header p {
+        font-size: 1.05rem;
+    }
+    
+    .challenge-step .step-number {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .challenge-step .step-content {
+        padding: var(--spacing-4);
+    }
+    
+    .challenge-step .step-content h4 {
+        font-size: 1.3rem;
     }
     
     .task-list {
