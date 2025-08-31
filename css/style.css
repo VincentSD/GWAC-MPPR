@@ -7969,6 +7969,156 @@ a.toc-item {
     margin: 0;
 }
 
+/* Collaborative Exercise Section */
+.collaborative-exercise {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-6);
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.collaborative-exercise::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    pointer-events: none;
+}
+
+.collaborative-exercise h3 {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-4);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.collaborative-exercise > p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-6);
+    position: relative;
+    z-index: 1;
+    opacity: 0.95;
+    text-align: center;
+}
+
+.exercise-setup {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-6);
+    position: relative;
+    z-index: 1;
+}
+
+.exercise-setup h4 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.exercise-setup ol {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.exercise-setup li {
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+.exercise-tasks {
+    position: relative;
+    z-index: 1;
+}
+
+.exercise-tasks h4 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-4);
+    font-weight: 600;
+}
+
+.task-list {
+    display: grid;
+    gap: var(--spacing-4);
+}
+
+.task {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.task h5 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.task p {
+    margin-bottom: var(--spacing-3);
+    line-height: 1.6;
+}
+
+.task ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.task li {
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+.task strong {
+    font-weight: 600;
+}
+
+.task .code-block {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: var(--spacing-3);
+}
+
+.collaboration-practice {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-6);
+    position: relative;
+    z-index: 1;
+}
+
+.collaboration-practice h4 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.collaboration-practice p {
+    margin-bottom: var(--spacing-3);
+    line-height: 1.6;
+}
+
+.collaboration-practice ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.collaboration-practice li {
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
 /* Responsive Design for New Sections */
 @media (max-width: 768px) {
     .alternatives-grid {
@@ -8010,5 +8160,14 @@ a.toc-item {
     .challenge-header h3,
     .collaborative-exercise h3 {
         font-size: 1.5rem;
+    }
+    
+    .task-list {
+        gap: var(--spacing-3);
+    }
+    
+    .exercise-setup,
+    .collaboration-practice {
+        padding: var(--spacing-3);
     }
 }
