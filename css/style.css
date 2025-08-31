@@ -632,13 +632,14 @@ main {
 .git-status-practice {
     margin: 40px 0;
     padding: 30px;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     border-radius: 20px;
-    border: 1px solid #bae6fd;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .git-status-practice h3 {
-    color: #0c4a6e;
+    color: #e2e8f0;
     margin-bottom: 20px;
     font-size: 1.6rem;
     font-weight: 700;
@@ -646,7 +647,7 @@ main {
 }
 
 .git-status-practice p {
-    color: #0c4a6e;
+    color: #cbd5e1;
     text-align: center;
     margin-bottom: 25px;
     font-size: 1.1rem;
@@ -654,16 +655,16 @@ main {
 }
 
 .practice-tips {
-    background: white;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     border-radius: 16px;
     padding: 25px;
     margin-top: 25px;
-    border: 2px solid #e0f2fe;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 2px solid #475569;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .practice-tips h4 {
-    color: #0c4a6e;
+    color: #e2e8f0;
     margin: 0 0 15px 0;
     font-size: 1.2rem;
     font-weight: 600;
@@ -675,22 +676,23 @@ main {
 }
 
 .practice-tips li {
-    color: #0c4a6e;
+    color: #cbd5e1;
     margin-bottom: 10px;
     line-height: 1.5;
 }
 
 .practice-tips strong {
-    color: #0369a1;
+    color: #60a5fa;
 }
 
 .practice-tips code {
-    background: #f1f5f9;
-    color: #dc2626;
+    background: #475569;
+    color: #fbbf24;
     padding: 2px 6px;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
+    border: 1px solid #64748b;
 }
     color: #48bb78;
     padding: var(--spacing-1) var(--spacing-2);
