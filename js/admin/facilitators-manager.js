@@ -23,16 +23,54 @@ class FacilitatorsManager {
 
     async loadFacilitators() {
         try {
-            const content = await this.githubIntegration.getContentFile('', 'facilitators.json');
-            if (content) {
-                const decodedContent = atob(content.content);
-                this.facilitators = JSON.parse(decodedContent);
-            } else {
-                this.facilitators = this.getDefaultFacilitators();
+            // First try to load from localStorage for persistence
+            if (this.loadFacilitatorsFromStorage()) {
+                console.log('Loaded facilitators from localStorage');
+                return;
             }
+            
+            // Fallback to GitHub API
+            if (this.githubIntegration) {
+                const content = await this.githubIntegration.getContentFile('', 'facilitators.json');
+                if (content) {
+                    const decodedContent = atob(content.content);
+                    this.facilitators = JSON.parse(decodedContent);
+                    // Save to localStorage for future use
+                    this.saveFacilitatorsToStorage();
+                    return;
+                }
+            }
+            
+            // Use default facilitators if nothing else works
+            this.facilitators = this.getDefaultFacilitators();
+            this.saveFacilitatorsToStorage();
+            
         } catch (error) {
             console.log('Using default facilitators:', error);
             this.facilitators = this.getDefaultFacilitators();
+            this.saveFacilitatorsToStorage();
+        }
+    }
+
+    saveFacilitatorsToStorage() {
+        try {
+            localStorage.setItem('facilitators', JSON.stringify(this.facilitators));
+        } catch (error) {
+            console.error('Error saving facilitators to localStorage:', error);
+        }
+    }
+
+    loadFacilitatorsFromStorage() {
+        try {
+            const stored = localStorage.getItem('facilitators');
+            if (stored) {
+                this.facilitators = JSON.parse(stored);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Error loading facilitators from localStorage:', error);
+            return false;
         }
     }
 
@@ -140,14 +178,14 @@ class FacilitatorsManager {
             },
             {
                 id: "charlene-tedto-mfangnia",
-                name: "Dr. Charlène Tedto Mfangnia",
+                name: "Charlène Tedto Mfangnia",
                 title: "Course Facilitator",
                 institution: "University of Douala",
                 expertise: "Biostatistics and research methods",
                 email: "charlene.tedto@univ-douala.cm",
                 phone: "+237 233 000 000",
                 country: "Cameroon",
-                bio: "Dr. Charlène Tedto Mfangnia is an expert in biostatistics and research methodology with focus on African health research.",
+                bio: "Charlène Tedto Mfangnia is an expert in biostatistics and research methodology with focus on African health research.",
                 specialties: ["Biostatistics", "Research Methods", "Health Research", "Statistical Analysis"],
                 socialLinks: {
                     linkedin: "https://linkedin.com/in/charlene-tedto-mfangnia",
@@ -242,18 +280,20 @@ class FacilitatorsManager {
         card.className = 'facilitator-card';
         
         // Create status indicator
-        const statusIndicator = document.createElement('div');
-        statusIndicator.className = `facilitator-status ${facilitator.isActive ? 'active' : 'inactive'}`;
-        statusIndicator.title = facilitator.isActive ? 'Active' : 'Inactive';
+        const statusIndicator = facilitator.isActive ? 
+            '<div class="facilitator-status active"></div>' : 
+            '<div class="facilitator-status inactive"></div>';
         
-        // Create specialties tags
-        const specialtiesHTML = facilitator.specialties ? 
-            facilitator.specialties.map(specialty => 
-                `<span class="specialty-tag">${specialty}</span>`
-            ).join('') : '';
+        // Create specialties HTML
+        const specialtiesHTML = facilitator.specialties && facilitator.specialties.length > 0 ? 
+            `<div class="facilitator-specialties">
+                ${facilitator.specialties.map(specialty => 
+                    `<span class="specialty-tag">${specialty}</span>`
+                ).join('')}
+            </div>` : '';
         
         card.innerHTML = `
-            ${statusIndicator.outerHTML}
+            ${statusIndicator}
             <div class="facilitator-avatar">
                 <img src="${facilitator.avatar}" alt="${facilitator.name}" onerror="this.src='images/facilitators/placeholder.svg';">
             </div>
@@ -262,8 +302,8 @@ class FacilitatorsManager {
                 <p class="title">${facilitator.title}</p>
                 <p class="institution">${facilitator.institution}</p>
                 <p class="expertise">${facilitator.expertise}</p>
+                ${specialtiesHTML}
                 <p class="country">${facilitator.country}</p>
-                ${specialtiesHTML ? `<div class="facilitator-specialties">${specialtiesHTML}</div>` : ''}
             </div>
             <div class="facilitator-actions">
                 <button class="btn btn-sm btn-outline" onclick="adminManager.editFacilitator('${facilitator.id}')">
@@ -283,9 +323,9 @@ class FacilitatorsManager {
         section.className = 'add-facilitator-section';
         section.innerHTML = `
             <div class="add-facilitator-content">
-                <i class="fas fa-plus-circle" style="font-size: 3rem; color: var(--admin-accent); margin-bottom: 1rem;"></i>
+                <i class="fas fa-user-plus" style="font-size: 2rem; color: var(--admin-accent); margin-bottom: 1rem;"></i>
                 <h3>Add New Facilitator</h3>
-                <p>Click the button below to add a new course facilitator to the program.</p>
+                <p>Click the button below to add a new course facilitator to the system.</p>
                 <button class="btn btn-primary btn-large" onclick="adminManager.addNewFacilitator()">
                     <i class="fas fa-plus"></i> Add New Facilitator
                 </button>
@@ -317,6 +357,8 @@ class FacilitatorsManager {
         };
         
         this.facilitators.push(newFacilitator);
+        // Save to localStorage for persistence
+        this.saveFacilitatorsToStorage();
         this.renderFacilitators();
         this.editFacilitator(newFacilitator.id);
         this.showNotification('New facilitator added successfully', 'success');
@@ -377,6 +419,11 @@ class FacilitatorsManager {
                         <input type="text" id="edit-facilitator-avatar" value="${facilitator.avatar}">
                         <small>Leave empty to use default placeholder</small>
                     </div>
+                    <div class="form-group">
+                        <label>Specialties</label>
+                        <input type="text" id="edit-specialties" value="${facilitator.specialties ? facilitator.specialties.join(', ') : ''}" placeholder="Enter specialties separated by commas">
+                        <small>Separate multiple specialties with commas</small>
+                    </div>
                 </div>
                 <div class="modal-actions">
                     <button class="btn btn-primary" onclick="adminManager.saveFacilitatorEdit()">Save Changes</button>
@@ -404,6 +451,8 @@ class FacilitatorsManager {
         const country = document.getElementById('edit-facilitator-country').value;
         const bio = document.getElementById('edit-facilitator-bio').value;
         const avatar = document.getElementById('edit-facilitator-avatar').value || 'images/facilitators/placeholder.svg';
+        // Parse specialties from comma-separated input
+        const specialties = document.getElementById('edit-specialties').value.split(',').map(s => s.trim()).filter(s => s);
         
         this.facilitators[facilitatorIndex] = {
             ...facilitator,
@@ -415,9 +464,12 @@ class FacilitatorsManager {
             phone,
             country,
             bio,
-            avatar
+            avatar,
+            specialties
         };
         
+        // Save to localStorage for persistence
+        this.saveFacilitatorsToStorage();
         this.renderFacilitators();
         this.closeModal();
         this.showNotification('Facilitator updated successfully', 'success');
@@ -429,6 +481,8 @@ class FacilitatorsManager {
         
         if (confirm(`Are you sure you want to delete the facilitator "${facilitator.name}"?`)) {
             this.facilitators = this.facilitators.filter(f => f.id !== facilitatorId);
+            // Save to localStorage for persistence
+            this.saveFacilitatorsToStorage();
             this.renderFacilitators();
             this.showNotification('Facilitator deleted successfully', 'success');
         }
@@ -471,6 +525,7 @@ class FacilitatorsManager {
                     const text = await file.text();
                     const importedFacilitators = JSON.parse(text);
                     this.facilitators = importedFacilitators;
+                    this.saveFacilitatorsToStorage();
                     this.renderFacilitators();
                     this.showNotification('Facilitators imported successfully', 'success');
                 } catch (error) {
@@ -479,6 +534,47 @@ class FacilitatorsManager {
             }
         };
         input.click();
+    }
+
+    async exportToGitHub() {
+        try {
+            if (!this.githubIntegration) {
+                this.showNotification('GitHub integration not available', 'error');
+                return;
+            }
+
+            this.showNotification('Exporting to GitHub...', 'info');
+            
+            // Convert facilitators to JSON
+            const content = JSON.stringify(this.facilitators, null, 2);
+            const encodedContent = btoa(content);
+            
+            // Save to GitHub
+            await this.githubIntegration.putContent(
+                'facilitators.json',
+                encodedContent,
+                'Update facilitators data',
+                'Update facilitators from admin panel'
+            );
+            
+            this.showNotification('Successfully exported to GitHub!', 'success');
+            
+        } catch (error) {
+            console.error('Error exporting to GitHub:', error);
+            this.showNotification('Failed to export to GitHub: ' + error.message, 'error');
+        }
+    }
+
+    exportFacilitatorsToFile() {
+        const dataStr = JSON.stringify(this.facilitators, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'facilitators.json';
+        link.click();
+        URL.revokeObjectURL(url);
+        this.showNotification('Facilitators exported to file successfully!', 'success');
     }
 }
 
