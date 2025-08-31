@@ -5269,6 +5269,8 @@ a.toc-item {
     flex-direction: column;
     gap: var(--spacing-5);
     margin: var(--spacing-6) 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 .workflow-steps .workflow-step {
@@ -5282,6 +5284,30 @@ a.toc-item {
     transition: var(--transition-fast);
     gap: var(--spacing-5);
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Specific styling for collaboration exercise workflow */
+.exercise-workflow {
+    width: 100%;
+    max-width: 100%;
+}
+
+.exercise-workflow .workflow-steps {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.exercise-workflow .workflow-steps .workflow-step {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    box-sizing: border-box;
+    margin: 0 !important;
 }
 
 .workflow-steps .workflow-step:hover {
