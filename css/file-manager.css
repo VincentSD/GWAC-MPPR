@@ -1237,6 +1237,33 @@
     text-align: center;
 }
 
+.filter-info {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-badge {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
 .pagination-info {
     margin-bottom: 1rem;
     color: var(--text-secondary);

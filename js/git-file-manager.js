@@ -17,6 +17,11 @@ class GitFileManager {
         this.currentPage = 1;
         this.totalPages = 1;
         
+        // Filtering properties
+        this.filteredFiles = null;
+        this.currentFilter = null;
+        this.currentSearch = null;
+        
         this.init();
     }
 
@@ -1323,6 +1328,14 @@ class GitFileManager {
         // Reset to first page when searching
         this.currentPage = 1;
         
+        if (!query.trim()) {
+            // Clear search - show all files
+            this.filteredFiles = null;
+            this.currentSearch = null;
+            this.renderFiles();
+            return;
+        }
+        
         // Filter files based on search query
         const searchTerm = query.toLowerCase();
         const filteredFiles = Array.from(this.files.values()).filter(file => {
@@ -1337,20 +1350,13 @@ class GitFileManager {
                    facilitator.includes(searchTerm);
         });
         
-        // Create a temporary filtered files map
-        const tempFiles = new Map();
-        filteredFiles.forEach(file => tempFiles.set(file.id, file));
-        
-        // Store original files and replace with filtered ones
-        this.originalFiles = this.files;
-        this.files = tempFiles;
+        // Store filtered files and search term
+        this.filteredFiles = new Map();
+        filteredFiles.forEach(file => this.filteredFiles.set(file.id, file));
+        this.currentSearch = query;
         
         // Re-render with pagination
         this.renderFiles();
-        
-        // Restore original files
-        this.files = this.originalFiles;
-        delete this.originalFiles;
     }
 
     filterByCategory(category) {
@@ -1358,7 +1364,15 @@ class GitFileManager {
         this.currentPage = 1;
         
         if (category === 'all') {
-            // Show all files
+            // Clear category filter - show all files (but maintain search filter if any)
+            this.currentFilter = null;
+            if (!this.currentSearch) {
+                this.filteredFiles = null;
+            } else {
+                // Re-apply search filter on all files
+                this.searchFiles(this.currentSearch);
+                return;
+            }
             this.renderFiles();
             return;
         }
@@ -1368,20 +1382,13 @@ class GitFileManager {
             file.category === category
         );
         
-        // Create a temporary filtered files map
-        const tempFiles = new Map();
-        filteredFiles.forEach(file => tempFiles.set(file.id, file));
-        
-        // Store original files and replace with filtered ones
-        this.originalFiles = this.files;
-        this.files = tempFiles;
+        // Store filtered files and category
+        this.currentFilter = category;
+        this.filteredFiles = new Map();
+        filteredFiles.forEach(file => this.filteredFiles.set(file.id, file));
         
         // Re-render with pagination
         this.renderFiles();
-        
-        // Restore original files
-        this.files = this.originalFiles;
-        delete this.originalFiles;
     }
 
     renderFiles() {
@@ -2166,14 +2173,18 @@ class GitFileManager {
 
     // Pagination methods
     calculatePagination() {
-        const totalFiles = this.files.size;
+        // Use filtered files if available, otherwise use all files
+        const filesToUse = this.filteredFiles || this.files;
+        const totalFiles = filesToUse.size;
         this.totalPages = Math.ceil(totalFiles / this.filesPerPage);
         this.currentPage = Math.min(this.currentPage, this.totalPages);
         if (this.currentPage < 1) this.currentPage = 1;
     }
 
     getCurrentPageFiles() {
-        const filesArray = Array.from(this.files.values());
+        // Use filtered files if available, otherwise use all files
+        const filesToUse = this.filteredFiles || this.files;
+        const filesArray = Array.from(filesToUse.values());
         const startIndex = (this.currentPage - 1) * this.filesPerPage;
         const endIndex = startIndex + this.filesPerPage;
         return filesArray.slice(startIndex, endIndex);
@@ -2202,15 +2213,37 @@ class GitFileManager {
         const paginationContainer = document.getElementById('pagination-controls');
         if (!paginationContainer) return;
 
+        // Get the actual files being displayed (filtered or all)
+        const filesToUse = this.filteredFiles || this.files;
+        const totalFiles = filesToUse.size;
+        this.totalPages = Math.ceil(totalFiles / this.filesPerPage);
+
         if (this.totalPages <= 1) {
             paginationContainer.innerHTML = '';
             return;
         }
 
+        // Build filter info
+        let filterInfo = '';
+        if (this.currentFilter || this.currentSearch) {
+            filterInfo = `
+                <div class="filter-info">
+                    <span class="filter-badge">
+                        ${this.currentFilter ? `Category: ${this.currentFilter}` : ''}
+                        ${this.currentSearch ? `Search: "${this.currentSearch}"` : ''}
+                    </span>
+                    <button class="btn btn-sm btn-outline" onclick="gitFileManager.clearAllFilters()">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </div>
+            `;
+        }
+
         const paginationHTML = `
+            ${filterInfo}
             <div class="pagination-info">
                 <span>Page ${this.currentPage} of ${this.totalPages}</span>
-                <span>(${this.files.size} total files)</span>
+                <span>(${totalFiles} ${this.filteredFiles ? 'filtered' : 'total'} files)</span>
             </div>
             <div class="pagination-buttons">
                 <button class="btn btn-secondary" onclick="gitFileManager.goToPreviousPage()" ${this.currentPage === 1 ? 'disabled' : ''}>
@@ -2248,6 +2281,31 @@ class GitFileManager {
         }
 
         return pageNumbers;
+    }
+
+    clearAllFilters() {
+        // Clear search input
+        const searchInput = document.getElementById('file-search');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        
+        // Clear category filter
+        const categoryFilter = document.querySelector('.category-filter');
+        if (categoryFilter) {
+            categoryFilter.value = 'all';
+        }
+        
+        // Reset filter state
+        this.filteredFiles = null;
+        this.currentFilter = null;
+        this.currentSearch = null;
+        this.currentPage = 1;
+        
+        // Re-render with all files
+        this.renderFiles();
+        
+        this.showNotification('✅ All filters cleared', 'success');
     }
 }
 
