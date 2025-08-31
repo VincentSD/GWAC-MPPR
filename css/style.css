@@ -1658,6 +1658,73 @@ main {
     font-style: italic;
 }
 
+/* What is Git Section */
+.what-is-git {
+    margin: 40px 0;
+}
+
+.what-is-git h3 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.what-is-git p {
+    text-align: center;
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0 0 30px 0;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.git-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.feature-item {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.feature-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.feature-item h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.feature-item p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
 /* Git History Timeline */
 .git-history {
     margin: 40px 0;
@@ -2185,6 +2252,11 @@ main {
     }
     
     /* New sections responsive design */
+    .git-features {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
     .learning-objectives {
         grid-template-columns: 1fr;
         gap: 20px;
