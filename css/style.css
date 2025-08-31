@@ -1084,6 +1084,79 @@ main {
     margin: 0;
 }
 
+/* Snapshot Benefits Section */
+.snapshot-benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 15px;
+    background: white;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.benefit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.2);
+    border-color: #48bb78;
+}
+
+.benefit .benefit-icon {
+    font-size: 2.5rem;
+    min-width: 40px;
+    display: block;
+}
+
+.benefit h4 {
+    color: #2d3748;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.benefit p {
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Parable Explanation Section */
+.parable-explanation {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.parable-explanation h3 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.parable-explanation > p {
+    color: #4a5568;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0 0 25px 0;
+    font-weight: 500;
+}
+
 /* Enhanced Commit Message Guidelines */
 .guidelines-header {
     text-align: center;
@@ -1514,6 +1587,10 @@ main {
     .example-benefits {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .snapshot-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1523,6 +1600,11 @@ main {
     }
     
     .example-benefits {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .snapshot-benefits {
         grid-template-columns: 1fr;
         gap: 15px;
     }
