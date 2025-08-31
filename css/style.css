@@ -535,7 +535,7 @@ main {
 
 /* Terminal Styling */
 .terminal {
-    background: #2d3748;
+    background: #1a202c;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
@@ -574,7 +574,8 @@ main {
 
 .terminal-body {
     padding: var(--spacing-4);
-    color: #e2e8f0;
+    color: #ffffff;
+    background: #1a202c;
 }
 
 .command-line {
@@ -592,7 +593,7 @@ main {
 .command-input {
     background: transparent;
     border: none;
-    color: #e2e8f0;
+    color: #ffffff;
     font-family: inherit;
     font-size: var(--font-size-base);
     flex: 1;
@@ -600,7 +601,7 @@ main {
 }
 
 .command-input::placeholder {
-    color: #718096;
+    color: #a0aec0;
 }
 
 .command-output {
@@ -609,6 +610,7 @@ main {
     border-radius: var(--radius-md);
     font-size: var(--font-size-sm);
     line-height: 1.5;
+    color: #ffffff;
 }
 
 .command-output p {
@@ -622,7 +624,7 @@ main {
 
 .command-output li {
     padding: var(--spacing-1) 0;
-    color: #a0aec0;
+    color: #ffffff;
 }
 
 .command-output code {
@@ -636,6 +638,168 @@ main {
     border-radius: 20px;
     border: 1px solid #334155;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Practice Terminal Specific Styling */
+.practice-terminal {
+    background: #1a202c !important;
+    border: 2px solid #475569 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin: 30px 0 !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+.practice-terminal .terminal-header {
+    background: #2d3748 !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 1px solid #475569 !important;
+}
+
+.practice-terminal .terminal-title {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+}
+
+.practice-terminal .terminal-controls {
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.practice-terminal .control-dot {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background: #64748b !important;
+}
+
+.practice-terminal .terminal-body {
+    background: #1a202c !important;
+    padding: 20px !important;
+    color: #ffffff !important;
+}
+
+.practice-terminal .terminal-output {
+    background: #1a202c !important;
+    color: #ffffff !important;
+    height: 200px !important;
+    overflow-y: auto !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    border: 1px solid #475569 !important;
+    margin-bottom: 15px !important;
+}
+
+.practice-terminal .welcome-message {
+    color: #ffffff !important;
+    line-height: 1.6 !important;
+}
+
+.practice-terminal .welcome-message strong {
+    color: #60a5fa !important;
+}
+
+.practice-terminal .welcome-message code {
+    background: #475569 !important;
+    color: #fbbf24 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-family: 'Courier New', monospace !important;
+    font-size: 0.9rem !important;
+}
+
+.practice-terminal .terminal-input-line {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: #2d3748 !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    border: 1px solid #475569 !important;
+}
+
+.practice-terminal .prompt {
+    color: #48bb78 !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+.practice-terminal .command-input {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+    font-size: 14px !important;
+    flex: 1 !important;
+    outline: none !important;
+}
+
+.practice-terminal .command-input::placeholder {
+    color: #a0aec0 !important;
+}
+
+.practice-terminal .run-command-btn {
+    background: linear-gradient(135deg, #48bb78, #38a169) !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.practice-terminal .run-command-btn:hover {
+    background: linear-gradient(135deg, #38a169, #2f855a) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3) !important;
+}
+
+.practice-terminal .command-executed {
+    color: #48bb78 !important;
+    margin-bottom: 10px !important;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+.practice-terminal .command-executed .prompt {
+    color: #48bb78 !important;
+    font-weight: bold !important;
+}
+
+.practice-terminal .command-executed .command {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+.practice-terminal .command-response {
+    color: #e2e8f0 !important;
+    margin-bottom: 15px !important;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+    line-height: 1.5 !important;
+    white-space: pre-line !important;
+}
+
+/* Custom scrollbar for terminal output */
+.practice-terminal .terminal-output::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.practice-terminal .terminal-output::-webkit-scrollbar-track {
+    background: #2d3748 !important;
+    border-radius: 4px !important;
+}
+
+.practice-terminal .terminal-output::-webkit-scrollbar-thumb {
+    background: #64748b !important;
+    border-radius: 4px !important;
+}
+
+.practice-terminal .terminal-output::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
 }
 
 .git-status-practice h3 {
