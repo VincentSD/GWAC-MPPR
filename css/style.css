@@ -2491,6 +2491,70 @@ a.toc-item {
     font-size: 0.95rem;
 }
 
+/* Key GitHub Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-5);
+    margin: var(--spacing-6) 0;
+}
+
+.features-grid .feature-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.features-grid .feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: #48bb78;
+}
+
+.features-grid .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-4);
+    display: block;
+}
+
+.features-grid .feature-item h4 {
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-3) 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.features-grid .feature-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+/* Responsive design for features grid */
+@media (max-width: 1200px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-4);
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+}
+
 /* Git History Timeline */
 .git-history {
     margin: 40px 0;
