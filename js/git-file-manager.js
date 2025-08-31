@@ -491,7 +491,7 @@ class GitFileManager {
         );
         
         if (existingFile) {
-            console.log('File already exists, skipping duplicate:', fileInfo.path);
+            // File already exists, skipping duplicate
             return;
         }
         
@@ -1213,7 +1213,7 @@ class GitFileManager {
             };
 
             this.addFile(fileObj);
-            console.log('Processed file:', fileObj);
+            // File processed successfully
 
         } catch (error) {
             console.error('Error processing file:', file, error);
@@ -1602,14 +1602,14 @@ class GitFileManager {
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('drag-over');
-                console.log('Drag over detected');
+                // Drag over detected
             });
             
             dropZone.addEventListener('dragleave', (e) => {
                 e.preventDefault();
                 if (!dropZone.contains(e.relatedTarget)) {
                     dropZone.classList.remove('drag-over');
-                    console.log('Drag leave detected');
+                    // Drag leave detected
                 }
             });
             
@@ -1618,12 +1618,12 @@ class GitFileManager {
                 dropZone.classList.remove('drag-over');
                 
                 const files = e.dataTransfer.files;
-                console.log('Drop detected, files:', files);
+                // Drop detected
                 
                 if (files.length > 0) {
                     this.handleDroppedFiles(files);
                 } else {
-                    console.log('No files in drop event');
+                    // No files in drop event
                 }
             });
             
@@ -1631,7 +1631,7 @@ class GitFileManager {
                 this.showUploadModal();
             });
             
-            console.log('Drag and drop setup complete for:', dropZone);
+            // Drag and drop setup complete
         } else {
             console.error('Drop zone element not found');
         }
@@ -1665,7 +1665,7 @@ class GitFileManager {
                     titleInput.value = nameWithoutExt.replace(/[_-]/g, ' ');
                 }
                 
-                console.log(`Dropped ${files.length} file(s):`, Array.from(files).map(f => f.name));
+                // Files dropped successfully
             }
         }
     }

@@ -385,7 +385,7 @@ class SummerSchoolManager {
         }
         
         const accordionHeaders = scheduleContainer.querySelectorAll('.accordion-header');
-        console.log(`Found ${accordionHeaders.length} accordion headers`);
+        // Found accordion headers
         
         // Remove existing event listeners to prevent duplicates
         accordionHeaders.forEach(header => {
@@ -430,7 +430,7 @@ class SummerSchoolManager {
             }
         }
         
-        console.log(`Setup ${freshHeaders.length} accordions successfully`);
+        // Setup accordions successfully
     }
 
     /**
@@ -652,10 +652,10 @@ class SummerSchoolManager {
         updateSessionCounts() {
             try {
                 const dayAccordions = document.querySelectorAll('.day-accordion');
-                console.log(`Found ${dayAccordions.length} day accordions total`);
+                // Found day accordions total
                 
                 dayAccordions.forEach((accordion, index) => {
-                    console.log(`Processing accordion ${index + 1}: ${accordion.querySelector('.day-name')?.textContent}`);
+                    // Processing accordion
                     const sessionCountElement = accordion.querySelector('.session-count');
                     if (!sessionCountElement) return;
                     
@@ -664,18 +664,18 @@ class SummerSchoolManager {
                     // Debug: Log all session cards first
                     const scheduleGrid = accordion.querySelector('.schedule-grid');
                     if (!scheduleGrid) {
-                        console.log(`${dayName}: No schedule-grid found`);
+                        // No schedule-grid found
                         return;
                     }
                     
                     const allSessionCards = scheduleGrid.querySelectorAll('.session-card');
-                    console.log(`${dayName}: Found ${allSessionCards.length} total session cards in schedule-grid`);
+                    // Found session cards in schedule-grid
                     
                     // Log each card with its classes
                     allSessionCards.forEach((card, index) => {
                         const classes = Array.from(card.classList).join(', ');
                         const title = card.querySelector('h4')?.textContent || 'No title';
-                        console.log(`  ${index + 1}. ${title} - Classes: ${classes}`);
+                        // Session card details
                     });
                     
                     // Count only actual learning sessions (exclude lunch, dinner, breaks)
@@ -697,10 +697,10 @@ class SummerSchoolManager {
                         sessionCountElement.textContent = `${actualSessionCount} Sessions`;
                     }
                     
-                    console.log(`${dayName}: Final count - ${actualSessionCount} sessions (excluding lunch/dinner/breaks)`);
+                    // Final session count
                 });
                 
-                console.log('Session counts updated successfully');
+                // Session counts updated successfully
             } catch (error) {
                 console.error('Error updating session counts:', error);
             }

@@ -1,21 +1,17 @@
-// EMERGENCY: Script made safer with null checks to prevent crashes
-console.log('EMERGENCY: Script.js made safer with null checks to prevent crashes');
+// Script made safer with null checks to prevent crashes
 
 // Main JavaScript functionality for GWAC-MPPR
 class GWACApp {
     constructor() {
-        console.log('GWACApp: Constructor called');
         this.init();
     }
 
     init() {
-        console.log('GWACApp: Initializing...');
         this.setupEventListeners();
         this.loadSubmissions();
         this.loadParticipants();
         this.setupSmoothScrolling();
         this.initProgressTracking();
-        console.log('GWACApp: Initialization complete');
     }
 
     setupEventListeners() {
@@ -83,9 +79,8 @@ class GWACApp {
         const noSubmissionsEl = document.getElementById('no-submissions');
         const tableBody = document.getElementById('submissions-tbody');
 
-        // EMERGENCY: Add null checks to prevent crashes
+        // Add null checks to prevent crashes
         if (!loadingEl || !contentEl || !noSubmissionsEl || !tableBody) {
-            console.log('EMERGENCY: Submissions elements not found, skipping load');
             return;
         }
 
@@ -276,9 +271,8 @@ class GWACApp {
         const contentEl = document.getElementById('participants-content');
         const participantsList = document.getElementById('participants-list');
 
-        // EMERGENCY: Add null checks to prevent crashes
+        // Add null checks to prevent crashes
         if (!loadingEl || !contentEl || !participantsList) {
-            console.log('EMERGENCY: Participants elements not found, skipping load');
             return;
         }
 
@@ -340,9 +334,8 @@ class GWACApp {
     }
 
     renderParticipants(participants, participantsList) {
-        // EMERGENCY: Add null checks to prevent crashes
+        // Add null checks to prevent crashes
         if (!participantsList) {
-            console.log('EMERGENCY: Participants list not found, cannot render participants');
             return;
         }
         
@@ -356,9 +349,8 @@ class GWACApp {
     }
 
     showParticipants(loadingEl, contentEl) {
-        // EMERGENCY: Add null checks to prevent crashes
+        // Add null checks to prevent crashes
         if (!loadingEl || !contentEl) {
-            console.log('EMERGENCY: Elements not found, cannot show participants');
             return;
         }
         
@@ -367,9 +359,8 @@ class GWACApp {
     }
 
     showNoParticipants(loadingEl, contentEl) {
-        // EMERGENCY: Add null checks to prevent crashes
+        // Add null checks to prevent crashes
         if (!loadingEl || !contentEl) {
-            console.log('EMERGENCY: Elements not found, cannot show no participants');
             return;
         }
         
@@ -695,7 +686,6 @@ class GWACApp {
 
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('GWACApp: DOM loaded, creating app...');
     window.gwacApp = new GWACApp();
 });
 
