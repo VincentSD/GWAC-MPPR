@@ -463,21 +463,37 @@ class GitBasicsModule {
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         const modalCaption = document.getElementById('modalCaption');
+        const modalTitle = document.getElementById('modalTitle');
         
-        if (!modal || !modalImg || !modalCaption) return;
+        if (!modal || !modalImg || !modalCaption || !modalTitle) return;
         
-        // Get image source and caption
+        // Get image source, caption, and title
         let imageSrc = '';
         let caption = '';
+        let title = '';
         
         if (img.tagName === 'IMG') {
             imageSrc = img.src;
             caption = img.getAttribute('data-caption') || 'Git Concept Image';
+            
+            // Find the parent comparison card to get the title
+            const comparisonCard = img.closest('.comparison-card');
+            if (comparisonCard) {
+                const titleElement = comparisonCard.querySelector('h3');
+                title = titleElement ? titleElement.textContent : 'Git Concept';
+            }
         } else {
             // Handle placeholder divs
             const placeholderText = img.querySelector('.placeholder-text')?.textContent || 'Git Concept';
             const placeholderDesc = img.querySelector('.placeholder-description')?.textContent || '';
             caption = `${placeholderText}: ${placeholderDesc}`;
+            
+            // Find the parent comparison card to get the title
+            const comparisonCard = img.closest('.comparison-card');
+            if (comparisonCard) {
+                const titleElement = comparisonCard.querySelector('h3');
+                title = titleElement ? titleElement.textContent : 'Git Concept';
+            }
             
             // For placeholders, we'll show a larger version of the icon
             const icon = img.querySelector('.placeholder-icon')?.textContent || '📸';
@@ -485,6 +501,7 @@ class GitBasicsModule {
         }
         
         // Set modal content
+        modalTitle.textContent = title;
         modalImg.src = imageSrc;
         modalCaption.textContent = caption;
         
