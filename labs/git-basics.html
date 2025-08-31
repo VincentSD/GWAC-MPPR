@@ -62,6 +62,14 @@
                     <span class="difficulty">📚 Beginner</span>
                     <span class="type">💻 Hands-on</span>
                 </div>
+                
+                <!-- Progress Indicator -->
+                <div class="module-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="module-progress"></div>
+                    </div>
+                    <span class="progress-text">0% Complete</span>
+                </div>
             </header>
 
             <div class="module-content">
@@ -103,6 +111,31 @@
                             <li>Reproduce results from specific dates</li>
                             <li>Share improvements and bug fixes</li>
                         </ul>
+                        
+                        <!-- Interactive Terminal for Real-World Example -->
+                        <div class="example-terminal">
+                            <h4>Try This: Simulate a Research Collaboration</h4>
+                            <div class="terminal mini-terminal">
+                                <div class="terminal-header">
+                                    <span class="terminal-title">Research Collaboration Terminal</span>
+                                </div>
+                                <div class="terminal-body">
+                                    <div class="command-line">
+                                        <span class="prompt">$</span>
+                                        <input type="text" class="command-input" placeholder="Try: git log --oneline" id="research-command">
+                                        <button class="run-command-btn" id="run-research-command">Run</button>
+                                    </div>
+                                    <div class="command-output" id="research-output">
+                                        <p>Simulate how researchers track changes in COVID-19 models:</p>
+                                        <ul>
+                                            <li><code>git log --oneline</code> - See recent changes</li>
+                                            <li><code>git show HEAD</code> - View latest commit</li>
+                                            <li><code>git diff HEAD~1</code> - Compare with previous version</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -145,6 +178,31 @@
                                         <h5>Repository</h5>
                                         <p>Permanent snapshot of your changes</p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Terminal for Git Workflow -->
+                    <div class="workflow-terminal">
+                        <h4>Practice: Understanding the Git Workflow</h4>
+                        <div class="terminal mini-terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">Git Workflow Terminal</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="command-line">
+                                    <span class="prompt">$</span>
+                                    <input type="text" class="command-input" placeholder="Try: git status" id="workflow-command">
+                                    <button class="run-command-btn" id="run-workflow-command">Run</button>
+                                </div>
+                                <div class="command-output" id="workflow-output">
+                                    <p>Practice the three-stage workflow:</p>
+                                    <ul>
+                                        <li><code>git status</code> - Check working directory</li>
+                                        <li><code>git add filename</code> - Stage changes</li>
+                                        <li><code>git commit -m "message"</code> - Create snapshot</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -268,17 +326,18 @@ git log</code></pre>
                             <div class="terminal-header">
                                 <span class="terminal-title">Git Practice Terminal</span>
                                 <div class="terminal-buttons">
-                                                    <span class="terminal-btn btn-close"></span>
-                <span class="terminal-btn btn-minimize"></span>
-                <span class="terminal-btn btn-maximize"></span>
+                                    <span class="terminal-btn btn-close"></span>
+                                    <span class="terminal-btn btn-minimize"></span>
+                                    <span class="terminal-btn btn-maximize"></span>
                                 </div>
                             </div>
                             <div class="terminal-body">
                                 <div class="command-line">
                                     <span class="prompt">$</span>
-                                    <input type="text" class="command-input" placeholder="Try: git init" id="practice-git-command">
+                                    <input type="text" class="command-input" placeholder="Try: git init" id="git-command">
+                                    <button class="run-command-btn" id="run-git-command">Run</button>
                                 </div>
-                                <div class="command-output" id="practice-git-output">
+                                <div class="command-output" id="git-output">
                                     <p>Welcome to the Git practice terminal! Try the commands from the exercise above:</p>
                                     <ul>
                                         <li><code>mkdir my-project</code> - Create a directory</li>
@@ -289,6 +348,14 @@ git log</code></pre>
                                         <li><code>git commit -m "message"</code> - Commit changes</li>
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Command History Display -->
+                        <div class="command-history-section">
+                            <h4>Command History</h4>
+                            <div class="command-history" id="command-history">
+                                <p>No commands executed yet</p>
                             </div>
                         </div>
                     </div>

@@ -633,6 +633,372 @@ main {
     font-family: inherit;
 }
 
+/* Enhanced Terminal Styling */
+.run-command-btn {
+    background: #48bb78;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 12px;
+}
+
+.run-command-btn:hover {
+    background: #38a169;
+    transform: translateY(-1px);
+}
+
+.run-command-btn:active {
+    transform: translateY(0);
+}
+
+/* Mini Terminal Variant */
+.mini-terminal {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.mini-terminal .terminal-body {
+    padding: var(--spacing-3);
+}
+
+.mini-terminal .command-line {
+    margin-bottom: var(--spacing-3);
+}
+
+/* Terminal Sections */
+.example-terminal,
+.workflow-terminal {
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid #e2e8f0;
+}
+
+.example-terminal h4,
+.workflow-terminal h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Command History Styling */
+.command-history-section {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f7fafc;
+    border-radius: var(--radius-lg);
+    border: 1px solid #e2e8f0;
+}
+
+.command-history-section h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.command-history {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid #e2e8f0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+}
+
+.history-item.success {
+    border-left: 4px solid #48bb78;
+}
+
+.history-item.error {
+    border-left: 4px solid #f56565;
+}
+
+.history-item .command {
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.history-item .status {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.history-item.success .status {
+    color: #48bb78;
+}
+
+.history-item.error .status {
+    color: #f56565;
+}
+
+/* Enhanced Terminal Animations */
+.terminal {
+    transition: all 0.3s ease;
+}
+
+.terminal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.command-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+/* Responsive Terminal */
+@media (max-width: 768px) {
+    .mini-terminal {
+        max-width: 100%;
+        margin: 15px 0;
+    }
+    
+    .run-command-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        margin-left: 8px;
+    }
+    
+    .command-line {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .command-input {
+        width: 100%;
+    }
+}
+
+/* Command Response Styling */
+.command-executed {
+    background: #2d3748;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.command-text {
+    color: #48bb78;
+    font-weight: 500;
+}
+
+.command-response {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 12px 0;
+    border-left: 4px solid;
+}
+
+.command-response.success {
+    background: rgba(72, 187, 120, 0.1);
+    border-left-color: #48bb78;
+    color: #22543d;
+}
+
+.command-response.info {
+    background: rgba(66, 153, 225, 0.1);
+    border-left-color: #4299e1;
+    color: #2a4365;
+}
+
+.command-response.error {
+    background: rgba(245, 101, 101, 0.1);
+    border-left-color: #f56565;
+    color: #742a2a;
+}
+
+.command-response.help {
+    background: rgba(237, 137, 54, 0.1);
+    border-left-color: #ed8936;
+    color: #744210;
+}
+
+.command-response h4 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.command-response ul {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.command-response li {
+    margin: 4px 0;
+    color: inherit;
+}
+
+.command-response code {
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Module Progress Indicator */
+.module-progress {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* Enhanced Module Header */
+.module-header {
+    position: relative;
+    overflow: hidden;
+}
+
+.module-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #48bb78, #4299e1, #ed8936, #f56565);
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Enhanced Motivation Cards */
+.motivation-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.motivation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.motivation-card:hover::before {
+    left: 100%;
+}
+
+.motivation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.motivation-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.motivation-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Enhanced Concept Items */
+.concept-item {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.concept-item:hover {
+    border-color: #48bb78;
+    transform: translateX(8px);
+    box-shadow: 0 10px 25px rgba(72, 187, 120, 0.1);
+}
+
+/* Enhanced Workflow Steps */
+.workflow-step {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.workflow-step:hover {
+    transform: scale(1.05);
+}
+
+.workflow-step .step-number {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
+}
+
+.workflow-step:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
+}
+
+.workflow-arrow {
+    font-size: 2rem;
+    color: #48bb78;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
 /* R Studio Styling */
 .r-studio {
     background: #f8f9fa;

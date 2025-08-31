@@ -13,32 +13,44 @@ class GitBasicsModule {
         console.log('Git Basics Module: Initializing...');
         this.setupGitTerminal();
         this.setupInteractiveElements();
+        this.setupProgressTracking();
         console.log('Git Basics Module: Initialization complete');
     }
 
     setupGitTerminal() {
-        const gitCommandInput = document.getElementById('git-command');
-        const gitOutput = document.getElementById('git-output');
-        const runButton = document.getElementById('run-git-command');
+        // Main Git terminal
+        this.setupTerminal('git-command', 'git-output', 'run-git-command');
+        
+        // Research collaboration terminal
+        this.setupTerminal('research-command', 'research-output', 'run-research-command');
+        
+        // Workflow terminal
+        this.setupTerminal('workflow-command', 'workflow-output', 'run-workflow-command');
+    }
 
-        if (gitCommandInput) {
-            console.log('Git command input found');
+    setupTerminal(inputId, outputId, buttonId) {
+        const commandInput = document.getElementById(inputId);
+        const output = document.getElementById(outputId);
+        const runButton = document.getElementById(buttonId);
+
+        if (commandInput && output) {
+            console.log(`Setting up terminal: ${inputId}`);
             
             // Handle Enter key
-            gitCommandInput.addEventListener('keypress', (e) => {
+            commandInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    this.executeGitCommand(gitCommandInput.value);
+                    this.executeCommand(commandInput.value, outputId);
                 }
             });
 
             // Handle run button
             if (runButton) {
                 runButton.addEventListener('click', () => {
-                    this.executeGitCommand(gitCommandInput.value);
+                    this.executeCommand(commandInput.value, outputId);
                 });
             }
         } else {
-            console.log('Git command input not found');
+            console.log(`Terminal elements not found: ${inputId}`);
         }
     }
 
@@ -67,12 +79,11 @@ class GitBasicsModule {
         });
     }
 
-    executeGitCommand(command) {
-        const gitCommandInput = document.getElementById('git-command');
-        const gitOutput = document.getElementById('git-output');
+    executeCommand(command, outputId) {
+        const output = document.getElementById(outputId);
         
-        if (!gitCommandInput || !gitOutput) {
-            console.log('Git terminal elements not found');
+        if (!output) {
+            console.log(`Output element not found: ${outputId}`);
             return;
         }
 
@@ -80,12 +91,34 @@ class GitBasicsModule {
         let response = '';
 
         // Clear previous output
-        gitOutput.innerHTML = '';
+        output.innerHTML = '';
 
         // Show command being executed
-        gitOutput.innerHTML += `<div class="command-executed">$ <span class="command-text">${command}</span></div>`;
+        output.innerHTML += `<div class="command-executed">$ <span class="command-text">${command}</span></div>`;
 
-        // Simulate Git command responses
+        // Handle different terminal types
+        if (outputId === 'research-output') {
+            response = this.handleResearchCommands(commandLower);
+        } else if (outputId === 'workflow-output') {
+            response = this.handleWorkflowCommands(commandLower);
+        } else {
+            response = this.handleGitCommands(commandLower);
+        }
+
+        if (response) {
+            output.innerHTML += response;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Update command history for main terminal
+        if (outputId === 'git-output') {
+            this.updateCommandHistory();
+        }
+    }
+
+    handleGitCommands(commandLower) {
+        let response = '';
+
         switch (commandLower) {
             case 'git init':
                 response = `
@@ -207,16 +240,148 @@ class GitBasicsModule {
                 break;
         }
 
-        if (response) {
-            gitOutput.innerHTML += response;
-            gitOutput.scrollTop = gitOutput.scrollHeight;
+        return response;
+    }
+
+    handleResearchCommands(commandLower) {
+        let response = '';
+
+        switch (commandLower) {
+            case 'git log --oneline':
+                response = `
+                    <div class="command-response info">
+                        <p>abc1234 (HEAD -> main) Update COVID-19 model parameters</p>
+                        <p>def5678 Add new vaccination data</p>
+                        <p>ghi9012 Initial epidemiological model</p>
+                        <p>✓ Research timeline visible!</p>
+                    </div>
+                `;
+                break;
+
+            case 'git show head':
+                response = `
+                    <div class="command-response info">
+                        <p>commit abc1234 (HEAD -> main)</p>
+                        <p>Author: Dr. Smith <smith@research.org></p>
+                        <p>Date: ${new Date().toLocaleString()}</p>
+                        <p>    Update COVID-19 model parameters</p>
+                        <p>    - Adjusted R₀ from 2.5 to 3.0</p>
+                        <p>    - Updated vaccination efficacy data</p>
+                        <p>    - Added new testing protocols</p>
+                    </div>
+                `;
+                break;
+
+            case 'git diff head~1':
+                response = `
+                    <div class="command-response info">
+                        <p>diff --git a/model.py b/model.py</p>
+                        <p>index 1234567..abcdefg 100644</p>
+                        <p>--- a/model.py</p>
+                        <p>+++ b/model.py</p>
+                        <p>@@ -15,7 +15,7 @@</p>
+                        <p>- R0 = 2.5  # Basic reproduction number</p>
+                        <p>+ R0 = 3.0  # Updated based on new data</p>
+                        <p>✓ Changes clearly visible!</p>
+                    </div>
+                `;
+                break;
+
+            case 'help':
+                response = `
+                    <div class="command-response help">
+                        <h4>Research Collaboration Commands:</h4>
+                        <ul>
+                            <li><strong>git log --oneline</strong> - See recent changes</li>
+                            <li><strong>git show HEAD</strong> - View latest commit details</li>
+                            <li><strong>git diff HEAD~1</strong> - Compare with previous version</li>
+                            <li><strong>help</strong> - Show this help message</li>
+                        </ul>
+                    </div>
+                `;
+                break;
+
+            default:
+                if (commandLower.trim() !== '') {
+                    response = `
+                        <div class="command-response error">
+                            <p>❌ Try research-specific commands:</p>
+                            <p><code>git log --oneline</code>, <code>git show HEAD</code>, <code>git diff HEAD~1</code></p>
+                            <p>Type <strong>help</strong> for available commands</p>
+                        </div>
+                    `;
+                }
+                break;
         }
 
-        // Clear input
-        gitCommandInput.value = '';
-        
-        // Update command history display
-        this.updateCommandHistory();
+        return response;
+    }
+
+    handleWorkflowCommands(commandLower) {
+        let response = '';
+
+        switch (commandLower) {
+            case 'git status':
+                response = `
+                    <div class="command-response info">
+                        <p>On branch main</p>
+                        <p>Changes not staged for commit:</p>
+                        <p>  (use "git add <file>..." to update what will be committed)</p>
+                        <p>  (use "git restore <file>..." to discard changes in working directory)</p>
+                        <p>        modified:   model.py</p>
+                        <p>        modified:   data.csv</p>
+                        <p>✓ Working directory status visible!</p>
+                    </div>
+                `;
+                break;
+
+            case 'git add model.py':
+                response = `
+                    <div class="command-response success">
+                        <p>✓ model.py staged for commit</p>
+                        <p>File is now in the staging area!</p>
+                    </div>
+                `;
+                break;
+
+            case 'git commit -m "update model parameters"':
+                response = `
+                    <div class="command-response success">
+                        <p>[main abc1234] update model parameters</p>
+                        <p>1 file changed, 3 insertions(+), 1 deletion(-)</p>
+                        <p>✓ Changes committed to repository!</p>
+                    </div>
+                `;
+                break;
+
+            case 'help':
+                response = `
+                    <div class="command-response help">
+                        <h4>Git Workflow Commands:</h4>
+                        <ul>
+                            <li><strong>git status</strong> - Check working directory</li>
+                            <li><strong>git add filename</strong> - Stage changes</li>
+                            <li><strong>git commit -m "message"</strong> - Create snapshot</li>
+                            <li><strong>help</strong> - Show this help message</li>
+                        </ul>
+                    </div>
+                `;
+                break;
+
+            default:
+                if (commandLower.trim() !== '') {
+                    response = `
+                        <div class="command-response error">
+                            <p>❌ Try workflow commands:</p>
+                            <p><code>git status</code>, <code>git add filename</code>, <code>git commit -m "message"</code></p>
+                            <p>Type <strong>help</strong> for available commands</p>
+                        </div>
+                    `;
+                }
+                break;
+        }
+
+        return response;
     }
 
     updateCommandHistory() {
@@ -268,6 +433,61 @@ class GitBasicsModule {
         }).catch(err => {
             console.error('Failed to copy text: ', err);
         });
+    }
+
+    setupProgressTracking() {
+        // Track user engagement with the module
+        this.trackSectionVisibility();
+        this.trackTerminalUsage();
+    }
+
+    trackSectionVisibility() {
+        const sections = document.querySelectorAll('.content-section');
+        const progressFill = document.getElementById('module-progress');
+        const progressText = document.querySelector('.progress-text');
+        
+        if (!progressFill || !progressText) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            let visibleSections = 0;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visibleSections++;
+                }
+            });
+            
+            const progress = Math.min((visibleSections / sections.length) * 100, 100);
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${Math.round(progress)}% Complete`;
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    trackTerminalUsage() {
+        // Track when users interact with terminals
+        const terminals = document.querySelectorAll('.terminal');
+        terminals.forEach(terminal => {
+            const input = terminal.querySelector('.command-input');
+            if (input) {
+                input.addEventListener('input', () => {
+                    this.updateProgress(5); // Small progress boost for engagement
+                });
+            }
+        });
+    }
+
+    updateProgress(amount) {
+        const progressFill = document.getElementById('module-progress');
+        const progressText = document.querySelector('.progress-text');
+        
+        if (!progressFill || !progressText) return;
+
+        const currentWidth = parseFloat(progressFill.style.width) || 0;
+        const newWidth = Math.min(currentWidth + amount, 100);
+        
+        progressFill.style.width = `${newWidth}%`;
+        progressText.textContent = `${Math.round(newWidth)}% Complete`;
     }
 }
 
