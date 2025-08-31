@@ -66,18 +66,36 @@ class GitFileManager {
         if (storedToken) {
             this.githubToken = storedToken;
             document.getElementById('github-token').value = storedToken;
+            this.showNotification('✅ GitHub connected successfully! You can now upload and edit files.', 'success');
+        } else {
+            this.showNotification('🔑 Students: You can view and download all course materials below. Facilitators: Enter your GitHub token to upload new materials.', 'info');
         }
 
-        if (this.githubToken) {
-            this.showNotification('✅ GitHub connected successfully!', 'success');
-            // Automatically fetch files from repository when token is provided
-            await this.fetchFilesFromRepository();
-        } else {
-            this.showNotification('🔑 Please enter your GitHub Personal Access Token', 'info');
+        // Always load files for everyone to see, regardless of authentication
+        await this.loadFilesForEveryone();
+    }
+
+    async loadFilesForEveryone() {
+        try {
+            this.showNotification('🔄 Loading course materials...', 'info');
+            
+            // Load files from the repository without requiring authentication
+            // This allows students to see and download materials
+            await this.fetchFilesFromRepositoryPublic();
+            
+        } catch (error) {
+            console.error('Error loading files for public access:', error);
+            this.showNotification('❌ Error loading course materials. Please try refreshing the page.', 'error');
         }
     }
 
     showUploadModal() {
+        // Check if user has GitHub token for uploads
+        if (!this.githubToken) {
+            this.showNotification('🔑 Facilitators: Please enter your GitHub Personal Access Token to upload new materials. Students can view and download existing materials.', 'info');
+            return;
+        }
+        
         const modal = document.getElementById('upload-modal');
         if (modal) {
             modal.style.display = 'block';
@@ -1009,6 +1027,133 @@ class GitFileManager {
         }
     }
 
+    async fetchFilesFromRepositoryPublic() {
+        try {
+            console.log('Fetching files from repository for public access...');
+            
+            // Clear existing files to prevent duplicates
+            this.files.clear();
+            this.categories.clear();
+            
+            // Use the public GitHub API to get repository contents
+            // This doesn't require authentication and works for public repositories
+            const contentsResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/course-materials`, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!contentsResponse.ok) {
+                throw new Error(`Failed to fetch repository contents: ${contentsResponse.status}`);
+            }
+
+            const contents = await contentsResponse.json();
+            console.log('Repository contents:', contents);
+
+            // Process the contents recursively to find all files
+            await this.processGitHubContentsPublic(contents);
+
+            this.showNotification(`✅ Loaded course materials for public access`, 'success');
+            this.renderFiles();
+
+        } catch (error) {
+            console.error('Error fetching files for public access:', error);
+            this.showNotification('❌ Error loading course materials. Trying alternative method...', 'warning');
+            
+            // Fallback: try to load files from the repository tree without authentication
+            try {
+                await this.fetchFilesFromRepositoryTreePublic();
+            } catch (fallbackError) {
+                console.error('Fallback method also failed:', fallbackError);
+                this.showNotification('❌ Unable to load course materials. Please contact the course administrator.', 'error');
+            }
+        }
+    }
+
+    async processGitHubContentsPublic(contents) {
+        for (const item of contents) {
+            if (item.type === 'file') {
+                // This is a file in the course-materials directory
+                await this.processRepositoryFile({
+                    path: item.path,
+                    size: item.size,
+                    sha: item.sha,
+                    name: item.name
+                });
+            } else if (item.type === 'dir') {
+                // This is a subdirectory, fetch its contents
+                try {
+                    const subContentsResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/${item.path}`, {
+                        headers: {
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (subContentsResponse.ok) {
+                        const subContents = await subContentsResponse.json();
+                        await this.processGitHubContentsPublic(subContents);
+                    }
+                } catch (error) {
+                    console.error(`Error fetching subdirectory ${item.path}:`, error);
+                }
+            }
+        }
+    }
+
+    async fetchFilesFromRepositoryTreePublic() {
+        try {
+            // Alternative method: try to get the latest commit and tree
+            const commitsResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/commits`, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!commitsResponse.ok) {
+                throw new Error(`Failed to fetch commits: ${commitsResponse.status}`);
+            }
+
+            const commits = await commitsResponse.json();
+            if (commits.length === 0) {
+                throw new Error('No commits found in repository');
+            }
+
+            const latestCommit = commits[0];
+            const treeSha = latestCommit.commit.tree.sha;
+
+            // Fetch the tree
+            const treeResponse = await fetch(`https://api.github.com/repos/${this.repoOwner}/${this.repoName}/git/trees/${treeSha}?recursive=1`, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!treeResponse.ok) {
+                throw new Error(`Failed to fetch tree: ${treeResponse.status}`);
+            }
+
+            const treeData = await treeResponse.json();
+            
+            // Filter for course-materials directory
+            const courseMaterialFiles = treeData.tree.filter(item => 
+                item.type === 'blob' && 
+                item.path.startsWith('course-materials/') &&
+                !item.path.endsWith('/')
+            );
+
+            console.log(`Found ${courseMaterialFiles.length} course material files via public tree:`, courseMaterialFiles);
+
+            // Process each file
+            for (const file of courseMaterialFiles) {
+                await this.processRepositoryFile(file);
+            }
+
+        } catch (error) {
+            console.error('Error in public tree fetch:', error);
+            throw error;
+        }
+    }
+
     async processRepositoryFile(file) {
         try {
             // Extract category from path (e.g., "course-materials/Disease Modeling/file.pdf" -> "Disease Modeling")
@@ -1931,15 +2076,15 @@ class GitFileManager {
         localStorage.removeItem('gwac-files');
         
         // Show loading state
-        this.showNotification('🔄 Refreshing files from repository...', 'info');
+        this.showNotification('🔄 Refreshing course materials...', 'info');
         
-        // Fetch fresh files from repository
-        await this.fetchFilesFromRepository();
+        // Fetch fresh files from repository (works for everyone)
+        await this.loadFilesForEveryone();
         
         // Update the display
         this.renderFiles();
         
-        this.showNotification('✅ Files refreshed successfully!', 'success');
+        this.showNotification('✅ Course materials refreshed successfully!', 'success');
     }
 }
 
