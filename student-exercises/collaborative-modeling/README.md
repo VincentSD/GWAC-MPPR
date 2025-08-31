@@ -55,3 +55,4 @@ collaborative-modeling/
 - All contributions are welcome and encouraged
 - Focus on learning Git collaboration skills
 - Have fun building something useful together!
+

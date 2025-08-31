@@ -9421,12 +9421,6 @@ pre code {
         min-width: auto;
         width: 100%;
     }
-    
-    .tips-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-4);
-    }
-    
     .practice-challenge,
     .collaborative-exercise {
         padding: var(--spacing-5);
@@ -9469,9 +9463,6 @@ pre code {
     .challenge-step .step-content ul,
     .challenge-step .step-content .pro-tip,
     .challenge-step .step-content .documentation-example,
-    .challenge-step .step-content .code-block {
-        text-align: center;
-    }
     
     .challenge-step .step-content h4 {
         font-size: 1.3rem;
