@@ -677,181 +677,133 @@ main {
 }
 
 .toc-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 20px !important;
-    margin-bottom: 30px !important;
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    margin-bottom: 30px !important;
 }
 
-/* Force grid layout with more specific selectors */
+/* Force block layout with more specific selectors */
 div.toc-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 20px !important;
-    margin-bottom: 30px !important;
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    margin-bottom: 30px !important;
 }
 
 /* Even more specific selector */
 .git-status-practice .toc-grid,
 .toc-section .toc-grid,
 section.toc-section .toc-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 20px !important;
-    margin-bottom: 30px !important;
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    margin-bottom: 30px !important;
 }
 
-/* Nuclear option - force grid on any element with toc-grid class */
+/* Nuclear option - force block on any element with toc-grid class */
 [class*="toc-grid"] {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 20px !important;
-    margin-bottom: 30px !important;
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    margin-bottom: 30px !important;
 }
 
 .toc-item {
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    padding: 20px !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 15px 20px !important;
     background: white !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     text-decoration: none !important;
     color: #1e293b !important;
     border: 2px solid #f1f5f9 !important;
-    transition: all 0.4s ease !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-    position: relative !important;
-    overflow: hidden !important;
-    width: 100% !important;
-    min-width: 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 15px !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
     float: none !important;
     clear: both !important;
 }
 
-/* Force flexbox layout with more specific selectors */
+/* Force block layout with more specific selectors */
 a.toc-item {
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    padding: 20px !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 15px 20px !important;
     background: white !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     text-decoration: none !important;
     color: #1e293b !important;
     border: 2px solid #f1f5f9 !important;
-    transition: all 0.4s ease !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-    position: relative !important;
-    overflow: hidden !important;
-    width: 100% !important;
-    min-width: 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 15px !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
     float: none !important;
     clear: both !important;
 }
 
 /* Nuclear option for TOC items */
 [class*="toc-item"] {
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    padding: 20px !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 15px 20px !important;
     background: white !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     text-decoration: none !important;
     color: #1e293b !important;
     border: 2px solid #f1f5f9 !important;
-    transition: all 0.4s ease !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-    position: relative !important;
-    overflow: hidden !important;
-    width: 100% !important;
-    min-width: 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 15px !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
     float: none !important;
     clear: both !important;
 }
 
-.toc-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #48bb78, #4299e1);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
 
-.toc-item::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(72, 187, 120, 0.02), rgba(66, 153, 225, 0.02));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.toc-item:hover::after {
-    opacity: 1 !important;
-}
 
 .toc-item:hover {
-    transform: translateY(-4px) !important;
+    transform: translateY(-2px) !important;
     border-color: #48bb78 !important;
-    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.15) !important;
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.15) !important;
     color: #1e293b !important;
-}
-
-.toc-item:hover::before {
-    transform: scaleX(1) !important;
+    background: #f8fafc !important;
 }
 
 .toc-icon {
-    font-size: 2rem !important;
-    flex-shrink: 0 !important;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
+    font-size: 1.5rem !important;
+    margin-right: 12px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
 }
 
 .toc-text {
-    flex: 1 !important;
     font-weight: 600 !important;
     font-size: 1rem !important;
     line-height: 1.4 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-right: 15px !important;
 }
 
 .toc-time {
     background: linear-gradient(135deg, #48bb78, #38a169) !important;
     color: white !important;
-    padding: 6px 12px !important;
-    border-radius: 20px !important;
-    font-size: 0.85rem !important;
+    padding: 4px 10px !important;
+    border-radius: 15px !important;
+    font-size: 0.8rem !important;
     font-weight: 700 !important;
-    flex-shrink: 0 !important;
-    box-shadow: 0 2px 8px rgba(72, 187, 120, 0.2) !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    box-shadow: 0 2px 6px rgba(72, 187, 120, 0.2) !important;
     transition: all 0.3s ease !important;
+    float: right !important;
 }
 
 .toc-item:hover .toc-time {
