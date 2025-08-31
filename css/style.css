@@ -908,11 +908,24 @@ main {
 }
 
 /* Enhanced Motivation Cards */
+.motivation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
 .motivation-card {
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    text-align: center;
 }
 
 .motivation-card::before {
@@ -933,16 +946,31 @@ main {
 .motivation-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: #48bb78;
 }
 
 .motivation-card .card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
     transition: transform 0.3s ease;
+    display: block;
 }
 
 .motivation-card:hover .card-icon {
     transform: scale(1.1) rotate(5deg);
+}
+
+.motivation-card h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.motivation-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
 }
 
 /* Enhanced Concept Items */
@@ -1017,36 +1045,43 @@ main {
 
 .example-benefits {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     margin: 25px 0;
 }
 
 .benefit-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 15px;
-    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    gap: 15px;
+    padding: 20px 15px;
+    background: white;
+    border-radius: 16px;
+    border: 2px solid transparent;
     transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .benefit-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.2);
     border-color: #48bb78;
 }
 
 .benefit-icon {
-    font-size: 1.5rem;
-    min-width: 30px;
+    font-size: 2.5rem;
+    min-width: 40px;
+    display: block;
 }
 
 .benefit-text {
     font-weight: 500;
     color: #2d3748;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
 }
 
 /* Enhanced Commit Message Guidelines */
@@ -1475,8 +1510,23 @@ main {
 }
 
 /* Responsive Design for Enhanced Sections */
+@media (max-width: 1200px) {
+    .example-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .example-benefits,
+    .motivation-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .example-benefits {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
     .guidelines-grid,
     .example-comparison,
     .summary-grid,
@@ -1487,7 +1537,8 @@ main {
     .guideline-card,
     .summary-card,
     .good-example,
-    .bad-example {
+    .bad-example,
+    .motivation-card {
         padding: 20px;
     }
     
@@ -1505,6 +1556,25 @@ main {
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .motivation-card {
+        padding: 20px 15px;
+    }
+    
+    .motivation-card .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .motivation-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .motivation-card p {
+        font-size: 0.95rem;
     }
 }
 
