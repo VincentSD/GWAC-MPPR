@@ -74,7 +74,121 @@
 
             <div class="module-content">
                 <section class="content-section">
-                    <h2>Why Version Control Matters in Research</h2>
+                    <h2>🎯 Learning Objectives</h2>
+                    
+                    <div class="learning-objectives">
+                        <div class="objective-item">
+                            <div class="objective-icon">📚</div>
+                            <div class="objective-content">
+                                <h4>Understand Version Control Fundamentals</h4>
+                                <p>Learn what version control is, why it exists, and how it differs from other systems</p>
+                            </div>
+                        </div>
+                        
+                        <div class="objective-item">
+                            <div class="objective-icon">🔧</div>
+                            <div class="objective-content">
+                                <h4>Master Basic Git Operations</h4>
+                                <p>Practice creating repositories, making commits, and tracking changes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="objective-item">
+                            <div class="objective-icon">🔬</div>
+                            <div class="objective-content">
+                                <h4>Apply to Research Workflows</h4>
+                                <p>Learn how version control benefits scientific research and collaboration</p>
+                            </div>
+                        </div>
+                        
+                        <div class="objective-item">
+                            <div class="objective-icon">✅</div>
+                            <div class="objective-content">
+                                <h4>Follow Best Practices</h4>
+                                <p>Develop good habits for commit messages, file organization, and workflow</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>📚 What is Version Control?</h2>
+                    
+                    <div class="version-control-intro">
+                        <div class="intro-card">
+                            <div class="intro-icon">📚</div>
+                            <h3>Definition</h3>
+                            <p>Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later.</p>
+                        </div>
+                        
+                        <div class="intro-card">
+                            <div class="intro-icon">⏰</div>
+                            <h3>Why It Matters</h3>
+                            <p>Think of it as a time machine for your code - you can go back to any point in your project's history.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="version-control-types">
+                        <h3>Types of Version Control Systems</h3>
+                        <div class="types-grid">
+                            <div class="type-card local">
+                                <div class="type-icon">💾</div>
+                                <h4>Local Version Control</h4>
+                                <p>Simple database that keeps all the changes to files under revision control</p>
+                                <div class="example">Example: RCS (Revision Control System)</div>
+                            </div>
+                            
+                            <div class="type-card centralized">
+                                <div class="type-icon">🏢</div>
+                                <h4>Centralized Version Control</h4>
+                                <p>Single server contains all versioned files, clients check out files from central place</p>
+                                <div class="example">Example: Subversion (SVN), CVS</div>
+                            </div>
+                            
+                            <div class="type-card distributed">
+                                <div class="type-icon">🌐</div>
+                                <h4>Distributed Version Control</h4>
+                                <p>Full mirror of the repository, including its full history</p>
+                                <div class="example">Example: Git, Mercurial</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>⏰ A Brief History of Git</h2>
+                    
+                    <div class="git-history">
+                        <div class="history-timeline">
+                            <div class="timeline-item">
+                                <div class="year">2005</div>
+                                <div class="event">
+                                    <h4>Linux Kernel Development</h4>
+                                    <p>Linus Torvalds needed a version control system for Linux kernel development</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="year">2005</div>
+                                <div class="event">
+                                    <h4>Git is Born</h4>
+                                    <p>Created with goals: speed, simple design, strong support for non-linear development</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="year">Today</div>
+                                <div class="event">
+                                    <h4>Industry Standard</h4>
+                                    <p>Used by millions of developers worldwide for projects of all sizes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>🔬 Why Version Control Matters in Research</h2>
                     
                     <div class="motivation-grid">
                         <div class="motivation-card">
@@ -149,6 +263,73 @@
                                             <li><code>git diff HEAD~1</code> - Compare with previous version</li>
                                         </ul>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>📖 The Git Parable: Understanding Snapshots</h2>
+                    
+                    <div class="parable-intro">
+                        <p>Let's understand Git's core concept through a simple analogy. Think of Git as a photographer taking snapshots of your project at different points in time.</p>
+                    </div>
+                    
+                    <div class="parable-explanation">
+                        <h3>Why Snapshots Matter</h3>
+                        <p>Git's snapshot approach makes it incredibly powerful for:</p>
+                        <div class="snapshot-benefits">
+                            <div class="benefit">
+                                <span class="benefit-icon">⚡</span>
+                                <h4>Fast Operations</h4>
+                                <p>Jump to any commit instantly, regardless of how old it is</p>
+                            </div>
+                            <div class="benefit">
+                                <span class="benefit-icon">🔒</span>
+                                <h4>Data Integrity</h4>
+                                <p>Each commit is cryptographically secure and tamper-proof</p>
+                            </div>
+                            <div class="benefit">
+                                <span class="benefit-icon">🔄</span>
+                                <h4>Easy Branching</h4>
+                                <p>Create new branches by simply pointing to any commit</p>
+                            </div>
+                            <div class="benefit">
+                                <span class="benefit-icon">📊</span>
+                                <h4>Efficient Storage</h4>
+                                <p>Smart compression stores only what's changed between versions</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>A Brief History of Git</h2>
+                    
+                    <div class="git-history">
+                        <div class="history-timeline">
+                            <div class="timeline-item">
+                                <div class="year">2005</div>
+                                <div class="event">
+                                    <h4>Linux Kernel Development</h4>
+                                    <p>Linus Torvalds needed a version control system for Linux kernel development</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="year">2005</div>
+                                <div class="event">
+                                    <h4>Git is Born</h4>
+                                    <p>Created with goals: speed, simple design, strong support for non-linear development</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="year">Today</div>
+                                <div class="event">
+                                    <h4>Industry Standard</h4>
+                                    <p>Used by millions of developers worldwide for projects of all sizes</p>
                                 </div>
                             </div>
                         </div>
@@ -246,6 +427,85 @@
                             <div class="concept-item">
                                 <h4>Remote</h4>
                                 <p>A copy of your repository stored on another computer (like GitHub) that allows collaboration and backup.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="git-concepts-enhanced">
+                        <h3>Core Git Philosophy</h3>
+                        
+                        <div class="concepts-grid">
+                            <div class="concept-card">
+                                <h4>📸 Snapshots, Not Differences</h4>
+                                <p>Git thinks of its data more like a series of snapshots of a miniature filesystem.</p>
+                                <div class="concept-visual">
+                                    <div class="snapshot-diagram">
+                                        <div class="snapshot">v1</div>
+                                        <div class="snapshot">v2</div>
+                                        <div class="snapshot">v3</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <h4>🔒 Nearly Every Operation is Local</h4>
+                                <p>Most operations in Git only need local files and resources to operate.</p>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <h4>✅ Git Has Integrity</h4>
+                                <p>Everything in Git is checksummed before it's stored using SHA-1 hash.</p>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <h4>➕ Git Generally Only Adds Data</h4>
+                                <p>When you do actions in Git, nearly all of them only add data to the Git database.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="research-examples">
+                        <h3>Research-Specific Examples</h3>
+                        
+                        <div class="example-scenarios">
+                            <div class="scenario-card">
+                                <div class="scenario-icon">📊</div>
+                                <h4>Parameter Tuning</h4>
+                                <p>Track how changing R₀ from 2.5 to 3.0 affects your COVID-19 model</p>
+                                <div class="git-commands">
+                                    <code>git log --oneline</code> - See parameter changes<br>
+                                    <code>git diff HEAD~1</code> - Compare with previous version
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-icon">📈</div>
+                                <h4>Data Updates</h4>
+                                <p>When new vaccination data arrives, commit it separately</p>
+                                <div class="git-commands">
+                                    <code>git add vaccination_data.csv</code> - Stage new data<br>
+                                    <code>git commit -m "Add updated vaccination data for Q2 2024"</code>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-icon">🔬</div>
+                                <h4>Model Refactoring</h4>
+                                <p>Improve code structure without changing functionality</p>
+                                <div class="git-commands">
+                                    <code>git add model.py</code> - Stage refactored code<br>
+                                    <code>git commit -m "Refactor SIR model for better readability"</code>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-icon">📝</div>
+                                <h4>Documentation Updates</h4>
+                                <p>Keep README and documentation in sync with code changes</p>
+                                <div class="git-commands">
+                                    <code>git add README.md</code> - Stage documentation<br>
+                                    <code>git commit -m "Update README with new parameter descriptions"</code>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -377,90 +637,7 @@ git log</code></pre>
                     </div>
                 </section>
 
-                <section class="content-section">
-                    <h2>The Git Parable</h2>
-                    
-                    <div class="git-parable">
-                        <p class="parable-intro">Understanding Git through a simple analogy helps clarify how it differs from traditional file management systems.</p>
-                        
-                        <div class="parable-comparison">
-                            <div class="comparison-card not-git">
-                                <h3>This is NOT Git</h3>
-                                <div class="comparison-image" data-caption="Traditional version control stores only the differences (deltas) between file versions">
-                                    <img src="../images/git-concepts/deltas.png" 
-                                         alt="Traditional version control using deltas" 
-                                         class="git-concept-image"
-                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                    <div class="image-placeholder fallback">
-                                        <span class="placeholder-icon">📁</span>
-                                        <p class="placeholder-text">Traditional File System</p>
-                                        <p class="placeholder-description">Files are stored as individual versions with deltas</p>
-                                    </div>
-                                </div>
-                                <div class="comparison-details">
-                                    <h4>Deltas Method</h4>
-                                    <ul>
-                                        <li>Stores only the differences between versions</li>
-                                        <li>Each version depends on previous versions</li>
-                                        <li>Losing one version breaks the chain</li>
-                                        <li>Difficult to compare distant versions</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="comparison-card is-git">
-                                <h3>This IS Git</h3>
-                                <div class="comparison-image" data-caption="Git stores complete snapshots of your project at each commit">
-                                    <img src="../images/git-concepts/snapshots.png" 
-                                         alt="Git version control using snapshots" 
-                                         class="git-concept-image"
-                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                    <div class="image-placeholder fallback">
-                                        <span class="placeholder-icon">📸</span>
-                                        <p class="placeholder-text">Git Snapshots</p>
-                                        <p class="placeholder-description">Each commit creates a complete snapshot</p>
-                                    </div>
-                                </div>
-                                <div class="comparison-details">
-                                    <h4>Snapshots Method</h4>
-                                    <ul>
-                                        <li>Stores complete snapshots of your project</li>
-                                        <li>Each commit is independent and complete</li>
-                                        <li>Easy to jump between any two versions</li>
-                                        <li>Efficient storage using compression</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="parable-explanation">
-                            <h3>Why Snapshots Matter</h3>
-                            <p>Git's snapshot approach makes it incredibly powerful for:</p>
-                            <div class="snapshot-benefits">
-                                <div class="benefit">
-                                    <span class="benefit-icon">⚡</span>
-                                    <h4>Fast Operations</h4>
-                                    <p>Jump to any commit instantly, regardless of how old it is</p>
-                                </div>
-                                <div class="benefit">
-                                    <span class="benefit-icon">🔒</span>
-                                    <h4>Data Integrity</h4>
-                                    <p>Each commit is cryptographically secure and tamper-proof</p>
-                                </div>
-                                <div class="benefit">
-                                    <span class="benefit-icon">🔄</span>
-                                    <h4>Easy Branching</h4>
-                                    <p>Create new branches by simply pointing to any commit</p>
-                                </div>
-                                <div class="benefit">
-                                    <span class="benefit-icon">📊</span>
-                                    <h4>Efficient Storage</h4>
-                                    <p>Smart compression stores only what's changed between versions</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+
 
                 <section class="content-section">
                     <h2>Understanding Git Status and History</h2>
@@ -549,6 +726,48 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
     Initial commit: Add README file</code></pre>
                             </div>
                             <p>Each commit shows a unique identifier (hash), author, date, and commit message.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Common Pitfalls & How to Avoid Them</h2>
+                    
+                    <div class="pitfalls-grid">
+                        <div class="pitfall-card">
+                            <div class="pitfall-icon">❌</div>
+                            <h4>Forgetting to Commit</h4>
+                            <p>Working for hours without committing can lead to lost work</p>
+                            <div class="solution">
+                                <strong>Solution:</strong> Commit frequently with meaningful messages
+                            </div>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <div class="pitfall-icon">❌</div>
+                            <h4>Vague Commit Messages</h4>
+                            <p>"Fixed stuff" doesn't help future you or collaborators</p>
+                            <div class="solution">
+                                <strong>Solution:</strong> Use descriptive messages like "Fix data loading error in analysis.R"
+                            </div>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <div class="pitfall-icon">❌</div>
+                            <h4>Committing Large Files</h4>
+                            <p>Adding data files, images, or binaries can bloat your repository</p>
+                            <div class="solution">
+                                <strong>Solution:</strong> Use .gitignore for large files, keep data separate
+                            </div>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <div class="pitfall-icon">❌</div>
+                            <h4>Not Checking Status</h4>
+                            <p>Committing without knowing what's changed can lead to mistakes</p>
+                            <div class="solution">
+                                <strong>Solution:</strong> Always run <code>git status</code> before committing
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -658,105 +877,82 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
                     </div>
                 </section>
 
+
+
                 <section class="content-section">
-                    <h2>Git Commands Cheat Sheet</h2>
+                    <h2>📚 Quick Reference: Essential Git Commands</h2>
                     
-                    <div class="git-cheat-sheet">
-                        <p class="cheat-sheet-intro">Here's a quick reference for the most commonly used Git commands:</p>
-                        
-                        <div class="cheat-sheet-categories">
-                            <div class="command-category">
-                                <h3>Getting Started</h3>
-                                <div class="command-list">
-                                    <div class="command-item">
-                                        <code>git init</code>
-                                        <span class="command-description">Initialize a new Git repository</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git clone [url]</code>
-                                        <span class="command-description">Clone a repository from remote</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git config --global user.name "[name]"</code>
-                                        <span class="command-description">Set your username</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git config --global user.email "[email]"</code>
-                                        <span class="command-description">Set your email</span>
-                                    </div>
+                    <div class="quick-reference">
+                        <div class="command-category">
+                            <h3>Getting Started</h3>
+                            <div class="command-list">
+                                <div class="command-item">
+                                    <code>git init</code>
+                                    <span>Initialize a new Git repository</span>
                                 </div>
-                            </div>
-                            
-                            <div class="command-category">
-                                <h3>Basic Workflow</h3>
-                                <div class="command-list">
-                                    <div class="command-item">
-                                        <code>git add [file]</code>
-                                        <span class="command-description">Stage files for commit</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git add .</code>
-                                        <span class="command-description">Stage all changes</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git commit -m "[message]"</code>
-                                        <span class="command-description">Commit staged changes</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git status</code>
-                                        <span class="command-description">Check repository status</span>
-                                    </div>
+                                <div class="command-item">
+                                    <code>git clone <url></code>
+                                    <span>Clone a repository from remote source</span>
                                 </div>
-                            </div>
-                            
-                            <div class="command-category">
-                                <h3>Viewing History</h3>
-                                <div class="command-list">
-                                    <div class="command-item">
-                                        <code>git log</code>
-                                        <span class="command-description">View commit history</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git log --oneline</code>
-                                        <span class="command-description">Compact commit history</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git show [commit]</code>
-                                        <span class="command-description">Show commit details</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git diff</code>
-                                        <span class="command-description">Show unstaged changes</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="command-category">
-                                <h3>Branching & Merging</h3>
-                                <div class="command-list">
-                                    <div class="command-item">
-                                        <code>git branch</code>
-                                        <span class="command-description">List all branches</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git branch [name]</code>
-                                        <span class="command-description">Create new branch</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git checkout [branch]</code>
-                                        <span class="command-description">Switch to branch</span>
-                                    </div>
-                                    <div class="command-item">
-                                        <code>git merge [branch]</code>
-                                        <span class="command-description">Merge branch into current</span>
-                                    </div>
+                                <div class="command-item">
+                                    <code>git status</code>
+                                    <span>Check repository status</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="cheat-sheet-tip">
-                            <h4>💡 Pro Tip</h4>
-                            <p>Use <code>git help [command]</code> to get detailed help for any Git command. For example, <code>git help commit</code> will show you all the options available for the commit command.</p>
+                        <div class="command-category">
+                            <h3>Making Changes</h3>
+                            <div class="command-list">
+                                <div class="command-item">
+                                    <code>git add <file></code>
+                                    <span>Stage files for commit</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git commit -m "message"</code>
+                                    <span>Commit staged changes</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git diff</code>
+                                    <span>View unstaged changes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="command-category">
+                            <h3>Viewing History</h3>
+                            <div class="command-list">
+                                <div class="command-item">
+                                    <code>git log</code>
+                                    <span>View commit history</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git log --oneline</code>
+                                    <span>Compact commit history</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git show <commit></code>
+                                    <span>View specific commit details</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="command-category">
+                            <h3>Undoing Changes</h3>
+                            <div class="command-list">
+                                <div class="command-item">
+                                    <code>git restore <file></code>
+                                    <span>Discard unstaged changes</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git reset HEAD~1</code>
+                                    <span>Undo last commit (keep changes)</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git revert <commit></code>
+                                    <span>Create new commit that undoes changes</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

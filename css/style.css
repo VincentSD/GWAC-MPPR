@@ -1086,24 +1086,24 @@ main {
 
 /* Snapshot Benefits Section */
 .snapshot-benefits {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    margin: 25px 0;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
+    margin: 25px 0 !important;
 }
 
 .benefit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 30px 25px;
-    background: white;
-    border-radius: 16px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 30px 25px !important;
+    background: white !important;
+    border-radius: 16px !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+    text-align: center !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .benefit:hover {
@@ -1467,6 +1467,545 @@ main {
     font-size: 0.95rem;
 }
 
+/* Learning Objectives */
+.learning-objectives {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.objective-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.objective-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.objective-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.objective-content h4 {
+    color: #2d3748;
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.objective-content p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Version Control Introduction */
+.version-control-intro {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.intro-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.intro-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.intro-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.intro-card h3 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.intro-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Version Control Types */
+.version-control-types {
+    margin: 40px 0;
+}
+
+.version-control-types h3 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.type-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.type-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transition: all 0.3s ease;
+}
+
+.type-card.local::before {
+    background: linear-gradient(90deg, #4299e1, #3182ce);
+}
+
+.type-card.centralized::before {
+    background: linear-gradient(90deg, #ed8936, #dd6b20);
+}
+
+.type-card.distributed::before {
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.type-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.type-card h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.type-card p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+}
+
+.type-card .example {
+    background: #f7fafc;
+    color: #4a5568;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Git Parable Intro */
+.parable-intro {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.parable-intro p {
+    color: #4a5568;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Git History Timeline */
+.git-history {
+    margin: 40px 0;
+}
+
+.history-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.history-timeline::before {
+    content: '';
+    position: absolute;
+    left: 60px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #48bb78, #4299e1);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 58px;
+    width: 8px;
+    height: 8px;
+    background: #48bb78;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #48bb78;
+}
+
+.year {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+.event {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    flex: 1;
+}
+
+.event h4 {
+    color: #2d3748;
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.event p {
+    color: #4a5568;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Enhanced Git Concepts */
+.git-concepts-enhanced {
+    margin: 40px 0;
+}
+
+.git-concepts-enhanced h3 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.concept-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: #48bb78;
+}
+
+.concept-card h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.concept-card p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+}
+
+.concept-visual {
+    text-align: center;
+}
+
+.snapshot-diagram {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.snapshot {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Research Examples */
+.research-examples {
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.research-examples h3 {
+    text-align: center;
+    color: #2d3748;
+    margin: 0 0 30px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.example-scenarios {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.scenario-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.scenario-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: #48bb78;
+}
+
+.scenario-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.scenario-card h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.scenario-card p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.git-commands {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #48bb78;
+}
+
+.git-commands code {
+    background: #2d3748;
+    color: #48bb78;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    margin: 2px 0;
+    display: inline-block;
+}
+
+/* Common Pitfalls */
+.pitfalls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.pitfall-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pitfall-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f56565, #e53e3e);
+    transition: all 0.3s ease;
+}
+
+.pitfall-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.pitfall-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.pitfall-card h4 {
+    color: #2d3748;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.pitfall-card p {
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+}
+
+.solution {
+    background: rgba(72, 187, 120, 0.1);
+    color: #22543d;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #48bb78;
+}
+
+.solution strong {
+    color: #48bb78;
+}
+
+/* Quick Reference */
+.quick-reference {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.command-category {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.command-category:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: #48bb78;
+}
+
+.command-category h3 {
+    color: #2d3748;
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.command-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.command-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.command-item code {
+    background: #2d3748;
+    color: #48bb78;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.command-item span {
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
 /* Enhanced Next Steps */
 .next-steps {
     background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
@@ -1642,6 +2181,62 @@ main {
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+    
+    /* New sections responsive design */
+    .learning-objectives {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .version-control-intro {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .types-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .concepts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .example-scenarios {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .pitfalls-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .quick-reference {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .history-timeline {
+        margin-left: 20px;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .timeline-item::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .history-timeline::before {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
