@@ -15,6 +15,8 @@ class GitBasicsModule {
         this.setupInteractiveElements();
         this.setupProgressTracking();
         this.setupStatusHistoryTerminal();
+        this.setupBackToTopButton();
+        this.setupTableOfContents();
         console.log('Git Basics Module: Initialization complete');
     }
 
@@ -83,6 +85,47 @@ class GitBasicsModule {
                 }
             });
         }
+    }
+
+    setupBackToTopButton() {
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (!backToTopBtn) return;
+
+        // Show button when scrolling down
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when clicked
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    setupTableOfContents() {
+        // Add smooth scrolling to all TOC links
+        const tocLinks = document.querySelectorAll('.toc-item');
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     }
 
     setupConceptInteractions() {

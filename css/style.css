@@ -630,6 +630,163 @@ main {
 .command-output code {
     background: #4a5568;
 
+/* Table of Contents */
+.toc-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 20px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 40px;
+}
+
+.toc-container {
+    padding: 20px;
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #334155;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.toc-item:hover {
+    transform: translateY(-2px);
+    border-color: #48bb78;
+    box-shadow: 0 8px 20px rgba(72, 187, 120, 0.15);
+    color: #1e293b;
+}
+
+.toc-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.toc-text {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.toc-time {
+    background: #48bb78;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.toc-note {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.toc-note p {
+    margin: 5px 0;
+    color: #64748b;
+}
+
+.total-time {
+    color: #48bb78;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Enhanced Module Header */
+.module-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.module-meta span {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.2);
+    transition: all 0.3s ease;
+}
+
+.module-meta span:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(72, 187, 120, 0.3);
+}
+
+/* Section Dividers */
+.content-section {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.content-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #48bb78, #4299e1);
+    border-radius: 2px;
+}
+
+/* Floating Back to Top Button */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(72, 187, 120, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-to-top-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+}
+
+.back-to-top-btn.show {
+    display: flex;
+}
+
+.back-to-top-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 /* Git Status Practice Section */
 .git-status-practice {
     margin: 40px 0;
@@ -2123,7 +2280,6 @@ main {
 
 .timeline-item::before {
     content: '';
-    position: absolute;
     left: 58px;
     width: 8px;
     height: 8px;
@@ -2743,6 +2899,31 @@ main {
     
     .practice-tips {
         padding: 20px;
+    }
+    
+    .toc-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .toc-item {
+        padding: 12px;
+    }
+    
+    .module-meta {
+        gap: 10px;
+    }
+    
+    .module-meta span {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .back-to-top-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
     }
     
     .learning-objectives {
