@@ -1087,8 +1087,8 @@ main {
 /* Snapshot Benefits Section */
 .snapshot-benefits {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
     margin: 25px 0;
 }
 
@@ -1096,8 +1096,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    padding: 20px 15px;
+    gap: 20px;
+    padding: 30px 25px;
     background: white;
     border-radius: 16px;
     border: 2px solid transparent;
@@ -1113,22 +1113,22 @@ main {
 }
 
 .benefit .benefit-icon {
-    font-size: 2.5rem;
-    min-width: 40px;
+    font-size: 3rem;
+    min-width: 50px;
     display: block;
 }
 
 .benefit h4 {
     color: #2d3748;
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 .benefit p {
     color: #4a5568;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.5;
     margin: 0;
 }
 
