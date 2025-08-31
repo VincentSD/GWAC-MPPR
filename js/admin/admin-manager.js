@@ -295,9 +295,37 @@ class AdminManager {
         this.scheduleManager.importSchedule();
     }
 
+    saveScheduleDayEdit() {
+        this.scheduleManager.saveDayEdit();
+    }
+
+    saveSchedulePartEdit() {
+        this.scheduleManager.savePartEdit();
+    }
+
+    saveScheduleSessionEdit() {
+        this.scheduleManager.saveSessionEdit();
+    }
+
     // Facilitators Management
     addNewFacilitator() {
         this.facilitatorsManager.addNewFacilitator();
+    }
+
+    editFacilitator(facilitatorId) {
+        this.facilitatorsManager.editFacilitator(facilitatorId);
+    }
+
+    deleteFacilitator(facilitatorId) {
+        this.facilitatorsManager.deleteFacilitator(facilitatorId);
+    }
+
+    saveFacilitatorEdit() {
+        this.facilitatorsManager.saveFacilitatorEdit();
+    }
+
+    closeFacilitatorModal() {
+        this.facilitatorsManager.closeModal();
     }
 
     importFacilitators() {
@@ -504,30 +532,6 @@ class AdminManager {
     // Navigation
     goToMainSite() {
         window.open('index.html', '_blank');
-    }
-
-    // Refresh main site content
-    async refreshMainSiteContent() {
-        try {
-            // If we have the main site open, try to refresh its content
-            if (window.opener && window.opener.contentLoader) {
-                await window.opener.contentLoader.refreshContent();
-                console.log('Main site content refreshed');
-                this.notificationSystem.show('success', 'Main Site Refreshed', 'Content has been refreshed on the main site');
-            } else {
-                // Try to refresh the current window if it's the main site
-                if (window.contentLoader) {
-                    await window.contentLoader.refreshContent();
-                    console.log('Current site content refreshed');
-                    this.notificationSystem.show('success', 'Content Refreshed', 'Content has been refreshed');
-                } else {
-                    this.notificationSystem.show('info', 'Refresh Info', 'Please open the main site in another tab to refresh its content');
-                }
-            }
-        } catch (error) {
-            console.log('Could not refresh main site content:', error);
-            this.notificationSystem.show('error', 'Refresh Error', 'Could not refresh main site content');
-        }
     }
 
     // Utility Methods

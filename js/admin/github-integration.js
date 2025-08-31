@@ -456,3 +456,5 @@ class GitHubIntegration {
         };
     }
 }
+// Make GitHubIntegration available globally
+window.GitHubIntegration = GitHubIntegration;

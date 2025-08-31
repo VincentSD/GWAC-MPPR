@@ -1,6 +1,6 @@
 /**
- * Main Site Content Loader
- * Loads content from JSON files and applies it to the main site
+ * Content Loader for Main Site
+ * Loads content from JSON files and applies it to the HTML
  */
 
 class MainSiteContentLoader {
@@ -10,96 +10,114 @@ class MainSiteContentLoader {
         this.loadedContent = {};
     }
 
+    /**
+     * Initialize content loading
+     */
     async init() {
         try {
-            console.log('Initializing main site content loader...');
             await this.loadAllContent();
             this.applyContentToSite();
-            console.log('Main site content loaded and applied successfully');
         } catch (error) {
             console.error('Error initializing content loader:', error);
         }
     }
 
+    /**
+     * Load all content from JSON files
+     */
     async loadAllContent() {
         try {
-            // Load hero content first
-            await this.loadHeroContent();
+            // Load hero content
+            this.loadedContent.hero = await this.loadHeroContent();
+            
+            // Load other content as needed
+            // this.loadedContent.schedule = await this.loadScheduleContent();
+            // this.loadedContent.facilitators = await this.loadFacilitatorsContent();
+            
         } catch (error) {
             console.error('Error loading content:', error);
         }
     }
 
+    /**
+     * Load hero content from JSON
+     */
     async loadHeroContent() {
         try {
+            // First try to load from the content directory
             const response = await fetch(`${this.baseUrl}/${this.contentPath}/hero.json`);
             if (response.ok) {
                 const data = await response.json();
                 // Decode content from GitHub API response
                 const content = atob(data.content);
-                this.loadedContent.hero = JSON.parse(content);
-                console.log('Hero content loaded:', this.loadedContent.hero);
-            } else if (response.status === 404) {
-                console.log('Hero content file not found yet, using default content');
-                this.loadedContent.hero = null;
-            } else {
-                throw new Error(`GitHub API error: ${response.status}`);
+                return JSON.parse(content);
             }
         } catch (error) {
-            console.error('Error loading hero content:', error);
-            this.loadedContent.hero = null;
+            console.log('Content directory not found, using default content');
         }
+        
+        // Return default content if loading fails
+        return {
+            title: "G-WAC Summer School 2025",
+            subtitle: "Join the German-West African Centre for Global Health and Pandemic Prevention for an intensive 9-day program featuring hands-on disease modeling, R programming, and practical training for pandemic preparedness in Africa.",
+            dates: "September 1-10, 2025",
+            location: "KNUST, Kumasi, Ghana",
+            stats: {
+                days: 9,
+                hours: 72,
+                modules: 5,
+                experts: 10
+            }
+        };
     }
 
+    /**
+     * Apply loaded content to the site
+     */
     applyContentToSite() {
-        try {
-            this.applyHeroContent();
-        } catch (error) {
-            console.error('Error applying content to site:', error);
-        }
+        this.applyHeroContent();
     }
 
+    /**
+     * Apply hero content to the site
+     */
     applyHeroContent() {
-        if (!this.loadedContent.hero) {
-            console.log('No hero content to apply, using default HTML content');
-            return;
-        }
-
-        const heroData = this.loadedContent.hero;
-        console.log('Applying hero content:', heroData);
+        const hero = this.loadedContent.hero;
+        if (!hero) return;
 
         // Update hero title
         const heroTitle = document.querySelector('.hero-title .highlight');
-        if (heroTitle && heroData.title) {
-            heroTitle.textContent = heroData.title;
+        if (heroTitle && hero.title) {
+            heroTitle.textContent = hero.title;
         }
 
         // Update hero subtitle
         const heroSubtitle = document.querySelector('.hero-subtitle');
-        if (heroSubtitle && heroData.subtitle) {
-            heroSubtitle.textContent = heroData.subtitle;
+        if (heroSubtitle && hero.subtitle) {
+            heroSubtitle.textContent = hero.subtitle;
         }
 
-        // Update hero dates
+        // Update hero dates (if there's a dates element)
         const heroDates = document.querySelector('.hero-dates');
-        if (heroDates && heroData.dates) {
-            heroDates.textContent = heroData.dates;
+        if (heroDates && hero.dates) {
+            heroDates.textContent = hero.dates;
         }
 
-        // Update hero location
+        // Update hero location (if there's a location element)
         const heroLocation = document.querySelector('.hero-location');
-        if (heroLocation && heroData.location) {
-            heroLocation.textContent = heroLocation.textContent.replace(/KNUST, Kumasi, Ghana/, heroData.location);
+        if (heroLocation && hero.location) {
+            heroLocation.textContent = hero.location;
         }
 
-        // Update hero statistics
-        if (heroData.stats) {
-            this.updateHeroStats(heroData.stats);
+        // Update statistics
+        if (hero.stats) {
+            this.updateHeroStats(hero.stats);
         }
-
-        console.log('Hero content applied successfully');
     }
 
+    /**
+     * Update hero statistics
+     */
     updateHeroStats(stats) {
         // Update days
         const daysElement = document.querySelector('.stat-item:nth-child(1) .stat-number');
@@ -119,30 +137,32 @@ class MainSiteContentLoader {
             modulesElement.textContent = stats.modules;
         }
 
-        // Update experts
+        // Update experts - preserve the "+" if it exists in the original text
         const expertsElement = document.querySelector('.stat-item:nth-child(4) .stat-number');
         if (expertsElement && stats.experts) {
-            expertsElement.textContent = stats.experts;
+            const originalText = expertsElement.textContent;
+            const hasPlus = originalText.includes('+');
+            expertsElement.textContent = hasPlus ? `${stats.experts}+` : stats.experts;
         }
     }
 
+    /**
+     * Refresh content from server
+     */
     async refreshContent() {
-        try {
-            console.log('Refreshing content...');
-            await this.loadAllContent();
-            this.applyContentToSite();
-            console.log('Content refreshed successfully');
-        } catch (error) {
-            console.error('Error refreshing content:', error);
-        }
+        await this.loadAllContent();
+        this.applyContentToSite();
     }
 
+    /**
+     * Get loaded content
+     */
     getContent(type) {
-        return this.loadedContent[type] || null;
+        return this.loadedContent[type];
     }
 }
 
-// Initialize when DOM is loaded
+// Initialize content loader when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     window.contentLoader = new MainSiteContentLoader();
     await contentLoader.init();

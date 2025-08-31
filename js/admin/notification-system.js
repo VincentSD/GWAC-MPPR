@@ -370,3 +370,5 @@ class NotificationSystem {
         });
     }
 }
+// Make NotificationSystem available globally
+window.NotificationSystem = NotificationSystem;

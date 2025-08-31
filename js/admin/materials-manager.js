@@ -32,3 +32,6 @@ class MaterialsManager {
         // Manage file uploads functionality
     }
 }
+
+// Make MaterialsManager available globally
+window.MaterialsManager = MaterialsManager;
