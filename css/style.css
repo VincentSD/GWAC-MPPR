@@ -630,7 +630,7 @@ main {
 .command-output code {
     background: #4a5568;
 
-/* Table of Contents */
+/* Table of Contents - Complete Rewrite */
 .toc-section {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
     border-radius: 24px !important;
@@ -638,6 +638,10 @@ main {
     margin-bottom: 50px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
     overflow: hidden !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .toc-section h2 {
@@ -649,6 +653,7 @@ main {
     font-weight: 700 !important;
     text-align: center !important;
     position: relative !important;
+    display: block !important;
 }
 
 .toc-section h2::after {
@@ -668,14 +673,7 @@ main {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-}
-
-/* Ensure TOC section has proper layout */
-.toc-section {
     display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
 }
 
 .toc-grid {
@@ -685,6 +683,7 @@ main {
     margin-bottom: 30px !important;
     width: 100% !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* Force grid layout with more specific selectors */
@@ -695,6 +694,7 @@ div.toc-grid {
     margin-bottom: 30px !important;
     width: 100% !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* Even more specific selector */
@@ -707,6 +707,18 @@ section.toc-section .toc-grid {
     margin-bottom: 30px !important;
     width: 100% !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Nuclear option - force grid on any element with toc-grid class */
+[class*="toc-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 20px !important;
+    margin-bottom: 30px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .toc-item {
@@ -726,6 +738,9 @@ section.toc-section .toc-grid {
     width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
+    margin: 0 !important;
+    float: none !important;
+    clear: both !important;
 }
 
 /* Force flexbox layout with more specific selectors */
@@ -746,6 +761,32 @@ a.toc-item {
     width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
+    margin: 0 !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* Nuclear option for TOC items */
+[class*="toc-item"] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding: 20px !important;
+    background: white !important;
+    border-radius: 16px !important;
+    text-decoration: none !important;
+    color: #1e293b !important;
+    border: 2px solid #f1f5f9 !important;
+    transition: all 0.4s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    float: none !important;
+    clear: both !important;
 }
 
 .toc-item::before {
@@ -869,6 +910,27 @@ a.toc-item {
     display: block !important;
     width: 100% !important;
     margin-bottom: 0 !important;
+}
+
+/* Override any inline display issues */
+.toc-grid a,
+.toc-grid .toc-item,
+.toc-grid > a,
+.toc-grid > .toc-item {
+    display: flex !important;
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    margin: 0 !important;
+}
+
+/* Force grid items to be block-level */
+.toc-grid > * {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    margin: 0 !important;
 }
 
 .toc-item {
