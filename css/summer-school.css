@@ -1446,6 +1446,31 @@ body {
     gap: 16px;
 }
 
+/* Admin Link */
+.admin-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.admin-link:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.admin-link i {
+    font-size: 1rem;
+}
+
 .theme-toggle-fixed {
     position: fixed !important;
     top: 20px !important;
@@ -1540,8 +1565,10 @@ body {
     margin-bottom: 40px;
 }
 
-.stat-item {
+.hero-section .hero-stats .stat-item {
     text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
 }
 
 .stat-number {
