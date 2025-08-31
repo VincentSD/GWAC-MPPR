@@ -103,14 +103,30 @@
                     </div>
 
                     <div class="real-world-example">
-                        <h3>Real-World Example: COVID-19 Modeling</h3>
+                        <div class="example-header">
+                            <div class="example-icon">🌍</div>
+                            <h3>Real-World Example: COVID-19 Modeling</h3>
+                        </div>
                         <p>During the COVID-19 pandemic, researchers worldwide collaborated on epidemiological models. Version control allowed them to:</p>
-                        <ul>
-                            <li>Track parameter changes as new data emerged</li>
-                            <li>Collaborate across institutions without conflicts</li>
-                            <li>Reproduce results from specific dates</li>
-                            <li>Share improvements and bug fixes</li>
-                        </ul>
+                        
+                        <div class="example-benefits">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">📈</span>
+                                <span class="benefit-text">Track parameter changes as new data emerged</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🤝</span>
+                                <span class="benefit-text">Collaborate across institutions without conflicts</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🔄</span>
+                                <span class="benefit-text">Reproduce results from specific dates</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">💡</span>
+                                <span class="benefit-text">Share improvements and bug fixes</span>
+                            </div>
+                        </div>
                         
                         <!-- Interactive Terminal for Real-World Example -->
                         <div class="example-terminal">
@@ -541,55 +557,101 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
                     <h2>Best Practices for Commit Messages</h2>
                     
                     <div class="commit-message-guidelines">
-                        <h3>Writing Good Commit Messages</h3>
-                        <p>Good commit messages make your project history readable and useful for future you and collaborators.</p>
+                        <div class="guidelines-header">
+                            <div class="guidelines-icon">✍️</div>
+                            <h3>Writing Good Commit Messages</h3>
+                            <p>Good commit messages make your project history readable and useful for future you and collaborators.</p>
+                        </div>
                         
                         <div class="guidelines-grid">
-                            <div class="guideline-card">
-                                <h4>✅ Do This</h4>
-                                <ul>
-                                    <li>Use present tense ("Add feature" not "Added feature")</li>
-                                    <li>Start with a verb ("Fix bug", "Update documentation")</li>
-                                    <li>Be specific and descriptive</li>
-                                    <li>Keep first line under 50 characters</li>
-                                    <li>Use body for longer explanations</li>
-                                </ul>
+                            <div class="guideline-card good-practices">
+                                <div class="card-header">
+                                    <div class="card-icon">✅</div>
+                                    <h4>Do This</h4>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Use present tense ("Add feature" not "Added feature")</li>
+                                        <li>Start with a verb ("Fix bug", "Update documentation")</li>
+                                        <li>Be specific and descriptive</li>
+                                        <li>Keep first line under 50 characters</li>
+                                        <li>Use body for longer explanations</li>
+                                    </ul>
+                                </div>
                             </div>
                             
-                            <div class="guideline-card">
-                                <h4>❌ Avoid This</h4>
-                                <ul>
-                                    <li>Vague messages like "Fix stuff" or "Update"</li>
-                                    <li>Past tense ("Fixed bug", "Updated docs")</li>
-                                    <li>Messages that don't explain what changed</li>
-                                    <li>Very long first lines</li>
-                                    <li>Emotional language ("Fix this stupid bug")</li>
-                                </ul>
+                            <div class="guideline-card bad-practices">
+                                <div class="card-header">
+                                    <div class="card-icon">❌</div>
+                                    <h4>Avoid This</h4>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Vague messages like "Fix stuff" or "Update"</li>
+                                        <li>Past tense ("Fixed bug", "Updated docs")</li>
+                                        <li>Messages that don't explain what changed</li>
+                                        <li>Very long first lines</li>
+                                        <li>Emotional language ("Fix this stupid bug")</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="commit-examples">
-                            <h4>Good vs. Bad Commit Messages</h4>
+                            <div class="examples-header">
+                                <h4>Good vs. Bad Commit Messages</h4>
+                                <p>See the difference between effective and ineffective commit messages</p>
+                            </div>
                             
                             <div class="example-comparison">
                                 <div class="good-example">
-                                    <h5>✅ Good Examples</h5>
-                                    <ul>
-                                        <li><code>git commit -m "Add SIR model parameters"</code></li>
-                                        <li><code>git commit -m "Fix data loading error in analysis.R"</code></li>
-                                        <li><code>git commit -m "Update README with installation steps"</code></li>
-                                        <li><code>git commit -m "Refactor model fitting function for clarity"</code></li>
-                                    </ul>
+                                    <div class="example-header">
+                                        <div class="example-icon">✅</div>
+                                        <h5>Good Examples</h5>
+                                    </div>
+                                    <div class="example-content">
+                                        <div class="commit-example">
+                                            <code>git commit -m "Add SIR model parameters"</code>
+                                            <span class="example-note">Clear, specific, present tense</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "Fix data loading error in analysis.R"</code>
+                                            <span class="example-note">Specific file and issue mentioned</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "Update README with installation steps"</code>
+                                            <span class="example-note">Clear what was updated and why</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "Refactor model fitting function for clarity"</code>
+                                            <span class="example-note">Explains the purpose of the change</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <div class="bad-example">
-                                    <h5>❌ Bad Examples</h5>
-                                    <ul>
-                                        <li><code>git commit -m "stuff"</code></li>
-                                        <li><code>git commit -m "Fixed bug"</code></li>
-                                        <li><code>git commit -m "Update"</code></li>
-                                        <li><code>git commit -m "This is a very long commit message that goes on and on and doesn't follow the 50 character rule"</code></li>
-                                    </ul>
+                                    <div class="example-header">
+                                        <div class="example-icon">❌</div>
+                                        <h5>Bad Examples</h5>
+                                    </div>
+                                    <div class="example-content">
+                                        <div class="commit-example">
+                                            <code>git commit -m "stuff"</code>
+                                            <span class="example-note">Too vague, no information</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "Fixed bug"</code>
+                                            <span class="example-note">Past tense, not specific</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "Update"</code>
+                                            <span class="example-note">No context about what was updated</span>
+                                        </div>
+                                        <div class="commit-example">
+                                            <code>git commit -m "This is a very long commit message that goes on and on and doesn't follow the 50 character rule"</code>
+                                            <span class="example-note">Way too long, violates best practices</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -703,39 +765,96 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
                     <h2>Module Summary and Next Steps</h2>
                     
                     <div class="summary-grid">
-                        <div class="summary-card">
-                            <h3>What You've Learned</h3>
-                            <ul>
-                                <li>✅ Why version control is essential for research</li>
-                                <li>✅ Basic Git concepts (repository, commit, branch, remote)</li>
-                                <li>✅ How to initialize a Git repository</li>
-                                <li>✅ How to make your first commit</li>
-                                <li>✅ How to check repository status and history</li>
-                                <li>✅ Best practices for commit messages</li>
-                            </ul>
+                        <div class="summary-card achievements">
+                            <div class="card-header">
+                                <div class="card-icon">🎯</div>
+                                <h3>What You've Learned</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">Why version control is essential for research</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">Basic Git concepts (repository, commit, branch, remote)</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">How to initialize a Git repository</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">How to make your first commit</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">How to check repository status and history</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-icon">✅</span>
+                                    <span class="achievement-text">Best practices for commit messages</span>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="summary-card">
-                            <h3>Key Commands</h3>
-                            <ul>
-                                <li><code>git init</code> - Create new repository</li>
-                                <li><code>git status</code> - Check repository status</li>
-                                <li><code>git add</code> - Stage files for commit</li>
-                                <li><code>git commit</code> - Create commit</li>
-                                <li><code>git log</code> - View commit history</li>
-                            </ul>
+                        <div class="summary-card commands">
+                            <div class="card-header">
+                                <div class="card-icon">⌨️</div>
+                                <h3>Key Commands</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="command-item">
+                                    <code>git init</code>
+                                    <span class="command-description">Create new repository</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git status</code>
+                                    <span class="command-description">Check repository status</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git add</code>
+                                    <span class="command-description">Stage files for commit</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git commit</code>
+                                    <span class="command-description">Create commit</span>
+                                </div>
+                                <div class="command-item">
+                                    <code>git log</code>
+                                    <span class="command-description">View commit history</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="next-steps">
-                        <h3>Ready for the Next Module?</h3>
-                        <p>In Module 2, you'll learn about GitHub collaboration, including:</p>
-                        <ul>
-                            <li>Creating and managing repositories on GitHub</li>
-                            <li>Working with remote repositories</li>
-                            <li>Pull requests and code review</li>
-                            <li>Team collaboration workflows</li>
-                        </ul>
+                        <div class="next-steps-header">
+                            <div class="next-steps-icon">🚀</div>
+                            <h3>Ready for the Next Module?</h3>
+                            <p>In Module 2, you'll learn about GitHub collaboration, including:</p>
+                        </div>
+                        
+                        <div class="next-steps-content">
+                            <div class="next-steps-grid">
+                                <div class="next-step-item">
+                                    <span class="step-icon">📁</span>
+                                    <span class="step-text">Creating and managing repositories on GitHub</span>
+                                </div>
+                                <div class="next-step-item">
+                                    <span class="step-icon">🌐</span>
+                                    <span class="step-text">Working with remote repositories</span>
+                                </div>
+                                <div class="next-step-item">
+                                    <span class="step-icon">🔀</span>
+                                    <span class="step-text">Pull requests and code review</span>
+                                </div>
+                                <div class="next-step-item">
+                                    <span class="step-icon">👥</span>
+                                    <span class="step-text">Team collaboration workflows</span>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="navigation-buttons">
                             <a href="../index.html#part1-section" class="nav-btn secondary">← Back to Part 1</a>

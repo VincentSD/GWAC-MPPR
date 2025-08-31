@@ -999,6 +999,515 @@ main {
     50% { opacity: 0.5; }
 }
 
+/* Enhanced Real-World Example Section */
+.example-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.example-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #48bb78, #4299e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.example-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.benefit-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.benefit-text {
+    font-weight: 500;
+    color: #2d3748;
+}
+
+/* Enhanced Commit Message Guidelines */
+.guidelines-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.guidelines-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.guidelines-header h3 {
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.guidelines-header p {
+    color: #4a5568;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.guidelines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.guideline-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.guideline-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transition: all 0.3s ease;
+}
+
+.guideline-card.good-practices::before {
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.guideline-card.bad-practices::before {
+    background: linear-gradient(90deg, #f56565, #e53e3e);
+}
+
+.guideline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card-icon {
+    font-size: 2rem;
+    min-width: 40px;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #2d3748;
+}
+
+.card-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-content li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f7fafc;
+    position: relative;
+    padding-left: 25px;
+}
+
+.card-content li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #48bb78;
+    font-weight: bold;
+}
+
+.card-content li:last-child {
+    border-bottom: none;
+}
+
+/* Enhanced Commit Examples */
+.examples-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.examples-header h4 {
+    margin: 0 0 10px 0;
+    color: #2d3748;
+    font-size: 1.4rem;
+}
+
+.examples-header p {
+    margin: 0;
+    color: #4a5568;
+    font-style: italic;
+}
+
+.example-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.good-example,
+.bad-example {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.good-example {
+    border-color: #48bb78;
+}
+
+.bad-example {
+    border-color: #f56565;
+}
+
+.good-example:hover,
+.bad-example:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.example-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.example-icon {
+    font-size: 1.8rem;
+    min-width: 35px;
+}
+
+.example-header h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.example-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.commit-example {
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 8px;
+    border-left: 4px solid #48bb78;
+}
+
+.commit-example code {
+    display: block;
+    background: #2d3748;
+    color: #48bb78;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.example-note {
+    display: block;
+    color: #4a5568;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Enhanced Module Summary */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transition: all 0.3s ease;
+}
+
+.summary-card.achievements::before {
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.summary-card.commands::before {
+    background: linear-gradient(90deg, #4299e1, #3182ce);
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card .card-header {
+    margin-bottom: 20px;
+}
+
+.summary-card .card-icon {
+    font-size: 2.5rem;
+    min-width: 45px;
+}
+
+.summary-card .card-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #2d3748;
+}
+
+.achievement-item,
+.command-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f7fafc;
+}
+
+.achievement-item:last-child,
+.command-item:last-child {
+    border-bottom: none;
+}
+
+.achievement-icon {
+    font-size: 1.2rem;
+    min-width: 25px;
+    color: #48bb78;
+}
+
+.achievement-text {
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.command-item code {
+    background: #2d3748;
+    color: #48bb78;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.command-description {
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+/* Enhanced Next Steps */
+.next-steps {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #e2e8f0;
+    margin-top: 30px;
+}
+
+.next-steps-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.next-steps-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.next-steps-header h3 {
+    margin: 0 0 10px 0;
+    color: #2d3748;
+    font-size: 1.5rem;
+}
+
+.next-steps-header p {
+    margin: 0;
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+.next-steps-content {
+    margin-bottom: 30px;
+}
+
+.next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.next-step-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.next-step-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78;
+}
+
+.step-icon {
+    font-size: 1.8rem;
+    min-width: 35px;
+}
+
+.step-text {
+    color: #2d3748;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Navigation Buttons Enhancement */
+.navigation-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-btn.secondary {
+    background: #f7fafc;
+    color: #4a5568;
+    border: 2px solid #e2e8f0;
+}
+
+.nav-btn.secondary:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+    transform: translateY(-2px);
+}
+
+.nav-btn.primary {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.nav-btn.primary:hover {
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+}
+
+/* Responsive Design for Enhanced Sections */
+@media (max-width: 768px) {
+    .example-benefits,
+    .guidelines-grid,
+    .example-comparison,
+    .summary-grid,
+    .next-steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .guideline-card,
+    .summary-card,
+    .good-example,
+    .bad-example {
+        padding: 20px;
+    }
+    
+    .next-steps {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+}
+
 /* R Studio Styling */
 .r-studio {
     background: #f8f9fa;
