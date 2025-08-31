@@ -273,7 +273,57 @@
                     <h2>📖 The Git Parable: Understanding Snapshots</h2>
                     
                     <div class="parable-intro">
-                        <p>Let's understand Git's core concept through a simple analogy. Think of Git as a photographer taking snapshots of your project at different points in time.</p>
+                        <p>Understanding Git through a simple analogy helps clarify how it differs from traditional file management systems.</p>
+                    </div>
+                    
+                    <div class="parable-comparison">
+                        <div class="comparison-card not-git">
+                            <h3>This is NOT Git</h3>
+                            <div class="comparison-image" data-caption="Traditional version control stores only the differences (deltas) between file versions">
+                                <img src="../images/git-concepts/deltas.png" 
+                                     alt="Traditional version control using deltas" 
+                                     class="git-concept-image"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="image-placeholder fallback">
+                                    <span class="placeholder-icon">📁</span>
+                                    <p class="placeholder-text">Traditional File System</p>
+                                    <p class="placeholder-description">Files are stored as individual versions with deltas</p>
+                                </div>
+                            </div>
+                            <div class="comparison-details">
+                                <h4>Deltas Method</h4>
+                                <ul>
+                                    <li>Stores only the differences between versions</li>
+                                    <li>Each version depends on previous versions</li>
+                                    <li>Losing one version breaks the chain</li>
+                                    <li>Difficult to compare distant versions</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-card is-git">
+                            <h3>This IS Git</h3>
+                            <div class="comparison-image" data-caption="Git stores complete snapshots of your project at each commit">
+                                <img src="../images/git-concepts/snapshots.png" 
+                                     alt="Git version control using snapshots" 
+                                     class="git-concept-image"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="image-placeholder fallback">
+                                    <span class="placeholder-icon">📸</span>
+                                    <p class="placeholder-text">Git Snapshots</p>
+                                    <p class="placeholder-description">Each commit creates a complete snapshot</p>
+                                </div>
+                            </div>
+                            <div class="comparison-details">
+                                <h4>Snapshots Method</h4>
+                                <ul>
+                                    <li>Stores complete snapshots of your project</li>
+                                    <li>Each commit is independent and complete</li>
+                                    <li>Easy to jump between any two versions</li>
+                                    <li>Efficient storage using compression</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="parable-explanation">
