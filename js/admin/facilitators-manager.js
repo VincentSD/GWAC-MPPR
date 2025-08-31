@@ -486,6 +486,15 @@ class FacilitatorsManager {
         return this.facilitators;
     }
 
+    async getFacilitatorsByCountry() {
+        const countryCounts = {};
+        this.facilitators.forEach(facilitator => {
+            const country = facilitator.country || 'Unknown';
+            countryCounts[country] = (countryCounts[country] || 0) + 1;
+        });
+        return countryCounts;
+    }
+
     createAddFacilitatorSection() {
         const section = document.createElement('div');
         section.className = 'add-facilitator-section';

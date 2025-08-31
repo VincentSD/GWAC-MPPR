@@ -227,9 +227,86 @@ class AdminManager {
             document.getElementById('materials-count').textContent = materialsCount;
             document.getElementById('resources-count').textContent = resourcesCount;
             
+            // Load additional analytics
+            await this.loadDashboardAnalytics();
+            
         } catch (error) {
             console.error('Error loading dashboard data:', error);
         }
+    }
+
+    async loadDashboardAnalytics() {
+        try {
+            // Load facilitators by country
+            const facilitatorsByCountry = this.facilitatorsManager ? await this.facilitatorsManager.getFacilitatorsByCountry() : {};
+            
+            // Load schedule statistics
+            const scheduleStats = this.scheduleManager ? await this.scheduleManager.getScheduleStats() : {};
+            
+            // Update analytics sections
+            this.updateAnalyticsCharts(facilitatorsByCountry, scheduleStats);
+            
+        } catch (error) {
+            console.error('Error loading analytics:', error);
+        }
+    }
+
+    updateAnalyticsCharts(facilitatorsByCountry, scheduleStats) {
+        // Update facilitators by country chart
+        const countryChart = document.getElementById('facilitators-country-chart');
+        if (countryChart && facilitatorsByCountry) {
+            this.createCountryChart(countryChart, facilitatorsByCountry);
+        }
+        
+        // Update schedule statistics
+        const scheduleChart = document.getElementById('schedule-stats-chart');
+        if (scheduleChart && scheduleStats) {
+            this.createScheduleChart(scheduleChart, scheduleStats);
+        }
+    }
+
+    createCountryChart(container, data) {
+        const countries = Object.keys(data);
+        const counts = Object.values(data);
+        
+        // Create a simple bar chart using CSS
+        container.innerHTML = `
+            <div class="chart-container">
+                <h4>Facilitators by Country</h4>
+                <div class="chart-bars">
+                    ${countries.map((country, index) => `
+                        <div class="chart-bar">
+                            <div class="bar-label">${country}</div>
+                            <div class="bar" style="height: ${(counts[index] / Math.max(...counts)) * 100}%"></div>
+                            <div class="bar-value">${counts[index]}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    createScheduleChart(container, data) {
+        // Create a simple schedule statistics display
+        container.innerHTML = `
+            <div class="chart-container">
+                <h4>Schedule Overview</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalDays || 0}</div>
+                        <div class="stat-label">Total Days</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalSessions || 0}</div>
+                        <div class="stat-label">Total Sessions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${data.totalHours || 0}</div>
+                        <div class="stat-label">Total Hours</div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     async loadHeroContent() {

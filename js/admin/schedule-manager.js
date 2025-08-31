@@ -576,6 +576,34 @@ class ScheduleManager {
         return this.schedule.days.length;
     }
 
+    async getScheduleStats() {
+        if (!this.schedule) return {};
+        
+        const totalDays = this.schedule.days.length;
+        let totalSessions = 0;
+        let totalHours = 0;
+        
+        this.schedule.days.forEach(day => {
+            totalSessions += day.sessions ? day.sessions.length : 0;
+            // Estimate hours based on session types
+            if (day.sessions) {
+                day.sessions.forEach(session => {
+                    if (session.type === 'morning' || session.type === 'afternoon') {
+                        totalHours += 1.5; // 1.5 hours per session
+                    } else if (session.type === 'lunch') {
+                        totalHours += 1.5; // Lunch break
+                    }
+                });
+            }
+        });
+        
+        return {
+            totalDays,
+            totalSessions,
+            totalHours: Math.round(totalHours)
+        };
+    }
+
     async exportSchedule() {
         return this.schedule;
     }
