@@ -8294,6 +8294,217 @@ a.toc-item {
     opacity: 0.9;
 }
 
+/* Enhanced Exercise Styling */
+.exercise-goals {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-5) 0;
+    border: 1px solid #bae6fd;
+}
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-4);
+}
+
+.goal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-3);
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.goal-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.goal-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-2);
+}
+
+.pro-tip {
+    background: rgba(72, 187, 120, 0.1);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-3);
+    border-left: 3px solid #48bb78;
+}
+
+.documentation-example {
+    background: #f8fafc;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-3);
+    border: 1px solid #e2e8f0;
+}
+
+.documentation-example h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.submission-checklist {
+    background: #f0f9ff;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-4) 0;
+    border: 1px solid #bae6fd;
+}
+
+.submission-checklist h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.submission-note {
+    background: rgba(72, 187, 120, 0.1);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-4);
+    text-align: center;
+    border: 1px solid rgba(72, 187, 120, 0.2);
+}
+
+/* Team Roles Grid */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-4);
+}
+
+.role-card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.role-card:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.role-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--spacing-3);
+}
+
+.role-card h5 {
+    margin-bottom: var(--spacing-2);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.role-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.task-example {
+    background: rgba(72, 187, 120, 0.1);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-3);
+    border-left: 3px solid #48bb78;
+    font-style: italic;
+}
+
+/* Workflow Phases */
+.workflow-phases {
+    display: grid;
+    gap: var(--spacing-5);
+    margin: var(--spacing-5) 0;
+}
+
+.phase {
+    background: rgba(255, 255, 255, 0.15);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.phase h5 {
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.phase ul {
+    margin: 0;
+    padding-left: var(--spacing-4);
+}
+
+.phase li {
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+/* Team Checklist Grid */
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-3);
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+    background: white;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+}
+
+.check-icon {
+    font-size: 1.2rem;
+}
+
+/* Responsive Design for New Components */
+@media (max-width: 1024px) {
+    .goals-grid,
+    .roles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .checklist-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .goals-grid,
+    .roles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .workflow-phases {
+        gap: var(--spacing-4);
+    }
+    
+    .phase {
+        padding: var(--spacing-3);
+    }
+}
+
 /* Responsive Design for New Sections */
 @media (max-width: 768px) {
     .alternatives-grid {
