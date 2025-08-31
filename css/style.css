@@ -7838,9 +7838,20 @@ a.toc-item {
 
 .challenge-steps {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-5);
     margin-bottom: var(--spacing-6);
+}
+
+/* Step 2 spans full width for better code display */
+.challenge-steps .challenge-step:nth-child(2) {
+    grid-column: 1 / -1;
+    order: 3;
+}
+
+/* Step 3 moves to first row, second column */
+.challenge-steps .challenge-step:nth-child(3) {
+    order: 2;
 }
 
 .challenge-step {
@@ -8698,13 +8709,13 @@ a.toc-item {
     font-size: 1.2rem;
 }
 
-/* Enhanced Code Blocks */
+/* Enhanced Code Blocks with Better Readability */
 .code-block {
-    background: #1a202c;
+    background: #1e1e1e;
     border-radius: var(--radius-lg);
     margin: var(--spacing-4) 0;
     box-shadow: var(--shadow-lg);
-    border: 1px solid #2d3748;
+    border: 1px solid #3e3e3e;
     overflow: hidden;
     position: relative;
 }
@@ -8719,24 +8730,38 @@ a.toc-item {
 }
 
 .code-header span {
-    color: #e2e8f0;
-    font-weight: 500;
-    font-size: 0.9rem;
+    color: #f0f0f0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
 .code-block pre {
-    background: #1a202c;
-    color: #e2e8f0;
+    background: #1e1e1e;
+    color: #f8f8f2;
     padding: var(--spacing-5);
     margin: 0;
     overflow-x: auto;
-    line-height: 1.6;
-    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-    font-size: 0.9rem;
+    line-height: 1.8;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Dank Mono', 'Operator Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
 }
 
 .code-block code {
-    color: #e2e8f0;
+    color: #f8f8f2;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
 /* Enhanced Explanation Text */
@@ -9083,14 +9108,28 @@ html {
 
 /* Enhanced Inline Code */
 code {
-    background: #f1f5f9;
-    color: #1e293b;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Monaco', 'Consolas', monospace;
-    font-size: 0.9em;
+    background: #f8fafc;
+    color: #0f172a;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    font-size: 0.92em;
     font-weight: 500;
     border: 1px solid #e2e8f0;
+    letter-spacing: 0.2px;
+    word-break: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Override for code inside code blocks */
+.code-block code,
+pre code {
+    background: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: inherit !important;
 }
 
 /* Enhanced List Styling in Content */
@@ -9263,6 +9302,12 @@ code {
     .challenge-steps {
         grid-template-columns: 1fr;
         gap: var(--spacing-3);
+    }
+    
+    /* Reset order on mobile for natural flow */
+    .challenge-steps .challenge-step:nth-child(2),
+    .challenge-steps .challenge-step:nth-child(3) {
+        order: initial;
     }
     
     .submission-form {
