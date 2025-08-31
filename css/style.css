@@ -5308,6 +5308,19 @@ a.toc-item {
     flex-direction: row !important;
     box-sizing: border-box;
     margin: 0 !important;
+    text-align: left !important;
+}
+
+.exercise-workflow .workflow-steps .step-content {
+    text-align: left !important;
+}
+
+.exercise-workflow .workflow-steps .step-content h5,
+.exercise-workflow .workflow-steps .step-content p,
+.exercise-workflow .workflow-steps .step-content .code-block,
+.exercise-workflow .workflow-steps .step-content .task-example,
+.exercise-workflow .workflow-steps .step-content .pro-tip {
+    text-align: left !important;
 }
 
 .workflow-steps .workflow-step:hover {
@@ -5335,6 +5348,7 @@ a.toc-item {
     flex: 1;
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .workflow-steps .step-content h5 {
@@ -5342,6 +5356,7 @@ a.toc-item {
     margin-bottom: var(--spacing-3);
     font-size: var(--font-size-lg);
     font-weight: 600;
+    text-align: left;
 }
 
 .workflow-steps .step-content p {
@@ -5349,6 +5364,7 @@ a.toc-item {
     font-size: var(--font-size-base);
     line-height: 1.6;
     margin-bottom: var(--spacing-3);
+    text-align: left;
 }
 
 .workflow-steps .step-icon {
@@ -6208,18 +6224,20 @@ a.toc-item {
     
     .workflow-steps .workflow-step {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
         padding: var(--spacing-4);
     }
     
     .workflow-steps .step-number {
         margin-bottom: var(--spacing-3);
         margin-top: 0;
+        align-self: flex-start;
     }
     
     .workflow-steps .step-content {
-        align-items: center;
+        align-items: flex-start;
+        text-align: left;
     }
     
     .workflow-arrow {
