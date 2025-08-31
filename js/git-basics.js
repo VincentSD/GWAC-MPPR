@@ -1,23 +1,21 @@
 // Interactive Git Basics Module for G-WAC Short Course
-console.log('Git Basics Module: Script file loaded successfully!');
+
 
 class GitBasicsModule {
     constructor() {
-        console.log('Git Basics Module: Constructor called');
+
         this.gitHistory = [];
         this.currentDirectory = '/project';
         this.init();
     }
 
     init() {
-        console.log('Git Basics Module: Initializing...');
         this.setupGitTerminal();
         this.setupInteractiveElements();
         this.setupProgressTracking();
         this.setupStatusHistoryTerminal();
         this.setupBackToTopButton();
         this.setupTableOfContents();
-        console.log('Git Basics Module: Initialization complete');
     }
 
     setupGitTerminal() {
@@ -37,7 +35,6 @@ class GitBasicsModule {
         const runButton = document.getElementById(buttonId);
 
         if (commandInput && output) {
-            console.log(`Setting up terminal: ${inputId}`);
             
             // Handle Enter key
             commandInput.addEventListener('keypress', (e) => {
@@ -52,8 +49,6 @@ class GitBasicsModule {
                     this.executeCommand(commandInput.value, outputId);
                 });
             }
-        } else {
-            console.log(`Terminal elements not found: ${inputId}`);
         }
     }
 
@@ -142,7 +137,6 @@ class GitBasicsModule {
         const output = document.getElementById(outputId);
         
         if (!output) {
-            console.log(`Output element not found: ${outputId}`);
             return;
         }
 
@@ -477,7 +471,6 @@ class GitBasicsModule {
         const closeBtn = document.querySelector('.close-modal');
         
         if (!modal || !modalImg || !modalCaption || !closeBtn) {
-            console.log('Image modal elements not found');
             return;
         }
         
@@ -756,11 +749,10 @@ Date:   Mon Mar 25 09:15:00 2025 +0000
 
 // Initialize the module when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing Git Basics Module...');
-    new GitBasicsModule();
+    window.gitBasicsModule = new GitBasicsModule();
 });
 
 // Also initialize on window load for better compatibility
 window.addEventListener('load', () => {
-    console.log('Window loaded, Git Basics Module ready');
+    // Module ready
 });
