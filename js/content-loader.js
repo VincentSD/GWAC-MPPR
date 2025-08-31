@@ -53,7 +53,7 @@ class MainSiteContentLoader {
                 return JSON.parse(content);
             }
         } catch (error) {
-            console.log('Content directory not found, using default content');
+            // Content directory not found, using default content
         }
         
         // Return default content if loading fails
