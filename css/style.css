@@ -8325,6 +8325,241 @@ a.toc-item {
     overflow: hidden;
 }
 
+/* Collaboration Tracker */
+.collaboration-tracker {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    margin: var(--spacing-6) 0;
+    border: 1px solid #e2e8f0;
+}
+
+.collaboration-tracker h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.activity-dashboard {
+    display: grid;
+    gap: var(--spacing-6);
+    margin: var(--spacing-5) 0;
+}
+
+/* Team Stats */
+.team-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+}
+
+.stat-card {
+    background: white;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-2);
+}
+
+.stat-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stat-icon {
+    position: absolute;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+/* Activity Feed */
+.activity-feed {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+}
+
+.activity-feed h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.activity-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: var(--radius-md);
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-3);
+    border-bottom: 1px solid #f1f5f9;
+    gap: var(--spacing-3);
+    transition: background-color 0.2s ease;
+}
+
+.activity-item:hover {
+    background-color: #f8fafc;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.activity-text {
+    flex: 1;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.activity-time {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* Participation Tracker */
+.participation-tracker {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+}
+
+.participation-tracker h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-4);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.participant-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-3);
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    gap: var(--spacing-3);
+}
+
+.participant-avatar {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.participant-name {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.participant-status {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+.status-badge {
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.active {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-badge.completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.collaboration-tips {
+    margin-top: var(--spacing-5);
+    padding: var(--spacing-4);
+    background: #f0f9ff;
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary-color);
+}
+
+.collaboration-tips h5 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.1rem;
+}
+
+.collaboration-tips ul {
+    list-style: none;
+    padding: 0;
+}
+
+.collaboration-tips li {
+    padding: var(--spacing-2) 0;
+    color: var(--text-primary);
+    position: relative;
+    padding-left: var(--spacing-4);
+}
+
+.collaboration-tips li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
 .collaborative-exercise::before {
     content: '';
     position: absolute;
@@ -9486,8 +9721,41 @@ pre code {
         width: 100%;
     }
     .practice-challenge,
-    .collaborative-exercise {
+    .collaborative-exercise,
+    .collaboration-tracker {
         padding: var(--spacing-5);
+    }
+    
+    .team-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-3);
+    }
+    
+    .stat-card {
+        padding: var(--spacing-4);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .activity-dashboard {
+        gap: var(--spacing-4);
+    }
+    
+    .activity-list {
+        max-height: 250px;
+    }
+    
+    .participant-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-2);
+    }
+    
+    .participant-status {
+        align-self: stretch;
+        justify-content: center;
     }
     
     .challenge-header {

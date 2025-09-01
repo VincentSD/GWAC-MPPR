@@ -856,47 +856,67 @@ git push origin main</code></pre>
                             </div>
                         </div>
                         
-                        <div class="exercise-submission">
-                            <h4>📤 Team Submission</h4>
-                            <p>Submit evidence of your collaborative Git mastery! Show that your team can work together like seasoned developers.</p>
+                        <div class="collaboration-tracker">
+                            <h4>🔄 Live Collaboration Activity</h4>
+                            <p>Watch your team's collaboration in real-time! See who's contributing, when PRs are submitted, and when conflicts are resolved.</p>
                             
-                            <div class="submission-checklist">
-                                <h5>✅ Collaboration Success Checklist:</h5>
-                                <div class="checklist-grid">
-                                    <div class="checklist-item">
-                                        <span class="check-icon">👥</span>
-                                        <span>All team members added to README</span>
+                            <div class="activity-dashboard">
+                                <div class="team-stats">
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="team-members-count">0</span>
+                                        <span class="stat-label">Team Members</span>
+                                        <span class="stat-icon">👥</span>
                                     </div>
-                                    <div class="checklist-item">
-                                        <span class="check-icon">🔀</span>
-                                        <span>Each person created their own branch</span>
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="prs-submitted">0</span>
+                                        <span class="stat-label">PRs Submitted</span>
+                                        <span class="stat-icon">🔄</span>
                                     </div>
-                                    <div class="checklist-item">
-                                        <span class="check-icon">🔄</span>
-                                        <span>Everyone submitted a pull request</span>
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="conflicts-resolved">0</span>
+                                        <span class="stat-label">Conflicts Resolved</span>
+                                        <span class="stat-icon">⚔️</span>
                                     </div>
-                                    <div class="checklist-item">
-                                        <span class="check-icon">⚔️</span>
-                                        <span>Merge conflicts were resolved</span>
+                                    <div class="stat-card">
+                                        <span class="stat-number" id="prs-merged">0</span>
+                                        <span class="stat-label">PRs Merged</span>
+                                        <span class="stat-icon">✅</span>
                                     </div>
-                                    <div class="checklist-item">
-                                        <span class="check-icon">💬</span>
-                                        <span>Team reviewed each other's PRs</span>
+                                </div>
+                                
+                                <div class="activity-feed">
+                                    <h5>📋 Recent Activity</h5>
+                                    <div class="activity-list" id="activity-list">
+                                        <div class="activity-item sample">
+                                            <span class="activity-icon">🚀</span>
+                                            <span class="activity-text">Exercise started - Ready for collaboration!</span>
+                                            <span class="activity-time">Just now</span>
+                                        </div>
                                     </div>
-                                    <div class="checklist-item">
-                                        <span class="check-icon">✅</span>
-                                        <span>Final README includes everyone</span>
+                                </div>
+                                
+                                <div class="participation-tracker">
+                                    <h5>👥 Team Participation</h5>
+                                    <div class="participant-list" id="participant-list">
+                                        <div class="participant-item">
+                                            <span class="participant-avatar">👤</span>
+                                            <span class="participant-name">Waiting for participants...</span>
+                                            <div class="participant-status">
+                                                <span class="status-badge pending">⏳ Ready to start</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="submission-form">
-                                <input type="url" placeholder="Link to final team directory README" class="repo-url-input">
-                                <button class="submit-btn" onclick="submitExercise2()">Submit Team Exercise</button>
-                            </div>
-                            
-                            <div class="submission-note">
-                                <p><strong>🎯 Success Criteria:</strong> Evidence of branching, pull requests, conflict resolution, and effective team communication through Git.</p>
+                            <div class="collaboration-tips">
+                                <h5>💡 Track Your Team's Progress</h5>
+                                <ul>
+                                    <li><strong>Watch the Feed:</strong> See real-time updates as teammates submit PRs</li>
+                                    <li><strong>Monitor Stats:</strong> Track team progress with live counters</li>
+                                    <li><strong>Celebrate Success:</strong> Cheer when conflicts are resolved!</li>
+                                    <li><strong>Learn Together:</strong> Use the activity log to understand the workflow</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1082,5 +1102,6 @@ git push origin main</code></pre>
     <script src="../js/collaboration.js"></script>
     <script src="../js/code-execution.js"></script>
     <script src="../js/github-collaboration.js"></script>
+    <script src="../js/collaboration-tracker.js"></script>
 </body>
 </html>
