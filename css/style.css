@@ -8318,7 +8318,6 @@ a.toc-item {
     margin: var(--spacing-6) 0;
     padding: var(--spacing-6);
     background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-    color: white;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
     position: relative;
@@ -9657,7 +9656,6 @@ code {
 .code-block code,
 pre code {
     background: transparent !important;
-    color: inherit !important;
     padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
