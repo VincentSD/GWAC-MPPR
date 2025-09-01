@@ -157,28 +157,28 @@ ${name}`;
             return; // Already revealed
         }
         
-        // Reveal the email
-        element.innerHTML = `<i class="fas fa-envelope"></i> ${email}`;
+        // Show contact in person message instead of revealing email
+        element.innerHTML = `<i class="fas fa-users"></i> Please contact him/her in person`;
         element.classList.add('revealed');
         
-        // Add copy functionality
-        element.addEventListener('click', () => {
-            navigator.clipboard.writeText(email).then(() => {
-                const originalText = element.innerHTML;
-                element.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                element.style.background = 'var(--success-color)';
-                element.style.borderColor = 'var(--success-color)';
-                
-                setTimeout(() => {
-                    element.innerHTML = originalText;
-                    element.style.background = '';
-                    element.style.borderColor = '';
-                }, 2000);
-            });
-        });
+        // Style the message
+        element.style.background = 'var(--warning-color, #f39c12)';
+        element.style.borderColor = 'var(--warning-color, #f39c12)';
+        element.style.color = 'white';
+        element.style.cursor = 'default';
         
-        // Show success message
-        this.showNotification(`Email address revealed: ${email}`, 'success');
+        // Reset message after 3 seconds
+        setTimeout(() => {
+            element.innerHTML = '<i class="fas fa-envelope"></i> Click to reveal email';
+            element.classList.remove('revealed');
+            element.style.background = '';
+            element.style.borderColor = '';
+            element.style.color = '';
+            element.style.cursor = 'pointer';
+        }, 3000);
+        
+        // Show contact message
+        this.showNotification('Please contact the facilitator in person for direct communication', 'info');
     }
 
     showNotification(message, type = 'info') {
