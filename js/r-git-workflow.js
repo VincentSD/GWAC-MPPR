@@ -1,20 +1,20 @@
 // Interactive R-Git Workflow Module for G-WAC Short Course
-console.log('R-Git Workflow Module: Script file loaded successfully!');
+// R-Git Workflow Module initialized
 
 class RGitWorkflowModule {
     constructor() {
-        console.log('R-Git Workflow Module: Constructor called');
+        // Initialize R-Git workflow module
         this.currentStep = 0;
         this.workflowProgress = {};
         this.init();
     }
 
     init() {
-        console.log('R-Git Workflow Module: Initializing...');
+        // Setup module components
         this.setupWorkflowInteractions();
         this.setupCodeExecution();
         this.setupProgressTracking();
-        console.log('R-Git Workflow Module: Initialization complete');
+        // Module ready for interaction
     }
 
     setupWorkflowInteractions() {
@@ -316,11 +316,11 @@ class RGitWorkflowModule {
 
 // Initialize the module when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing R-Git Workflow Module...');
+    // Initialize R-Git workflow on DOM ready
     new RGitWorkflowModule();
 });
 
 // Also initialize on window load for better compatibility
 window.addEventListener('load', () => {
-    console.log('Window loaded, R-Git Workflow Module ready');
+    // Backup initialization on window load
 });

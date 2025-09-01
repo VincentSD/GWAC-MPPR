@@ -1604,6 +1604,915 @@ a.toc-item {
     margin: 0;
 }
 
+/* R-Git Workflow Enhanced Styles */
+.r-git-motivation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-6);
+    margin: var(--spacing-8) 0;
+}
+
+.motivation-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.motivation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.motivation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-4);
+    display: block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.motivation-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+}
+
+.motivation-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-4);
+}
+
+.card-stat {
+    padding: var(--spacing-3);
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid #e2e8f0;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #667eea;
+    margin-bottom: var(--spacing-1);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Real-World Example Enhanced Styles */
+.real-world-example {
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    margin: var(--spacing-8) 0;
+    border: 1px solid #cbd5e0;
+}
+
+.example-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 2px solid #cbd5e0;
+}
+
+.example-icon {
+    font-size: 4rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+}
+
+.example-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.example-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.example-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-4);
+}
+
+.benefit-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.benefit-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-3);
+    display: block;
+}
+
+.benefit-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.benefit-item p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* R Markdown Introduction Enhanced Styles */
+.rmarkdown-intro {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    margin: var(--spacing-8) 0;
+    border: 1px solid #cbd5e0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.rmarkdown-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-5);
+    border-bottom: 2px solid #cbd5e0;
+}
+
+.rmarkdown-icon {
+    font-size: 4rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+    margin-top: var(--spacing-2);
+}
+
+.rmarkdown-content h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.rmarkdown-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.rmarkdown-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-5);
+}
+
+.feature-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.feature-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-3);
+    display: block;
+    text-align: center;
+}
+
+.feature-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+    text-align: center;
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+/* R Markdown Demo Tabs */
+.rmarkdown-demo {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    margin: var(--spacing-8) 0;
+    overflow: hidden;
+}
+
+.demo-tabs {
+    display: flex;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-bottom: 1px solid #cbd5e0;
+}
+
+.tab-button {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: var(--spacing-4) var(--spacing-3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-primary);
+}
+
+.tab-button.active {
+    background: white;
+    color: #667eea;
+    border-bottom-color: #667eea;
+    box-shadow: 0 -2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+}
+
+.rmarkdown-demo .tab-content {
+    position: relative;
+    display: block !important;
+}
+
+.rmarkdown-demo .tab-pane {
+    display: none !important;
+    padding: var(--spacing-6);
+    min-height: 400px;
+}
+
+.rmarkdown-demo .tab-pane.active {
+    display: block !important;
+}
+
+/* Output Preview Styles */
+.output-preview {
+    background: #fefefe;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.document-header {
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+}
+
+.document-header h1 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.doc-meta {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.document-content h2 {
+    color: #667eea;
+    font-size: 1.5rem;
+    margin: var(--spacing-6) 0 var(--spacing-3) 0;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: var(--spacing-2);
+}
+
+.toc {
+    background: #f8fafc;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-md);
+    border: 1px solid #e2e8f0;
+    margin-bottom: var(--spacing-4);
+}
+
+.toc li {
+    margin-bottom: var(--spacing-1);
+}
+
+.toc a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.toc a:hover {
+    text-decoration: underline;
+}
+
+.code-output {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    margin: var(--spacing-4) 0;
+}
+
+.r-code {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Simulated Plot Styles */
+.plot-container {
+    margin: var(--spacing-6) 0;
+}
+
+.simulated-plot {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.plot-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-1);
+}
+
+.plot-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+}
+
+.plot-area {
+    position: relative;
+    height: 300px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
+    overflow: hidden;
+}
+
+.plot-lines {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 20px;
+    bottom: 60px;
+}
+
+.line {
+    position: absolute;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.line.susceptible {
+    background: linear-gradient(90deg, #2E86AB 0%, #A8DADC 100%);
+    top: 20px;
+    left: 0;
+    right: 0;
+    clip-path: polygon(0 0, 30% 5%, 60% 15%, 80% 40%, 100% 80%, 100% 100%, 0 100%);
+}
+
+.line.infected {
+    background: linear-gradient(90deg, #A23B72 0%, #F18F01 100%);
+    top: 80px;
+    left: 0;
+    right: 0;
+    clip-path: polygon(0 100%, 20% 60%, 40% 20%, 60% 5%, 80% 40%, 100% 90%, 100% 100%, 0 100%);
+}
+
+.line.recovered {
+    background: linear-gradient(90deg, #F18F01 0%, #C73E1D 100%);
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    clip-path: polygon(0 100%, 20% 100%, 40% 80%, 60% 40%, 80% 20%, 100% 0, 100% 100%, 0 100%);
+}
+
+.plot-legend {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    border: 1px solid #e2e8f0;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-1);
+    font-size: 0.9rem;
+}
+
+.legend-color {
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-color.susceptible {
+    background: #2E86AB;
+}
+
+.legend-color.infected {
+    background: #A23B72;
+}
+
+.legend-color.recovered {
+    background: #F18F01;
+}
+
+.plot-axes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.y-axis {
+    transform: rotate(-90deg);
+    position: absolute;
+    left: -20px;
+    top: 50%;
+}
+
+/* Results Table */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-4) 0;
+    background: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.results-table caption {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-size: 1.1rem;
+}
+
+.results-table th,
+.results-table td {
+    padding: var(--spacing-3) var(--spacing-4);
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.results-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.results-table tr:hover {
+    background: #f8fafc;
+}
+
+/* Commands Section */
+.commands-section {
+    background: #f8fafc;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+}
+
+.commands-section h4 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-5);
+    font-size: 1.5rem;
+}
+
+.command-options {
+    display: grid;
+    gap: var(--spacing-5);
+    margin-bottom: var(--spacing-6);
+}
+
+.command-option {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.option-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+}
+
+.option-icon {
+    font-size: 1.5rem;
+}
+
+.option-header h5 {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.option-content p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-3);
+}
+
+.tips-section {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-5);
+    border: 1px solid #e2e8f0;
+}
+
+.tips-section h5 {
+    color: #667eea;
+    margin-bottom: var(--spacing-3);
+    font-size: 1.2rem;
+}
+
+.tips-section ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.tips-section li {
+    margin-bottom: var(--spacing-2);
+    color: var(--text-secondary);
+}
+
+.tips-section strong {
+    color: var(--text-primary);
+}
+
+.tips-section code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #667eea;
+}
+
+/* Responsive Design for Tabs and Benefits */
+@media (max-width: 768px) {
+    .demo-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        padding: var(--spacing-3);
+        border-bottom: none;
+        border-right: 3px solid transparent;
+    }
+    
+    .tab-button.active {
+        border-bottom: none;
+        border-right-color: #667eea;
+    }
+    
+    .tab-pane {
+        padding: var(--spacing-4);
+        min-height: 300px;
+    }
+    
+    .plot-area {
+        height: 250px;
+    }
+    
+    .command-options {
+        gap: var(--spacing-4);
+    }
+    
+    .command-option {
+        padding: var(--spacing-4);
+    }
+    
+    /* Benefits grid responsive */
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+}
+
+/* R Best Practices Section */
+.r-best-practices {
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    margin: var(--spacing-8) 0;
+    border: 1px solid #cbd5e0;
+}
+
+.r-best-practices h3 {
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: var(--spacing-6);
+    text-align: center;
+    font-weight: 700;
+}
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+}
+
+.practice-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.practice-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.practice-item h4 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.practice-item p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-3);
+    line-height: 1.6;
+}
+
+.practice-item ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.practice-item li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+.practice-item code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #667eea;
+}
+
+/* R Coding Standards Section */
+.r-coding-standards {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    margin: var(--spacing-8) 0;
+    border: 1px solid #cbd5e0;
+}
+
+.r-coding-standards h3 {
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: var(--spacing-6);
+    text-align: center;
+    font-weight: 700;
+}
+
+.standards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+}
+
+.standard-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.standard-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.standard-item h4 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+}
+
+.standard-item ul {
+    margin: 0;
+    padding-left: var(--spacing-5);
+}
+
+.standard-item li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.5;
+}
+
+.standard-item code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #667eea;
+}
+
+/* Git Tips for R Projects Section */
+.git-tips-r {
+    background: linear-gradient(135deg, #e6f7ff 0%, #d1ecf1 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    margin: var(--spacing-8) 0;
+    border: 1px solid #91d5ff;
+}
+
+.git-tips-r h3 {
+    font-size: 1.8rem;
+    color: #1890ff;
+    margin-bottom: var(--spacing-6);
+    text-align: center;
+    font-weight: 700;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+}
+
+.tip-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    box-shadow: 0 4px 16px rgba(24, 144, 255, 0.1);
+    border: 1px solid #91d5ff;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #1890ff 0%, #40a9ff 100%);
+}
+
+.tip-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(24, 144, 255, 0.15);
+    border-color: #1890ff;
+}
+
+.tip-item h4 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: 600;
+    padding-top: var(--spacing-1);
+}
+
+.tip-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive Design for Best Practices */
+@media (max-width: 768px) {
+    .practice-grid,
+    .standards-grid,
+    .tips-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .r-best-practices,
+    .r-coding-standards,
+    .git-tips-r {
+        padding: var(--spacing-6);
+    }
+    
+    .practice-item,
+    .standard-item,
+    .tip-item {
+        padding: var(--spacing-5);
+    }
+}
+
 /* Enhanced Concept Items */
 .concept-item {
     transition: all 0.3s ease;
@@ -3310,6 +4219,97 @@ a.toc-item {
     }
 }
 
+/* Responsive Design for R-Git Motivation Cards */
+@media (max-width: 1200px) {
+    .r-git-motivation {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-5);
+    }
+}
+
+@media (max-width: 768px) {
+    .r-git-motivation {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .motivation-card {
+        padding: var(--spacing-5);
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+    }
+    
+    .example-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-3);
+    }
+    
+    .example-icon {
+        font-size: 3rem;
+    }
+    
+    .example-content h3 {
+        font-size: 1.6rem;
+    }
+    
+    .example-content p {
+        font-size: 1.1rem;
+    }
+    
+    .example-benefits {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-3);
+    }
+    
+    .benefit-item {
+        padding: var(--spacing-4);
+    }
+    
+    .benefit-icon {
+        font-size: 2rem;
+    }
+    
+    /* R Markdown responsive styles */
+    .rmarkdown-intro {
+        padding: var(--spacing-6);
+    }
+    
+    .rmarkdown-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-4);
+    }
+    
+    .rmarkdown-icon {
+        font-size: 3rem;
+        margin-top: 0;
+    }
+    
+    .rmarkdown-content h3 {
+        font-size: 1.8rem;
+    }
+    
+    .rmarkdown-content p {
+        font-size: 1.1rem;
+    }
+    
+    .rmarkdown-features {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .feature-item {
+        padding: var(--spacing-4);
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 480px) {
     .motivation-card {
         padding: 20px 15px;
@@ -3326,6 +4326,18 @@ a.toc-item {
     
     .motivation-card p {
         font-size: 0.95rem;
+    }
+    
+    .real-world-example {
+        padding: var(--spacing-5);
+    }
+    
+    .stat-number {
+        font-size: 1.6rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
     }
 }
 
@@ -5691,8 +6703,9 @@ a.toc-item {
 
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+    margin: var(--spacing-6) 0;
 }
 
 .benefit-item {
