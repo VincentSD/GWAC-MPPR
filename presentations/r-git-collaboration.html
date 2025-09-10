@@ -414,6 +414,109 @@
             100% { background-position: -200% 0; }
         }
         
+        /* Git Flow Visual Animation */
+        .presentation-mode .git-flow-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .presentation-mode .git-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid #00ff88;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInStep 0.6s ease-out forwards;
+            position: relative;
+        }
+        
+        .presentation-mode .git-step:nth-child(1) { animation-delay: 0.5s; }
+        .presentation-mode .git-step:nth-child(2) { animation-delay: 1.0s; }
+        .presentation-mode .git-step:nth-child(3) { animation-delay: 1.5s; }
+        .presentation-mode .git-step:nth-child(4) { animation-delay: 2.0s; }
+        .presentation-mode .git-step:nth-child(5) { animation-delay: 2.5s; }
+        .presentation-mode .git-step:nth-child(6) { animation-delay: 3.0s; }
+        
+        @keyframes slideInStep {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .presentation-mode .git-icon {
+            width: 24px;
+            height: 24px;
+            background: #00ff88;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 12px;
+        }
+        
+        .presentation-mode .git-text {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .presentation-mode .git-arrow {
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ff88;
+            font-size: 16px;
+            opacity: 0;
+            animation: showArrow 0.3s ease-out forwards;
+        }
+        
+        .presentation-mode .git-step:nth-child(1) .git-arrow { animation-delay: 0.8s; }
+        .presentation-mode .git-step:nth-child(2) .git-arrow { animation-delay: 1.3s; }
+        .presentation-mode .git-step:nth-child(3) .git-arrow { animation-delay: 1.8s; }
+        .presentation-mode .git-step:nth-child(4) .git-arrow { animation-delay: 2.3s; }
+        .presentation-mode .git-step:nth-child(5) .git-arrow { animation-delay: 2.8s; }
+        
+        @keyframes showArrow {
+            to { opacity: 1; }
+        }
+        
+        .presentation-mode .git-repo {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 10px 0;
+            opacity: 0;
+            animation: showRepo 0.5s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes showRepo {
+            to { opacity: 1; }
+        }
+        
         .presentation-mode .code-section pre {
             margin: 0;
             font-size: clamp(0.7em, 0.9vw, 0.9em);
@@ -969,6 +1072,39 @@ plot(result, main = "SIR Model Simulation")</pre>
                         <li><strong>Backup:</strong> Never lose your work again</li>
                         <li><strong>Documentation:</strong> Commit messages document your thought process</li>
                     </ul>
+                    
+                    <div class="git-flow-visual">
+                        <div class="git-repo">GitHub</div>
+                        <div class="git-step">
+                            <div class="git-icon">1</div>
+                            <div class="git-text">git clone</div>
+                            <div class="git-arrow">↓</div>
+                        </div>
+                        <div class="git-step">
+                            <div class="git-icon">2</div>
+                            <div class="git-text">git add</div>
+                            <div class="git-arrow">↓</div>
+                        </div>
+                        <div class="git-step">
+                            <div class="git-icon">3</div>
+                            <div class="git-text">git commit</div>
+                            <div class="git-arrow">↓</div>
+                        </div>
+                        <div class="git-step">
+                            <div class="git-icon">4</div>
+                            <div class="git-text">git push</div>
+                            <div class="git-arrow">↓</div>
+                        </div>
+                        <div class="git-step">
+                            <div class="git-icon">5</div>
+                            <div class="git-text">git pull</div>
+                            <div class="git-arrow">↓</div>
+                        </div>
+                        <div class="git-step">
+                            <div class="git-icon">6</div>
+                            <div class="git-text">git merge</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="right-card">
                     <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Workflow Example</h4>
