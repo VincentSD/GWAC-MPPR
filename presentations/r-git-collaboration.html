@@ -160,6 +160,117 @@
             list-style-position: outside;
         }
         
+        /* Three-column layout for slide 4 */
+        .presentation-mode .three-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 100%;
+            height: 70vh;
+        }
+        
+        .presentation-mode .top-section {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 6px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .presentation-mode .code-section {
+            background: #1e1e1e;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #f8f8f2;
+            overflow-y: auto;
+        }
+        
+        .presentation-mode .graph-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .presentation-mode .sir-graph {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .presentation-mode .sir-line {
+            position: absolute;
+            height: 3px;
+            border-radius: 2px;
+            animation: drawLine 3s ease-in-out infinite;
+        }
+        
+        .presentation-mode .sir-susceptible {
+            background: #00ff88;
+            top: 20%;
+            width: 0%;
+            animation-delay: 0s;
+        }
+        
+        .presentation-mode .sir-infected {
+            background: #ff6b6b;
+            top: 50%;
+            width: 0%;
+            animation-delay: 1s;
+        }
+        
+        .presentation-mode .sir-recovered {
+            background: #4ecdc4;
+            top: 80%;
+            width: 0%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes drawLine {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 100%; }
+        }
+        
+        .presentation-mode .graph-labels {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        .presentation-mode .legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.8em;
+        }
+        
+        .presentation-mode .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .presentation-mode .legend-color {
+            width: 12px;
+            height: 3px;
+            border-radius: 2px;
+        }
+        
         .presentation-mode .highlight-box {
             background: rgba(255, 255, 255, 0.15);
             border: 2px solid #ffd700;
@@ -673,8 +784,8 @@
         <div class="slide">
             <h2>Why R for Disease Modeling?</h2>
             
-            <div class="two-column-cards">
-                <div class="left-card">
+            <div class="three-column-layout">
+                <div class="top-section">
                     <h4><i class="fas fa-chart-line"></i> Key Benefits for Researchers</h4>
                     <ul>
                         <li><strong>Statistical Power:</strong> Advanced statistical methods for epidemiological analysis</li>
@@ -684,7 +795,8 @@
                         <li><strong>Integration:</strong> Works seamlessly with other tools and databases</li>
                     </ul>
                 </div>
-                <div class="right-card">
+                
+                <div class="code-section">
                     <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Example: Simple SIR Model</h4>
                     <pre>library(deSolve)
 
@@ -708,6 +820,32 @@ result <- ode(y = state, times = times,
 
 # Plot results
 plot(result, main = "SIR Model Simulation")</pre>
+                </div>
+                
+                <div class="graph-section">
+                    <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Animated SIR Model</h4>
+                    <div class="sir-graph">
+                        <div class="graph-labels">
+                            <div>Population Dynamics</div>
+                        </div>
+                        <div class="sir-line sir-susceptible"></div>
+                        <div class="sir-line sir-infected"></div>
+                        <div class="sir-line sir-recovered"></div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #00ff88;"></div>
+                            <span>Susceptible</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff6b6b;"></div>
+                            <span>Infected</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4ecdc4;"></div>
+                            <span>Recovered</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
