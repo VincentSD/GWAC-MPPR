@@ -208,40 +208,67 @@
             background: #1a1a1a;
             border-radius: 8px;
             overflow: hidden;
+            padding: 20px;
         }
         
-        .presentation-mode .sir-line {
-            position: absolute;
-            height: 3px;
-            border-radius: 2px;
-            animation: drawLine 3s ease-in-out infinite;
+        .presentation-mode .sir-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .presentation-mode .sir-path {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 4s ease-in-out infinite;
         }
         
         .presentation-mode .sir-susceptible {
-            background: #00ff88;
-            top: 20%;
-            width: 0%;
+            stroke: #00ff88;
             animation-delay: 0s;
         }
         
         .presentation-mode .sir-infected {
-            background: #ff6b6b;
-            top: 50%;
-            width: 0%;
-            animation-delay: 1s;
+            stroke: #ff6b6b;
+            animation-delay: 1.5s;
         }
         
         .presentation-mode .sir-recovered {
-            background: #4ecdc4;
-            top: 80%;
-            width: 0%;
+            stroke: #4ecdc4;
+            animation-delay: 3s;
+        }
+        
+        @keyframes drawPath {
+            0% { stroke-dashoffset: 1000; }
+            70% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .presentation-mode .sir-dot {
+            fill: #ffd700;
+            r: 4;
+            opacity: 0;
+            animation: showDot 0.5s ease-in-out infinite;
+        }
+        
+        .presentation-mode .sir-dot.susceptible {
             animation-delay: 2s;
         }
         
-        @keyframes drawLine {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 100%; }
+        .presentation-mode .sir-dot.infected {
+            animation-delay: 3.5s;
+        }
+        
+        .presentation-mode .sir-dot.recovered {
+            animation-delay: 5s;
+        }
+        
+        @keyframes showDot {
+            0%, 90% { opacity: 0; }
+            95%, 100% { opacity: 1; }
         }
         
         .presentation-mode .graph-labels {
@@ -825,12 +852,38 @@ plot(result, main = "SIR Model Simulation")</pre>
                 <div class="graph-section">
                     <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Animated SIR Model</h4>
                     <div class="sir-graph">
-                        <div class="graph-labels">
-                            <div>Population Dynamics</div>
-                        </div>
-                        <div class="sir-line sir-susceptible"></div>
-                        <div class="sir-line sir-infected"></div>
-                        <div class="sir-line sir-recovered"></div>
+                        <svg class="sir-svg" viewBox="0 0 400 300">
+                            <!-- Grid lines -->
+                            <defs>
+                                <pattern id="grid" width="40" height="30" patternUnits="userSpaceOnUse">
+                                    <path d="M 40 0 L 0 0 0 30" fill="none" stroke="#333" stroke-width="0.5"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+                            
+                            <!-- Axes -->
+                            <line x1="50" y1="250" x2="350" y2="250" stroke="#666" stroke-width="2"/>
+                            <line x1="50" y1="50" x2="50" y2="250" stroke="#666" stroke-width="2"/>
+                            
+                            <!-- Axis labels -->
+                            <text x="200" y="290" text-anchor="middle" fill="#ccc" font-size="12">Time</text>
+                            <text x="20" y="150" text-anchor="middle" fill="#ccc" font-size="12" transform="rotate(-90 20 150)">Population</text>
+                            
+                            <!-- SIR Model Curves -->
+                            <!-- Susceptible (decreasing) -->
+                            <path class="sir-path sir-susceptible" d="M 50 60 Q 100 80 150 120 Q 200 180 250 220 Q 300 240 350 250" />
+                            
+                            <!-- Infected (peak then decrease) -->
+                            <path class="sir-path sir-infected" d="M 50 250 Q 100 240 150 200 Q 200 100 250 120 Q 300 140 350 250" />
+                            
+                            <!-- Recovered (increasing) -->
+                            <path class="sir-path sir-recovered" d="M 50 250 Q 100 250 150 250 Q 200 200 250 150 Q 300 100 350 60" />
+                            
+                            <!-- Animated dots -->
+                            <circle class="sir-dot susceptible" cx="150" cy="120" />
+                            <circle class="sir-dot infected" cx="200" cy="100" />
+                            <circle class="sir-dot recovered" cx="250" cy="150" />
+                        </svg>
                     </div>
                     <div class="legend">
                         <div class="legend-item">
