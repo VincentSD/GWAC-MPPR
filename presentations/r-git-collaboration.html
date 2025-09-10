@@ -182,6 +182,63 @@
             line-height: 1.2;
         }
         
+        /* Two-column card layout */
+        .presentation-mode .two-column-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+            max-width: 100%;
+        }
+        
+        .presentation-mode .left-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 6px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .presentation-mode .right-card {
+            background: #1e1e1e;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #f8f8f2;
+            overflow-x: auto;
+        }
+        
+        .presentation-mode .right-card pre {
+            margin: 0;
+            font-size: clamp(0.8em, 1vw, 1em);
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .presentation-mode .left-card h4 {
+            color: #00ff88;
+            margin-top: 0;
+            font-size: clamp(1.3em, 1.6vw, 1.6em);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+        
+        .presentation-mode .left-card ul {
+            font-size: clamp(1em, 1.2vw, 1.2em);
+            line-height: 1.5;
+            color: white;
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            max-width: 100%;
+            padding-left: 20px;
+        }
+        
+        .presentation-mode .left-card li {
+            margin-bottom: 10px;
+        }
+        
         .presentation-mode .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -599,31 +656,44 @@
 
         <!-- Slide 4: R Programming Benefits -->
         <div class="slide">
-            <h2>R Programming: The Foundation</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">20K+</div>
-                    <div class="stat-label">R packages on CRAN</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">Widely</div>
-                    <div class="stat-label">used in data science</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">Free</div>
-                    <div class="stat-label">Open source & accessible</div>
-                </div>
-            </div>
+            <h2>Why R for Disease Modeling?</h2>
             
-            <div class="benefit-card">
-                <h4><i class="fas fa-chart-line"></i> Why R for Disease Modeling?</h4>
-                <ul>
-                    <li><strong>Statistical Power:</strong> Advanced statistical methods for epidemiological analysis</li>
-                    <li><strong>Epidemiology Packages:</strong> Specialized tools like EpiEstim, surveillance, deSolve</li>
-                    <li><strong>Reproducibility:</strong> Script-based analysis ensures consistent results</li>
-                    <li><strong>Visualization:</strong> Create publication-quality plots and interactive dashboards</li>
-                    <li><strong>Integration:</strong> Works seamlessly with other tools and databases</li>
-                </ul>
+            <div class="two-column-cards">
+                <div class="left-card">
+                    <h4><i class="fas fa-chart-line"></i> Key Benefits for Researchers</h4>
+                    <ul>
+                        <li><strong>Statistical Power:</strong> Advanced statistical methods for epidemiological analysis</li>
+                        <li><strong>Epidemiology Packages:</strong> Specialized tools like EpiEstim, surveillance, deSolve</li>
+                        <li><strong>Reproducibility:</strong> Script-based analysis ensures consistent results</li>
+                        <li><strong>Visualization:</strong> Create publication-quality plots and interactive dashboards</li>
+                        <li><strong>Integration:</strong> Works seamlessly with other tools and databases</li>
+                    </ul>
+                </div>
+                <div class="right-card">
+                    <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Example: Simple SIR Model</h4>
+                    <pre>library(deSolve)
+
+sir_model <- function(time, state, parameters) {
+  with(as.list(c(state, parameters)), {
+    dS <- -beta * S * I / N
+    dI <- beta * S * I / N - gamma * I
+    dR <- gamma * I
+    return(list(c(dS, dI, dR)))
+  })
+}
+
+# Parameters
+parameters <- c(beta = 0.5, gamma = 0.1, N = 1000)
+state <- c(S = 999, I = 1, R = 0)
+times <- seq(0, 100, by = 1)
+
+# Solve the model
+result <- ode(y = state, times = times, 
+              func = sir_model, parms = parameters)
+
+# Plot results
+plot(result, main = "SIR Model Simulation")</pre>
+                </div>
             </div>
             
             <div class="code-example">
@@ -643,20 +713,39 @@ sir_model <- function(time, state, parameters) {
         <!-- Slide 5: Git Version Control -->
         <div class="slide">
             <h2>Git: The Safety Net</h2>
-            <div class="highlight-box">
-                <h3>Version Control in Action</h3>
-                <p>Every change is tracked, every mistake can be undone, every experiment is preserved</p>
-            </div>
             
-            <div class="benefit-card">
-                <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
-                <ul>
-                    <li><strong>Experiment Safely:</strong> Try new approaches without fear of losing work</li>
-                    <li><strong>Track Changes:</strong> See exactly what changed and when</li>
-                    <li><strong>Collaborate:</strong> Multiple people can work on the same project</li>
-                    <li><strong>Backup:</strong> Never lose your work again</li>
-                    <li><strong>Documentation:</strong> Commit messages document your thought process</li>
-                </ul>
+            <div class="two-column-cards">
+                <div class="left-card">
+                    <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
+                    <ul>
+                        <li><strong>Experiment Safely:</strong> Try new approaches without fear of losing work</li>
+                        <li><strong>Track Changes:</strong> See exactly what changed and when</li>
+                        <li><strong>Collaborate:</strong> Multiple people can work on the same project</li>
+                        <li><strong>Backup:</strong> Never lose your work again</li>
+                        <li><strong>Documentation:</strong> Commit messages document your thought process</li>
+                    </ul>
+                </div>
+                <div class="right-card">
+                    <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Workflow Example</h4>
+                    <pre># Git workflow example
+git add model_analysis.R
+git commit -m "Add SIR model with parameter sensitivity analysis"
+git push origin main
+
+# Check status
+git status
+git log --oneline
+
+# Create feature branch
+git checkout -b feature/parameter-sensitivity
+git add sensitivity_analysis.R
+git commit -m "Add parameter sensitivity analysis"
+git push origin feature/parameter-sensitivity
+
+# Merge back to main
+git checkout main
+git merge feature/parameter-sensitivity</pre>
+                </div>
             </div>
             
             <div class="code-example">
@@ -697,7 +786,60 @@ git push origin main
             </div>
         </div>
 
-        <!-- Slide 7: Real-World Impact -->
+        <!-- Slide 7: Student Achievements -->
+        <div class="slide">
+            <h2>Student Achievements</h2>
+            <div class="highlight-box">
+                <h3>Our participants have successfully accomplished:</h3>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-code"></i> R Programming Mastery</h4>
+                <ul>
+                    <li>✅ <strong>Efficient Code Writing:</strong> Participants now write clean, optimized R code for complex disease models</li>
+                    <li>✅ <strong>Professional Documentation:</strong> All code includes comprehensive comments and documentation</li>
+                    <li>✅ <strong>Advanced Techniques:</strong> Mastered data manipulation, visualization, and statistical modeling</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-git-alt"></i> Git Version Control</h4>
+                <ul>
+                    <li>✅ <strong>Change Tracking:</strong> Participants track every modification with meaningful commit messages</li>
+                    <li>✅ <strong>Branch Management:</strong> Successfully use branches for feature development and experimentation</li>
+                    <li>✅ <strong>Conflict Resolution:</strong> Handle merge conflicts independently and efficiently</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fab fa-github"></i> GitHub Collaboration</h4>
+                <ul>
+                    <li>✅ <strong>Open Source Contribution:</strong> Participants actively contribute to modeling projects on GitHub</li>
+                    <li>✅ <strong>Project Sharing:</strong> Create and maintain public repositories for their research</li>
+                    <li>✅ <strong>Team Collaboration:</strong> Work seamlessly with international research teams</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-cogs"></i> Reproducible Workflows</h4>
+                <ul>
+                    <li>✅ <strong>Automated Processes:</strong> Participants create scripts that reproduce entire analyses</li>
+                    <li>✅ <strong>Environment Management:</strong> Use R packages and dependencies consistently</li>
+                    <li>✅ <strong>Quality Assurance:</strong> Implement testing and validation in their workflows</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-briefcase"></i> Professional Portfolio</h4>
+                <ul>
+                    <li>✅ <strong>Project Showcase:</strong> Participants maintain impressive GitHub portfolios</li>
+                    <li>✅ <strong>Documentation Standards:</strong> All projects include README files and proper documentation</li>
+                    <li>✅ <strong>Career Readiness:</strong> Portfolios demonstrate skills to potential employers</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Real-World Impact -->
         <div class="slide">
             <h2>Course Results & Impact</h2>
             <div class="highlight-box">
@@ -705,25 +847,26 @@ git push origin main
                 <p>How the integrated R + Git + GitHub approach delivered real value</p>
             </div>
             
-            <div class="benefit-card">
-                <h4><i class="fas fa-graduation-cap"></i> Participant Achievements</h4>
-                <ul>
-                    <li><strong>Efficiency Gains:</strong> 60% reduction in time spent on data analysis</li>
-                    <li><strong>Successful Collaboration:</strong> All group projects completed without version conflicts</li>
-                    <li><strong>Immediate Application:</strong> Participants already using skills in current research</li>
-                    <li><strong>Enhanced Publications:</strong> Reproducible research methods improving paper quality</li>
-                    <li><strong>Professional Growth:</strong> Skills recognized by supervisors and collaborators</li>
-                </ul>
-            </div>
-            
-            <div class="benefit-card">
-                <h4><i class="fas fa-globe"></i> Global Health Impact</h4>
-                <ul>
-                    <li><strong>Rapid Response:</strong> Quickly adapt models for new disease outbreaks</li>
-                    <li><strong>Policy Support:</strong> Provide reliable, transparent evidence for decision-makers</li>
-                    <li><strong>Knowledge Sharing:</strong> Open source models benefit the global health community</li>
-                    <li><strong>Capacity Building:</strong> Train the next generation of modeling experts</li>
-                </ul>
+            <div class="two-column-cards">
+                <div class="left-card">
+                    <h4><i class="fas fa-graduation-cap"></i> Participant Achievements</h4>
+                    <ul>
+                        <li><strong>Efficiency Gains:</strong> 60% reduction in time spent on data analysis</li>
+                        <li><strong>Successful Collaboration:</strong> All group projects completed without version conflicts</li>
+                        <li><strong>Immediate Application:</strong> Participants already using skills in current research</li>
+                        <li><strong>Enhanced Publications:</strong> Reproducible research methods improving paper quality</li>
+                        <li><strong>Professional Growth:</strong> Skills recognized by supervisors and collaborators</li>
+                    </ul>
+                </div>
+                <div class="left-card">
+                    <h4><i class="fas fa-globe"></i> Global Health Impact</h4>
+                    <ul>
+                        <li><strong>Rapid Response:</strong> Quickly adapt models for new disease outbreaks</li>
+                        <li><strong>Policy Support:</strong> Provide reliable, transparent evidence for decision-makers</li>
+                        <li><strong>Knowledge Sharing:</strong> Open source models benefit the global health community</li>
+                        <li><strong>Capacity Building:</strong> Train the next generation of modeling experts</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -754,54 +897,6 @@ git push origin main
                 </ul>
             </div>
             
-            <div class="highlight-box">
-                <h3>Student Achievements</h3>
-                <p>Our participants have successfully accomplished:</p>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-code"></i> R Programming Mastery</h4>
-                    <ul>
-                        <li>✅ <strong>Efficient Code Writing:</strong> Participants now write clean, optimized R code for complex disease models</li>
-                        <li>✅ <strong>Professional Documentation:</strong> All code includes comprehensive comments and documentation</li>
-                        <li>✅ <strong>Advanced Techniques:</strong> Mastered data manipulation, visualization, and statistical modeling</li>
-                    </ul>
-                </div>
-                
-                <div class="benefit-card">
-                    <h4><i class="fas fa-git-alt"></i> Git Version Control</h4>
-                    <ul>
-                        <li>✅ <strong>Change Tracking:</strong> Participants track every modification with meaningful commit messages</li>
-                        <li>✅ <strong>Branch Management:</strong> Successfully use branches for feature development and experimentation</li>
-                        <li>✅ <strong>Conflict Resolution:</strong> Handle merge conflicts independently and efficiently</li>
-                    </ul>
-                </div>
-                
-                <div class="benefit-card">
-                    <h4><i class="fab fa-github"></i> GitHub Collaboration</h4>
-                    <ul>
-                        <li>✅ <strong>Open Source Contribution:</strong> Participants actively contribute to modeling projects on GitHub</li>
-                        <li>✅ <strong>Project Sharing:</strong> Create and maintain public repositories for their research</li>
-                        <li>✅ <strong>Team Collaboration:</strong> Work seamlessly with international research teams</li>
-                    </ul>
-                </div>
-                
-                <div class="benefit-card">
-                    <h4><i class="fas fa-cogs"></i> Reproducible Workflows</h4>
-                    <ul>
-                        <li>✅ <strong>Automated Processes:</strong> Participants create scripts that reproduce entire analyses</li>
-                        <li>✅ <strong>Environment Management:</strong> Use R packages and dependencies consistently</li>
-                        <li>✅ <strong>Quality Assurance:</strong> Implement testing and validation in their workflows</li>
-                    </ul>
-                </div>
-                
-                <div class="benefit-card">
-                    <h4><i class="fas fa-briefcase"></i> Professional Portfolio</h4>
-                    <ul>
-                        <li>✅ <strong>Project Showcase:</strong> Participants maintain impressive GitHub portfolios</li>
-                        <li>✅ <strong>Documentation Standards:</strong> All projects include README files and proper documentation</li>
-                        <li>✅ <strong>Career Readiness:</strong> Portfolios demonstrate skills to potential employers</li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <!-- Slide 9: Stakeholder Benefits -->
