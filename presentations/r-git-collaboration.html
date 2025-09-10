@@ -14,6 +14,229 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        .presentation-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #1a1a1a;
+            z-index: 9999;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .presentation-mode .slide {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 60px;
+            border-radius: 0;
+            box-shadow: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .presentation-mode .slide h1 {
+            color: white;
+            font-size: 4em;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            border-bottom: 4px solid #ffd700;
+            padding-bottom: 20px;
+        }
+        
+        .presentation-mode .slide h2 {
+            color: #ffd700;
+            font-size: 3em;
+            margin: 40px 0 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            border-left: 6px solid #ffd700;
+            padding-left: 20px;
+        }
+        
+        .presentation-mode .slide h3 {
+            color: #87ceeb;
+            font-size: 2.2em;
+            margin: 30px 0 20px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .slide p {
+            font-size: 1.8em;
+            line-height: 1.8;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .slide ul {
+            font-size: 1.6em;
+            line-height: 2;
+            color: white;
+            margin: 30px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .slide li {
+            margin-bottom: 15px;
+        }
+        
+        .presentation-mode .highlight-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid #ffd700;
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .presentation-mode .highlight-box h3 {
+            color: #ffd700;
+            font-size: 2.5em;
+            margin-top: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 6px solid #00ff88;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .presentation-mode .benefit-card h4 {
+            color: #00ff88;
+            margin-top: 0;
+            font-size: 2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .presentation-mode .stat-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid #ffd700;
+        }
+        
+        .presentation-mode .stat-number {
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .stat-label {
+            font-size: 1.4em;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .code-example {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 30px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 30px 0;
+            font-size: 1.2em;
+            border: 2px solid #ffd700;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-mode .workflow-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .presentation-mode .workflow-step {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4aa 100%);
+            color: #1a1a1a;
+            padding: 20px 30px;
+            margin: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.3em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid #ffd700;
+        }
+        
+        .presentation-mode .arrow {
+            font-size: 2em;
+            color: #ffd700;
+            margin: 0 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .presentation-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .presentation-controls button {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 2px solid #ffd700;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .presentation-controls button:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .presentation-mode .navigation {
+            display: none;
+        }
+        
+        .presentation-mode .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffd700;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd700;
+        }
+        
         .slide {
             background: white;
             border-radius: 10px;
@@ -532,6 +755,9 @@ git push origin main
             <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
                 <i class="fas fa-chevron-left"></i> Previous
             </button>
+            <button class="nav-btn" id="presentationBtn" onclick="togglePresentationMode()">
+                <i class="fas fa-expand"></i> Presentation Mode
+            </button>
             <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
                 Next <i class="fas fa-chevron-right"></i>
             </button>
@@ -540,12 +766,28 @@ git push origin main
         <div class="slide-counter">
             <span id="currentSlide">1</span> of <span id="totalSlides">10</span>
         </div>
+        
+        <!-- Presentation Mode Controls -->
+        <div class="presentation-controls" id="presentationControls" style="display: none;">
+            <button onclick="changeSlide(-1)" title="Previous Slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="changeSlide(1)" title="Next Slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <button onclick="togglePresentationMode()" title="Exit Presentation Mode">
+                <i class="fas fa-compress"></i>
+            </button>
+        </div>
     </div>
 
     <script>
         let currentSlideIndex = 0;
+        let isPresentationMode = false;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
+        const container = document.querySelector('.presentation-container');
+        const presentationControls = document.getElementById('presentationControls');
         
         document.getElementById('totalSlides').textContent = totalSlides;
         
@@ -565,11 +807,72 @@ git push origin main
             showSlide(currentSlideIndex + direction);
         }
         
+        function togglePresentationMode() {
+            isPresentationMode = !isPresentationMode;
+            
+            if (isPresentationMode) {
+                // Enter presentation mode
+                container.classList.add('presentation-mode');
+                presentationControls.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                // Hide the back link in presentation mode
+                const backLink = document.querySelector('.back-link');
+                if (backLink) backLink.style.display = 'none';
+                
+                // Update presentation button
+                document.getElementById('presentationBtn').innerHTML = '<i class="fas fa-compress"></i> Exit Presentation';
+            } else {
+                // Exit presentation mode
+                container.classList.remove('presentation-mode');
+                presentationControls.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                
+                // Show the back link
+                const backLink = document.querySelector('.back-link');
+                if (backLink) backLink.style.display = 'block';
+                
+                // Update presentation button
+                document.getElementById('presentationBtn').innerHTML = '<i class="fas fa-expand"></i> Presentation Mode';
+            }
+        }
+        
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'F11') {
+                e.preventDefault();
+                togglePresentationMode();
+            }
+            if (e.key === 'Escape' && isPresentationMode) {
+                togglePresentationMode();
+            }
         });
+        
+        // Fullscreen API support
+        function requestFullscreen() {
+            if (isPresentationMode) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            }
+        }
+        
+        // Auto-enter fullscreen when presentation mode is activated
+        function togglePresentationModeWithFullscreen() {
+            togglePresentationMode();
+            if (isPresentationMode) {
+                setTimeout(requestFullscreen, 100);
+            }
+        }
+        
+        // Update the presentation button to use fullscreen
+        document.getElementById('presentationBtn').onclick = togglePresentationModeWithFullscreen;
         
         // Initialize
         showSlide(0);
