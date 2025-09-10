@@ -14,6 +14,14 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        .presentation-mode .presentation-container {
+            max-width: none;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
         .presentation-mode {
             position: fixed;
             top: 0;
@@ -24,6 +32,22 @@
             z-index: 9999;
             padding: 0;
             margin: 0;
+            overflow: hidden;
+        }
+        
+        .presentation-mode body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .presentation-mode html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
         }
         
@@ -881,6 +905,8 @@ git push origin main
             if (isPresentationMode) {
                 // Enter presentation mode
                 container.classList.add('presentation-mode');
+                document.body.classList.add('presentation-mode');
+                document.documentElement.classList.add('presentation-mode');
                 presentationControls.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
                 
@@ -896,6 +922,8 @@ git push origin main
             } else {
                 // Exit presentation mode
                 container.classList.remove('presentation-mode');
+                document.body.classList.remove('presentation-mode');
+                document.documentElement.classList.remove('presentation-mode');
                 presentationControls.style.display = 'none';
                 document.body.style.overflow = 'auto';
                 
