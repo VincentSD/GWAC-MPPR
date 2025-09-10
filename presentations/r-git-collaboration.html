@@ -36,11 +36,15 @@
             box-shadow: none;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+        }
+        
+        .presentation-mode .slide.active {
+            display: flex;
         }
         
         .presentation-mode .slide h1 {
@@ -186,6 +190,21 @@
             border: 2px solid #ffd700;
         }
         
+        /* Ensure proper slide transitions in presentation mode */
+        .presentation-mode .slide {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .presentation-mode .slide:not(.active) {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .presentation-mode .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
         .presentation-mode .arrow {
             font-size: 2em;
             color: #ffd700;
@@ -227,14 +246,16 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: #ffd700;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 1.2em;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 1.4em;
             font-weight: bold;
             backdrop-filter: blur(10px);
-            border: 2px solid #ffd700;
+            border: 3px solid #ffd700;
+            z-index: 10001;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
         .slide {
@@ -792,15 +813,24 @@ git push origin main
         document.getElementById('totalSlides').textContent = totalSlides;
         
         function showSlide(n) {
-            slides[currentSlideIndex].classList.remove('active');
+            // Remove active class from all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Calculate new slide index
             currentSlideIndex = (n + totalSlides) % totalSlides;
+            
+            // Add active class to current slide
             slides[currentSlideIndex].classList.add('active');
             
+            // Update slide counter
             document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
             
             // Update button states
             document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
             document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides - 1;
+            
+            // Debug: Log slide visibility
+            console.log(`Showing slide ${currentSlideIndex + 1}, isPresentationMode: ${isPresentationMode}`);
         }
         
         function changeSlide(direction) {
@@ -820,6 +850,9 @@ git push origin main
                 const backLink = document.querySelector('.back-link');
                 if (backLink) backLink.style.display = 'none';
                 
+                // Ensure current slide is visible
+                showSlide(currentSlideIndex);
+                
                 // Update presentation button
                 document.getElementById('presentationBtn').innerHTML = '<i class="fas fa-compress"></i> Exit Presentation';
             } else {
@@ -831,6 +864,9 @@ git push origin main
                 // Show the back link
                 const backLink = document.querySelector('.back-link');
                 if (backLink) backLink.style.display = 'block';
+                
+                // Ensure current slide is visible
+                showSlide(currentSlideIndex);
                 
                 // Update presentation button
                 document.getElementById('presentationBtn').innerHTML = '<i class="fas fa-expand"></i> Presentation Mode';
