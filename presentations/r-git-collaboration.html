@@ -721,6 +721,31 @@
             font-size: 11px;
         }
         
+        .presentation-mode .cycle-indicator {
+            margin-top: 15px;
+            text-align: center;
+            opacity: 0;
+            animation: showCycle 0.5s ease-out forwards;
+            animation-delay: 3.5s;
+        }
+        
+        .presentation-mode .cycle-text {
+            color: #ffd700;
+            font-size: 14px;
+            font-weight: 600;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ffd700;
+            display: inline-block;
+        }
+        
+        @keyframes showCycle {
+            to { opacity: 1; }
+        }
+        
         .presentation-mode .code-section pre {
             margin: 0;
             font-size: clamp(0.7em, 0.9vw, 0.9em);
@@ -1336,12 +1361,12 @@ plot(result, main = "SIR Model Simulation")</pre>
                 <div class="right-card">
                     <h4 style="color: #00ff88; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Flow Visualization</h4>
                     <div class="git-flow-visual">
-                        <div class="git-repo">GitHub</div>
+                        <div class="git-repo">GitHub Repository</div>
                         <div class="git-step">
                             <div class="git-icon">1</div>
                             <div>
-                                <div class="git-text">git clone</div>
-                                <div class="git-description">Download repository</div>
+                                <div class="git-text">git pull</div>
+                                <div class="git-description">Get latest changes</div>
                             </div>
                             <div class="git-arrow">↓</div>
                         </div>
@@ -1349,7 +1374,7 @@ plot(result, main = "SIR Model Simulation")</pre>
                             <div class="git-icon">2</div>
                             <div>
                                 <div class="git-text">git add</div>
-                                <div class="git-description">Stage changes</div>
+                                <div class="git-description">Stage your changes</div>
                             </div>
                             <div class="git-arrow">↓</div>
                         </div>
@@ -1357,7 +1382,7 @@ plot(result, main = "SIR Model Simulation")</pre>
                             <div class="git-icon">3</div>
                             <div>
                                 <div class="git-text">git commit</div>
-                                <div class="git-description">Save changes</div>
+                                <div class="git-description">Save your work</div>
                             </div>
                             <div class="git-arrow">↓</div>
                         </div>
@@ -1365,24 +1390,12 @@ plot(result, main = "SIR Model Simulation")</pre>
                             <div class="git-icon">4</div>
                             <div>
                                 <div class="git-text">git push</div>
-                                <div class="git-description">Upload to remote</div>
+                                <div class="git-description">Share with team</div>
                             </div>
-                            <div class="git-arrow">↓</div>
+                            <div class="git-arrow">↻</div>
                         </div>
-                        <div class="git-step">
-                            <div class="git-icon">5</div>
-                            <div>
-                                <div class="git-text">git pull</div>
-                                <div class="git-description">Download updates</div>
-                            </div>
-                            <div class="git-arrow">↓</div>
-                        </div>
-                        <div class="git-step">
-                            <div class="git-icon">6</div>
-                            <div>
-                                <div class="git-text">git merge</div>
-                                <div class="git-description">Combine changes</div>
-                            </div>
+                        <div class="cycle-indicator">
+                            <div class="cycle-text">Cycle Repeats</div>
                         </div>
                     </div>
                 </div>
