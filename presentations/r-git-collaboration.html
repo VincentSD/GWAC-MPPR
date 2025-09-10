@@ -599,6 +599,106 @@
             to { opacity: 1; }
         }
         
+        /* Enhanced Benefits Styling - Main Focus */
+        .presentation-mode .benefits-highlight {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(255, 215, 0, 0.05));
+            border-radius: 15px;
+            border: 2px solid #00ff88;
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.15);
+        }
+        
+        .presentation-mode .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInBenefit 0.6s ease-out forwards;
+        }
+        
+        .presentation-mode .benefit-item:last-child {
+            border-bottom: none;
+        }
+        
+        .presentation-mode .benefit-item:nth-child(1) { animation-delay: 0.2s; }
+        .presentation-mode .benefit-item:nth-child(2) { animation-delay: 0.4s; }
+        .presentation-mode .benefit-item:nth-child(3) { animation-delay: 0.6s; }
+        .presentation-mode .benefit-item:nth-child(4) { animation-delay: 0.8s; }
+        .presentation-mode .benefit-item:nth-child(5) { animation-delay: 1.0s; }
+        
+        @keyframes slideInBenefit {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .presentation-mode .benefit-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            animation: benefitPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes benefitPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .presentation-mode .benefit-content {
+            flex: 1;
+        }
+        
+        .presentation-mode .benefit-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .presentation-mode .benefit-description {
+            font-size: 14px;
+            color: #fff;
+            line-height: 1.4;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Make Git flow visual smaller and less prominent */
+        .presentation-mode .git-flow-visual {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+        
+        .presentation-mode .git-step {
+            padding: 8px 15px;
+            margin: 5px 0;
+        }
+        
+        .presentation-mode .git-text {
+            font-size: 13px;
+        }
+        
+        .presentation-mode .git-description {
+            font-size: 11px;
+        }
+        
         .presentation-mode .code-section pre {
             margin: 0;
             font-size: clamp(0.7em, 0.9vw, 0.9em);
@@ -1147,13 +1247,43 @@ plot(result, main = "SIR Model Simulation")</pre>
             <div class="two-column-cards">
                 <div class="left-card">
                     <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
-                    <ul>
-                        <li><strong>Experiment Safely:</strong> Try new approaches without fear of losing work</li>
-                        <li><strong>Track Changes:</strong> See exactly what changed and when</li>
-                        <li><strong>Collaborate:</strong> Multiple people can work on the same project</li>
-                        <li><strong>Backup:</strong> Never lose your work again</li>
-                        <li><strong>Documentation:</strong> Commit messages document your thought process</li>
-                    </ul>
+                    <div class="benefits-highlight">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🛡️</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Experiment Safely</div>
+                                <div class="benefit-description">Try new approaches without fear of losing work</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📊</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Track Changes</div>
+                                <div class="benefit-description">See exactly what changed and when</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">👥</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Collaborate</div>
+                                <div class="benefit-description">Multiple people can work on the same project</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💾</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Backup</div>
+                                <div class="benefit-description">Never lose your work again</div>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📝</div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Documentation</div>
+                                <div class="benefit-description">Commit messages document your thought process</div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="git-flow-visual">
                         <div class="git-repo">GitHub</div>
