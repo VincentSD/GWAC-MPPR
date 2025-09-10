@@ -1,0 +1,950 @@
+{
+  "parts": [
+    {
+      "id": "part-1",
+      "title": "Part I: Essentials of Disease Modelling",
+      "description": "Foundation building with R programming, Git/GitHub, and basic infectious disease modeling concepts",
+      "duration": "3 Days",
+      "hours": 18,
+      "instructors": 10,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "part-2",
+      "title": "Part II: Advanced Disease Modelling for Pandemic Preparedness and Response",
+      "description": "Advanced modeling techniques, scenario analysis, health economics, and intensive group projects with hands-on exercises",
+      "duration": "7 Days",
+      "hours": 42,
+      "instructors": 8,
+      "color": "#10b981"
+    }
+  ],
+  "days": [
+    {
+      "id": "monday-sept1",
+      "date": "2025-09-01",
+      "dayName": "Monday",
+      "theme": "Introduction & R Programming",
+      "part": "part-1",
+      "sessions": [
+        {
+          "id": "session-1",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Introductions & Expectations - Crash course in R programming",
+          "type": "morning",
+          "topics": [
+            "Writing R functions",
+            "Basics of the deSolve R package",
+            "Writing ODE systems in R",
+            "Optimisation",
+            "Debugging/profiling R code",
+            "Writing efficient R code"
+          ],
+          "mainInstructor": "James Azam",
+          "supportInstructors": ["Vincent Donkoh", "Opanin Adu Agyei"],
+          "links": [
+            { "text": "Course Materials", url: "#course-materials", icon: "fas fa-book" },
+            { "text": "R Tutorials (GitHub)", url: "https://github.com/jamesmbaazam/mppr/tree/main/tutorials/R", icon: "fab fa-github" }
+          ]
+        },
+        {
+          "id": "coffee-1",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-1",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-2",
+          "time": "13:30 - 17:00 GMT",
+          "title": "R, git and GitHub application",
+          "type": "afternoon",
+          "topics": [
+            "Introduction to version control using git and GitHub",
+            "Using R with git & GitHub",
+            "Best practices for reproducible scientific computing"
+          ],
+          "mainInstructor": "Vincent Donkoh",
+          "supportInstructors": ["James Azam", "Opanin Adu Agyei"],
+          "links": [
+            { "text": "Git Tutorials", url: "#git-tutorials", icon: "fab fa-git-alt" },
+            { "text": "GitHub Repository", url: "https://github.com/jamesmbaazam/mppr", icon: "fab fa-github" }
+          ]
+        },
+        {
+          "id": "bio-1",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-1",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "tuesday-sept2",
+      "date": "2025-09-02",
+      "dayName": "Tuesday",
+      "theme": "Basics of Infectious Disease Modeling",
+      "part": "part-1",
+      "sessions": [
+        {
+          "id": "session-3",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Basics of infectious disease modeling I",
+          "type": "morning",
+          "topics": [
+            "An overview of infectious diseases and control measures",
+            "Basics of constructing mathematical models (SIR, SEIR, SEIRV)",
+            "Understanding/ calculating the basic reproduction number (R0)"
+          ],
+          "mainInstructor": "Jean Claude Dejon Agobé and James Azam",
+          "supportInstructors": ["Vincent Donkoh", "Opanin Adu Agyei"],
+          "links": [
+            { "text": "Disease Modeling Materials", url: "#disease-modeling", icon: "fas fa-virus" },
+            { "text": "SIR Model Tutorial", url: "#sir-tutorial", icon: "fas fa-chart-line" }
+          ]
+        },
+        {
+          "id": "coffee-2",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-2",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-4",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Basics of infectious disease modeling II",
+          "type": "afternoon",
+          "topics": [
+            "Basics of constructing mathematical models (SIR, SEIR, SEIRV)",
+            "Understanding/ calculating the basic reproduction number (R0)",
+            "Exercises on: Overview of infectious diseases and control measures & Basics of infectious disease modeling"
+          ],
+          "mainInstructor": "Exercise Supervision",
+          "supportInstructors": [
+            "Jean Claude Dejon Agobé",
+            "James Azam",
+            "Vincent Donkoh",
+            "Opanin Adu Agyei",
+            "Andrzej Jarynowski",
+            "Charlène Naomie Tedto Mfangnia"
+          ],
+          "links": [
+            { "text": "Exercise Materials", url: "#exercises", icon: "fas fa-tasks" },
+            { "text": "Model Templates", url: "#model-templates", icon: "fas fa-file-code" }
+          ]
+        },
+        {
+          "id": "bio-2",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-2",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "wednesday-sept3",
+      "date": "2025-09-03",
+      "dayName": "Wednesday",
+      "theme": "Official Opening & Advanced Modeling",
+      "part": "part-1",
+      "sessions": [
+        {
+          "id": "opening-ceremony",
+          "time": "08:30 - 09:30 GMT",
+          "title": "Official Opening Ceremony (together with the One Health Course)",
+          "type": "morning",
+          "topics": [
+            "Welcome Remarks",
+            "Introduction of Facilitators",
+            "Introduction to the German West-African Centre for Global Health and Prevention (G-WAC)",
+            "Chairperson's Remark",
+            "Group photograph"
+          ],
+          "mainInstructor": "Prof. Christian Agyare, Provost, CHS KNUST",
+          "supportInstructors": [
+            "Dr. John Amuasi, Director, G-WAC, KNUST",
+            "Prof. Wilm Quentin, Director, G-WAC, TU Berlin",
+            "Dr. Daniel Opoku, G-WAC KNUST"
+          ],
+          "links": [
+            { "text": "G-WAC Website", url: "https://g-wac.org/", icon: "fas fa-external-link-alt" },
+            { "text": "KNUST CHS", url: "https://chs.knust.edu.gh/", icon: "fas fa-university" }
+          ]
+        },
+        {
+          "id": "session-5",
+          "time": "09:30 - 12:30 GMT",
+          "title": "Basics of infectious disease modeling",
+          "type": "morning",
+          "topics": [
+            "Introduction to model simulation in R",
+            "Understanding model outputs"
+          ],
+          "mainInstructor": "James Azam",
+          "supportInstructors": [
+            "Vincent Donkoh",
+            "Andrzej Jarynowski",
+            "Jean Claude Dejon Agobé",
+            "Opanin Adu Agyei",
+            "Charlène Naomie Tedto Mfangnia"
+          ],
+          "links": [
+            { "text": "Simulation Tutorials", url: "#simulation", icon: "fas fa-play-circle" },
+            { "text": "Model Output Guide", url: "#model-outputs", icon: "fas fa-chart-bar" }
+          ]
+        },
+        {
+          "id": "coffee-3",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-3",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-6",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Extending the SIR model",
+          "type": "afternoon",
+          "topics": [
+            "Age structure, different risk profiles, metapopulations, and multi-host models",
+            "Adding stochasticity",
+            "Model simulation and interpretation in R",
+            "Assignments on extending the SIR model",
+            "Discussion"
+          ],
+          "mainInstructor": "James Azam",
+          "supportInstructors": [
+            "Vincent Donkoh",
+            "Opanin Adu Agyei",
+            "Jean Claude Dejon Agobé",
+            "Andrzej Jarynowski",
+            "Charlène Naomie Tedto Mfangnia"
+          ],
+          "links": [
+            { "text": "Advanced SIR Models", url: "#advanced-sir", icon: "fas fa-project-diagram" },
+            { "text": "Stochastic Modeling", url: "#stochastic", icon: "fas fa-random" }
+          ]
+        },
+        {
+          "id": "bio-3",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-3",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "thursday-sept4",
+      "date": "2025-09-04",
+      "dayName": "Thursday",
+      "theme": "Model Calibration & Fitting",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "session-7",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Basics of model calibration/ fitting/ validation techniques: Data sources and data curation",
+          "type": "morning",
+          "topics": [
+            "Types of data needed to inform different models",
+            "Challenges in identifying and accessing data",
+            "Data and metadata standards",
+            "Combining and curating different data sources",
+            "Sources of bias in data collection, access, and use",
+            "Overview of common model fitting approaches: Least squares, Direct curve, Grid search",
+            "Discussion"
+          ],
+          "mainInstructor": "James Azam",
+          "supportInstructors": [
+            "Vincent Donkoh",
+            "Andrzej Jarynowski",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Data Sources Guide", url: "#data-sources", icon: "fas fa-database" },
+            { "text": "Calibration Methods", url: "#calibration", icon: "fas fa-cogs" }
+          ]
+        },
+        {
+          "id": "coffee-4",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-4",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-8",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Basics of model calibration/ fitting/ validation techniques",
+          "type": "afternoon",
+          "topics": [
+            "Maximum likelihood estimation",
+            "Implementation of common methods using R and R packages"
+          ],
+          "mainInstructor": "Exercise Supervision",
+          "supportInstructors": [
+            "James Azam",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "MLE Tutorial", url: "#mle", icon: "fas fa-calculator" },
+            { "text": "R Packages Guide", url: "#r-packages", icon: "fab fa-r-project" }
+          ]
+        },
+        {
+          "id": "bio-4",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-4",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "friday-sept5",
+      "date": "2025-09-05",
+      "dayName": "Friday",
+      "theme": "Scenario Modeling & Health Economics",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "session-9",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Overview of scenario modeling",
+          "type": "morning",
+          "topics": [
+            "Understanding the relevance of scenario modelling and sensitivity analyses to quantify uncertainty in the parameters and outcomes",
+            "Mini-seminar on scenario modeling in practice (1 hour; Gesine Meyer-Rath)",
+            "A case study of COVID-19 in South Africa",
+            "Exercise on scenario modeling"
+          ],
+          "mainInstructor": "Andrzej Jarynowski and Gesine Meyer-Rath",
+          "supportInstructors": [
+            "James Azam",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Scenario Modeling Guide", url: "#scenario-modeling", icon: "fas fa-chart-pie" },
+            { "text": "COVID-19 Case Study", url: "#covid-case-study", icon: "fas fa-virus" }
+          ]
+        },
+        {
+          "id": "coffee-5",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-5",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-10",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Incorporating health economics into epidemic models",
+          "type": "afternoon",
+          "topics": [
+            "Budgets and resource quantification",
+            "Cost analysis",
+            "Economic evaluation (cost-effectiveness analysis, cost-outcome analysis)",
+            "Overview of last year's projects: Modeling of Mpox"
+          ],
+          "mainInstructor": "Brian Adu Asare",
+          "supportInstructors": [
+            "Andrzej Jarynowski",
+            "James Azam",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei",
+            "Daniel Boateng",
+            "Daniel Opoku"
+          ],
+          "links": [
+            { "text": "Health Economics Guide", url: "#health-economics", icon: "fas fa-dollar-sign" },
+            { "text": "Mpox Project", url: "#mpox-project", icon: "fas fa-project-diagram" }
+          ]
+        },
+        {
+          "id": "bio-5",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-5",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "saturday-sept6",
+      "date": "2025-09-06",
+      "dayName": "Saturday",
+      "theme": "Science Communication & Group Projects",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "session-11",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Science and Policy Communication in the context of modelling",
+          "type": "morning",
+          "topics": [
+            "Learn the basics of science communication",
+            "Tools for communication",
+            "Data visualisation preferences, including dashboards",
+            "Group projects (allocations & overview)",
+            "This year's projects: COVID-19 in West Africa (Andrzej), Malaria spread under vaccination (Charlène)"
+          ],
+          "mainInstructor": "Daniel Opoku & Daniel Boateng",
+          "supportInstructors": [
+            "James Azam",
+            "Andrzej Jarynowski",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Communication Guide", url: "#science-communication", icon: "fas fa-comments" },
+            { "text": "Visualization Tools", url: "#visualization", icon: "fas fa-chart-area" }
+          ]
+        },
+        {
+          "id": "coffee-6",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-6",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "socials-1",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Socials (Outdoor games at KNUST campus)",
+          "type": "afternoon",
+          "topics": ["Team building and networking activities"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "bio-6",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-6",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "sunday-sept7",
+      "date": "2025-09-07",
+      "dayName": "Sunday",
+      "theme": "Unsupervised Group Projects",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "unsupervised-projects",
+          "time": "08:00 - 18:00 GMT",
+          "title": "Unsupervised Group projects (Optional)",
+          "type": "full-day",
+          "topics": [
+            "Independent work on group projects",
+            "COVID-19 in West Africa",
+            "Malaria spread under vaccination"
+          ],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": [
+            { "text": "Project Guidelines", url: "#project-guidelines", icon: "fas fa-clipboard-list" },
+            { "text": "Collaboration Tools", url: "#collaboration", icon: "fas fa-users" }
+          ]
+        },
+        {
+          "id": "lunch-7",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-7",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "monday-sept8",
+      "date": "2025-09-08",
+      "dayName": "Monday",
+      "theme": "Group Projects - Day 1",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "session-12",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Group projects",
+          "type": "morning",
+          "topics": [
+            "Options: COVID-19 in West Africa",
+            "Malaria spread under vaccination"
+          ],
+          "mainInstructor": "Supervision",
+          "supportInstructors": [
+            "James Azam",
+            "Andrzej Jarynowski",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Project Resources", url: "#project-resources", icon: "fas fa-folder-open" },
+            { "text": "Collaboration Space", url: "#collaboration-space", icon: "fas fa-users" }
+          ]
+        },
+        {
+          "id": "coffee-7",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-8",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-13",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Group projects",
+          "type": "afternoon",
+          "topics": [
+            "Options: COVID-19 in West Africa",
+            "Malaria spread under vaccination"
+          ],
+          "mainInstructor": "Supervision",
+          "supportInstructors": [
+            "James Azam",
+            "Andrzej Jarynowski",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Project Resources", url: "#project-resources", icon: "fas fa-folder-open" },
+            { "text": "Collaboration Space", url: "#collaboration-space", icon: "fas fa-users" }
+          ]
+        },
+        {
+          "id": "bio-7",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-8",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "tuesday-sept9",
+      "date": "2025-09-09",
+      "dayName": "Tuesday",
+      "theme": "Group Projects - Day 2",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "session-14",
+          "time": "08:30 - 12:30 GMT",
+          "title": "Group projects",
+          "type": "morning",
+          "topics": [
+            "Options: COVID-19 in West Africa",
+            "Malaria spread under vaccination"
+          ],
+          "mainInstructor": "Supervision",
+          "supportInstructors": [
+            "James Azam",
+            "Andrzej Jarynowski",
+            "Vincent Donkoh",
+            "Opanin Adu Agyei",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia"
+          ],
+          "links": [
+            { "text": "Project Resources", url: "#project-resources", icon: "fas fa-folder-open" },
+            { "text": "Collaboration Space", url: "#collaboration-space", icon: "fas fa-users" }
+          ]
+        },
+        {
+          "id": "coffee-8",
+          "time": "10:30 - 11:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-9",
+          "time": "12:30 - 13:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "session-15",
+          "time": "13:30 - 17:00 GMT",
+          "title": "Group projects",
+          "type": "afternoon",
+          "topics": [
+            "Options: COVID-19 in West Africa",
+            "Malaria spread under vaccination",
+            "Discussion"
+          ],
+          "mainInstructor": "Supervision",
+          "supportInstructors": [
+            "James Azam",
+            "Andrzej Jarynowski",
+            "Vincent Donkoh",
+            "Jean Claude Dejon Agobé",
+            "Charlène Naomie Tedto Mfangnia",
+            "Opanin Adu Agyei"
+          ],
+          "links": [
+            { "text": "Project Resources", url: "#project-resources", icon: "fas fa-folder-open" },
+            { "text": "Collaboration Space", url: "#collaboration-space", icon: "fas fa-users" }
+          ]
+        },
+        {
+          "id": "bio-8",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "dinner-9",
+          "time": "18:00 GMT",
+          "title": "Dinner & Socials (Indoor games)",
+          "type": "evening",
+          "topics": ["Networking and team building"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "wednesday-sept10",
+      "date": "2025-09-10",
+      "dayName": "Wednesday",
+      "theme": "Pre-conference Workshop & Networking",
+      "part": "part-2",
+      "sessions": [
+        {
+          "id": "pre-conference-1",
+          "time": "09:00 - 11:30 GMT",
+          "title": "Pre-conference workshop",
+          "type": "morning",
+          "topics": [
+            "Summary presentations:",
+            "A brief introduction to MPPR by Dr. James Azam (10 mins)",
+            "Overview of infectious diseases by Dr. Jean Claude Dejon Agobé (10 mins)",
+            "Overview of modelling for Pandemic Preparedness and Response by Dr. James Azam (25 mins)",
+            "Thinking with models: Scenarios analyses and economic modelling by Dr. Andrzej Jarynowski (25 mins)",
+            "Model simulation, reproducibility, and collaboration with R and git by Vincent Donkoh and Opanin Adu Agyei (15 mins)",
+            "Science communication by Dr. Daniel Boateng (10 mins)",
+            "Modelling case studies (20 mins) - Charlène Naomie Tedto Mfangnia, Dr. James Azam, Dr. Andrzej Jarynowski"
+          ],
+          "mainInstructor": "Various Presenters",
+          "supportInstructors": [],
+          "links": [
+            { "text": "Workshop Materials", url: "#workshop-materials", icon: "fas fa-presentation" },
+            { "text": "Conference Info", url: "#conference", icon: "fas fa-calendar" }
+          ]
+        },
+        {
+          "id": "coffee-9",
+          "time": "11:30 - 12:00 GMT",
+          "title": "Coffee break",
+          "type": "break",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "qa-panel",
+          "time": "12:00 - 13:30 GMT",
+          "title": "Q&A (Panel discussion)",
+          "type": "morning",
+          "topics": ["Open discussion and Q&A session"],
+          "mainInstructor": "Panel Discussion",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "lunch-10",
+          "time": "13:30 - 14:30 GMT",
+          "title": "Lunch break",
+          "type": "lunch",
+          "topics": ["Networking and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "group-presentations",
+          "time": "14:30 - 16:00 GMT",
+          "title": "Group presentations & Course Evaluation",
+          "type": "afternoon",
+          "topics": [
+            "Group project presentations",
+            "Course evaluation and feedback"
+          ],
+          "mainInstructor": "All Participants",
+          "supportInstructors": [],
+          "links": [
+            { "text": "Presentation Guidelines", url: "#presentation-guidelines", icon: "fas fa-microphone" },
+            { "text": "Evaluation Form", url: "#evaluation", icon: "fas fa-clipboard-check" }
+          ]
+        },
+        {
+          "id": "bio-9",
+          "time": "15:00 - 15:30 GMT",
+          "title": "Bio break",
+          "type": "break",
+          "topics": ["Rest and refreshments"],
+          "mainInstructor": "",
+          "supportInstructors": [],
+          "links": []
+        },
+        {
+          "id": "networking-dinner",
+          "time": "17:30 - 20:00 GMT",
+          "title": "Networking Dinner and Award Ceremony - G-WAC Network of Modelers for Pandemic Preparedness and Response",
+          "type": "evening",
+          "topics": [
+            "Registration",
+            "Welcome - Director",
+            "Opening Remark - Chair",
+            "Award - Certificates",
+            "Official Group Photo",
+            "Dinner & Networking",
+            "Toast Speech - James",
+            "Networking & Departure"
+          ],
+          "mainInstructor": "Dr. Linda B. Debrah & Dr. Michael Owusu",
+          "supportInstructors": [
+            "Prof. Christian Agyare, Provost, CHS KNUST"
+          ],
+          "links": [
+            { "text": "G-WAC Network", url: "#gwac-network", icon: "fas fa-network-wired" },
+            { "text": "Award Ceremony", url: "#awards", icon: "fas fa-trophy" }
+          ]
+        }
+      ]
+    }
+  ]
+}

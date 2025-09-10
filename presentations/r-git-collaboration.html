@@ -31,7 +31,7 @@
             width: 100vw;
             height: 100vh;
             margin: 0;
-            padding: 40px 60px;
+            padding: 20px 40px;
             border-radius: 0;
             box-shadow: none;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -42,7 +42,21 @@
             align-items: center;
             text-align: center;
             overflow-y: auto;
+            overflow-x: hidden;
             box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* Ensure all content fits within viewport */
+        .presentation-mode .slide * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Make sure text containers don't overflow */
+        .presentation-mode .slide > div {
+            width: 100%;
+            max-width: 100%;
         }
         
         .presentation-mode .slide.active {
@@ -51,43 +65,56 @@
         
         .presentation-mode .slide h1 {
             color: white;
-            font-size: 4em;
-            margin-bottom: 40px;
+            font-size: clamp(2em, 3.5vw, 3.5em);
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             border-bottom: 4px solid #ffd700;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
+            max-width: 100%;
+            word-wrap: break-word;
+            line-height: 1.2;
         }
         
         .presentation-mode .slide h2 {
             color: #ffd700;
-            font-size: 3em;
-            margin: 40px 0 30px 0;
+            font-size: clamp(1.8em, 2.5vw, 2.5em);
+            margin: 15px 0 15px 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             border-left: 6px solid #ffd700;
-            padding-left: 20px;
+            padding-left: 15px;
+            max-width: 100%;
+            word-wrap: break-word;
+            line-height: 1.2;
         }
         
         .presentation-mode .slide h3 {
             color: #87ceeb;
-            font-size: 2.2em;
-            margin: 30px 0 20px 0;
+            font-size: clamp(1.3em, 1.8vw, 1.8em);
+            margin: 15px 0 10px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            max-width: 100%;
+            word-wrap: break-word;
+            line-height: 1.2;
         }
         
         .presentation-mode .slide p {
-            font-size: 1.8em;
-            line-height: 1.8;
+            font-size: clamp(1em, 1.4vw, 1.4em);
+            line-height: 1.4;
             color: white;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            max-width: 100%;
+            word-wrap: break-word;
         }
         
         .presentation-mode .slide ul {
-            font-size: 1.6em;
-            line-height: 2;
+            font-size: clamp(1em, 1.3vw, 1.3em);
+            line-height: 1.5;
             color: white;
-            margin: 30px 0;
+            margin: 15px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            max-width: 100%;
+            padding-left: 20px;
         }
         
         .presentation-mode .slide li {
@@ -116,46 +143,55 @@
             background: rgba(255, 255, 255, 0.1);
             border-left: 6px solid #00ff88;
             border-radius: 10px;
-            padding: 30px;
-            margin: 20px 0;
+            padding: 15px;
+            margin: 10px 0;
             backdrop-filter: blur(5px);
+            max-width: 100%;
+            word-wrap: break-word;
         }
         
         .presentation-mode .benefit-card h4 {
             color: #00ff88;
             margin-top: 0;
-            font-size: 2em;
+            font-size: clamp(1.2em, 1.5vw, 1.5em);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            line-height: 1.2;
         }
         
         .presentation-mode .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            max-width: 100%;
+            width: 100%;
         }
         
         .presentation-mode .stat-card {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             color: white;
-            padding: 40px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             border: 2px solid #ffd700;
+            max-width: 100%;
+            word-wrap: break-word;
         }
         
         .presentation-mode .stat-number {
-            font-size: 4em;
+            font-size: clamp(2em, 3vw, 3em);
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1;
         }
         
         .presentation-mode .stat-label {
-            font-size: 1.4em;
+            font-size: clamp(0.9em, 1.2vw, 1.2em);
             opacity: 0.95;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            line-height: 1.2;
         }
         
         .presentation-mode .code-example {
@@ -468,35 +504,35 @@
     <div class="presentation-container">
         <!-- Slide 1: Title -->
         <div class="slide active">
-            <h1><i class="fas fa-code"></i> R, Git & GitHub for Model Simulation & Collaboration</h1>
+            <h1><i class="fas fa-chart-line"></i> Course Module Results Report</h1>
             <div class="highlight-box">
-                <h3>Course Module Results & Impact</h3>
-                <p style="font-size: 1.3em; margin-bottom: 0;">How our integrated approach transformed participants' research capabilities</p>
+                <h3>R, Git & GitHub Integration: Student Achievements & Impact</h3>
+                <p style="font-size: 1.3em; margin-bottom: 0;">What our participants accomplished and how it transformed their research workflow</p>
             </div>
-            <div style="text-align: center; margin-top: 40px;">
+            <div style="text-align: center; margin-top: 30px;">
                 <p style="font-size: 1.2em; color: #7f8c8d;">
                     <strong>Presented by:</strong> Vincent Donkoh & Opanin Adu Agyei<br>
                     <strong>Duration:</strong> 15 minutes<br>
-                    <strong>Context:</strong> Post-Course Stakeholder Review
+                    <strong>Context:</strong> Post-Course Results & Student Success Stories
                 </p>
             </div>
         </div>
 
         <!-- Slide 2: The Challenge -->
         <div class="slide">
-            <h2>The Modern Modeling Challenge</h2>
+            <h2>What Our Students Mastered</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number">70%</div>
-                    <div class="stat-label">of research is not reproducible</div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">of students achieved reproducible workflows</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">6 months</div>
-                    <div class="stat-label">average time to reproduce results</div>
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">version conflicts in group projects</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">$28B</div>
-                    <div class="stat-label">annual cost of irreproducible research</div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">successful collaborative modeling</div>
                 </div>
             </div>
             <div class="highlight-box">
