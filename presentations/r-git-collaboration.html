@@ -63,8 +63,8 @@
             display: none;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: center;
-            text-align: center;
+            align-items: flex-start;
+            text-align: left;
             overflow-y: auto;
             overflow-x: hidden;
             box-sizing: border-box;
@@ -97,6 +97,8 @@
             max-width: 100%;
             word-wrap: break-word;
             line-height: 1.2;
+            text-align: center;
+            width: 100%;
         }
         
         .presentation-mode .slide h2 {
@@ -109,6 +111,7 @@
             max-width: 100%;
             word-wrap: break-word;
             line-height: 1.2;
+            text-align: left;
         }
         
         .presentation-mode .slide h3 {
@@ -133,16 +136,28 @@
         
         .presentation-mode .slide ul {
             font-size: clamp(1em, 1.3vw, 1.3em);
-            line-height: 1.5;
+            line-height: 1.6;
             color: white;
             margin: 15px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             max-width: 100%;
-            padding-left: 20px;
+            padding-left: 25px;
+            text-align: left;
         }
         
         .presentation-mode .slide li {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            list-style-type: disc;
+            list-style-position: outside;
+        }
+        
+        .presentation-mode .left-card ul {
+            text-align: left;
+        }
+        
+        .presentation-mode .left-card li {
+            list-style-type: disc;
+            list-style-position: outside;
         }
         
         .presentation-mode .highlight-box {
@@ -695,19 +710,6 @@ result <- ode(y = state, times = times,
 plot(result, main = "SIR Model Simulation")</pre>
                 </div>
             </div>
-            
-            <div class="code-example">
-# Example: Simple SIR model in R
-library(deSolve)
-sir_model <- function(time, state, parameters) {
-    with(as.list(c(state, parameters)), {
-        dS <- -beta * S * I / N
-        dI <- beta * S * I / N - gamma * I
-        dR <- gamma * I
-        return(list(c(dS, dI, dR)))
-    })
-}
-            </div>
         </div>
 
         <!-- Slide 5: Git Version Control -->
@@ -746,13 +748,6 @@ git push origin feature/parameter-sensitivity
 git checkout main
 git merge feature/parameter-sensitivity</pre>
                 </div>
-            </div>
-            
-            <div class="code-example">
-# Git workflow example
-git add model_analysis.R
-git commit -m "Add SIR model with parameter sensitivity analysis"
-git push origin main
             </div>
         </div>
 
