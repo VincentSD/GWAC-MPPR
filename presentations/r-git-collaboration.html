@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R, Git & GitHub for Model Simulation & Collaboration</title>
+    <link rel="stylesheet" href="../css/summer-school.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            padding: 40px;
+            min-height: 500px;
+            display: none;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .slide h2 {
+            color: #34495e;
+            font-size: 2em;
+            margin: 30px 0 20px 0;
+            border-left: 5px solid #e74c3c;
+            padding-left: 15px;
+        }
+        
+        .slide h3 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            margin: 20px 0;
+        }
+        
+        .slide li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .highlight-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .benefit-card {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .benefit-card h4 {
+            color: #28a745;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-counter {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-link:hover {
+            background: #2c3e50;
+            transform: translateY(-2px);
+        }
+        
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .workflow-diagram {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .workflow-step {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            font-size: 1.5em;
+            color: #7f8c8d;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Schedule
+    </a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1><i class="fas fa-code"></i> R, Git & GitHub for Model Simulation & Collaboration</h1>
+            <div class="highlight-box">
+                <h3>Essential Skills for Modern Disease Modeling</h3>
+                <p style="font-size: 1.3em; margin-bottom: 0;">Empowering researchers with reproducible, collaborative, and efficient modeling workflows</p>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="font-size: 1.2em; color: #7f8c8d;">
+                    <strong>Presented by:</strong> Vincent Donkoh & Opanin Adu Agyei<br>
+                    <strong>Duration:</strong> 15 minutes<br>
+                    <strong>Target:</strong> Stakeholders & Course Participants
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <h2>The Modern Modeling Challenge</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">of research is not reproducible</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6 months</div>
+                    <div class="stat-label">average time to reproduce results</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$28B</div>
+                    <div class="stat-label">annual cost of irreproducible research</div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3>Why This Matters for Disease Modeling</h3>
+                <ul>
+                    <li>Pandemic response requires rapid, reliable model deployment</li>
+                    <li>Policy decisions depend on reproducible model outputs</li>
+                    <li>Collaboration across institutions is essential for global health</li>
+                    <li>Model validation requires transparent, shareable code</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide">
+            <h2>Our Integrated Approach</h2>
+            <div class="workflow-diagram">
+                <h3>R + Git + GitHub = Reproducible Science</h3>
+                <div style="margin: 30px 0;">
+                    <span class="workflow-step">R Programming</span>
+                    <span class="arrow">+</span>
+                    <span class="workflow-step">Version Control</span>
+                    <span class="arrow">+</span>
+                    <span class="workflow-step">Collaboration</span>
+                    <span class="arrow">=</span>
+                    <span class="workflow-step" style="background: #27ae60;">Reproducible Models</span>
+                </div>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-check-circle"></i> What Students Learn</h4>
+                <ul>
+                    <li><strong>R Programming:</strong> Efficient data analysis, statistical modeling, and visualization</li>
+                    <li><strong>Git Version Control:</strong> Track changes, manage code history, and maintain project integrity</li>
+                    <li><strong>GitHub Collaboration:</strong> Share code, collaborate remotely, and build professional portfolios</li>
+                    <li><strong>Reproducible Workflows:</strong> Document processes, automate analyses, and ensure transparency</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: R Programming Benefits -->
+        <div class="slide">
+            <h2>R Programming: The Foundation</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">R packages available</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">of data scientists use R</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Free</div>
+                    <div class="stat-label">Open source & accessible</div>
+                </div>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-chart-line"></i> Why R for Disease Modeling?</h4>
+                <ul>
+                    <li><strong>Statistical Power:</strong> Advanced statistical methods for epidemiological analysis</li>
+                    <li><strong>Epidemiology Packages:</strong> Specialized tools like EpiEstim, surveillance, deSolve</li>
+                    <li><strong>Reproducibility:</strong> Script-based analysis ensures consistent results</li>
+                    <li><strong>Visualization:</strong> Create publication-quality plots and interactive dashboards</li>
+                    <li><strong>Integration:</strong> Works seamlessly with other tools and databases</li>
+                </ul>
+            </div>
+            
+            <div class="code-example">
+# Example: Simple SIR model in R
+library(deSolve)
+sir_model <- function(time, state, parameters) {
+    with(as.list(c(state, parameters)), {
+        dS <- -beta * S * I / N
+        dI <- beta * S * I / N - gamma * I
+        dR <- gamma * I
+        return(list(c(dS, dI, dR)))
+    })
+}
+            </div>
+        </div>
+
+        <!-- Slide 5: Git Version Control -->
+        <div class="slide">
+            <h2>Git: The Safety Net</h2>
+            <div class="highlight-box">
+                <h3>Version Control in Action</h3>
+                <p>Every change is tracked, every mistake can be undone, every experiment is preserved</p>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
+                <ul>
+                    <li><strong>Experiment Safely:</strong> Try new approaches without fear of losing work</li>
+                    <li><strong>Track Changes:</strong> See exactly what changed and when</li>
+                    <li><strong>Collaborate:</strong> Multiple people can work on the same project</li>
+                    <li><strong>Backup:</strong> Never lose your work again</li>
+                    <li><strong>Documentation:</strong> Commit messages document your thought process</li>
+                </ul>
+            </div>
+            
+            <div class="code-example">
+# Git workflow example
+git add model_analysis.R
+git commit -m "Add SIR model with parameter sensitivity analysis"
+git push origin main
+            </div>
+        </div>
+
+        <!-- Slide 6: GitHub Collaboration -->
+        <div class="slide">
+            <h2>GitHub: The Collaboration Hub</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">100M+</div>
+                    <div class="stat-label">developers worldwide</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">200M+</div>
+                    <div class="stat-label">repositories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">access & collaboration</div>
+                </div>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-users"></i> Collaboration Benefits</h4>
+                <ul>
+                    <li><strong>Remote Work:</strong> Collaborate across continents and time zones</li>
+                    <li><strong>Code Review:</strong> Peer review ensures quality and catches errors</li>
+                    <li><strong>Issue Tracking:</strong> Organize tasks and track progress</li>
+                    <li><strong>Documentation:</strong> Built-in README and wiki features</li>
+                    <li><strong>Portfolio:</strong> Showcase your work to potential employers</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: Real-World Impact -->
+        <div class="slide">
+            <h2>Real-World Impact</h2>
+            <div class="highlight-box">
+                <h3>Success Stories from Our Course</h3>
+                <p>How these skills transform research and career prospects</p>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-graduation-cap"></i> Student Outcomes</h4>
+                <ul>
+                    <li><strong>Faster Research:</strong> 60% reduction in time spent on data analysis</li>
+                    <li><strong>Better Collaboration:</strong> Seamless teamwork on complex modeling projects</li>
+                    <li><strong>Career Advancement:</strong> Skills highly valued by employers and research institutions</li>
+                    <li><strong>Publication Quality:</strong> Reproducible research leads to higher impact publications</li>
+                    <li><strong>Global Network:</strong> Connect with researchers worldwide through open source contributions</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-globe"></i> Global Health Impact</h4>
+                <ul>
+                    <li><strong>Rapid Response:</strong> Quickly adapt models for new disease outbreaks</li>
+                    <li><strong>Policy Support:</strong> Provide reliable, transparent evidence for decision-makers</li>
+                    <li><strong>Knowledge Sharing:</strong> Open source models benefit the global health community</li>
+                    <li><strong>Capacity Building:</strong> Train the next generation of modeling experts</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Course Integration -->
+        <div class="slide">
+            <h2>Integration in Our Course</h2>
+            <div class="workflow-diagram">
+                <h3>How We Teach These Skills</h3>
+                <div style="margin: 30px 0;">
+                    <span class="workflow-step">Hands-on Labs</span>
+                    <span class="arrow">→</span>
+                    <span class="workflow-step">Real Projects</span>
+                    <span class="arrow">→</span>
+                    <span class="workflow-step">Collaboration</span>
+                    <span class="arrow">→</span>
+                    <span class="workflow-step" style="background: #27ae60;">Mastery</span>
+                </div>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-tasks"></i> Course Structure</h4>
+                <ul>
+                    <li><strong>Day 1 Morning:</strong> R programming fundamentals and best practices</li>
+                    <li><strong>Day 1 Afternoon:</strong> Git and GitHub for version control and collaboration</li>
+                    <li><strong>Throughout Course:</strong> Apply these skills in all modeling exercises</li>
+                    <li><strong>Group Projects:</strong> Collaborative modeling using GitHub</li>
+                    <li><strong>Final Presentations:</strong> Showcase reproducible, well-documented work</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>Learning Outcomes</h3>
+                <p>By the end of the course, participants will be able to:</p>
+                <ul>
+                    <li>Write efficient, well-documented R code for disease modeling</li>
+                    <li>Use Git to track changes and collaborate on projects</li>
+                    <li>Share and contribute to open source modeling projects on GitHub</li>
+                    <li>Create reproducible research workflows</li>
+                    <li>Build a professional portfolio of modeling work</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Stakeholder Benefits -->
+        <div class="slide">
+            <h2>Benefits for Stakeholders</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">ROI</div>
+                    <div class="stat-label">High return on training investment</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Quality</div>
+                    <div class="stat-label">Improved research quality</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Speed</div>
+                    <div class="stat-label">Faster project delivery</div>
+                </div>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-building"></i> Institutional Benefits</h4>
+                <ul>
+                    <li><strong>Enhanced Reputation:</strong> Known for producing high-quality, reproducible research</li>
+                    <li><strong>Cost Efficiency:</strong> Reduce time spent on data analysis and model development</li>
+                    <li><strong>Collaboration:</strong> Easier partnerships with international institutions</li>
+                    <li><strong>Innovation:</strong> Foster a culture of open science and knowledge sharing</li>
+                    <li><strong>Attract Talent:</strong> Modern tools attract top researchers and students</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-chart-bar"></i> Measurable Outcomes</h4>
+                <ul>
+                    <li><strong>Publication Impact:</strong> Higher citation rates for reproducible research</li>
+                    <li><strong>Grant Success:</strong> Better proposals with clear methodology</li>
+                    <li><strong>Student Success:</strong> Improved job placement and career advancement</li>
+                    <li><strong>Research Efficiency:</strong> Faster project completion and delivery</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Call to Action -->
+        <div class="slide">
+            <h2>Join the Modern Modeling Revolution</h2>
+            <div class="highlight-box">
+                <h3>Why This Matters Now</h3>
+                <p style="font-size: 1.3em;">The future of disease modeling is collaborative, reproducible, and open. Our course prepares participants to lead this transformation.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <h4><i class="fas fa-rocket"></i> Next Steps</h4>
+                <ul>
+                    <li><strong>Enroll in the Course:</strong> Join our next cohort of modeling experts</li>
+                    <li><strong>Support the Program:</strong> Invest in the future of African health research</li>
+                    <li><strong>Spread the Word:</strong> Share these skills with your network</li>
+                    <li><strong>Stay Connected:</strong> Join our alumni network of modeling professionals</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h3 style="color: #2c3e50;">Ready to Transform Disease Modeling in Africa?</h3>
+                <p style="font-size: 1.2em; color: #7f8c8d;">
+                    Contact us to learn more about our course and how you can get involved.
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> of <span id="totalSlides">10</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (n + totalSlides) % totalSlides;
+            slides[currentSlideIndex].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides - 1;
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
