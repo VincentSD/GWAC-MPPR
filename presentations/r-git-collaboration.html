@@ -600,13 +600,28 @@
         }
         
         /* Enhanced Benefits Styling - Main Focus */
+        .presentation-mode .benefits-section {
+            margin-bottom: 30px;
+        }
+        
+        .presentation-mode .benefits-section h4 {
+            text-align: center;
+            font-size: clamp(1.5em, 2vw, 2em);
+            color: #00ff88;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
         .presentation-mode .benefits-highlight {
             margin-bottom: 25px;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(255, 215, 0, 0.05));
             border-radius: 15px;
             border: 2px solid #00ff88;
             box-shadow: 0 8px 25px rgba(0, 255, 136, 0.15);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
         
         .presentation-mode .benefit-item {
@@ -1244,47 +1259,75 @@ plot(result, main = "SIR Model Simulation")</pre>
         <div class="slide">
             <h2>Git: The Safety Net</h2>
             
-            <div class="two-column-cards">
-                <div class="left-card">
-                    <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
-                    <div class="benefits-highlight">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🛡️</div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Experiment Safely</div>
-                                <div class="benefit-description">Try new approaches without fear of losing work</div>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">📊</div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Track Changes</div>
-                                <div class="benefit-description">See exactly what changed and when</div>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">👥</div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Collaborate</div>
-                                <div class="benefit-description">Multiple people can work on the same project</div>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">💾</div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Backup</div>
-                                <div class="benefit-description">Never lose your work again</div>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">📝</div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Documentation</div>
-                                <div class="benefit-description">Commit messages document your thought process</div>
-                            </div>
+            <!-- Key Benefits Section - Full Width Top Row -->
+            <div class="benefits-section">
+                <h4><i class="fas fa-history"></i> Key Benefits for Researchers</h4>
+                <div class="benefits-highlight">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🛡️</div>
+                        <div class="benefit-content">
+                            <div class="benefit-title">Experiment Safely</div>
+                            <div class="benefit-description">Try new approaches without fear of losing work</div>
                         </div>
                     </div>
-                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📊</div>
+                        <div class="benefit-content">
+                            <div class="benefit-title">Track Changes</div>
+                            <div class="benefit-description">See exactly what changed and when</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">👥</div>
+                        <div class="benefit-content">
+                            <div class="benefit-title">Collaborate</div>
+                            <div class="benefit-description">Multiple people can work on the same project</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💾</div>
+                        <div class="benefit-content">
+                            <div class="benefit-title">Backup</div>
+                            <div class="benefit-description">Never lose your work again</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📝</div>
+                        <div class="benefit-content">
+                            <div class="benefit-title">Documentation</div>
+                            <div class="benefit-description">Commit messages document your thought process</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code and Graph Section - Two Column Layout Below -->
+            <div class="two-column-cards">
+                <div class="left-card">
+                    <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Workflow Example</h4>
+                    <div class="git-workflow">
+                        <div class="git-command"># Git workflow example</div>
+                        <div class="git-command">git add model_analysis.R</div>
+                        <div class="git-command">git commit -m "Add SIR model with parameter sensitivity analysis"</div>
+                        <div class="git-command">git push origin main</div>
+                        <div class="git-command"></div>
+                        <div class="git-command"># Check status</div>
+                        <div class="git-command">git status</div>
+                        <div class="git-command">git log --oneline</div>
+                        <div class="git-command"></div>
+                        <div class="git-command"># Create feature branch</div>
+                        <div class="git-command">git checkout -b feature/parameter-sensitivity</div>
+                        <div class="git-command">git add sensitivity_analysis.R</div>
+                        <div class="git-command">git commit -m "Add parameter sensitivity analysis"</div>
+                        <div class="git-command">git push origin feature/parameter-sensitivity</div>
+                        <div class="git-command"></div>
+                        <div class="git-command"># Merge back to main</div>
+                        <div class="git-command">git checkout main</div>
+                        <div class="git-command">git merge feature/parameter-sensitivity</div>
+                    </div>
+                </div>
+                <div class="right-card">
+                    <h4 style="color: #00ff88; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Flow Visualization</h4>
                     <div class="git-flow-visual">
                         <div class="git-repo">GitHub</div>
                         <div class="git-step">
@@ -1334,29 +1377,6 @@ plot(result, main = "SIR Model Simulation")</pre>
                                 <div class="git-description">Combine changes</div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="right-card">
-                    <h4 style="color: #ffd700; margin-top: 0; font-family: 'Segoe UI', sans-serif;">Git Workflow Example</h4>
-                    <div class="git-workflow">
-                        <div class="git-command"># Git workflow example</div>
-                        <div class="git-command">git add model_analysis.R</div>
-                        <div class="git-command">git commit -m "Add SIR model with parameter sensitivity analysis"</div>
-                        <div class="git-command">git push origin main</div>
-                        <div class="git-command"></div>
-                        <div class="git-command"># Check status</div>
-                        <div class="git-command">git status</div>
-                        <div class="git-command">git log --oneline</div>
-                        <div class="git-command"></div>
-                        <div class="git-command"># Create feature branch</div>
-                        <div class="git-command">git checkout -b feature/parameter-sensitivity</div>
-                        <div class="git-command">git add sensitivity_analysis.R</div>
-                        <div class="git-command">git commit -m "Add parameter sensitivity analysis"</div>
-                        <div class="git-command">git push origin feature/parameter-sensitivity</div>
-                        <div class="git-command"></div>
-                        <div class="git-command"># Merge back to main</div>
-                        <div class="git-command">git checkout main</div>
-                        <div class="git-command">git merge feature/parameter-sensitivity</div>
                     </div>
                 </div>
             </div>
